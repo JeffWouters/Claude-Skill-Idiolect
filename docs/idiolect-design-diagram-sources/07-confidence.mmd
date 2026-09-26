@@ -1,6 +1,6 @@
 flowchart LR
-    C["Texts + words in the slot"] --> CL["Count level<br/>low / medium / high"]
-    H["5 seeded half-splits<br/>compare primary metrics"] --> SL["Stability level<br/>drops one step if unstable"]
-    CL --> MIN{"Lower of the two"}
+    C["Texts and words"] --> CL["Count level"]
+    H["Five half-splits"] --> U["Unstable metrics<br/>(over tolerance twice)"] --> SL["Stability level<br/>(down one at 4 of 14)"]
+    CL --> MIN{"Lower of<br/>the two"}
     SL --> MIN
     MIN --> CF["Slot confidence"]

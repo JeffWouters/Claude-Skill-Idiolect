@@ -3,12 +3,12 @@ flowchart TB
         direction LR
         L1["learn"] ~~~ L2["learn-edit"] ~~~ L3["interview"] ~~~ L4["forget"]
     end
-    subgraph KEEP["Maintain the store: diff and approval"]
+    subgraph KEEP["Maintain and test the store: diff and approval"]
         direction LR
-        K1["rollback"] ~~~ K2["prune"]
+        K1["rollback"] ~~~ K2["prune"] ~~~ K3["test"]
     end
-    subgraph USE["Use what is learned: never changes lessons"]
+    subgraph USE["Use what is learned: never write to the store"]
         direction LR
-        U1["write"] ~~~ U2["rewrite"] ~~~ U3["check"] ~~~ U4["test"] ~~~ U5["export"] ~~~ U6["status"]
+        U1["write"] ~~~ U2["rewrite"] ~~~ U3["check"] ~~~ U5["export"] ~~~ U6["status"]
     end
     LEARN ~~~ KEEP ~~~ USE
