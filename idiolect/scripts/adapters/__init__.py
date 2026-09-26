@@ -31,6 +31,9 @@ def extract(path):
     if ext == ".pdf":
         from . import pdf
         return pdf.extract(path)
+    if ext in (".vtt", ".srt") or path.name.lower().endswith(".transcript.txt"):
+        from . import transcript
+        return transcript.extract(path)
     if ext == ".eml":
         from . import mailfile
         return mailfile.extract_eml(path)
@@ -40,4 +43,4 @@ def extract(path):
     return None
 
 
-HANDLED = (".md", ".markdown", ".docx", ".pdf", ".eml", ".msg")
+HANDLED = (".md", ".markdown", ".docx", ".pdf", ".eml", ".msg", ".vtt", ".srt", ".transcript.txt")

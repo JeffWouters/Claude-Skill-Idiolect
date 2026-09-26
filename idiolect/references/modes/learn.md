@@ -64,6 +64,11 @@ whole file or by `key` (as listed) for a segment, and run `learn.py set-types --
 
 ## 4. Stage texts and measure (script)
 
+**Transcripts** (`.vtt`, `.srt`, `*.transcript.txt`) belong in a slot of their own, for how the writer
+speaks (a type such as `talk`). A row noting `several speakers` holds other people's words too:
+exclude it unless the writer confirms it is theirs alone. Other notes on a row (a PDF page without text)
+are worth relaying as well.
+
 **Mail first.** If the run has mail texts (`.eml`, `.msg`), read them and list the names of people
 and organisations other than the writer's own (`- {name: Jane Doe, placeholder: "[person]"}`, or
 `[client]`, `[employer]`, `[organisation]`; an empty list if there are none), then run

@@ -187,6 +187,8 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
                                      unknown="?")
             row = {"path": relpath, "key": t.key, "result": None, "words": t.words,
                    "lang": fac["lang"] if fac["lang"] != "?" else None, "type": fac["type"]}
+            if ex.flags:              # e.g. a transcript with several speakers, a PDF page without text
+                row["note"] = "; ".join(ex.flags)
             if row["lang"] in detect.UNSUPPORTED:
                 row.update(result="skipped: language not supported", words=None)
                 rows.append(row)
