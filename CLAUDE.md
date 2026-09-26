@@ -5,7 +5,12 @@ anything; it is the single source of truth for behaviour, file formats and the b
 
 ## Current phase
 
-**Phase 0: groundwork.** Deliverables and where they live:
+**Phase 1 (engine) is done**: `idiolect/SKILL.md`, `idiolect/scripts/` (check_env, store, lock,
+pending and progress, adapters, detect, inventory, measure, status) and `tests/test_engine.py`. Its
+exit test, `tests/test_inventory_fixture.py::test_dry_run_matches_expected`, passes. **Next: phase 2
+(learning).** Run `python3 -m pytest tests -q` before every commit.
+
+Phase 0 deliverables, still the reference:
 
 | Deliverable | Location |
 | --- | --- |
@@ -17,7 +22,7 @@ anything; it is the single source of truth for behaviour, file formats and the b
 | Metric definitions and English word lists | `idiolect/references/fingerprint.md`, `idiolect/references/lang/en/` |
 | Inventory fixture with its expected report (phase 1's exit test) | `tests/inventory-fixture/` |
 
-Phase 1 does not start until all of these exist and have been reviewed.
+Reviewed twice before phase 1 started.
 
 ## Rules for working here
 

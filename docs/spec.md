@@ -113,7 +113,7 @@ the first match decides. The `result` values are the exact strings of the invent
   compares a file with its own previous version, and entries with `cached: false` have no text and are
   not compared.
 - **Unreachable:** after the scan, each `active` entry whose path lies inside the scope and whose hash
-  was found nowhere in the scan, and which is not about to be superseded by a `changed` row, is listed
+  was found nowhere in the scan, and which is not about to be superseded by a `changed` or `reverted` row, is listed
   under `unreachable`. A changed file that became too short (row 10) therefore leaves its old entry
   unreachable. Entries outside the scope are not touched.
 - **Cache consistency.** An entry with `cached: true` whose `corpus/<key>.txt` is missing is a store
@@ -154,8 +154,8 @@ Inside a block, line breaks become single spaces.
    inside `w:ins`; `w:delText`, `w:moveFrom` and comments dropped. Empty paragraphs are skipped.
 3. **PDF**: `pdfminer.six` `extract_text` with default layout analysis. Each text box is a block;
    lines inside it are joined with a space, and a line ending in `-` before a lower-case letter is
-   joined without the hyphen. Lines repeated on at least half of the pages (headers, footers) and
-   lines that are only a page number are removed. A page with no text layer is flagged, never OCR'd
+   joined without the hyphen. In a document of three or more pages, lines repeated on at least half
+   of the pages (headers, footers) are removed; lines that are only a page number are always removed. A page with no text layer is flagged, never OCR'd
    in v1.
 4. **Mail** (phase 5): quoted replies (lines starting `>`, "On … wrote:" blocks) and signatures (from
    a line `-- ` or a detected sign-off block to the end) are removed.

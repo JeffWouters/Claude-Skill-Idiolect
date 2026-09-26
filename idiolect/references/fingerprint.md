@@ -17,6 +17,8 @@ measuring:
    end in `.`, `!`, `?`, `:`, `;` or a closing quote or bracket after one of those is treated as a
    heading (or a short label) and left out of every metric. Without this, the sentence splitter would
    merge each heading into the next sentence. The cached text and the hash keep headings.
+   This is the one difference from the phase 0 script, which had no headings in its texts; on the
+   public-domain fixtures it only drops section numerals and a few short verse lines.
 
 A slot's value is measured on its texts joined with blank lines, not averaged per text.
 

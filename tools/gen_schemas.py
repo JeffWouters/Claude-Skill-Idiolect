@@ -311,7 +311,7 @@ fingerprint = {
                        "additionalProperties": False},
         "seed": {"type": "integer", "minimum": 0},
         "metric_list": {"enum": ["global", "contrast"],
-                        "description": "global = phase-0 list; contrast = narrowed by this slot's contrast pass."},
+                        "description": "global = no contrast pass yet; contrast = primary flags set by this slot's contrast pass. The list itself is always the applicable global metrics (spec §17.1)."},
         "contrast": {"type": "object",
                      "properties": {"sample_texts": {"type": "array", "items": ref("textKey")},
                                     "corpus_words_at_sample": {"type": "integer", "minimum": 0},

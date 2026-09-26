@@ -6,8 +6,19 @@ text in that voice.
 Idiolect is an empty engine. The skill holds the method only. What it learns lives in a separate
 folder the writer chooses (the *store*), and nothing is learned without the writer approving a diff.
 
-> **Status: phase 0 (groundwork).** The design is complete; schemas, rules, test fixtures and the
-> evaluation protocol are being written. There is no runnable skill yet.
+> **Status: phase 1 (engine) done.** The skill can find a store, inventory a folder of Markdown, PDF
+> and Word files (`learn dry-run=true`), measure a voice fingerprint with a confidence level, and
+> report `status`. It does not learn, write or rewrite yet: that is phases 2 and 3.
+
+## Try it
+
+```
+python3 -m pip install PyYAML jsonschema markdown-it-py pdfminer.six lingua-language-detector
+python3 idiolect/scripts/check_env.py
+python3 idiolect/scripts/inventory.py --sources ~/Writing --dry-run      # no store needed
+python3 -m pytest tests -q                                               # the test suite
+python3 tools/build_package.py                                           # builds idiolect.skill
+```
 
 ## Why "Idiolect"
 
