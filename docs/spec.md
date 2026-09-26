@@ -480,3 +480,34 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 | Fail count for `check` | `fail_fraction` 0.28 → 4 of 14 flagged metrics (17% of genuine passages fail, 80% of AI rewrites; real authors 18% / 70%, synthetic 0% / 100%) |
 | Count thresholds | Text counts supported (`low` < 3 texts, `high` ≥ 8); word floors 3,000 and 15,000 untested starting values |
 | Near-duplicate threshold | 0.90 confirmed (distinct essays peak at 0.004) |
+
+## 19. Test (holdout) run
+
+1. **Proposal** (`holdout.py propose`, lock mode `test`, approved as a whole). The source is a
+   manifest entry (by path or key) or a file under the sources root not yet in the manifest.
+   - A learned entry (`active` or `unreachable`, owned by a profile): one `status` item sets
+     `holdout: true`; examples taken from it are removed and lesson quotes from it blanked (as
+     `forget`, §8); every profile that owns it gets its fingerprints re-measured without it.
+   - A new file: one segment only (a mixed-language file is refused; name a segment's key once it is
+     learned); the writer gives the type. A `corpus-text` item creates the entry with the profile's
+     `own` record, `holdout: true`, and caches the text, which learning then refuses (§5 row 5).
+   - Refused: an entry already held out, `forgotten` or `superseded`; a text owned by no profile.
+2. **Brief** (`holdout.py brief-check`): topic-only, at most 60 words; refused when it shares a run of
+   four or more words with the held-out text after stop words are removed.
+3. **Drafts** are made from the brief alone, in a context that never read the text: a separate agent,
+   or the writer's own brief so the model never opens the text. With `judge=true` there are three:
+   plain (the brief only), few-shot (the brief and the three passages `holdout.py examples` gives,
+   the same picker as the kit) and Idiolect (`write`).
+4. **Drift.** For every applicable metric, `ratio = value / reference`, judged with the slot's band
+   as in §17 (under `floor`: absolute). *Profile drift*: the held-out text against the slot's value.
+   *Draft drift*: the draft (placeholders removed) against the held-out text. Each is summarised as
+   the mean of `|ln ratio|` over metrics where both values are at or above `floor`, and the number of
+   metrics outside the band.
+5. **Packet** (`holdout.py packet`, `judge=true`): the drafts labelled A, B, C in a seeded order; the
+   key and the draft files go to `.state/test/<id>.json`, never into the packet. The writer ranks the
+   three; `holdout.py record --test <id> --ranking` maps labels to arms.
+6. **Record** (`holdout.py record`, under the lock): one row in `eval/results.md` (contract in
+   `assets/schemas/markdown-contracts.md`): date, profile, slot, the profile's latest snapshot, the
+   held-out text's key, blind picks (`—` without a judge), and drift: profile and draft summaries and
+   the ratio of each primary metric.
+
