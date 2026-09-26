@@ -246,3 +246,8 @@ these changes:
   why it needs 20 briefs rather than 10.
 - Results go in the store's `eval/results.md` and are summarised in the design's decision log. A miss
   on few-shot means the design changes, as for any unknown-author test.
+
+From phase 4 the skill runs this test itself: `test judge=true` holds out one text at a time
+(`idiolect/references/modes/test.md`, spec §19), makes the three drafts where the text was never seen,
+shows the writer a blind packet and records the ranking in `eval/results.md`. Twenty such tests, one
+text each, make the run above; the harness is not needed for a writer's own profile.

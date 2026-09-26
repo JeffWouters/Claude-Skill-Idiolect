@@ -5,14 +5,15 @@ anything; it is the single source of truth for behaviour, file formats and the b
 
 ## Current phase
 
-**Phases 1 (engine), 2 (learning) and 3 (writing) are done.** Scripts in `idiolect/scripts/`, model procedures in
+**Phases 1 (engine), 2 (learning), 3 (writing) and 4 (validation) are done.** Scripts in `idiolect/scripts/`, model procedures in
 `idiolect/references/modes/`, tests in `tests/`, the learned evaluation store in `evals/store/`
 (holdouts in `evals/holdouts.json`). Phase 3 (write, rewrite,
 check, the kit and the evaluation harness) was closed by the writer on the synthetic result (runs 5
 and 6); the real authors are the known-author group, reported but not gating, and the check uses
-writer bands (design: decision log). **Next is phase 4 (validation)**, which also carries phase 3's
-two open items: the writer's own blind test (`evals/eval-protocol.md`, last section) and the trigger
-tests. Recognition from run 7 is forced choice with controls and a sensitivity test
+writer bands (design: decision log). Phase 4 added the `test` mode (`scripts/holdout.py`,
+`references/modes/test.md`, spec §19), the drift exit tests and the trigger tests (`evals/triggers/`,
+run serially). The writer's own blind test is `test judge=true` and waits for the writer's texts.
+**Next is phase 5 (feedback).** Recognition from run 7 is forced choice with controls and a sensitivity test
 (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 
