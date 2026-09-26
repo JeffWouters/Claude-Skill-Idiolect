@@ -154,8 +154,15 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
     targets = []
     for m, v in fp["metrics"].items():
         name, fmt = DESCRIBE.get(m, (m, "{:.2f}"))
-        targets.append({"metric": m, "primary": v["primary"], "describe": name, "value": local[m],
-                        "slot_value": v["value"], "shown": fmt.format(local[m])})
+        t = {"metric": m, "primary": v["primary"], "describe": name, "value": local[m],
+             "slot_value": v["value"], "shown": fmt.format(local[m])}
+        g = measure.METRICS.get(m, {})
+        if (v["overshoot"], v["shortfall"]) != (g.get("overshoot"), g.get("shortfall")):
+            # a writer band: this writer's own passages vary this much (measure.writer_bands)
+            lo = v["value"] * v["shortfall"] if v["shortfall"] > measure.NO_SHORTFALL else 0
+            t["range"] = [round(lo, 6), round(v["value"] * v["overshoot"], 6)]
+            t["shown_range"] = f"{fmt.format(lo)} to {fmt.format(t['range'][1])}"
+        targets.append(t)
     targets.sort(key=lambda t: (not t["primary"], t["metric"]))
     kit["targets"] = targets
     return kit
@@ -187,8 +194,12 @@ def markdown(kit, notes="brief"):
         L += ["", "## Measurable targets for this piece (the check compares against these)",
               "Set from the writer's texts and the example passages above. Primary metrics first: they "
               "separate this writer most from neutral text."]
+        if any("range" in t for t in kit["targets"]):
+            L.append("Where a range is given, the writer's own passages of this length vary that much: "
+                     "anywhere inside it is the writer. Follow the example passages there, not the middle.")
         for t in kit["targets"]:
-            L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}")
+            rng = f" (the writer's own passages: {t['shown_range']})" if "range" in t else ""
+            L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}{rng}")
     if kit["never"]:
         L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
     if kit["forms"]:

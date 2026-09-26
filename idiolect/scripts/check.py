@@ -110,7 +110,8 @@ def flag_metric(name, draft, writer, fp_metric):
     if writer < g["floor"]:
         return ("overshoot" if draft - writer > 2 * g["floor"] else "ok"), None
     ratio = draft / writer
-    sparse = g.get("sparse", g["shortfall"] <= 0.05)
+    # sparse globally, or the writer's own passages often lack the device (writer band, measure.py)
+    sparse = g.get("sparse", g["shortfall"] <= 0.05) or fp_metric["shortfall"] <= measure.NO_SHORTFALL
     if ratio > fp_metric["overshoot"]:
         return "overshoot", ratio
     if not sparse and ratio < fp_metric["shortfall"]:

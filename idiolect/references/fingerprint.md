@@ -57,6 +57,25 @@ A slot's value is measured on its texts joined with blank lines, not averaged pe
 **Sparse** metrics only flag overshoot in `check` (a draft without a colon says nothing). Their
 `shortfall` in `global-metrics.json` is 0.05 as a marker.
 
+## Bands
+
+Each metric in a fingerprint has an `overshoot` and a `shortfall`: `check` flags a text whose value
+divided by the reference is above the one or below the other. They start as the global values in
+`assets/global-metrics.json`. When a slot's texts give **at least 20 windows** (paragraphs gathered
+until a window holds at least 350 words, about a draft's length; a short remainder is dropped), the
+bands become the **writer's own**:
+
+- `overshoot` = the larger of the global value and the 95th percentile of window value ÷ slot value;
+- `shortfall` (non-sparse metrics) = the smaller of the global value and the 5th percentile, but never
+  below 0.05. At 0.05 the writer's own passages often lack the device, and `check` does not flag a
+  shortfall for that metric, as for sparse metrics;
+- a metric whose slot value is under its `floor` keeps the global band.
+
+Bands only ever widen: a writer whose passages vary is not held to the average of them, and a
+regular writer keeps the global bands. The kit shows the range (slot value × shortfall to slot value
+× overshoot) beside each target that has a writer band. `scripts/measure.py` (`writer_bands`)
+implements this.
+
 ## Language applicability
 
 The engine supports languages that separate words with spaces and end sentences with `.`, `!` or

@@ -288,6 +288,61 @@ def slot_texts(entries, get_text, facet_names, profile):
     return slots
 
 
+# Writer bands (design: decision log, after runs 5 and 6): the check's tolerance per metric follows how
+# much the writer's own passages vary. A window is paragraphs gathered until it holds BAND_WINDOW words
+# (about a draft's length); with at least BAND_MIN_WINDOWS windows, a band is widened to the BAND_Q
+# quantiles of window value / slot value, never narrowed below the global band.
+BAND_WINDOW = 350
+BAND_MIN_WINDOWS = 20
+BAND_Q = (0.05, 0.95)
+NO_SHORTFALL = 0.05          # the marker for "shortfall is not flagged" (references/fingerprint.md)
+
+
+def windows(texts, size=BAND_WINDOW):
+    """Passages of at least `size` words, cut at paragraph boundaries; a short remainder is dropped."""
+    out = []
+    for t in texts:
+        cur, n = [], 0
+        for b in prepare(t):
+            cur.append(b)
+            n += len(words(b))
+            if n >= size:
+                out.append("\n\n".join(cur))
+                cur, n = [], 0
+    return out
+
+
+def quantile(xs, q):
+    xs = sorted(xs)
+    i = q * (len(xs) - 1)
+    a = int(i)
+    b = min(a + 1, len(xs) - 1)
+    return xs[a] + (xs[b] - xs[a]) * (i - a)
+
+
+def writer_bands(texts, lang, vals):
+    """{metric: (overshoot, shortfall)} for a slot. Global bands unless the texts give at least
+    BAND_MIN_WINDOWS windows; then each band is widened to what the writer's own windows show. A
+    metric whose writer value is under its floor keeps the global band (check judges it by absolute
+    difference). A shortfall at or under NO_SHORTFALL means the writer's own passages often lack the
+    device entirely, so a draft without it is not flagged."""
+    out = {m: (METRICS[m]["overshoot"], METRICS[m]["shortfall"]) for m in vals}
+    wins = [metrics(w, lang) for w in windows(texts)]
+    if len(wins) < BAND_MIN_WINDOWS:
+        return out
+    for m, v in vals.items():
+        g = METRICS[m]
+        if v < g["floor"]:
+            continue
+        rs = [w[m] / v for w in wins if m in w]
+        over = max(g["overshoot"], round(quantile(rs, BAND_Q[1]), 3))
+        short = g["shortfall"]
+        if short > NO_SHORTFALL:
+            short = max(NO_SHORTFALL, min(short, round(quantile(rs, BAND_Q[0]), 3)))
+        out[m] = (over, short)
+    return out
+
+
 def build_fingerprint(profile, slot, pooled, texts, since=None, primary=(), metric_list="global",
                       contrast=None, built=None):
     lang = slot.split(".")[0]
@@ -296,9 +351,10 @@ def build_fingerprint(profile, slot, pooled, texts, since=None, primary=(), metr
     conf, unstable, n_words = confidence(plain, lang, seed)
     wt = weighted(texts, since)
     vals = metrics("\n\n".join(t for _, t, _ in wt), lang)
+    bands = writer_bands([t for _, t in plain], lang, vals)
     fp = {"schema_version": 1, "profile": profile, "slot": slot, "pooled": pooled,
-          "metrics": {m: {"value": v, "overshoot": METRICS[m]["overshoot"],
-                          "shortfall": METRICS[m]["shortfall"], "primary": m in primary}
+          "metrics": {m: {"value": v, "overshoot": bands[m][0],
+                          "shortfall": bands[m][1], "primary": m in primary}
                       for m, v in vals.items()},
           "counts": {"texts": len(texts), "words": n_words},
           "confidence": conf, "seed": seed, "metric_list": metric_list,
