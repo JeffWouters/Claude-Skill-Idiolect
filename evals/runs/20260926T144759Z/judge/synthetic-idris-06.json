@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "A": "Short, declarative sentences in many small paragraphs, a plain, briskly assertive tone and almost no hedging or semicolons; far from the author's long, qualified, reflective periods.",
+  "B": "Right register and long clause-built sentences with semicolons and first-person hedges, but it piles on the qualifiers ('in some sense', 'arguably', 'precisely', 'rather', 'it seems to me', 'perhaps') more thickly than the passage does, so it reads as imitation.",
+  "C": "Long, balanced sentences with measured first-person hedging ('I am less convinced', 'it seems to me', 'I think'), an occasional semicolon, a run of reflective questions and full paragraphs; closest to the author's movement and stance without overdoing it."
+ }
+}

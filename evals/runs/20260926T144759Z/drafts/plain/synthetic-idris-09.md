@@ -1,0 +1,9 @@
+Experienced engineers are often the loudest critics of new technology. When a team adopts a new framework, language or platform, the pushback frequently comes from the people with the most years behind them. It usually sounds technical: the old tool works fine, the new one is immature, the migration is not worth the risk. Sometimes those arguments are right. But often they cover something more personal.
+
+For someone who has spent years becoming skilled, being forced back to the beginning is uncomfortable. They are used to knowing the answer, to being the person others ask. A new tool takes that away, at least for a while. Suddenly they are slow, making beginner mistakes, and asking questions that a junior colleague might answer faster. The resistance is often less about the technology than about the fear of looking unskilled in front of people who have come to rely on them.
+
+Organisations make this harder than it needs to be. Employers talk constantly about growth, continuous learning and staying current. Yet they rarely leave real time for it. Learning is expected to happen alongside full delivery commitments, squeezed into gaps that do not really exist. [example needed]
+
+So people do the only thing they can. They learn scraps as they need them. They look up exactly enough to finish the current task, copy a pattern that seems to work, and move on. Over time this produces knowledge that looks adequate on the surface but is fragile underneath. It holds up in familiar situations and breaks down as soon as something unexpected happens, because the underlying understanding was never built.
+
+That fragile knowledge then feeds back into the original fear. An engineer who knows their grasp of a tool is shaky has every reason to avoid situations that might expose it. Giving experienced people genuine time to learn, and permission to be visibly bad at something for a while, would break that loop.

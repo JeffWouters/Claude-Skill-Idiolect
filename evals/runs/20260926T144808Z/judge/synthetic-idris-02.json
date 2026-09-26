@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "B"
+ ],
+ "reasons": {
+  "A": "Long, balanced sentences joined by dashes and semicolons, measured hedging ('I suspect', 'it seems to me') and a reflective, mildly assertive stance closely match the author's movement without overdoing it.",
+  "C": "Right register and cadence, but stacks the author's signature moves (opening question, 'It may be that', 'which is to say', 'arguably', 'I suspect', 'It seems to me', 'Perhaps') more thickly than the passage does, reading partly as imitation.",
+  "B": "Short declarative sentences, contractions, imperatives and a coaching, plain-assertive tone are far from the author's long, hedged, periodic prose."
+ }
+}

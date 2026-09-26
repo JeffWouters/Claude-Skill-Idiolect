@@ -1,0 +1,9 @@
+When forecasts keep missing, teams often reach for a new estimation method. Hours become story points, story points become t-shirt sizes, t-shirt sizes become some newer technique. Each switch brings a burst of optimism. A few months later, the forecasts are just as unreliable as before.
+
+The reason is that the method was never the real problem. Teams change the units, but the conversations around the numbers stay the same. The same people still want a firm answer, the same pressure still pushes the figure towards what someone hopes to hear, and the same result is still treated as a commitment once it is written down. Swapping hours for points does not change any of that. It just gives the old habits a new vocabulary. [example needed]
+
+What does help is a different way of thinking about what an estimate is. Any estimate is a snapshot of what the team knows right now. It reflects current understanding of the work, the system and the risks, and that understanding will shift as the work proceeds. Treating the number as a snapshot, rather than a fixed truth, makes it natural to update it as new information arrives, instead of defending it against the evidence.
+
+It also helps to separate two kinds of work. Some work is familiar: the team has done something very like it before and has a reasonable sense of how long it takes. Estimates for that kind of work can be fairly dependable. Other work is truly new, involving unknown territory where nobody can say with confidence what they will find. Forecasting both kinds in the same way, with the same apparent precision, misleads everyone.
+
+The barrier to all of this is not technical. It is attachment to precise numbers. A single exact figure feels reassuring, even when everyone suspects it is wrong. Letting go of that comfort is what actually improves forecasting.

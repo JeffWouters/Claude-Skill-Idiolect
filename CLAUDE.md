@@ -7,8 +7,10 @@ anything; it is the single source of truth for behaviour, file formats and the b
 
 **Phases 1 (engine) and 2 (learning) are done.** Scripts in `idiolect/scripts/`, model procedures in
 `idiolect/references/modes/`, tests in `tests/`, the learned evaluation store in `evals/store/`
-(holdouts in `evals/holdouts.json`). **Next: phase 3 (writing: write, rewrite, check, evaluation
-harness).** Run `python3 -m pytest tests -q` before every commit.
+(holdouts in `evals/holdouts.json`). **Phase 3 (writing) is built but not done:** write, rewrite,
+check, the kit and the evaluation harness exist, and three evaluation runs (`evals/runs/`) missed the
+few-shot bar. The design decision that follows is the writer's; see the latest run's `notes.md`.
+Run `python3 -m pytest tests -q` before every commit.
 
 Phase 0 deliverables, still the reference:
 

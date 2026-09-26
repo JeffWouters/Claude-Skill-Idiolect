@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, clause-heavy sentences joined by semicolons, a steady hedged and reflective stance ('It may be', 'I suspect', 'perhaps') and formal diction without contractions come closest to the passage's movement, though it stacks hedges and questions slightly more heavily than the author does.",
+  "B": "Right register and a hedged, first-person reflective tone with a 'Why, then,' turn, but it drops the author's semicolon-linked cumulative sentences for plainer, shorter ones and opens more conversationally ('In my experience').",
+  "C": "Short, declarative, punchy sentences, brisk assertion with little hedging and a plain modern register make up a different voice from the passage's long, qualified, measured prose."
+ }
+}

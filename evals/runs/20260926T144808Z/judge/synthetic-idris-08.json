@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "A": "Hedged, reflective tone and long clause-joined sentences are close, but the paragraphs are shorter, it has no dashes, and the hedges are piled up ('I suspect', 'It may be', 'in some sense', 'arguably', 'It seems to me', 'Perhaps') more densely than in the passage, which edges towards caricature.",
+  "B": "Short, plain declarative sentences, a brisk advisory register and imperatives at the close ('Respect the imposed ones') are far from the passage's long, hedged, semicolon-joined periodic sentences.",
+  "C": "Best matches the passage's sentence movement: long sentences joined with semicolons and dashes, dense paragraphs, a questioning opening and a measured first-person hedge ('I think'), all without overdoing the author's habits."
+ }
+}

@@ -1,0 +1,11 @@
+The first time I saw him I did not know who he was.  It was the manner that caught me.
+
+He was, to begin with, an odd figure.  I set this down with respect, but it is true.  He did not look like anybody in particular, and he certainly did not look like a novelist, whatever a novelist is supposed to look like.  He was standing near the front of the store, in talk with a lady and a gentleman, and he was talking with his whole person.  His hands were in it.  They rose, they described, they held something up to the light and turned it over; they paused in the air, waiting for the right word, and came down when the word arrived.  His face was very earnest.  He spoke slowly, with great care, qualifying and requalifying, as a man goes carefully over rough ground.  The lady listened, smiling a little.  The gentleman listened, not smiling.
+
+The lady, I learned afterward, was a novelist also, much read in the best houses, a writer of society; and the gentleman was her husband.  And he, the odd figure with the hands, was [novelist].
+
+Presently they went out, the three of them, arm in arm, he in the middle, up the street.  I watched them through the window.  He was still talking.  The hands were still going.  They moved along together at a slow, companionable pace, and turned a corner, and were gone.  It was, I remember, a pleasant thing to see, though I could not have said exactly why.
+
+He came in again, later, a number of times, and then he came alone.  On these occasions he did not talk; he browsed.  And he browsed as I have seen very few people browse.  He would take down a book and open it and stand there, and the store would go on around him, customers coming and going, clerks passing to and fro with parcels, the door opening and shutting upon the noise of the street, and he would know nothing whatever of any of it.  He was entirely gone into the book.  Then he would put it back, very gently, and take down another, and go into that.
+
+There was something about him at these times that I can only call happy.  It was the happiness of a child left alone in a room full of toys, who has forgotten that anyone else exists, and is not, for the moment, in the least concerned to be good or to be admired, but only to look.  We did not disturb him.  It would not have occurred to anybody to do so.

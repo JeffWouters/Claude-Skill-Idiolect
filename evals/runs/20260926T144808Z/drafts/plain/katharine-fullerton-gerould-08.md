@@ -1,0 +1,11 @@
+If one wanted a single sign of how far educational standards have fallen, the fate of Greek would serve. Not long ago it stood near the centre of a liberal education. Now it has been all but abandoned, and with it much of the classical learning it once anchored.
+
+The reasons given for dropping it are revealing. Greek, we are told, was too difficult. Or it was impractical: it led to no trade, earned no wage, and could not be put to use in an office or a laboratory. Both reasons may be true as far as they go. But both are foreign to the very idea of culture. Culture was never meant to be easy, and it was never meant to be useful in that narrow sense. Its whole point was to train the mind by setting it hard tasks and to furnish it with things worth knowing for their own sake. To abandon a subject because it demands effort and yields no immediate return is to abandon the premise on which a liberal education rests.
+
+The results are plain to anyone who teaches. Students now arrive at college having read remarkably little. Many cannot spell correctly and cannot write a sentence that holds together, let alone a paragraph that argues something. They are not less able than their grandparents; they have simply been asked for less, and have given what was asked. [example needed]
+
+Where does the blame lie? Partly with fads, the succession of new methods and new subjects that sweep through the schools, each promising to make learning painless, and each leaving a little less learning behind. Partly with laxity, a general unwillingness to insist, to correct, to fail anyone. Partly with the crowded public schools, where a teacher facing a room too full of children cannot possibly give each of them the attention that hard subjects require, and so settles, reasonably enough, for what can be managed.
+
+And partly, it must be said, with the profession itself. Teaching attracts fewer capable people than it once did. The ablest graduates look elsewhere, to work that pays better and is more respected, and the classroom is left to those who could not or would not go. A school cannot give what its teachers do not have.
+
+None of these causes is sufficient on its own. Together they have produced a generation that has never met Greek and scarcely misses it, which is perhaps the saddest sign of all.

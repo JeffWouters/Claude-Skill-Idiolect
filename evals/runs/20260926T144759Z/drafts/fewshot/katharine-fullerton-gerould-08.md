@@ -1,0 +1,9 @@
+It is a strange thing, but I have heard the word "culture" spoken aloud more often since the war began than in all the years before it. People say it at dinner, without lowering their voices; they write it in the magazines, without putting it in quotation marks. I can recall the time when this would have been impossible--and not so very long ago, either.
+
+For a good many years, in America, "culture" was a word one did not use. It belonged to the lady with the lorgnette and the lecture-course; it smelt of the reading-club and the plaster Venus. To speak of it seriously was to confess that one had not got it, since those who had it were supposed never to mention it. The word, in short, had become a mark of the want of the thing. One could be cultivated, if one were careful; but one could not say so, and one could hardly say that anybody else was.
+
+I do not think we realized what we were doing. We thought we were merely being fastidious about a word. But words are not so easily dropped as all that. When a people ceases to name a thing, it is apt, before long, to cease to think about it; and when it ceases to think about it, the thing itself begins quietly to go. We lost the word first. I am not at all sure we did not lose a good deal of the thing along with it.
+
+And now it has come back. Frankly, I think I know why. We are allowed to talk of culture again because we have so much less of it to be self-conscious about. The thing has declined far enough that there is no longer any danger of seeming to boast. It is like speaking of an old family fortune after the money is gone: one may mention it freely, since nobody will suspect one of showing off.
+
+It is not a very flattering reason. But I am glad of the word, all the same, whatever brought it back. If we can say it, we can perhaps begin to think about it; and if we think about it long enough, we may even--I do not say we shall--begin to want it again.

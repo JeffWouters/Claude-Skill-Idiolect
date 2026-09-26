@@ -1,0 +1,9 @@
+Our counterfeiter, [name needed], had an excuse for everything, and the remarkable thing about his excuses is that they were not altogether bad. They had the plausibility of a man who has thought the matter out carefully and has come to the conclusion that he is in the right.
+
+He defended the making of false currency on economic grounds. There was, he pointed out, a great shortage of money in the country. Trade was at a standstill because there was nothing to trade with. People who had goods to sell could not sell them, and people who wanted to buy could not buy. In this emergency he came forward with a supply of currency. It was not, to be sure, the kind of currency that the government approved, but it served the purpose. It passed from hand to hand, and business revived wherever it went. He seems to have regarded himself as a public benefactor whose services had not been properly appreciated.
+
+The authorities took a different view, and the result was that he found himself in a Massachusetts prison. It is characteristic of him that he did not regard this as a judgment upon his conduct. It was merely one of the misfortunes that befall a man who is in advance of his age.
+
+When he came to consider what he should do with his life, he approached the question in the same practical spirit. He would have liked to be a lawyer, but the law required money for study. He considered medicine, but medicine also required money. He thought of a trade, but a trade required an apprenticeship and a stock of tools. None of these was within his reach. There remained the ministry. It required no capital, and it offered a respectable position in society. So he decided to become a preacher.
+
+I am not disposed to be too hard on him. There have been other men who entered the pulpit for reasons not much better, and who never had the candor to confess them. But it must be admitted that his qualifications were of an unusual kind.

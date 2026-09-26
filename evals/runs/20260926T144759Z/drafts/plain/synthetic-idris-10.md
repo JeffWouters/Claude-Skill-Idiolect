@@ -1,0 +1,9 @@
+Reporting on finished work is easy. Reporting honestly on work that is still in progress is much harder, and most reporting formats make it harder still.
+
+The typical status report is simple by design. A few fields, a percentage complete, perhaps a traffic-light colour. That simplicity is meant to make reports quick to write and quick to read. But the situation it describes is rarely simple. Unfinished work is messy: some parts are going well, others are stuck, some risks are growing and some have faded. A short format has no room for any of that. It flattens the picture into a single line, and the detail that would actually help a reader understand what is going on gets dropped. [example needed]
+
+Colour ratings show the problem most clearly. A project sits at green for weeks, sometimes months, even as the people working on it grow uneasy. Then, abruptly, it turns red. From the outside it looks like something went wrong overnight. In reality the trouble built up slowly, but the rating stayed positive until the evidence could no longer be ignored. By the time it flips, the options for fixing the problem are few.
+
+Why do ratings behave this way? Because raising a warning has consequences for the person who raises it. An amber or red status brings attention: extra meetings, closer questions, managers who want frequent updates. That scrutiny can be useful, but it is also uncomfortable and time-consuming. So people wait. They hope the issue will resolve itself, or that they can fix it before anyone needs to know. Keeping the status green buys a little more peace.
+
+The format itself encourages this delay. When the only way to express concern is to change a colour that triggers scrutiny, people will hold off on changing it. A report that made room for early, low-key doubts would surface problems while there was still time to deal with them.

@@ -1,0 +1,9 @@
+It is not easy to explain to one who has never lived in a frontier town how people could grow fond of it. The town was dusty; it was hot; there was not a tree within [example needed] miles. Nature had done nothing to make it attractive, and man had done very little more. And yet people did grow fond of it, and not because they had to. They chose it.
+
+I remember a widow whose husband had died there. She might easily have taken his body back to the old home in the East, where there were green fields and a churchyard with his people in it. Everybody expected her to do so. But she decided to bury him in the town. He had liked it, she said, and so did she. That was all the explanation she gave, and it was enough. It was the kind of loyalty which a place can inspire only when people have entered into its life.
+
+The town was, of course, a temporary camp. Everybody knew that it might be deserted in a year. But nobody admitted it. It was laid out on the scale of a great metropolis. There were broad avenues which ended abruptly in the desert, and building lots which were sold as if they were in the heart of a capital. There was a mayor and a council, and public questions were debated with all the gravity of a legislature. It was a city in everything but permanence, and we did not allow permanence to count.
+
+What made it all tolerable was the humor. It was not the private joke of one man at the expense of another; it belonged to the whole community. Everybody saw the absurdity of the situation, and everybody enjoyed it. The pretensions of the place were a kind of game in which all took part.
+
+It should be said that there was a surprising number of educated men among us. There were lawyers and doctors and engineers, men who had been to college and had read books. They brought with them a lightness of touch which made the civic life of the town a thing to remember.

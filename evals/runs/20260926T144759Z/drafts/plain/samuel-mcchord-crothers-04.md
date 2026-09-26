@@ -1,0 +1,9 @@
+There is something to be said, a skeptic might argue, for the honesty of the ancient Hebrew raiders. When they wanted a piece of land, they went and took it. They did not pretend they were doing the people who lived there a favour. They needed grazing for their flocks, the grazing belonged to someone else, and so they drove that someone else away. The account is plain about it. One may think the conduct bad, but at least the description of it is true.
+
+Compare that with the conquests carried out by the nations that like to call themselves Christian. They also want land, and they also take it. The difference is in what they say while doing so. The seizure is never described as a seizure. It is presented as a kindness toward the very people being dispossessed. They are to be lifted up, improved, taught, protected, brought into the light. That they end up with less land, fewer rights and a foreign master is treated as a detail, or as a regrettable cost of their own advancement.
+
+The skeptic's quarrel is not chiefly with the taking. Nations have always taken. His quarrel is with the language. Religious words are laid over the facts so thickly that the facts disappear entirely. A reader of the official accounts could come away without learning that anything had been taken from anyone at all. Where the old raiders said "we wanted this pasture," the modern conqueror says "we were called to this work," and the pasture changes hands just the same.
+
+This is why the phrase "Christian nation," used in this connection, strikes him as a kind of joke. The nation behaves as nations always have. It is only the vocabulary that has been converted. [example needed: a specific modern instance, if the piece is to name one]
+
+One could almost wish for the plainness of the grazing tribes back again. It would not make the conquest gentler. It would only make it harder to mistake for something else.

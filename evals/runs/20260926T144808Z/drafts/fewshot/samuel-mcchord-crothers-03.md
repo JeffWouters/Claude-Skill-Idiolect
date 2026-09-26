@@ -1,0 +1,9 @@
+It was under an assumed name that the young man made his first appearance in the pulpit, and he approached it with a good deal of trepidation. This was not the trepidation of conscience. It had not occurred to him that there was anything amiss in preaching the gospel under a name that was not his own. His fear was simply that of the beginner who does not know whether his voice will come when he calls for it.
+
+To his surprise and delight, it came at once. He found that words flowed from him with the greatest ease. One sentence brought another after it, and the congregation sat attentive to the end. A man who discovers that he can do a thing easily is apt to conclude that he was meant to do it. Our young man drew this conclusion without delay. He felt that he had received a call, and he did not inquire too closely from what quarter it had come.
+
+A parish in the neighbourhood was in want of a minister, and he was engaged. He soon became known for his funeral addresses. There is a kind of eloquence which is never so much in demand as at a graveside, and he had it in abundance. People came from a distance to hear him, and it was said that a death in the parish was not without its compensations. [example needed]
+
+It was during this prosperous period that he made the acquaintance of a counterfeiter. I do not know that the two found anything incongruous in their friendship. Each was, after his own fashion, engaged in putting into circulation something that passed for more than it was worth.
+
+Such a career could not last. He had an enemy, as every successful man has, and the enemy found him out. The true name was brought to light, and with it the whole history. The townsfolk were of a hot-tempered sort, and the news threw them into an uproar. Those who had wept at his funerals now felt that they had been cheated of their tears, and there is no resentment so lively as that of people who have been moved under false pretences.

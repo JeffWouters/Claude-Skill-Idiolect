@@ -1,0 +1,9 @@
+Software teams ask for estimates constantly, and they are wrong far more often than anyone likes to admit. Yet the asking never stops. That is less strange than it looks, because an estimate is rarely just a prediction. It is a negotiation.
+
+On one side sit the hopes of the business: a launch that lands before a competitor, a feature ready for the next sales cycle, a budget that holds. On the other side sit the worries of the engineers: the legacy code nobody fully understands, the integration that has surprised them before, the requirements that will certainly shift. The number that comes out of an estimation session is the point where those two pressures meet. It says as much about who pushed harder as it does about the work.
+
+That on its own would be manageable. A negotiated guess is still a useful input, as long as everyone treats it as a guess. The trouble begins when it quietly turns into a promise. The number appears on a roadmap, then in a status report, then in someone's performance conversation. Now people are being judged against it. At that point engineers learn to pad, managers learn to squeeze, and the estimate stops carrying information at all.
+
+What makes this cycle so durable is that planning seldom looks back. Teams rarely sit down and compare last quarter's estimates with what actually happened. If they did, they would see how often the guesses missed and by how much, and they could plan with that in mind. Instead each new round of estimation starts fresh, as if the track record did not exist. [example needed]
+
+So the requests keep coming, not because estimates have proven reliable, but because they serve a purpose other than accuracy. They give both sides something to agree on. The cost is that everyone ends up defending a number that was never meant to carry that much weight.

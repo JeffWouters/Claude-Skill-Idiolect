@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "A": "Short, plain declarative sentences and a practical how-to register; lacks the passage's long balanced periods, semicolons and measured hedging.",
+  "B": "Long, well-jointed sentences with dashes and semicolons, a pivot question, and sparing, confident hedges ('I think'); closest to the passage's rhythm and reflective stance.",
+  "C": "Right sentence length and semicolon habits, but it stacks hedges ('it may be', 'I suspect', 'arguably', 'it seems to me', 'perhaps') and adds rhetorical questions more thickly than the passage does, so it reads as imitation."
+ }
+}

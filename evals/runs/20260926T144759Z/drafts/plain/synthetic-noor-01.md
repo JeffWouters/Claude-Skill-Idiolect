@@ -1,0 +1,9 @@
+With the worn seal finally out, the rest of the job turned out to be the easy part. I had half expected to need a whole new cartridge, or worse, a new faucet, but the fix was a single replacement seal from the local hardware store. It cost very little. I took the worn seal with me, which I would recommend to anyone: comparing the two side by side removes all the guessing.
+
+Back home, the temptation was to rush. The leak had been annoying me and the new part was in my hand, so why not just push everything back together and be done? Because reassembly is where a cheap repair turns into an expensive one. I fitted the seal carefully, made sure it sat flat and evenly in its seat, and put the valve assembly back in the same order it came out. Each part went on snug, not forced. Overtightening brass is a good way to crack something or crush the very seal you just bought.
+
+Then came the water. I did not open the supply valve all the way in one go. I opened it slowly, a little at a time, and watched the faucet and the joints underneath for any drip or seep. Letting the pressure build gradually gives you a chance to spot a problem before it becomes a puddle, and it is gentler on a fresh seal. Nothing leaked. I ran the tap, shut it off, and waited. The drip was gone.
+
+What struck me afterwards was the ratio. The repair itself, the actual swapping of one small part, took very little time. Getting there took far longer: finding the right tools, shutting off the water, taking things apart without damaging them, and the trip to the store. That is normal, I think, for most jobs around the house. The preparation is the work.
+
+The hardware store sold the seals in a pack, so the spares went into a labelled bag in the toolbox. Next time, and there will be a next time, I will not need the trip.

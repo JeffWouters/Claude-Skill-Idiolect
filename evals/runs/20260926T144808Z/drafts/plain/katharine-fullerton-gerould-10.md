@@ -1,0 +1,11 @@
+It is often said that plain living and high thinking go together, that the mind rises as the circumstances of life are pared down. The idea has a certain austere appeal, and it has been repeated so often that it has come to sound like a truth. I do not believe it is one.
+
+Look at the great minds that are offered, or might be offered, in its support. Thoreau is the usual witness, and yet, looked at closely, he shows a man who preferred comfort when it was to be had. [example needed] Shakespeare, whose thinking was as lofty as any, shows the same preference; he did not seek out hardship as a spur to his work. [example needed] Great minds, on the evidence, have not chosen frugality for its own sake. They have taken what ease they could get and put it to use.
+
+None of this is to say that there is anything wrong with doing our own chores. If circumstances require it, we should do them, and do them without complaint. There is no disgrace in sweeping a floor or cooking a dinner. But there is no special grace in it either. A household in which everyone does everything is not more civilised than one in which the work is shared out among those who do it best. It is only busier.
+
+The real cost of the fashion for frugality lies elsewhere. When domestic service is abolished, or shamed out of existence, something more than convenience is lost. Such work carried traditions of skill, handed down from one practitioner to the next: how to keep a kitchen, how to care for fine things, how to run a house well. These are crafts, and like all crafts they survive only as long as there are people who give their lives to them. Take away the people and the knowledge goes with them, and it does not come back when we find we need it.
+
+What replaces it is the notion that everyone should be a generalist, able to do a little of everything. It sounds admirable, but in practice it produces incompetence. The person who must cook, clean, mend, garden and keep accounts will do none of them especially well, and will have little time or energy left for the lofty thought that frugality was supposed to encourage. Specialisation is not a luxury of the idle; it is how any civilisation gets things done properly.
+
+So I reject the notion. Plain living does not make for high thinking. More often it makes for tired thinking, and for a world with fewer skills in it.

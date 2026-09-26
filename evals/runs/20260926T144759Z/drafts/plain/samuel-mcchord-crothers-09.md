@@ -1,0 +1,9 @@
+The memoir of a counterfeiter is bound to contain excuses, and this one contains a memorable set. What makes them worth attention is not that they are clever, though some of them are, but that the writer seems to have believed them, and that they lead him, by a logic of his own, to the pulpit.
+
+His defence of making false currency was economic. There was, he explained, a shortage of cash. Trade was hampered, ordinary people could not conduct their business, and money that did not exist could not be spent. By supplying more of it he was, as he saw it, providing relief. The notes he made eased a real want. That they were not genuine seemed to him a secondary matter beside the good they did in circulation.
+
+The authorities did not share his view of the matter. His career in relief work landed him in a Massachusetts prison, and the memoir does not suggest that he regarded this as just. [example needed: any detail of his time in prison] He records the episode more as an inconvenience imposed by people who failed to understand him than as a consequence of anything he had done wrong.
+
+What followed is the part that most readers remember. On his release he had to decide what to do with himself, and he considered the respectable professions one by one. Law required money for training. So did medicine. So, for that matter, did setting up in a trade. He had no money for any of them. There was, however, one calling that required no capital at all, and so he chose to become a preacher.
+
+He sets this down without irony, as a practical choice made on practical grounds. That is what gives the passage its strange force. The same mind that saw counterfeiting as a public service saw the ministry as the one career within his means. In neither case does he stop to ask whether he was suited to the work. He simply went where the door was open, and he seems to have expected the reader to think it perfectly reasonable.

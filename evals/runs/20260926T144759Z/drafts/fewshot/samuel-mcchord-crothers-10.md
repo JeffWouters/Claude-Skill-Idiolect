@@ -1,0 +1,9 @@
+There is a Victorian poem, [title needed], which was much read in its day, and which contains one of the most eloquent calls to battle in the language. It is worth reading again, not for its poetry alone, but for what it tells us of a mood that comes back in every generation.
+
+The speaker is weary of peace. It is not the peace of the philosopher that he has in mind, but the peace of the market-place, where every man is intent on getting the better of his neighbor. It is a greedy peace and a dull one. The shopkeeper adulterates his goods; the rich man grinds the poor; nobody thinks of anything but his own gain. Against this he sets the picture of war. War, at least, would lift men out of their meanness. It would give them something to live for and something to die for.
+
+He longs for heroic leaders. He longs for a noble cause. He is tired of small men and small aims, and he would welcome anything that would sweep them away. It is a very human longing, and one that I do not find it easy to despise.
+
+It is to be observed that the appeal was addressed to a British generation which was too young to remember the earlier wars. They had heard of them only as stories. They knew nothing of the actual suffering, and they had grown up in a time of prosperity which seemed to them rather tame. To such a generation the poem came as a trumpet call.
+
+We may smile at the sentiment, but we should not dismiss it. The militant feeling is not a peculiarity of one poet or one period. It is something that every generation has to face. When the young find that peace offers them nothing better than the quiet pursuit of gain, they will look elsewhere for the heroic life. And it must be confessed that they will not always look in the right place. The wise course is not to laugh at them, but to find them a better cause.

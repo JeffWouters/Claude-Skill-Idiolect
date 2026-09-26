@@ -1,0 +1,9 @@
+Most teams have at least one meeting that nobody would invent today. It sits in the calendar every week, people show up, the agenda gets worked through, and the hour fills itself. Ask why it exists and you will usually get a shrug, or a vague answer about keeping everyone aligned. The meeting has become a ritual, and rituals are very good at outliving the reason they started.
+
+That origin was almost always sensible. Somebody noticed a real problem. Two groups kept stepping on each other's work, a release kept slipping because nobody had the full picture, or a new team needed a place to settle how it would operate. A standing slot was a reasonable answer. It gave people a predictable moment to raise issues, and for a while it did exactly that. The meeting earned its place because it solved something people could point to.
+
+Then the problem went away, or changed shape. The groups learned to coordinate on their own. The release process got fixed. The new team stopped being new. None of this happened on a particular day, so there was never a moment when anyone could say the meeting had done its job. The invite kept recurring because recurring is what invites do by default. Cancelling takes an action; continuing takes nothing.
+
+This is the part that makes the pattern so persistent. Usefulness fades gradually, while the meeting itself stays exactly the same size. Each individual session feels only slightly less valuable than the last, which is never enough to trigger a decision. People adjust instead. They bring their laptops, half-listen, and wait for the one item that concerns them. The meeting keeps running, but the attention has already left.
+
+Nobody is at fault here, which is precisely why nobody acts. The person who set it up has moved on to other things, and everyone else assumes it still matters to someone. So the hour stays booked, long after anyone could explain what it is for. [example needed]

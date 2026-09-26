@@ -1,0 +1,11 @@
+You write topic-only briefs for a writing experiment. Do not load any skill. Read only the passage files named below; do not open any other file or folder.
+
+Folder: /home/claude/claude-skill-idiolect/evals/runs/20260926T144808Z/passages/
+Files: synthetic-noor-01.md synthetic-noor-02.md synthetic-noor-03.md synthetic-noor-04.md synthetic-noor-05.md synthetic-noor-06.md synthetic-noor-07.md synthetic-noor-08.md synthetic-noor-09.md synthetic-noor-10.md 
+
+For each passage file <id>.md, write /home/claude/claude-skill-idiolect/evals/runs/20260926T144808Z/briefs/<id>.md containing a brief of AT MOST 60 words, in plain modern English and entirely in your own words:
+- one line: what the piece is about (the subject);
+- up to three points it makes, each in a few words;
+- a last line "Length: about N words", where N is the passage's word count rounded to the nearest 10.
+Never copy a phrase from the passage: no run of four or more consecutive words (ignoring small words like "the", "of") may match the passage. Do not describe the style, tone or sentence structure; content only. Do not name the author.
+After writing, check each brief's word count (python3 -c "import sys;print(len(open(sys.argv[1]).read().split()))" FILE) and shorten any over 60 words. Reply with one line: how many briefs you wrote.

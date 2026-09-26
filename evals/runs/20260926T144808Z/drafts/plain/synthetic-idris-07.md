@@ -1,0 +1,9 @@
+Software teams spend a surprising amount of time producing estimates that almost nobody fully trusts. The people who give them hedge in private, the people who receive them add their own mental buffer, and everyone expects the real answer to be different. Yet the ritual continues, sprint after sprint and project after project.
+
+One reason is that estimates are doing a different job from the one they claim. On paper, they are predictions. In practice, they are often a form of bargaining. The business side arrives with what it wants and when it would like it. Engineering arrives with its worries about complexity, risk and everything that could go wrong. The estimate is where those two positions meet, and the number that comes out reflects the negotiation as much as the work.
+
+That on its own is not a disaster. A negotiated figure can still be a useful starting point for a conversation about scope and priorities. The trouble starts when the figure turns into a binding promise. Once an estimate is written into a plan, shared upwards and treated as a commitment, everyone involved changes how they behave. Engineers pad future estimates to protect themselves. Managers push back on those padded numbers because they expect padding. The bargaining gets harder and the numbers mean less.
+
+Meanwhile, the planning process rarely learns from its own history. Teams miss estimates in similar ways again and again, yet each new round of planning starts as if those misses never happened. The same optimism about integration work, the same underestimate of testing, the same surprise at how long reviews take. [example needed] The data needed to improve is often sitting right there in past projects; it is just not being used.
+
+Estimates would earn more trust if they were treated honestly as what they are: a best current guess, agreed through negotiation, that should be checked against how similar guesses turned out before.

@@ -1,0 +1,9 @@
+There are customers, and there are customers.  Some of them, I will say, are no trouble at all.  Others are another matter.
+
+There is, for instance, the lady who wants only the newest novel.  Not a new novel; the newest.  She has read the one that came out last week.  She wants the one that is coming out to-morrow.  If you hand her a book that has been out a month she holds it a little away from her, as one might hold a fish that has been some time out of the water.  "Oh," she says, "that's old."  A month, in her view of literature, is a long time.  A year is antiquity.
+
+Then there is the customer who comes in at Christmas.  He does not come in at any other time.  All the year round, in the spring, through the summer, in the fall of the leaf, he is somewhere else.  Then, in the middle of December, there he is, in a great hurry, with a list, and he wants everything wrapped.
+
+There are the clergymen.  Clergymen are very fond of bookshops.  They come in, and they take down a book, and they read it.  They read it for some time.  Then they put it back and take down another.  There are, too, gentlemen in top hats, very well brushed, who do much the same.  They linger.  They are very agreeable about it.  But they do not buy.
+
+And then there are the requests.  One lady desired me to find her "a book with a happy ending."  She did not mind what it was about, she said, so long as it came out right.  I asked her whether she would not like to look at the last page herself before she bought it.  She said she always did.  There was a gentleman, too, who came in every year about the same time for a new prayer book.  He had worn out, it appeared, the old one.  He did this regularly, a prayer book a year.  I have sometimes wondered how.  Whether it was piety, or whether he was merely very hard upon his books, I was never able to learn.

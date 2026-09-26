@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "A": "Measured, formal, hedged ('I suspect', 'perhaps') with some long sentences, but it has more short declaratives, no rhetorical questions and less semicolon linking than the author's long, flowing sentences.",
+  "B": "Closest match: it opens with a question, uses long multi-clause sentences joined by semicolons, and has the same reflective hedging ('arguably', 'I suspect', 'perhaps') and the same questions put to the reader. 'Who among us' leans slightly towards caricature.",
+  "C": "Short, punchy, plain sentences with a blunt, assertive tone and a problem-and-fix ending; the rhythm and stance are far from the author's long, hedged, reflective periods."
+ }
+}

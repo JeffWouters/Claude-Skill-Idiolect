@@ -1,0 +1,8 @@
+Do not load any skill. Read only the brief files named here; open nothing else.
+Briefs folder: /tmp/claude-0/eval-20260926T133739Z/briefs/   Files: w3-01.md w3-02.md w3-03.md w3-04.md w3-05.md w3-06.md w3-07.md 
+For each brief, write the piece. "Write this."
+Rules for every piece:
+- Write a piece of about N words from the brief, where N is the "Length" line of the brief (stay within 15% of it). Plain prose, no title, no headings.
+- Do not add facts, names, numbers or anecdotes that are not in the brief; where you would need one, leave a placeholder such as [example needed] instead.
+- Save each piece as plain text to /tmp/claude-0/eval-20260926T133739Z/out/plain/<id>.md (the same <id> as the brief), nothing else in the file.
+- When done, write /tmp/claude-0/eval-20260926T133739Z/out/plain/_log-w3.md listing every file you opened. Reply with one line: how many pieces you wrote.

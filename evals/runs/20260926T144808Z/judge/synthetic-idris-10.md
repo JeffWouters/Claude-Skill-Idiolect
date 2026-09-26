@@ -1,0 +1,35 @@
+# Judge packet synthetic-idris-10
+
+## The passage (by the author)
+
+How do you describe the state of a piece of work that is neither finished nor failing, but somewhere in the uncertain territory between? The question confronts most of us regularly, whenever we are asked to provide a status update, and it is considerably harder to answer honestly than the familiar formats would suggest. The traffic-light colours, the estimate of completion, the brief summary of progress and risks — these devices promise to compress a complicated reality into something a busy reader can absorb at a glance, and in doing so they inevitably discard much of what makes the reality complicated. It may be that the status update is less a report than a translation, and like any translation it involves choices about what to preserve and what to let go. I suspect that the choices we make, often without noticing, reveal a great deal about the relationship between those who do the work and those who oversee it.
+
+Consider the familiar drift of colours in a project that is quietly going wrong. The status remains green for a long time, not because everything is well but because nobody is quite certain enough of the trouble to change it; it becomes amber only when the difficulty can no longer be ignored, and it turns red, if it ever does, at a point when very little can still be done. Why does this pattern recur so consistently? Part of the answer, arguably, is that the colours carry consequences — attention, scrutiny, sometimes an uncomfortable meeting — and people are understandably reluctant to invite those consequences on the basis of a suspicion. The format, which was designed to surface problems early, ends up encouraging people to report them late, since it offers no graceful way of saying that something feels wrong without yet being demonstrably so.
+
+## Draft A
+
+Ask anyone how a piece of unfinished work is going and you will often get an answer that is both true and unhelpful. It is on track. It is mostly done. It is green. Reporting honestly on where work stands turns out to be much harder than it sounds.
+
+Part of the difficulty is the format. Most status reports ask for a short answer: a percentage, a status word, a colour. Those formats exist for good reasons, because the people reading them are busy and need to scan many projects quickly. But real work in progress is rarely that simple. Some parts are nearly finished, others have barely started, and a few contain problems nobody has fully understood yet. Squeezing all of that into one figure strips out the complexity that the reader most needs to see.
+
+Colour ratings show the problem clearly. In theory, a project moves from green to amber as risks appear and to red when it is in real trouble. In practice, reports tend to stay green for a long time and then turn amber or red far too late, often just before a deadline, when there is little left anyone can do. [example needed] The warning signs were there earlier; they just never made it into the colour.
+
+The reason is mostly human. Before something is clearly wrong, the people doing the work usually have a hunch: a feeling that an estimate is optimistic, that a dependency looks shaky, that a part of the system is harder than planned. Raising a hunch is risky. Escalation brings attention, and attention often means extra meetings, closer oversight and questions about competence. So people wait until they are sure, and by then the hunch has become a problem.
+
+Honest reporting needs room for hunches, and a response to them that feels like help rather than scrutiny.
+
+## Draft B
+
+Reporting honestly on unfinished work is harder than it ought to be, and the difficulty is not primarily one of dishonesty. Most of the people who write status reports are trying, in good faith, to describe where things stand. The trouble begins with the formats they are given. A report that asks for a percentage complete, a single status and a line of commentary is easy to read and easy to aggregate, which is precisely why organisations favour it. Yet work in progress rarely fits such shapes. It is partly done and partly not yet understood, promising in one area and worrying in another, and the simple format has no place for that texture. What is lost in the translation is often exactly what the reader most needed to know.
+
+The familiar colour ratings illustrate the problem with some precision. A piece of work tends to remain green for a long time, then turn amber briefly, and then turn red at a point when there is very little left to be done about it. This pattern is so common as to be almost a law of project life, and it is worth asking why the warning arrives so late. The answer, I think, has less to do with what people know than with what they feel able to say.
+
+Consider the position of someone who has a hunch that something is going wrong but cannot yet prove it. Raising the concern means escalating, and escalation brings attention — questions from above, additional meetings, closer scrutiny of their work — much of which is unwelcome and some of which feels like blame. Keeping quiet, by contrast, costs nothing in the short term, and there is always the hope that the problem will resolve itself. It is not surprising that many people wait until the hunch becomes a certainty. An organisation that wants earlier warnings might need to ask what it currently does to those who give them.
+
+## Draft C
+
+Why is it so difficult to say honestly where a piece of unfinished work stands? The difficulty is not usually one of knowledge, since the people doing the work tend to have a fairly good sense of how it is going. It may be that the problem lies instead in the channels through which that sense has to travel, and in what happens to the person who uses them.
+
+Consider the forms in which status is normally reported. A single percentage, a short list of completed items or a colour on a dashboard can each be read at a glance, which is their great appeal; each also strips away most of what makes the work difficult, including the dependencies, the half-understood risks and the parts nobody has yet looked at closely. Colour ratings in particular have a way of staying green for a long time and then turning red almost overnight, far too late for anyone to act on the warning they were supposed to provide. You might reasonably ask how a project can move so quickly from fine to failing. I suspect it rarely does; the rating simply lagged behind what people already knew.
+
+There is also a quieter reason for the delay. Raising a concern that is only a hunch, before there is evidence to support it, brings attention that most people would rather avoid, in the form of extra meetings, closer scrutiny and questions they cannot yet answer. It is arguably rational, under such conditions, to wait until the hunch has become a certainty. Perhaps the honest status report depends less on better formats than on making it safe to say, early and without proof, that something does not feel right.

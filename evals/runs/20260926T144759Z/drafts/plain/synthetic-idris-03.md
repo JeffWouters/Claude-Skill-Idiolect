@@ -1,0 +1,9 @@
+Many deadlines start life as a rough idea. Someone picks a date that sounds reasonable, says it in a meeting, and moves on. A week later that date is in a slide deck. A month later it is something the team has committed to, even though nobody ever sat down and worked out whether it was possible.
+
+The moment a date is announced, it changes character. It stops being a planning assumption and becomes a matter of saving face. The person who named it does not want to look careless, the team does not want to look slow, and the manager above them does not want to explain a change upward. So everyone defends the date, often well past the point where the facts have moved against it. Weekends get sacrificed and scope gets quietly trimmed, all to protect a number that was invented in the first place.
+
+There is a better way to deal with this, and it starts with a plain question: what actually happens if this date slips? Sometimes the answer is serious. A contract penalty, a regulatory window, a customer who is counting on it. Sometimes the answer is that a presentation gets moved and a few people are mildly disappointed. Those are very different situations, and they deserve very different responses. Weigh the date by its real consequences, not by how firmly it was announced.
+
+The second step is to revise early. A date that moves two months ahead of time is an adjustment. A date that moves two days before it arrives is a crisis. Most teams know long before the end that a date is in trouble, and they still wait. [example needed]
+
+The real obstacle is rarely the plan. It is the fear of letting people down. Saying out loud that a date will not hold feels like admitting failure. But holding on to it until it breaks disappoints people far more, and far later, when there is little left anyone can do.

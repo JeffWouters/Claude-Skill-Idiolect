@@ -1,0 +1,9 @@
+The skeptic, as I remember him, was never more cheerful than when he was talking about Christian nations. He had a way of putting the phrase in quotation marks with his voice, so that you could hear them.
+
+"I have a good deal of respect," he would say, "for the ancient Hebrews. When they wanted a piece of land, they went and took it. They did not pretend to be doing the inhabitants a favor. They wanted pasture for their flocks and herds, and there was the pasture, and there were the people who happened to be living on it. The people were in the way, and they were removed. It was a simple transaction, and the record of it is perfectly frank. Nobody reading it can be under any illusion as to what happened."
+
+Then he would go on to compare the modern method. The modern conqueror, he said, is not content with the land; he must have the credit also. He does not seize a country; he extends to it the blessings of civilization. He does not drive out the owners; he lifts them to a higher plane of existence. The dispossessed are told it is all for their good, and their ingratitude only proves how much they need improving.
+
+"It is the language that I object to," he would say. "The facts are the same as they always were. There is the same killing and the same taking. But the facts are now wrapped up in so many layers of pious phrases that you cannot find them at all. You may read a whole report of a war of conquest and never once come upon the word conquest. It is all Providence and duty and the uplifting of the backward races."
+
+I did not always agree with him, but I could not always answer him. There is something disconcerting in a man who insists on calling things by their names. It must be confessed that when religious language is used to cover a brutal fact completely, it does not make the fact less brutal. It only makes the religion less convincing.

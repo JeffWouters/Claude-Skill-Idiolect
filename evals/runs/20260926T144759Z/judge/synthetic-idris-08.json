@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "B": "Opens on a rhetorical question and moves in long, semicolon-joined sentences hedged with 'it may be', 'arguably' and 'I suspect', which is close to the passage's measured, deliberative rhythm and stance.",
+  "A": "Measured, hedged and first-person in a similar way, but its sentences are shorter and more even, with fewer semicolons and no questions, so it reads plainer and more modern-essayistic than the passage.",
+  "C": "Short, clipped declaratives, triads of parallel fragments and a punchy contemporary register are far from the passage's long, qualified, periodic sentences and cautious tone."
+ }
+}

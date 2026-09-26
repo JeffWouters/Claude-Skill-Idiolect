@@ -1,0 +1,9 @@
+Since the First World War began, Americans have started talking about culture again. The word turns up in newspapers and in conversation, and people use it without embarrassment. This is new, or rather it is old and has come back after a long absence.
+
+For decades before the war, "culture" was a word that sensible people avoided. To mention it was to mark yourself as someone who did not have it. The person who spoke of culture was assumed to be pretentious, or to be a little behind the times, or to be reaching for something he could only name. Those who had culture, it was understood, did not need to say so, and those who said so were thereby shown not to have it. The word became a joke, and then it became something worse than a joke: a thing one simply did not say.
+
+I do not think this was a harmless piece of fashion. When a word falls out of use, the thing it names is in danger of following it. We think with words, and we value what we can talk about. If a society cannot mention culture without sneering, it will soon find it hard to argue for culture, to teach it, or to notice when it is being lost. The silence was not a sign that culture was secure. It was one of the ways it was being worn away.
+
+Why, then, has the word returned? The war has certainly made Americans think harder about civilization and what it depends on. But I suspect a less flattering reason as well. The embarrassment about the word could only last as long as there was enough culture about for its mention to seem superfluous. The taboo depended on a certain confidence. That confidence has gone, because America has declined far enough that culture can no longer be taken for granted. It has become scarce enough to discuss.
+
+So the return of the word is good news of a mixed kind. It is good that we can talk about culture again. It would have been better not to have lost so much of it first.

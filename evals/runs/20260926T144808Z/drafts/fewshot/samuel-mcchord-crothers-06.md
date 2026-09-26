@@ -1,0 +1,8 @@
+I once had a long talk with a man who had been convicted of forging checks. I had expected to find him either penitent or defiant. He was neither. He was argumentative, in the manner of one who has thought the matter out and is anxious to have his conclusions tested.
+
+"What is the difference," he asked me, "between what I did and what is done every day in the great markets? I changed a figure on a check. They change the value of whole companies, and nobody sends them to prison. [example needed] Tell me where the line is."
+
+I am sorry to say that I did not tell him. I had a feeling that there was a difference, and that it was an important one, but I could not at the moment put my finger on it. It is embarrassing to be caught in this way by a man whom one has come to improve. I made some general remarks about the law, which he received with polite indulgence, as a teacher receives the answer of a backward pupil.
+
+It soon became plain that he did not regard himself as a criminal at all. He regarded himself as a man of principle who had had the misfortune to disagree with the conventions of his time. He had his own code, and he had lived up to it. That the rest of the world had a different code was, in his view, a fact about the world rather than about him.
+What struck me most was the completeness of the arrangement. His private system of ethics explained everything. There was no corner of his conduct that it did not cover, and so there was no corner left over for remorse. A man who is troubled by his conscience has at least two standards, the one he keeps and the one he fails to keep. My forger had only one, and he kept it perfectly. It was not a very good standard, but it gave him a serenity that many better men might envy.

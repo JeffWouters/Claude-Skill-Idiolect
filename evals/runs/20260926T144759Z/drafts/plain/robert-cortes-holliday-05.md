@@ -1,0 +1,9 @@
+One of the unexpected rewards of looking at rooms to rent is that the landladies tell you, without meaning to, what you look like to strangers. You go to the door as yourself, with your own opinion of your character, and you come away with theirs, which is often quite different and nearly always more interesting.
+
+Some of the encounters are simply strange. At one house I was shown a room that was pleasant enough, except that it contained the landlady's surgical table. She made no apology for it and offered no explanation; it seemed to be part of the furnishings, and she apparently expected the new tenant to live alongside it. [Details of why the table was there needed.] I did not stay long enough to find out whether it was ever used.
+
+At another house the landlady looked me over carefully and decided that I must be engaged in some kind of secret and not quite respectable work. What gave her the idea I never learned. Perhaps it was the hour I called, or the way I asked questions, or simply that I did not volunteer an account of myself. She was not unfriendly about it. She seemed, if anything, rather pleased to have guessed, and she let me understand that she would ask no questions, which was plainly meant as a kindness.
+
+The respectable houses are another matter. There the landladies want to know who you are before they will let you over the threshold, and they want it in writing. You must produce references, people who will vouch for your character, and the references must themselves be respectable. In the more upmarket houses it goes further: they want some assurance of wealth as well, and they make it clear that a good character, without the means to go with it, will not do.
+
+Between the surgical table and the demand for references there is a whole range of human suspicion and trust, and the room hunter passes through all of it.

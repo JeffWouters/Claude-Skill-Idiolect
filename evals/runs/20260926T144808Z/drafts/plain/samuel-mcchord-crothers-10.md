@@ -1,0 +1,9 @@
+A Victorian poet once wrote verses calling for war, and not reluctantly. He saw war as a cure. The long peace, as he described it, had made his country greedy and idle, and he believed only conflict could purge it of both.
+
+The verses are worth reading closely. [quotation needed] They long for a heroic leader, a strong man who will rise up and lead the nation out of its comfort. They do not merely accept the prospect of fighting; they welcome it. War appears in them not as a grim necessity but as something close to a blessing, a fire that will burn away the softness and the money-grubbing of a peaceful age.
+
+It is easy to see why these lines found an audience. They spoke above all to young Britons who had no memory of the country's past wars. Those readers had grown up in the peace the poet was complaining about. They knew war only from books and songs, where it is always glorious and nobody's letters home go unanswered. To them, a call to arms sounded less like a threat than like an invitation to finally matter. [example needed]
+
+The tempting response is to dismiss all this as savagery, a relic of older and cruder instincts that civilised people should have outgrown. That response is comfortable, and it is a mistake. The poet was not a savage, and neither were his young readers. He was naming something real: the restlessness of people who feel that peace has given them nothing to live for, and the suspicion that comfort has made them smaller. Waving that away does not make it go away. It only means that the next time the feeling arises, nobody will have prepared an answer to it.
+
+Each generation should take this seriously, and each has to do it for itself, because each arrives without the memories of the last. The longing the poet voiced will come back. The question is whether it will find something better than war to satisfy it.

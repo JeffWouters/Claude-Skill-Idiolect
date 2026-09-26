@@ -1,0 +1,9 @@
+Our household to-do system is not clever. It is a sheet of paper on the refrigerator, and it works better than anything else we have tried.
+
+The sheet is split into three parts. The first is groceries: whatever runs out gets written down, by whoever notices it. The second is quick chores, the small jobs that take a few minutes but somehow never get done unless someone writes them down. The third is larger projects, the things that take an afternoon, a weekend, or several attempts. Keeping those three apart matters. When everything sits in one long list, the quick jobs get buried under the big ones, and the big ones start to feel like a permanent reproach. Split up, each section has its own pace.
+
+What makes it succeed is visibility. The refrigerator is the one place in the house everyone passes several times a day. You cannot open it without seeing the list. That is exactly where the phone apps we tried failed. They were perfectly capable, with reminders, shared lists and all the rest, but they lived inside a phone, and a phone is full of other things demanding attention. Out of sight really did mean out of mind. A task in an app was only seen when someone decided to open the app, and mostly nobody did.
+
+Before settling on the paper sheet, we tried other physical options too. Notebooks came first. The trouble was that a notebook gets closed, put in a drawer or carried off to another room, and then it is as invisible as the app. After that came a whiteboard. That seemed promising, since it was always visible, but it had its own problems. [example needed: why the whiteboard was abandoned] In the end we abandoned both.
+
+So now it is paper and a magnet. Someone writes, someone crosses off, and when the sheet is full, we start a new one. It is not sophisticated, but it gets looked at, and a list that gets looked at is a list that gets done.

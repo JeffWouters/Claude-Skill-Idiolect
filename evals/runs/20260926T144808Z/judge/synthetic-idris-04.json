@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "B": "Long, clause-heavy sentences joined by semicolons, a rhetorical-question opening, a direct 'you', and measured hedging ('arguably', 'I suspect', 'perhaps') match the passage's reflective movement, though it leans slightly heavy on hedges.",
+  "A": "Formal register, long sentences, semicolons and 'I suspect' fit well, but the impersonal 'one', the dash, and the lack of any questions or second-person address make it stiffer and less conversational than the author.",
+  "C": "Short, punchy sentences, a colloquial register ('a lot of', 'out loud'), and closing imperatives read as a modern plain-style blog voice, far from the author's long, hedged, questioning sentences."
+ }
+}

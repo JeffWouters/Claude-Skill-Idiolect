@@ -1,0 +1,252 @@
+{
+ "katharine-fullerton-gerould-01": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "katharine-fullerton-gerould-02": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "katharine-fullerton-gerould-03": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "katharine-fullerton-gerould-04": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "katharine-fullerton-gerould-05": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "katharine-fullerton-gerould-06": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "katharine-fullerton-gerould-07": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "katharine-fullerton-gerould-08": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "katharine-fullerton-gerould-09": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "katharine-fullerton-gerould-10": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "robert-cortes-holliday-01": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "robert-cortes-holliday-02": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "robert-cortes-holliday-03": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "robert-cortes-holliday-04": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "robert-cortes-holliday-05": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "robert-cortes-holliday-06": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "robert-cortes-holliday-07": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "robert-cortes-holliday-08": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "robert-cortes-holliday-09": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "robert-cortes-holliday-10": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-01": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-02": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-03": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-04": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-05": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-06": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-07": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-08": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-09": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-10": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-01": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-02": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-idris-03": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "synthetic-idris-04": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-idris-05": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-idris-06": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-07": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-08": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-idris-09": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-idris-10": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-noor-01": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-noor-02": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-03": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-noor-04": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "synthetic-noor-05": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-noor-06": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-07": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-noor-08": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-noor-09": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-noor-10": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ }
+}

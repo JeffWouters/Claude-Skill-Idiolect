@@ -1,0 +1,9 @@
+We have kept a chore sheet on the refrigerator for years, and for most of that time I never threw the old ones away. When a sheet was full, it went into a folder. Recently I took the folder out and read through the whole stack, and it turned out to be a better record of our household than any photo album.
+
+The system behind the sheets is simple. When a task is done, it gets struck out. When a sheet is replaced, anything unfinished is copied over to the new one. That second rule is what makes the archive interesting. You can follow a single task from sheet to sheet and see how long it survived before someone finally crossed it off.
+
+Some tasks come back like the seasons. The same small jobs appear, get struck out, and appear again weeks later, and after a while you can see the rhythm of the house in them [example needed: a typical recurring chore]. Others do not come back because they never leave. The clearest example is a repainting job. It was written on one sheet, carried over to the next, and then the next, for years. Every new sheet started with it. Seeing it copied out again and again, in different handwriting, is both funny and a little uncomfortable. It says something about which jobs we avoid, and about how honest a list can be when you keep it long enough.
+
+The grocery section tells a different story. In the early sheets it is short. Then it grows: more items, bigger quantities, new things that simply were not there before [example needed: specific items that appeared]. You can see the family grow in it, sheet by sheet, long before you would think of it as a change. And then, later, the list starts to shrink again as the household gets smaller. The quantities go down. Certain items disappear altogether.
+
+Nobody set out to keep a diary. The sheets were only ever meant to get the shopping done and the chores finished. But written down every week, for years, the ordinary things add up to a history.

@@ -1,0 +1,9 @@
+I mend my old woollen socks by hand. It is a small skill and does not need much, but it does need the right things.
+
+The tools are simple. First, a suitable needle, one with an eye large enough for yarn and a point that goes between the stitches without splitting them. Second, matching yarn, ideally close to the original in both colour and thickness, so the repair wears the same way as the rest of the sock. Third, a rounded support to stretch the fabric over while you work. Anything with a smooth, rounded surface will do. A spent light bulb works well. [example needed: what I actually use as a support] The support keeps the fabric in its natural shape so you do not accidentally sew it shut.
+
+The most important lesson is to repair the weakened area around the hole, not just the opening itself. By the time a hole appears, the fabric around it is usually thin and worn too. If you only close the opening, the next hole will appear right next to your repair, often within a few wears. So I look carefully at the area, feeling for the thin spots, and include all of it in the darn.
+
+Once I know how far the weakness goes, I outline the area. I run a line of small stitches around it, a little way into the sound fabric, to mark the boundary of the repair. That outline gives me a clear shape to work within and helps anchor everything that follows.
+
+Then I lay parallel lengthwise threads across the area. Starting at one side of the outline, I take the yarn across to the other side, pick up a little of the fabric, and come back again, row after row, keeping the threads parallel and evenly spaced. They should lie across the hole without being pulled tight. These threads form the foundation. Once they are in place, the next step is to weave crosswise through them, and slowly the patch will take shape.

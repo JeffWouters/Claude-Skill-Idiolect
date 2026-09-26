@@ -1,0 +1,9 @@
+If a radiator is warm at the bottom and cold at the top, there is almost certainly air trapped inside it. Bleeding it out is one of the simplest jobs in home maintenance, but there are two moments where it pays to slow down: closing the valve, and topping the pressure back up afterwards.
+
+With the heating off and the radiator key fitted to the bleed valve, open the valve a little. You will hear air hissing out. Keep a cloth ready underneath, because the hiss is followed by water. The moment water appears, the air is out, and that is your signal to close the valve. Do it gently. The bleed valve is a small part, and it is surprisingly easy to overtighten it and damage the thread or the seat. Snug is enough. Wipe away any drips and move on to the next radiator.
+
+Every bit of air you release is replaced by water from the system, and on a sealed system that means the pressure drops. Once all the radiators are done, check the pressure gauge on the boiler. If it has fallen, you need to refill the system through the filling loop. Open the loop slowly and watch the gauge rise. You are aiming for roughly 1.2 bar. Close the loop when you reach it, and check that both valves on the loop are properly shut so the pressure does not keep creeping up. Your boiler's manual is the final word here [example needed: where to find the recommended pressure for a given model].
+
+Then turn the heating back on and give it some time. The difference is usually obvious: the radiators heat evenly from top to bottom, and rooms that felt cool in one corner feel the same all over. The gurgling noises tend to stop as well.
+
+Do not expect it to last forever. Air finds its way back into the system gradually, and in my experience it has built up again after about a year. So this is not a one-time repair but a yearly routine, best done before the cold weather really sets in.

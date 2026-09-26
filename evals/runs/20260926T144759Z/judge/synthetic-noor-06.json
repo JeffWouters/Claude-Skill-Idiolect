@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "A": "Short, plain sentences and fragments come close, but it slips into imperative how-to mode and longer explanatory sentences more than the passage's first-person narrative does.",
+  "B": "Long, smoothly joined sentences, a reflective advice-giving stance and softer diction ('temptation', 'worth being patient') are far from the passage's clipped, flat voice.",
+  "C": "Best matches the passage's very short declaratives, 'Then...' openings and clipped fragments in a plain first-person narrative; it is slightly heavier on fragments and opens in the present tense, but it is still the closest."
+ }
+}

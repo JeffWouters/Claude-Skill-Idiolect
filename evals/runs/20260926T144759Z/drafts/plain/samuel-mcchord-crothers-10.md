@@ -1,0 +1,9 @@
+A certain Victorian poem ends with a call to battle, and the call is worth reading closely, because it does not present war as a misfortune to be endured. It presents it as an escape. The speaker has grown sick of peace, or at least of the kind of peace he sees around him, and he turns to war as a way out.
+
+The peace he describes is greedy and dull. It is a time when people think only of gain, when trade and comfort have crowded out every larger purpose, and when a man may live and die without ever having served anything beyond himself. Against this, the speaker yearns for heroic leaders and a noble cause. He wants to be commanded by someone worth following, toward an end worth reaching. War, in the poem, offers both at once. It clears away the pettiness and puts something grand in its place.
+
+It matters who the poem was speaking to. Its appeal was aimed at a British generation too young to recall the earlier wars. Those readers had not seen what their grandfathers had seen. To them the idea of battle was not a memory but a story, and a story can be made to shine in a way that experience rarely allows. The poem found them at exactly the age when such a call is most likely to be heard. [example needed: how the poem was received at the time]
+
+It would be easy to dismiss all this as romantic foolishness, and many have. But that would be a mistake. Militant feeling of this kind should be taken seriously, because it is not peculiar to one poem or one period. Every generation faces it. Each new cohort comes of age in a peace it did not win, looks at that peace with fresh and critical eyes, and finds it wanting. Some part of that cohort will hear in the call to battle an answer to the dullness around it.
+
+Those who want to keep the peace have to reckon with that feeling rather than scorn it. They need to offer the young something larger than comfort and gain, or the poem's call will keep finding listeners.

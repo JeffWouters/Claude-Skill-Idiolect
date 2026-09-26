@@ -1,0 +1,9 @@
+The skeptic has always found a peculiar entertainment in the phrase "Christian nation," and never more than when the nation in question is busy enlarging its borders at the expense of somebody else. He is not, as a rule, an unkind man. He merely has the awkward habit of comparing what is said with what is done, and of laughing when the two fail to agree.
+
+Consider, he says, the ancient Hebrew raiders. They wanted land, and they wanted it for the plain and sufficient reason that their flocks needed grass. When they fell upon a neighbouring people and drove them out, they said frankly that the pasture was good and that they meant to keep it, and there was no talk at all of doing the former owners a kindness. One may deplore the proceeding, but one cannot accuse it of hypocrisy.
+
+But the modern conqueror has improved upon this. He does not seize land, he extends the blessings of order; he does not drive out the inhabitants, he relieves them of burdens they were plainly unfit to bear. Every acquisition is offered to the world as an act of kindness toward the very people who are losing by it, and the more they lose, the kinder the act appears. The skeptic confesses that he cannot follow the reasoning, though he admires the ingenuity of it.
+
+What amuses him most is the vocabulary. Religious language, he observes, has a wonderful power of covering brutal facts completely, as a heavy fall of snow covers a battlefield, so that everything is still there underneath and yet the surface is smooth and white and pleasant to look upon. Providence is called in. Duty is mentioned. Destiny, that most obliging of witnesses, steps forward to swear that it was all arranged beforehand and that nobody present could have done otherwise.
+
+The old raiders would have been puzzled by such a performance, for they took the land and said so. It is perhaps not the least of our achievements that we have learned to take it and say something else.

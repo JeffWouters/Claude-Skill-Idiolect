@@ -1,0 +1,11 @@
+It has become fashionable to admire simplicity, and I would like to say a word for caviar.
+
+I choose caviar because it is the kind of thing that the admirers of simplicity find hardest to forgive. It is costly, it is rare, and it is not to everyone's taste. Most people do not like it the first time. Those who come to like it do so by degrees, and having learned to like it they cannot easily explain the pleasure to anyone who has not. It is, in short, a luxury in the full sense: unnecessary, acquired, and delightful.
+
+The cult of plainness regards all this with suspicion. What began as a sensible preference for less clutter has become a creed, and like most creeds it has grown intolerant. Plain food, plain rooms, plain clothes, plain speech: each is now offered not as one choice among many but as the virtuous choice, and anything more elaborate is treated as a small moral lapse. I think this has gone far enough to do real harm. It teaches people to distrust their own pleasures, and to mistake a narrowing of experience for an improvement of character.
+
+The movement draws strength from some unlikely allies. The socialist wants everyone to live on the same terms, and the vegetarian wants everyone to eat on the same terms. They would not agree about much else, but they share an impulse to flatten life to a single standard, to find the one proper way of living and bring everyone into it. The trouble with a single standard is that it is always set low enough for everyone to reach. Whatever cannot be shared by all is ruled out, and what is ruled out first is exactly the rare and difficult thing, the pleasure that takes time and cultivation to arrive at.
+
+I would argue the reverse. Rare, acquired pleasures are among the best things a civilization produces. They depend on long practice, on discrimination, on a willingness to learn to like what does not please at once. That is not so different from the way we come to value good books or good music. A taste for caviar is a small thing, but it belongs to the same family. It is worth holding not as a guilty indulgence to be apologised for, but as a principle: that life is richer for containing things that not everyone wants, and that not everyone can have.
+
+Simplicity has its merits. It does not need a monopoly on virtue, and it should not be allowed to claim one.

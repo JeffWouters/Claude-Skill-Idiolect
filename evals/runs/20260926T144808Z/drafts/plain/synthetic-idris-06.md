@@ -1,0 +1,9 @@
+Look at any team's calendar and you will find a handful of meetings that repeat every week, fortnight or month, and have done for as long as anyone can remember. They are easiest to understand not as tools but as rituals: things a group does together at fixed times, partly because it has always done them.
+
+Most of them did not start that way. A recurring meeting almost always begins with a real shared problem. A launch is coming and several teams need to stay in step. An incident has exposed a gap that needs watching. A new group is forming and needs a regular place to work out how it will operate. Someone books a repeating slot, the right people come, and for a while the meeting does exactly what it was meant to do.
+
+Then the problem changes. The launch ships, the gap gets closed, the group settles into its way of working. The reason for the meeting fades, but the meeting does not. It keeps its slot on the calendar, the invitations keep going out and people keep turning up, because the default for a recurring event is to recur. It has become a ritual that has outlived its reason.
+
+What makes this hard is that nobody notices the moment it happens. There is no single meeting where the purpose visibly ends. Usefulness drains away gradually: the agenda gets thinner, updates start being repeated from elsewhere, a few people join with cameras off and do other work. Each of those signs is small enough to ignore, and ending a meeting feels like a bigger decision than letting it carry on. So it carries on. [example needed]
+
+The people in the room are often the worst placed to see it, because the meeting has become part of the shape of their week. Someone has to step back and ask what problem this meeting is solving today, and whether it would be booked if it did not already exist. Rituals can be valuable, but they are better chosen deliberately than inherited by accident.

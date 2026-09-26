@@ -1,0 +1,9 @@
+My mornings run to a timetable, and the timetable belongs to the train. Everything before it is worked out backwards from the moment it leaves the station.
+
+The walk to the station is timed. I know how long it takes at my normal pace, and I know which stretches are slower when the pavements are busy. I leave the house with a small buffer built in, just enough to absorb a traffic light that turns red at the wrong moment or a shoelace that comes undone. It is not a generous margin. A generous margin means standing on a cold platform for longer than necessary, and a tight one means running. I aim for the narrow space in between, arriving shortly before the train does [example needed: the exact buffer].
+
+On the platform, the same people are waiting every day. We stand in roughly the same places, near the same doors, in the same order. I know their coats, their bags, which of them reads and which of them stares at a phone. We have never spoken. It would feel almost strange to start now. There is a kind of quiet agreement between us: we recognise each other, we notice when someone is missing, and we leave it at that. Familiar strangers, sharing a small part of the day without asking anything of each other.
+
+The train is usually on time. Delays happen, but only occasionally, and most of them are a few minutes that the buffer, or the day, can absorb. Once, though, there was a long delay [example needed: the cause or length]. The announcement came, then another, and it became clear we would be there for a while. What struck me was how little changed. Nobody complained loudly. Nobody left. A few people made calls, but mostly everyone simply waited, together, in the same places as always. For once the routine had nothing to hold on to, and we stood there anyway.
+
+Then the train came, the doors opened, and the timetable picked up again as if nothing had happened.

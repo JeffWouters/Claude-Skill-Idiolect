@@ -1,0 +1,9 @@
+Do not load any skill. Read only the files named here; open nothing else.
+Briefs folder: /tmp/claude-0/eval-20260926T144808Z/briefs/   Files: w4-01.md w4-02.md w4-03.md w4-04.md w4-05.md w4-06.md w4-07.md w4-08.md w4-09.md w4-10.md 
+For each brief <id>.md there is a file /tmp/claude-0/eval-20260926T144808Z/fewshot/<id>.md with three example passages by one writer, separated by "---". Write the piece in the style of these passages. The passages are style references only: do not reuse their content, facts or phrases.
+Rules for every piece:
+- Write a piece of about N words from the brief, where N is the "Length" line of the brief (stay within 15% of it). Plain prose, no title, no headings.
+- Do not add facts, names, numbers or anecdotes that are not in the brief; where you would need one, leave a placeholder such as [example needed] instead.
+- Save each piece as plain text to /tmp/claude-0/eval-20260926T144808Z/out/fewshot/<id>.md (the same <id> as the brief), nothing else in the file.
+- When done, write /tmp/claude-0/eval-20260926T144808Z/out/fewshot/_log-w4.md listing every file you opened. Reply with one line: how many pieces you wrote.
+Working files: save anything you need along the way (kits, check reports, drafts in progress, helper scripts) only in /tmp/claude-0/eval-20260926T144808Z/work/fewshot-w4/, which is yours alone. Never write to the scratchpad or to any other folder.

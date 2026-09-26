@@ -1,0 +1,9 @@
+Looking at rooms to rent is one of the few ways a stranger can walk into another person's house and be judged on the spot, and the judging is often the most entertaining part.
+
+Landladies have their own methods. One will look at your boots before she looks at your face, as though the state of the leather told her everything about your habits. Another will ask what you do for a living and then listen not to the answer but to the way you give it. I have been approved of and doubted for reasons I could only guess at. [example needed] None of them ever explained their reasoning, and I came to suspect that most of them could not have done so. They simply knew, or believed they knew, within the first minute, and the rest of the visit was a formality.
+
+The strangest room I was ever offered held a surgical table. It stood in the middle of the floor, solid and unmistakable, and the landlady showed me round it as if it were a sideboard. She mentioned the view, the light and the rent. She did not mention the table. I did not quite like to ask, and so I never learned whether it had belonged to a previous tenant, whether it was meant to stay, or what exactly I was expected to do with it. I thanked her and left, and I have wondered about it since.
+
+At the other end of the scale are the upscale places, where the judging is done not by instinct but by paperwork. Here you do not charm anyone. You are asked for references, and then for more references, and it is made clear that the rooms are intended for people of means. The questions are polite and the answers are checked. There is no surgical table, and no one cares about your boots, because the matter has been settled well before you arrive by the size of your income.
+
+I preferred the landladies. They were unpredictable and sometimes unfair, but at least they were looking at me.

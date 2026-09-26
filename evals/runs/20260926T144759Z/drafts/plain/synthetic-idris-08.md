@@ -1,0 +1,9 @@
+Every team works against due dates, but it is worth asking where those dates actually come from. Some are genuinely imposed from outside. A regulation takes effect, a contract specifies a delivery, an external event will happen whether the team is ready or not. These dates are real constraints, and missing them has real consequences.
+
+Many other dates are chosen. Someone inside the organisation picked them, perhaps to create momentum, perhaps to align with a plan, perhaps simply because a date was needed and that one seemed reasonable. There is nothing wrong with choosing dates. The problem is that once they exist, teams treat them exactly like the imposed ones. A self-set target and a legal deadline produce the same dread, the same late nights, the same sense that failure is not an option. The origin of the date is forgotten, and only its weight remains. [example needed]
+
+That weight has effects, and not all of them are bad. An approaching date sharpens focus. It forces decisions that might otherwise drift, cuts debate short, and makes people concentrate on what really matters. Plenty of teams do some of their clearest work in the run-up to a deadline.
+
+But the same pressure invites shortcuts. Tests get skipped, reviews get rushed, known problems get pushed to later. It also invites overwork: long hours that feel necessary in the moment and leave people drained afterwards. These costs do not disappear when the date passes. They show up later as defects, as fragile code, and as tired people who are slower for weeks.
+
+What is striking is that nobody openly decides whether that cost is acceptable. No one sits down and says that this particular date is worth this much risk and this much exhaustion. The trade-off is made implicitly, by default, one late evening at a time. For an imposed date, the cost may well be worth it. For a chosen date, it is at least worth asking the question out loud.

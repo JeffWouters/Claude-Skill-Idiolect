@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, clause-linked sentences built on 'in which' and a single semicolon, with the passage's soft, confiding hedges (It seems to me, I suspect, Perhaps, arguably). Rhetorical questions are used sparingly, and it closes on a reflective turn much as the passage does. It leans on questions slightly more than the passage.",
+  "B": "Its measured, semicolon-heavy periodic sentences match the passage's rhythm well. It hedges less ('I think' only), and the dash-listed examples and the tidy procedural summing-up read a little more like an expository essay than the passage's musing, reader-addressing stance.",
+  "C": "Short, clipped sentences ('So it gets defended'), five small paragraphs and a plain, prescriptive business-advice register. It lacks the passage's long periodic sentences, semicolons and tentative first-person hedging."
+ }
+}

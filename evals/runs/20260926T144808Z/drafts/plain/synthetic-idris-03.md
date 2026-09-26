@@ -1,0 +1,9 @@
+Most people who have worked on a large project have watched a target date that nobody quite believes in any more being defended as if it were still realistic. The plan says one thing, the work says another, and yet the date stays on the slide, meeting after meeting.
+
+Part of the reason is that an announced date stops being a planning figure and becomes a matter of reputation. Once a manager has told their leadership, or a team has told its customers, the date carries the name of whoever said it. Moving it feels like admitting a mistake in public. So it gets defended long past the point where the evidence supports it, and the defence itself consumes effort that could have gone into the work.
+
+A useful way to break that spell is to ask a plain question: what would missing this date actually cost? Sometimes the answer is serious, because something outside the team depends on it and cannot move. Often, though, the honest answer is that a few people would be disappointed and a plan would need to be redrawn. [example needed] Putting the real cost next to the growing cost of pretending tends to change the conversation.
+
+The earlier that conversation happens, the better. A date renegotiated while there is still room to adjust scope, staffing or sequence is a normal piece of planning. A date abandoned in the final week is a failure that everyone saw coming. The information that the date was at risk usually existed long before; what was missing was the willingness to say it.
+
+That willingness is the real barrier, and it is rarely about process. It is fear of letting people down: the manager who promised, the stakeholders who were promised to, the team who worked hard towards it. Organisations that want honest dates have to make it safe to say early that a date is in doubt, and to treat that as good news about visibility rather than bad news about the people.

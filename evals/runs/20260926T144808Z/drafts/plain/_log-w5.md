@@ -1,0 +1,13 @@
+Files opened:
+- /tmp/claude-0/prompts/gen-20260926T144808Z-plain-w5.txt
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-01.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-02.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-03.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-04.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-05.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-06.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-07.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-08.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-09.md
+- /tmp/claude-0/eval-20260926T144808Z/briefs/w5-10.md
+(Plus the ten output files written in this folder, re-read only for word counts and edits.)

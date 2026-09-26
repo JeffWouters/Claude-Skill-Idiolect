@@ -1,0 +1,11 @@
+You write topic-only briefs for a writing experiment. Do not load any skill. Read only the passage files named below; do not open any other file or folder.
+
+Folder: /home/claude/claude-skill-idiolect/evals/runs/20260926T144759Z/passages/
+Files: robert-cortes-holliday-01.md robert-cortes-holliday-02.md robert-cortes-holliday-03.md robert-cortes-holliday-04.md robert-cortes-holliday-05.md robert-cortes-holliday-06.md robert-cortes-holliday-07.md robert-cortes-holliday-08.md robert-cortes-holliday-09.md robert-cortes-holliday-10.md 
+
+For each passage file <id>.md, write /home/claude/claude-skill-idiolect/evals/runs/20260926T144759Z/briefs/<id>.md containing a brief of AT MOST 60 words, in plain modern English and entirely in your own words:
+- one line: what the piece is about (the subject);
+- up to three points it makes, each in a few words;
+- a last line "Length: about N words", where N is the passage's word count rounded to the nearest 10.
+Never copy a phrase from the passage: no run of four or more consecutive words (ignoring small words like "the", "of") may match the passage. Do not describe the style, tone or sentence structure; content only. Do not name the author.
+After writing, check each brief's word count (python3 -c "import sys;print(len(open(sys.argv[1]).read().split()))" FILE) and shorten any over 60 words. Reply with one line: how many briefs you wrote.

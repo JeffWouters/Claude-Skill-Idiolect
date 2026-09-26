@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, qualified sentences with semicolon chains, a first-person hedging stance ('I suspect', 'Arguably', 'perhaps') and a reflective 'we' that match the passage's confiding, tentative voice, though the hedges sit a little thick.",
+  "B": "Rhythm, dashes and measured register fit well, but it stays impersonal (no 'I' or 'we') and argues more flatly than the passage's musing, self-questioning stance.",
+  "C": "Short, clipped, declarative sentences and a plain modern business-blog register; none of the passage's long periodic sentences, rhetorical questions or hedging."
+ }
+}

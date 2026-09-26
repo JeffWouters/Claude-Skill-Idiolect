@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "C": "Long, balanced sentences broken by an occasional short one, a single rhetorical question to turn the piece, a well-placed semicolon, and measured first-person hedging ('I suspect', 'I think') all match the passage's reflective, gently arguing voice without overdoing it.",
+  "B": "Has the right register and the semicolons, but its sentences are uniformly long, and it stacks questions and hedges ('I suspect', 'arguably', 'It seems to me', 'Perhaps'). That pushes it toward caricature and costs it the passage's rhythm.",
+  "A": "Short, declarative sentences in flat, plain diction, with no hedging, semicolons or dashes and brisk slogan-like endings. It reads like a practical blog post, not the passage's discursive, qualified prose."
+ }
+}

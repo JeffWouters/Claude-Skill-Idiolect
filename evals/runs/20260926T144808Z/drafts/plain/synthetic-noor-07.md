@@ -1,0 +1,9 @@
+A daily rail journey is, on paper, just a way of getting from home to work. In practice it gives me something more than that.
+
+For a while, I used the time to work. Open the laptop, answer messages, get ahead of the day before it had properly started. It felt efficient. At some point I chose to stop doing that. Now I rest, or I look out of the window and watch the scenery go by. It is one of the few stretches of the day that nobody else has claimed, and I have decided to keep it that way. The work will still be there when I arrive.
+
+Watching the same route every day, you start to see how much it changes with the seasons. The light is different in every part of the year. [example needed: seasonal light at a particular point on the route] There are landmarks along the line that I look out for without really meaning to. [example needed: a landmark along the route] Depending on the time of year, the same view can look bright and open or grey and closed in, and following that slow shift is part of the pleasure of the journey.
+
+What I did not expect is what routine does to attention. You might think that doing the same journey day after day would make you stop noticing things. For me it has worked the other way. Because so much stays the same, the tiny changes stand out. There is a musician who travels on my train, and one morning I noticed that the instrument case they carried had been replaced. It was a small detail, not something anyone would have commented on, but I noticed it straight away. [example needed: what the old and new case looked like] The routine had sharpened my eye for exactly that kind of thing.
+
+That is what the journey offers beyond transport. Time that belongs to me, a view that changes with the year, and a kind of attention that only comes from doing the same thing often enough to notice when something is different.

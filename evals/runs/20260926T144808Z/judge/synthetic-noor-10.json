@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "A": "Long, evenly built explanatory sentences with 'First/Second/Third' scaffolding and a neutral manual tone; none of the passage's clipped rhythm or dry personal asides.",
+  "B": "Closest rhythm: short declaratives mixed with occasional fuller sentences, plain uncontracted diction, dry understatement ('A dead one, of course'), fragments used about as often as the passage uses them.",
+  "C": "Right register and plainness, but stacks fragments and one-line paragraphs more thickly than the passage ('Not just the gap.' 'No gaps.' 'That is all.'), tipping toward imitation."
+ }
+}

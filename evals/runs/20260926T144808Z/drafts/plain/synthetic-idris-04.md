@@ -1,0 +1,9 @@
+There is a particular kind of discomfort that comes with being very good at something and then having to start over. Experienced engineers meet it whenever the technology underneath their work changes: a new platform, a new language, a new way of building and shipping. Years of hard-won fluency suddenly count for less, and they find themselves asking the same basic questions as someone in their first job.
+
+A lot of the pushback against new tools comes from that place. The objections are usually framed in technical terms, and some of them are fair. But underneath many of them is something less comfortable to say out loud: nobody enjoys feeling unskilled at work, especially when their standing rests on being the person who knows. Resistance can be a way of protecting that standing. Recognising this is not about dismissing the objections; it is about hearing what is actually being said.
+
+Workplaces do not make it easier. Most of them talk warmly about development and continuous learning, then fill every week with delivery work and leave no real time for either. Learning is expected to happen somewhere in the gaps: an evening, a slow Friday afternoon, the half hour between meetings. The message people receive is that growth matters, as long as it costs nothing.
+
+Learning squeezed into those gaps tends to be shallow. People pick up enough to get a task done, copy a pattern that seems to work and move on before they understand why it works. That knowledge is fragile. It holds up until something unusual happens, and then it breaks, often at the worst possible moment. [example needed]
+
+If organisations want experienced people to embrace new technology rather than resist it, they need to take both problems seriously. Make it acceptable to be a beginner again, visibly and without loss of standing. And treat learning time as real work, planned and protected, rather than something people are trusted to find for themselves.

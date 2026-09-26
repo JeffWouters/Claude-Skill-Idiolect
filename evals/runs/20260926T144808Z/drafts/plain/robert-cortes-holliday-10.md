@@ -1,0 +1,11 @@
+The first time I saw him, I did not know who he was, and I remember wondering what on earth he was.
+
+He came into the shop in the middle of a conversation, and it was clear at once that the conversation was the important thing and the shop merely the place where it happened to be going on. His appearance was odd. [details needed] Nothing about him matched the idea of a great writer that I had formed from reading his books, and if anyone had told me then that this was the author I admired, I think I would have laughed.
+
+What held my attention was the way he talked. He was completely earnest. He did not chat, as people do in shops, to fill the time while they look for something. He argued, explained, insisted, and all the while his hands were moving, sketching shapes in the air, pressing a point home, drawing some invisible line between one idea and the next. He seemed to need the gestures to get the thought out, as though words alone were too slow for it.
+
+With him were a woman and a man. She, I learned afterwards, was a novelist too, of the kind who writes about society and is widely read by the people she writes about. The man was her husband. [names needed] They listened to him with a mixture of affection and patience, and put in a word now and then when he paused for breath, which was not often.
+
+They did not buy anything that day, as far as I recall. After a while the three of them went out together, and I watched through the window as they set off up the street arm in arm, he in the middle, still talking, still gesturing with whatever hand was free. It was only when someone in the shop told me his name that I understood whom I had been staring at.
+
+He came back many times after that, and on those later visits I saw a different side of him. When he was alone, he did not talk at all. He went to the shelves and began to browse, and within a minute he was lost. He would take down a book, open it, and read standing where he was, turning the pages with complete absorption, forgetting the shop, the time and the people moving around him. There was something in his face on those occasions that I have only ever seen in children who have been given exactly the toy they wanted. He looked entirely happy, and entirely unaware of being watched.

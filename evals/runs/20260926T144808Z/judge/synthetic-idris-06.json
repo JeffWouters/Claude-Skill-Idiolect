@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "C": "Closest movement and stance: opens on a rhetorical question, uses 'Consider how...', long clause-chained sentences joined by semicolons, and the passage's tentative first-person hedging (I suspect, arguably, it may be, perhaps); hedges run slightly thick near the end but stay within the passage's own density.",
+  "B": "Right register and long, balanced sentences with dashes and a reflective 'I think', but more formal and essayistic, with no questions and fewer semicolons; the stance is more measured-expository than the passage's musing, self-questioning voice.",
+  "A": "Short, declarative, plain-English sentences with fragments of advice and second-person address; lacks the passage's long hedged periods, rhetorical questions, semicolons and first-person speculation, so it reads as a different writer."
+ }
+}

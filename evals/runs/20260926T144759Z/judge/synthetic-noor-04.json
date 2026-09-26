@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "B"
+ ],
+ "reasons": {
+  "A": "Short declarative sentences and clipped fragments in the same plain first-person register, with a quiet, observational close; closest match in rhythm and stance.",
+  "C": "Right sentence length and fragments, but it leans on second-person instruction and stacks clipped commands ('Close the valve. Gently.') more thickly than the passage, which tips into imitation.",
+  "B": "Long, clause-heavy sentences in a polished how-to-guide voice with hedges ('almost certainly', 'usually'); nothing like the passage's terse, flat movement."
+ }
+}
