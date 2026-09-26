@@ -39,3 +39,30 @@ def test_holdouts_are_not_learned():
     for author, files in holdouts.items():
         for f in files:
             assert f"{author}/{f}" not in paths
+
+
+def test_every_store_file_is_valid():
+    from common import read_store_file
+    import pages
+    s = STORE
+    read_store_file(s / "idiolect.yaml", "idiolect")
+    read_store_file(s / "sources.yaml", "sources")
+    read_store_file(s / "corpus" / "manifest.json", "manifest")
+    for prof in (s / "profiles").iterdir():
+        read_store_file(prof / "profile.yaml", "profile")
+        for name, schema in (("vocabulary.yaml", "vocabulary"), ("rulings.yaml", "rulings"),
+                             ("rejected.yaml", "rejected")):
+            if (prof / name).exists():
+                read_store_file(prof / name, schema)
+        for f in prof.glob("*.json"):
+            read_store_file(f, "fingerprint")
+        for f in prof.glob("*.md"):
+            text = f.read_text(encoding="utf-8")
+            if f.name.endswith(".examples.md"):
+                meta, ex = pages.parse_examples(text)
+                assert ex and all(e["text"] and e["redaction"]["redacted"] for e in ex)
+            elif f.name.endswith(".never.md") or f.name == "changelog.md":
+                pages.split_page(text)
+            else:
+                meta, conf, lessons = pages.parse_slot_page(text)
+                assert conf and lessons and meta["last_id"] >= len(lessons)

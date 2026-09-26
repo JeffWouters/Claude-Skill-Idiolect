@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alexander-smith
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alexander-smith
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alexander-smith
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alexander-smith
   slot: en.essay
   id: e-005
@@ -48,7 +48,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 These sentences of the great essayists are brave and ineffectual as [person] and his Greeks.  Death cares very little for sarcasm or trope; hurl at him a javelin or a rose, it is all one.  We build around ourselves ramparts of stoical maxims, edifying to witness, but when the terror comes these yield as the knots of river flags to the shoulder of Behemoth.

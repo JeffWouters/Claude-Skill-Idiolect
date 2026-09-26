@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-idris
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-idris
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-idris
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-idris
   slot: en.essay
   id: e-005
@@ -48,7 +48,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 There is a peculiar quality to the silence of a house in the early hours when you are waiting for something to go wrong. Perhaps anyone who has carried a pager, or its modern equivalent, will recognise the sensation — the half-sleep in which part of the mind remains alert for a sound that may never come, the phone placed within reach on the bedside table, the faint sense of guilt that accompanies any attempt to relax fully. We tend to describe on-call work in operational terms, as a matter of rotations and escalation policies and response expectations, and these descriptions are accurate as far as they go. What they tend to omit is the experiential dimension of the work, which is arguably where most of its cost is borne. It may be that the hardest part of being on call is not the incident itself but the long vigil that precedes it, and the knowledge that the vigil will resume as soon as the incident is resolved.

@@ -237,3 +237,25 @@ def test_leftover_pending_blocks_a_new_run(tmp_path):
     learn.start(st, targets=["noor"], profile="noor")
     with pytest.raises(Exception):
         learn.start(st, targets=["noor"], profile="noor")
+
+
+def test_two_fresh_builds_are_identical(tmp_path):
+    """Phase 2 exit: the same sources and the same model outputs give the same store, byte for byte
+    apart from timestamps."""
+    import re
+    stamp = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:?\d{2}:?\d{2}Z(-\d+)?|\d{8}T\d{6}Z|\d{4}-\d{2}-\d{2}")
+    stores = []
+    for name in ("one", "two"):
+        d = tmp_path / name
+        d.mkdir()
+        st = make_store(d)
+        full_learn(d, st, "noor", "noor")
+        stores.append(st)
+
+    def content(root):
+        return {stamp.sub("<t>", str(f.relative_to(root))): stamp.sub("<t>", f.read_text(encoding="utf-8"))
+                for f in sorted(root.rglob("*")) if f.is_file()}
+    a, b = content(stores[0]), content(stores[1])
+    assert a.keys() == b.keys()
+    for k in a:
+        assert a[k] == b[k], k

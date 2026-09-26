@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alice-meynell
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alice-meynell
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alice-meynell
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: alice-meynell
   slot: en.essay
   id: e-005
@@ -48,7 +48,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 There is no wall so impregnable or so vulgar, but a summer's grass will attempt it.  It will try to persuade the yellow brick, to win the purple slate, to reconcile stucco.  Outside the authority of the suburbs it has put a luminous touch everywhere.  The thatch of cottages has given it an opportunity.  It has perched and alighted in showers and flocks.  It has crept and crawled, and stolen its hour.  It has made haste between the ruts of cart wheels, so they were not too frequent.  It has been stealthy in a good cause, and bold out of reach.  It has been the most defiant runaway, and the meekest lingerer.  It has been universal, ready and potential in every place, so that the happy country--village and field alike--has been all grass, with mere exceptions.

@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-noor
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-noor
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: synthetic-noor
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 I cut the split ends off first. 15 centimetres from each end. Then I planed the tops. That took most of a weekend. Old scaffold boards are full of grit and paint and the odd nail. I found two nails with a magnet before I started. I missed a third. It took a chip out of the plane iron. So now I sweep a magnet over any old wood. Every time.

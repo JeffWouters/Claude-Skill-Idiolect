@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: samuel-mcchord-crothers
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: samuel-mcchord-crothers
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: samuel-mcchord-crothers
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: samuel-mcchord-crothers
   slot: en.essay
   id: e-005
@@ -48,7 +48,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 Ah, but that is the Forbidden City. It is inhabited, not by orderly citizens, under the rule of Right Reason, but by a lawless crowd known as the Prejudices. They are of all sorts and conditions. Some are of aristocratic lineage. They come from a long line of hereditary chiefs, who, as their henchmen have deserted them, have recreated into their crumbling strongholds. Some are bold, roistering blades who will not stand a question; dangerous fellows, these, to meet in the dark! The majority, perhaps, are harmless folk, against whom the worst that can be said is that they have a knack of living without visible means of support.

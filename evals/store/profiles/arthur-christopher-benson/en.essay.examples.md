@@ -12,7 +12,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: arthur-christopher-benson
   slot: en.essay
   id: e-002
@@ -21,7 +21,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: arthur-christopher-benson
   slot: en.essay
   id: e-003
@@ -30,7 +30,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: arthur-christopher-benson
   slot: en.essay
   id: e-004
@@ -39,7 +39,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 - profile: arthur-christopher-benson
   slot: en.essay
   id: e-005
@@ -48,7 +48,7 @@ examples:
   redaction:
     redacted: true
     version: '1.0'
-    reviewed: false
+    reviewed: true
 ---
 ## e-001
 The other kind of talk that I find very disagreeable is the talk of a full-fledged egotist, who converses without reference to his hearers, and brings out what is in his mind. One gets interesting things in this way from time to time; but the essence, as I have said, of good talk is that one should have provoking and stimulating peeps into other minds, not that one should be compelled to gaze and stare into them. I have a friend, or rather an acquaintance, whose talk is just as if he opened a trap-door into his mind: you look into a dark place where something flows, stream or sewer; sometimes it runs clear and brisk, but at other times it seems to be charged with dirt and debris; and yet there is no escape; you have to stand and look, to breathe the very odours of the mind, until he chooses to close the door.
