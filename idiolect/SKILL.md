@@ -1,7 +1,7 @@
 ---
 name: idiolect
 description: Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, asks to test their profile against a held-out text of their own, to learn from their edits to a draft, or to be interviewed to build a slot, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as "rewrite this in my voice" or "tighten this" without those.
-compatibility: Local route only in this version (Claude Code, or any session with a shell on the machine that holds the files). Needs Python 3.10+ with PyYAML, jsonschema, markdown-it-py, pdfminer.six and lingua-language-detector; scripts/check_env.py names anything missing.
+compatibility: Runs where a shell reaches the files (Claude Code on the machine, or a cloud session bridged to it; see references/runtime.md). Needs Python 3.10+ with PyYAML, jsonschema, markdown-it-py, pdfminer.six and lingua-language-detector; scripts/check_env.py names anything missing.
 ---
 
 # Idiolect
@@ -51,6 +51,8 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 ## Every run starts the same way
 
 1. Run `python3 scripts/check_env.py`. If anything is missing, name it and show the install line; stop.
+   If the files are on the writer's computer and this session reaches it through a bridge, follow
+   `references/runtime.md` (bridged route) for where the scripts run.
 2. Find the store (never remembered between sessions):
    - `store=<path>` wins; if it has no valid `idiolect.yaml`, stop and say so.
    - Otherwise look for `idiolect.yaml` in the folders you can reach, at most three levels deep,

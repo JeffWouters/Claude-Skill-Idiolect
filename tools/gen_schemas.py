@@ -458,7 +458,7 @@ pending = {
             "type": "object", "required": ["id", "kind", "op", "path", "summary", "decision"],
             "properties": {
                 "id": {"type": "string", "pattern": "^i-[0-9]{3,6}$"},
-                "kind": {"enum": ["corpus-text", "ownership", "rule", "profile", "status", "lesson", "edit-lesson",
+                "kind": {"enum": ["corpus-text", "ownership", "rule", "profile", "status", "lesson", "edit-pair", "edit-lesson",
                                   "ruling", "vocabulary", "example", "fingerprint", "never-list", "slot-page",
                                   "rejection", "holdout", "deletion", "restore", "snapshot-prune"]},
                 "op": {"enum": ["add", "modify", "remove"]},
@@ -583,13 +583,29 @@ inventory_report = {
     "additionalProperties": False
 }
 
+bridge = {
+    "$schema": DRAFT, "$id": BASE + "bridge.schema.json",
+    "title": ".state/bridge.json — files already copied over a file bridge (spec §26.2)",
+    "type": "object", "required": ["schema_version", "updated", "files"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "updated": ref("dateTime"),
+        "files": {"type": "object", "description": "Path relative to sources_root -> what it was when last copied.",
+                  "additionalProperties": {"type": "object", "required": ["size", "mtime"],
+                                           "properties": {"size": {"type": "integer", "minimum": 0},
+                                                          "mtime": {"type": "number"}},
+                                           "additionalProperties": False}},
+    },
+    "additionalProperties": False,
+}
+
 SCHEMAS = {
     "inventory-report": inventory_report,
     "global-metrics": global_metrics,
     "common": common, "idiolect": idiolect, "sources": sources, "manifest": manifest,
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,
     "fingerprint": fingerprint, "manifest-entries": manifest_entries, "check-report": check_report, "lock": lock,
-    "progress": progress, "pending": pending, "edit-pair": edit_pair,
+    "progress": progress, "pending": pending, "edit-pair": edit_pair, "bridge": bridge,
 }
 
 if __name__ == "__main__":

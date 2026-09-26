@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/bridge.schema.json",
+  "title": ".state/bridge.json — files already copied over a file bridge (spec §26.2)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "updated",
+    "files"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "updated": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "files": {
+      "type": "object",
+      "description": "Path relative to sources_root -> what it was when last copied.",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "size",
+          "mtime"
+        ],
+        "properties": {
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mtime": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
