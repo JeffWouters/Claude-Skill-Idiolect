@@ -309,7 +309,7 @@ check_report = {
         "confidence": ref("confidenceLevel"),
         "flagged": {"type": "integer", "minimum": 0, "description": "Number of metrics flagged."},
         "fail_threshold": {"type": "integer", "minimum": 1,
-                           "description": "The draft fails when flagged >= fail_threshold (5, from global-metrics.json)."},
+                           "description": "The resolved count: max(min_count, ceil(fail_fraction x metrics in the list)); 4 for the 14 global metrics. The draft fails when flagged >= fail_threshold."},
         "metrics": {"type": "array", "items": {
             "type": "object", "required": ["name", "draft", "writer", "ratio", "flag"],
             "properties": {"name": {"type": "string"}, "draft": {"type": "number"},
@@ -417,7 +417,37 @@ edit_pair = {
     "additionalProperties": False
 }
 
+global_metrics = {
+    "$schema": DRAFT,
+    "$id": BASE + "global-metrics.schema.json",
+    "title": "Global metric list shipped with the skill (assets/global-metrics.json)",
+    "type": "object",
+    "required": ["schema_version", "source", "fail_fraction", "downgrade_fraction", "min_count", "metrics"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "source": {"type": "string"},
+        "fail_fraction": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "downgrade_fraction": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "min_count": {"type": "integer", "minimum": 1},
+        "note": {"type": "string"},
+        "metrics": {"type": "array", "minItems": 1, "items": {
+            "type": "object",
+            "required": ["name", "overshoot", "shortfall", "floor", "stability_tolerance", "sparse"],
+            "properties": {
+                "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+                "overshoot": {"type": "number", "minimum": 1},
+                "shortfall": {"type": "number", "minimum": 0, "maximum": 1},
+                "floor": {"type": "number", "exclusiveMinimum": 0},
+                "stability_tolerance": {"type": "number", "exclusiveMinimum": 0, "maximum": 1.5},
+                "sparse": {"type": "boolean"}
+            },
+            "additionalProperties": False}}
+    },
+    "additionalProperties": False
+}
+
 SCHEMAS = {
+    "global-metrics": global_metrics,
     "common": common, "idiolect": idiolect, "sources": sources, "manifest": manifest,
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,
     "fingerprint": fingerprint, "check-report": check_report, "lock": lock,

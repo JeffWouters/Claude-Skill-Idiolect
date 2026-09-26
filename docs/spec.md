@@ -174,10 +174,16 @@ automatically.
 1. Count level: `low` if texts < 3 or words < 3,000; `high` if texts ≥ 8 and words ≥ 15,000;
    otherwise `medium` (confirmed by the phase 0 experiment).
 2. Stability level: split the slot's corpus into two random halves five times with the slot's seed;
-   measure the primary metrics (or the global list) on each half. The relative difference of a metric
-   is `|a − b| / max(floor, (a + b) / 2)`. If any metric exceeds **its own** `stability_tolerance`
-   (from `assets/global-metrics.json`) in more than one split, the stability level is one step below
-   the count level; otherwise equal to it.
+   measure the slot's metric list (primary metrics, or the global list before any contrast pass) on
+   each half. The relative difference of a metric is `|a − b| / max(floor, (a + b) / 2)`. A metric is
+   **unstable** when that difference exceeds its own `stability_tolerance` (from
+   `assets/global-metrics.json`) in 2 or more of the 5 splits. If the number of unstable metrics is at
+   least the **downgrade count**, the stability level is one step below the count level; otherwise
+   equal to it.
+   - Downgrade count = `max(min_count, ceil(downgrade_fraction × metrics in the list))`: 4 for the
+     14 global metrics.
+   - Measured in phase 0: a genuine single-author corpus is downgraded 10% of the time at 8 texts and
+     2% at 12; a corpus mixing two authors 60% and 36%.
 3. Confidence = the lower of the two. It is written to the fingerprint and copied to the slot page.
 
 ## 14. Lessons, ids and rejections
@@ -221,8 +227,10 @@ automatically.
 1. For each metric in the slot's list: if the writer's value is below the metric's `floor`, flag when
    the draft exceeds it by more than 2 × `floor`; otherwise flag when `draft / writer` is above
    `overshoot` or, for non-sparse metrics, below `shortfall`.
-2. `status` is `fail` when the number of flagged metrics is at least `fail_threshold` (5); otherwise
-   `pass`, or `low_confidence` when the slot's confidence is `low`.
+2. The **fail count** is `max(min_count, ceil(fail_fraction × metrics in the list))`: 4 for the 14
+   global metrics. `status` is `fail` when the number of flagged metrics is at least the fail count;
+   otherwise `pass`, or `low_confidence` when the slot's confidence is `low`. The report records the
+   resolved count as `fail_threshold`.
 3. Every flag is still reported in the report, as a hint for the rewrite.
 
 ## 18. Values set in phase 0
@@ -233,7 +241,8 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 | --- | --- |
 | Global metric list | 14 metrics, listed in RESULTS.md |
 | Overshoot, shortfall, floor per metric | In `global-metrics.json`; five metrics are sparse (overshoot only) |
-| Stability tolerance | Per metric, 0.14 to 2.00 |
-| Fail threshold for `check` | 5 flagged metrics (8% of genuine passages fail, 87% of AI rewrites) |
+| Stability tolerance | Per metric, 0.14 to 1.50 (capped: the relative difference cannot exceed 2.0) |
+| Downgrade count | `downgrade_fraction` 0.28 → 4 of 14 unstable metrics (10% of genuine 8-text corpora downgraded, 60% of two-author mixes) |
+| Fail count for `check` | `fail_fraction` 0.28 → 4 of 14 flagged metrics (17% of genuine passages fail, 80% of AI rewrites; real authors 18% / 70%, synthetic 0% / 100%) |
 | Count thresholds | Confirmed: `low` < 3 texts, `high` ≥ 8 texts and 15,000 words |
 | Near-duplicate threshold | 0.90 confirmed (distinct essays peak at 0.004) |

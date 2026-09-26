@@ -121,7 +121,7 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 | `forget` | A source, or a source and a new ownership | Removes a text from the corpus (deleting its cached text) or reclassifies it, and relearns affected slots | After approval |
 | `write` | A brief | Drafts from the resolved slot | Nothing |
 | `rewrite` | A text | Rewrites within `depth` | Nothing |
-| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot per metric, and fails the draft when 5 or more metrics are flagged | Nothing |
+| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot per metric, and fails the draft when 4 or more of the 14 metrics are flagged (a fixed share of the list) | Nothing |
 | `test` | A holdout text, plus a topic-only brief | Flags the text as holdout through an approved diff; if it was already learned, affected slots are relearned first. Then generates from the brief in a context that never sees the text, and records per-metric drift | `eval/results.md` only |
 | `status` | Optionally a profile | Active store, slots, counts, confidence, rejections, inherited rulings, unreachable sources | Nothing |
 | `rollback` | A profile, optionally `to=` | Restores a snapshot of the profile and manifest after showing the diff; takes a snapshot first; removes slot files created after the restored snapshot; restores only this profile's manifest entries | After approval |
@@ -254,7 +254,7 @@ Computed per slot after the contrast pass, stored in the fingerprint, copied ont
 | `medium` | At least 3 texts and 3,000 words |
 | `high` | At least 8 texts and 15,000 words |
 
-**Stability.** The corpus is split into halves five times with a fixed seed, and the primary metrics are compared. If any varies by more than the tolerance set in phase 0, the stability level drops one step. Confidence is the lower of the two levels. A `low` slot is usable and flagged in every draft; `check` then reports `low_confidence`, which a calling skill may treat as a pass with a warning.
+**Stability.** The corpus is split into halves five times with a fixed seed, and the primary metrics are compared. A metric is unstable when it varies by more than its own phase-0 tolerance in two or more splits; when 4 or more of the 14 metrics are unstable, the stability level drops one step. (One unstable metric is normal: it happens in 75% of genuine 8-text corpora.) Confidence is the lower of the two levels. A `low` slot is usable and flagged in every draft; `check` then reports `low_confidence`, which a calling skill may treat as a pass with a warning.
 
 ![Confidence is the lower of two levels: a count level from the number of texts and words in the slot, and a stability level from five seeded half-splits comparing primary metrics.](idiolect-design-images/07-confidence.png)
 
@@ -518,7 +518,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 
 ### Metrics are chosen by evidence
 
-In phase 0 a throwaway script measured fixture texts and AI rewrites of them (`evals/spike/RESULTS.md`). Fourteen metrics were kept, each with overshoot and shortfall thresholds and its own stability tolerance; that is the global metric list in `idiolect/assets/global-metrics.json`, and the contrast pass later narrows it per slot. The experiment also showed that a single flag means little (95% of an author's own passages get at least one), so `check` fails a draft only when 5 or more metrics are flagged: 8% of genuine passages fail, 87% of AI rewrites do.
+In phase 0 a throwaway script measured fixture texts and AI rewrites of them (`evals/spike/RESULTS.md`). Fourteen metrics were kept, each with overshoot and shortfall thresholds and its own stability tolerance; that is the global metric list in `idiolect/assets/global-metrics.json`, and the contrast pass later narrows it per slot. The experiment also showed that a single flag means little (95% of an author's own passages get at least one), so `check` fails a draft only when 4 or more are flagged. On passages and rewrites of matched length, each checked against a fingerprint without its own essay, 17% of genuine passages fail and 80% of AI rewrites do (real authors 18% and 70%, synthetic 0% and 100%). The same count, 4 unstable metrics, decides the stability downgrade. Both are stored as a share of the list so a narrowed list scales. `check` informs; the blind evaluation in phase 3 decides.
 
 ### What the skill loads
 
@@ -614,7 +614,8 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | `interactive=false` for callers | A skill cannot tell who invoked it |
 | Never invent facts | A voice built to be believed makes invented details more harmful |
 | Caricature guard | Imitation overdoes habits |
-| `check` fails on 5+ flagged metrics, not on one | Measured in phase 0: single flags hit 95% of genuine passages; five flags separate genuine from AI (8% vs 87%) |
+| `check` fails on 4+ of 14 flagged metrics, not on one | Measured in phase 0 (reproducible in `spike.py`): single flags hit 85% of genuine passages; four flags fail 17% of genuine passages and 80% of AI rewrites. Replaces an earlier 5+ figure that came from an unreproducible run |
+| Stability downgrade needs 4+ unstable metrics | With "any metric", 75% of genuine 8-text corpora were downgraded; with 4, 10% are, while 60% of two-author mixes still are |
 | Brief writer may read the held-out passage; generators never do | A brief needs the topic; copied phrasing is blocked by an overlap check |
 | Evaluation bar met separately on synthetic and real fixture authors | The model recognises real authors' styles at low confidence, which can flatter results |
 | Redaction recorded per item | Export must be able to enforce it |

@@ -1,5 +1,214 @@
 {
-  "schema": "phase0-spike/1",
+  "schema": "phase0-spike/2",
+  "check_simulation": {
+    "all": {
+      "genuine_n": 530,
+      "ai_n": 30,
+      "genuine_with_any_flag": 0.847,
+      "by_threshold": {
+        "2": {
+          "genuine_fail": 0.568,
+          "ai_fail": 0.967
+        },
+        "3": {
+          "genuine_fail": 0.294,
+          "ai_fail": 0.867
+        },
+        "4": {
+          "genuine_fail": 0.166,
+          "ai_fail": 0.8
+        },
+        "5": {
+          "genuine_fail": 0.068,
+          "ai_fail": 0.5
+        },
+        "6": {
+          "genuine_fail": 0.032,
+          "ai_fail": 0.4
+        },
+        "7": {
+          "genuine_fail": 0.011,
+          "ai_fail": 0.3
+        },
+        "8": {
+          "genuine_fail": 0.0,
+          "ai_fail": 0.067
+        }
+      }
+    },
+    "real": {
+      "genuine_n": 482,
+      "ai_n": 20,
+      "genuine_with_any_flag": 0.851,
+      "by_threshold": {
+        "2": {
+          "genuine_fail": 0.593,
+          "ai_fail": 0.95
+        },
+        "3": {
+          "genuine_fail": 0.322,
+          "ai_fail": 0.8
+        },
+        "4": {
+          "genuine_fail": 0.183,
+          "ai_fail": 0.7
+        },
+        "5": {
+          "genuine_fail": 0.075,
+          "ai_fail": 0.25
+        },
+        "6": {
+          "genuine_fail": 0.035,
+          "ai_fail": 0.15
+        },
+        "7": {
+          "genuine_fail": 0.012,
+          "ai_fail": 0.1
+        },
+        "8": {
+          "genuine_fail": 0.0,
+          "ai_fail": 0.0
+        }
+      }
+    },
+    "synthetic": {
+      "genuine_n": 48,
+      "ai_n": 10,
+      "genuine_with_any_flag": 0.812,
+      "by_threshold": {
+        "2": {
+          "genuine_fail": 0.312,
+          "ai_fail": 1.0
+        },
+        "3": {
+          "genuine_fail": 0.021,
+          "ai_fail": 1.0
+        },
+        "4": {
+          "genuine_fail": 0.0,
+          "ai_fail": 1.0
+        },
+        "5": {
+          "genuine_fail": 0.0,
+          "ai_fail": 1.0
+        },
+        "6": {
+          "genuine_fail": 0.0,
+          "ai_fail": 0.9
+        },
+        "7": {
+          "genuine_fail": 0.0,
+          "ai_fail": 0.7
+        },
+        "8": {
+          "genuine_fail": 0.0,
+          "ai_fail": 0.2
+        }
+      }
+    }
+  },
+  "check_flags_per_author": {
+    "genuine_mean": {
+      "alexander-smith": 2.03,
+      "alice-meynell": 1.89,
+      "arthur-christopher-benson": 2.02,
+      "samuel-mcchord-crothers": 2.27,
+      "synthetic-idris": 0.96,
+      "synthetic-noor": 1.33
+    },
+    "ai": {
+      "alexander-smith": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "alice-meynell": [
+        2,
+        3,
+        0,
+        2,
+        4
+      ],
+      "arthur-christopher-benson": [
+        7,
+        5,
+        2,
+        7,
+        4
+      ],
+      "samuel-mcchord-crothers": [
+        5,
+        4,
+        4,
+        6,
+        4
+      ],
+      "synthetic-idris": [
+        6,
+        8,
+        7,
+        7,
+        7
+      ],
+      "synthetic-noor": [
+        7,
+        9,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  "stability_rule_downgrade_rate": {
+    "1": {
+      "3": 0.97,
+      "5": 0.95,
+      "8": 0.75,
+      "12": 0.8
+    },
+    "2": {
+      "3": 0.92,
+      "5": 0.82,
+      "8": 0.47,
+      "12": 0.34
+    },
+    "3": {
+      "3": 0.8,
+      "5": 0.53,
+      "8": 0.25,
+      "12": 0.12
+    },
+    "4": {
+      "3": 0.6,
+      "5": 0.32,
+      "8": 0.1,
+      "12": 0.02
+    }
+  },
+  "stability_rule_downgrade_rate_mixed_corpora": {
+    "1": {
+      "4": 0.98,
+      "8": 0.91,
+      "12": 0.84
+    },
+    "2": {
+      "4": 0.91,
+      "8": 0.82,
+      "12": 0.64
+    },
+    "3": {
+      "4": 0.8,
+      "8": 0.64,
+      "12": 0.42
+    },
+    "4": {
+      "4": 0.73,
+      "8": 0.6,
+      "12": 0.36
+    }
+  },
   "seed": 20261002,
   "authors": [
     "alexander-smith",
@@ -64,7 +273,7 @@
       "overshoot": 2.77,
       "shortfall": 0.05,
       "floor": 0.5,
-      "stability_tolerance": 2.0
+      "stability_tolerance": 1.5
     },
     {
       "name": "dashes_per_1k",

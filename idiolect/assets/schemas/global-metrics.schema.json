@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/global-metrics.schema.json",
+  "title": "Global metric list shipped with the skill (assets/global-metrics.json)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source",
+    "fail_fraction",
+    "downgrade_fraction",
+    "min_count",
+    "metrics"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "source": {
+      "type": "string"
+    },
+    "fail_fraction": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "downgrade_fraction": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "min_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "note": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "overshoot",
+          "shortfall",
+          "floor",
+          "stability_tolerance",
+          "sparse"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "overshoot": {
+            "type": "number",
+            "minimum": 1
+          },
+          "shortfall": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "floor": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "stability_tolerance": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1.5
+          },
+          "sparse": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -54,6 +54,7 @@ VALID = [
     ("progress", STORE / ".state" / "progress.json"),
     ("pending", STORE / ".state" / "pending" / "plan.json"),
     ("check-report", ROOT / "tests" / "reports" / "pass.json"),
+    ("global-metrics", ROOT / "idiolect" / "assets" / "global-metrics.json"),
     ("check-report", ROOT / "tests" / "reports" / "needs_input.json"),
     ("check-report", ROOT / "tests" / "reports" / "no_slot.json"),
 ]

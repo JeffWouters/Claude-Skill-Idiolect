@@ -46,7 +46,7 @@
     "fail_threshold": {
       "type": "integer",
       "minimum": 1,
-      "description": "The draft fails when flagged >= fail_threshold (5, from global-metrics.json)."
+      "description": "The resolved count: max(min_count, ceil(fail_fraction x metrics in the list)); 4 for the 14 global metrics. The draft fails when flagged >= fail_threshold."
     },
     "metrics": {
       "type": "array",

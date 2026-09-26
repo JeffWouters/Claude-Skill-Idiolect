@@ -219,7 +219,8 @@ def main():
     tolerance = stab[8]["p90"]
     for k in kept:
         v = sorted(per_metric[k])
-        defaults[k]["stability_tolerance"] = round(v[int(0.9 * len(v))], 2)
+        # capped at 1.5: the relative difference cannot exceed 2.0, so a tolerance of 2.0 never fires
+        defaults[k]["stability_tolerance"] = min(1.5, round(v[int(0.9 * len(v))], 2))
 
     # 6. near-duplicate check: max 5-shingle Jaccard between distinct essays
     def sh(t):
@@ -234,8 +235,107 @@ def main():
                 if u:
                     maxj = max(maxj, len(S[i] & S[j]) / u)
 
+    # 7. check simulation (spec §17): how many metrics flag a genuine passage vs an AI rewrite.
+    #    Leave-one-out: the fingerprint never contains the essay the passage comes from.
+    #    Genuine passages are cut to the rewrites' length range (matched-length comparison).
+    def n_flags(m, ref):
+        n = 0
+        for k in kept:
+            d = defaults[k]
+            w = ref[k]
+            if w < d["floor"]:
+                n += (m[k] - w) > 2 * d["floor"]
+                continue
+            r = m[k] / w
+            sparse = d["shortfall"] <= 0.05
+            n += r > d["overshoot"] or (not sparse and r < d["shortfall"])
+        return n
+
+    files = {a: sorted(glob.glob(str(FIX / a / "[0-9]*.md"))) for a in authors}
+    genuine = {a: [] for a in authors}
+    ai = {a: [] for a in authors}
+    for a in authors:
+        texts = corp[a]
+        for i, t in enumerate(texts):
+            ref = metrics("\n\n".join(texts[:i] + texts[i + 1:]))
+            genuine[a] += [n_flags(metrics(c), ref) for c in chunks([t], 350)]
+        for n in range(1, 6):
+            s = SPK / "samples" / a / f"{n}.md"
+            r = SPK / "rewrites" / a / f"{n}.md"
+            if not (s.exists() and r.exists()):
+                continue
+            src = re.search(r"source: (\S+)", s.read_text()).group(1)
+            src_i = next(i for i, f in enumerate(files[a]) if f.endswith(src.split("fixtures/")[-1]))
+            ref = metrics("\n\n".join(texts[:src_i] + texts[src_i + 1:]))
+            ai[a].append(n_flags(metrics(strip_meta(r.read_text())), ref))
+    groups = {"all": authors, "real": [a for a in authors if not a.startswith("synthetic")],
+              "synthetic": [a for a in authors if a.startswith("synthetic")]}
+    check_table = {}
+    for g, members in groups.items():
+        gen = [x for a in members for x in genuine[a]]
+        aiv = [x for a in members for x in ai[a]]
+        check_table[g] = {"genuine_n": len(gen), "ai_n": len(aiv),
+                          "genuine_with_any_flag": round(sum(x >= 1 for x in gen) / len(gen), 3),
+                          "by_threshold": {K: {"genuine_fail": round(sum(x >= K for x in gen) / len(gen), 3),
+                                               "ai_fail": round(sum(x >= K for x in aiv) / len(aiv), 3)}
+                                           for K in range(2, 9)}}
+
+    # 8. stability rule calibration (spec §13): a metric is unstable in a split when its relative
+    #    difference exceeds its tolerance; it counts when unstable in >= 2 of 5 splits; the slot is
+    #    downgraded when >= m metrics count. Rates on genuine single-author corpora.
+    def downgraded(texts, m_needed, rnd_):
+        unstable = {k: 0 for k in kept}
+        for _ in range(5):
+            s_ = rnd_.sample(texts, len(texts))
+            h1, h2 = s_[: len(s_) // 2], s_[len(s_) // 2:]
+            m1, m2 = metrics("\n\n".join(h1)), metrics("\n\n".join(h2))
+            for k in kept:
+                f = defaults[k]["floor"]
+                if abs(m1[k] - m2[k]) / max(f, (m1[k] + m2[k]) / 2) > defaults[k]["stability_tolerance"]:
+                    unstable[k] += 1
+        return sum(1 for v in unstable.values() if v >= 2) >= m_needed
+
+    stab_rule = {}
+    for m_needed in (1, 2, 3, 4):
+        row = {}
+        for n in (3, 5, 8, 12):
+            rnd2 = random.Random(SEED + n)
+            hits = total = 0
+            for a in authors:
+                if len(corp[a]) < n:
+                    continue
+                for _ in range(10):
+                    hits += downgraded(rnd2.sample(corp[a], n), m_needed, rnd2)
+                    total += 1
+            row[n] = round(hits / total, 2)
+        stab_rule[m_needed] = row
+
+    # 8b. the same rule on mixed corpora (half one author, half another): does split-half
+    #     stability notice a corpus that mixes two voices?
+    mixed_rule = {}
+    for m_needed in (1, 2, 3, 4):
+        row = {}
+        for n in (4, 8, 12):
+            rnd3 = random.Random(SEED + 100 + n)
+            hits = total = 0
+            for i, a in enumerate(authors):
+                for b in authors[i + 1:]:
+                    if len(corp[a]) < n // 2 or len(corp[b]) < n // 2:
+                        continue
+                    for _ in range(3):
+                        mix = rnd3.sample(corp[a], n // 2) + rnd3.sample(corp[b], n // 2)
+                        hits += downgraded(mix, m_needed, rnd3)
+                        total += 1
+            row[n] = round(hits / total, 2)
+        mixed_rule[m_needed] = row
+
     result = {
-        "schema": "phase0-spike/1",
+        "schema": "phase0-spike/2",
+        "check_simulation": check_table,
+        "check_flags_per_author": {"genuine_mean": {a: round(st.mean(genuine[a]), 2) for a in authors},
+                                   "ai": ai},
+        "stability_rule_downgrade_rate": stab_rule,
+        "stability_rule_downgrade_rate_mixed_corpora": mixed_rule,
         "seed": SEED,
         "authors": authors,
         "global_metrics": [{"name": k, **defaults[k]} for k in kept],
@@ -256,6 +356,17 @@ def main():
     for k in kept:
         print(f"  {k:28s} {defaults[k]}")
     print("max Jaccard between distinct essays:", round(maxj, 3))
+    print("\ncheck simulation (matched length, leave-one-out):")
+    for g, t in check_table.items():
+        print(f"  {g}: genuine n={t['genuine_n']}, AI n={t['ai_n']}, genuine with any flag {t['genuine_with_any_flag']}")
+        for K, v in t["by_threshold"].items():
+            print(f"    fail if >= {K}: genuine {v['genuine_fail']:.2f}  AI {v['ai_fail']:.2f}")
+    print("\nstability rule: downgrade rate by metrics needed (rows) and corpus size (columns)")
+    for m_needed, row in stab_rule.items():
+        print(f"  m >= {m_needed}: {row}")
+    print("same rule on mixed two-author corpora:")
+    for m_needed, row in mixed_rule.items():
+        print(f"  m >= {m_needed}: {row}")
 
 
 if __name__ == "__main__":

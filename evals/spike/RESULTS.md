@@ -25,7 +25,7 @@ shipped as `idiolect/assets/global-metrics.json`.
 | commas_per_sentence | 4/6 | 0.47 | 1.48 | 0.62 | 0.21 |
 | semicolons_per_1k | 4/6 | 0.38 | 1.94 | 0.29 | 0.34 |
 | conjunction_opener_share | 4/6 | 0.16 | 2.25 | sparse | 0.53 |
-| contractions_per_1k | 4/6 | 0.09 | 2.77 | sparse | 2.00 |
+| contractions_per_1k | 4/6 | 0.09 | 2.77 | sparse | 1.50 |
 | dashes_per_1k | 3/6 | 0.27 | 2.69 | sparse | 0.72 |
 | colons_per_1k | 3/6 | 0.03 | 4.28 | sparse | 1.19 |
 | short_sentence_share | 2/6 | 0.68 | 2.61 | sparse | 0.74 |
@@ -45,19 +45,29 @@ author's mean, pooled over authors, bounded to at least 1.25 / at most 0.8. **Sp
 
 ## The most important finding: judge a draft by the number of flags
 
-With per-metric thresholds, **95% of an author's own 700-word passages get at least one flag**. A
-single flag therefore cannot mean "fail". The count of flags does separate cleanly (leave-one-out:
-each passage checked against a fingerprint built without its own essay):
+Computed in step 7 of `spike.py`. Genuine passages are 350-word chunks (the rewrites' length range),
+each checked against a fingerprint built without its own essay. Each AI rewrite is checked against a
+fingerprint built without the essay it was rewritten from. **85% of genuine passages get at least one
+flag**, so a single flag cannot mean "fail". The count separates:
 
-| Fail when flags ≥ | Author's own passages failing | AI rewrites failing |
+| Fail when flags ≥ | Genuine fail (all / real / synthetic) | AI rewrites fail (all / real / synthetic) |
 | --- | --- | --- |
-| 3 | 42% | 97% |
-| 4 | 20% | 93% |
-| **5** | **8%** | **87%** |
-| 6 | 4% | 73% |
+| 3 | 29% / 32% / 2% | 87% / 80% / 100% |
+| **4** | **17% / 18% / 0%** | **80% / 70% / 100%** |
+| 5 | 7% / 7% / 0% | 50% / 25% / 100% |
+| 6 | 3% / 4% / 0% | 40% / 15% / 90% |
 
-**Decision: `check` fails a draft when 5 or more of the 14 metrics are flagged.** Individual flags are
-still reported as hints for the rewrite. Recorded as `fail_threshold` in `global-metrics.json`.
+n = 530 genuine passages (482 real, 48 synthetic) and 30 rewrites (20 real, 10 synthetic).
+
+**Decision: `check` fails a draft when 4 or more of the 14 metrics are flagged.** At 5, only a quarter
+of the AI rewrites of real authors fail, which makes the check nearly blind; at 3, a third of genuine
+passages fail. 4 accepts that about one genuine passage in six fails, which is tolerable because a
+failed `check` leads to a rewrite suggestion, not a block. Stored as `fail_fraction` 0.28, so the
+count is `max(2, ceil(0.28 × metrics))` for a narrowed list; that scaling is untested below 14 metrics.
+
+An earlier version of this file reported 8% vs 87% at 5 flags. That came from a run outside
+`spike.py` that compared full-length passages with shorter rewrites and let a rewrite's own source
+essay into its fingerprint. It could not be reproduced and is withdrawn.
 
 ## Stability and count thresholds
 
@@ -70,10 +80,28 @@ Relative split-half difference of the kept metrics, for corpora of n texts (20 r
 | 8 | 0.12 | 0.60 |
 | 12 | 0.08 | 0.52 |
 
-- A single tolerance (0.60 at 8 texts) is too loose for dense metrics and too tight for sparse ones,
-  so **each metric carries its own stability tolerance** (its 90th percentile at 8 texts, table above).
+- **Each metric carries its own stability tolerance** (its 90th percentile at 8 texts), capped at
+  1.50 because the relative difference cannot exceed 2.0 (`contractions_per_1k` measured 2.00, which
+  would never fire).
 - The steady fall from 3 to 8 texts supports the count floors in the spec: `low` under 3 texts,
   `high` from 8. They stay as set.
+
+### The downgrade rule (step 8)
+
+A metric is unstable when it exceeds its tolerance in 2 or more of 5 half-splits. Share of corpora
+downgraded, by the number of unstable metrics required:
+
+| Unstable metrics needed | Genuine, 5 texts | Genuine, 8 | Genuine, 12 | Two-author mix, 8 | Two-author mix, 12 |
+| --- | --- | --- | --- | --- | --- |
+| 1 (the old "any metric" rule) | 95% | 75% | 80% | 91% | 84% |
+| 2 | 82% | 47% | 34% | 82% | 64% |
+| 3 | 53% | 25% | 12% | 64% | 42% |
+| **4** | **32%** | **10%** | **2%** | **60%** | **36%** |
+
+**Decision: downgrade when 4 or more metrics are unstable** (`downgrade_fraction` 0.28). "Any
+metric" downgraded almost every slot and meant nothing. At 4, a settled single-author corpus of 8+
+texts keeps its level, while most corpora that mix two voices still drop. Split-halves spread a mix
+over both halves, so this rule cannot be the only guard against mixed corpora; facets are.
 
 ## Near-duplicates
 
@@ -86,5 +114,5 @@ the 0.90 near-duplicate threshold, so the threshold stays.
   authors are extreme by design. Both groups agree on the top metrics.
 - Hedge and connective word lists are English only. Other languages need their own lists before their
   metrics mean anything.
-- 30 AI rewrites is a small sample; the 87% catch rate has a wide margin. Phase 3's blind evaluation is
+- 30 AI rewrites is a small sample; the 80% catch rate (70% for real authors, n = 20) has a wide margin. Phase 3's blind evaluation is
   the real test.

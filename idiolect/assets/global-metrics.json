@@ -1,8 +1,10 @@
 {
   "schema_version": 1,
   "source": "evals/spike (phase 0 metric experiment), seed 20261002",
-  "fail_threshold": 5,
-  "note": "A draft fails check when fail_threshold or more metrics are flagged. Single flags are hints. Metrics with a writer value below floor are judged by absolute difference (flag when the draft exceeds the writer value by more than 2 x floor).",
+  "fail_fraction": 0.28,
+  "downgrade_fraction": 0.28,
+  "min_count": 2,
+  "note": "Thresholds are counts derived from the metric list in use: count = max(min_count, ceil(fraction x number of metrics)). With the 14 global metrics both are 4. check fails a draft when that many metrics are flagged; single flags are hints. A slot's stability level drops one step when that many metrics are unstable (over tolerance in 2 or more of 5 half-splits). Metrics with a writer value below floor are judged by absolute difference (flag when the draft exceeds the writer value by more than 2 x floor). stability_tolerance is capped at 1.5 because the relative difference cannot exceed 2.0.",
   "metrics": [
     {
       "name": "sentence_length_sd",
@@ -65,7 +67,7 @@
       "overshoot": 2.77,
       "shortfall": 0.05,
       "floor": 0.5,
-      "stability_tolerance": 2.0,
+      "stability_tolerance": 1.5,
       "sparse": true
     },
     {
