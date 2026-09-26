@@ -5,42 +5,64 @@ in `idiolect.skill`.
 
 ## Authors in use
 
-| Folder | Author | Source | Essays | Words | Recognition check |
+| Folder | Author | Source | Essays | Words | Recognition screening (passages recognised at medium or higher) |
 | --- | --- | --- | --- | --- | --- |
-| `alexander-smith` | Alexander Smith (d. 1867) | *Dreamthorp* (1863), Gutenberg 18135 | 12 | ~74,000 | Named correctly, **low** confidence, "not recognised" |
-| `alice-meynell` | Alice Meynell (d. 1922) | *The Rhythm of Life* (1893), *The Colour of Life* (1896), Gutenberg 1276 and 1205 | 33 | ~38,000 | Named correctly, **low** confidence, "not recognised" |
-| `arthur-christopher-benson` | A. C. Benson (d. 1925) | *From a College Window* (1906), Gutenberg 4614 | 17 | ~69,000 | Named correctly, **low** confidence, "not recognised" |
-| `samuel-mcchord-crothers` | S. M. Crothers (d. 1927) | *The Pardoner's Wallet* (1905), Gutenberg 73172 | 11 | ~57,000 | Named correctly, **low** confidence, "not recognised" |
+| `katharine-fullerton-gerould` | Katharine Fullerton Gerould (d. 1944) | *Modes and Morals* (1920), Gutenberg 78310 | 12 | ~65,000 | 1 of 4 |
+| `robert-cortes-holliday` | Robert Cortes Holliday (d. 1947) | *Walking-Stick Papers* (1918), Gutenberg 13708 | 24 | ~58,000 | 0 of 8 |
+| `samuel-mcchord-crothers` | S. M. Crothers (d. 1927) | *The Pardoner's Wallet* (1905), Gutenberg 73172 | 11 | ~57,000 | 2 of 10 (evaluation run 1) |
 | `synthetic-noor` | Noor Vale (invented) | Written for this project, CC0 | 12 | ~8,000 | Not applicable |
 | `synthetic-idris` | Idris Holloway (invented) | Written for this project, CC0 | 12 | ~9,000 | Not applicable |
 
 All real authors died before 1956 and the books were published before 1929, so the texts are in the
 public domain in both the US and the EU. Each essay file carries its source in frontmatter. Texts
-were split with `tools/build_fixtures.py`; Gutenberg headers, footers, illustration and footnote
-markers are removed.
+were split with `tools/build_fixtures.py` (`python3 tools/build_fixtures.py <folder of pgNNNN.txt>
+<author,author>` builds only the named authors); Gutenberg headers, footers, illustration and
+footnote markers are removed.
 
-## Retired after the recognition check
+## How authors are screened
+
+Since evaluation run 1 (design: decision log), a candidate is screened **per passage**: separate
+fresh agents each see one ~280-word passage from the middle of the book and are asked whether they
+recognise the author, with a name and a confidence. An author is kept when at most one passage in four
+is recognised at medium confidence or higher. The passages and answers are in
+`evals/fixtures-screening/` (`answers.json`).
+
+| Candidate | Passages | Named correctly | Medium or higher | Decision |
+| --- | --- | --- | --- | --- |
+| Robert Cortes Holliday, *Walking-Stick Papers* | 8 | 6 (all low) | 0 | Used |
+| Katharine Fullerton Gerould, *Modes and Morals* | 4 | 4 | 1 | Used |
+| Charles S. Brooks, *Chimney-Pot Papers* | 4 | 4 | 2 | Not used |
+| Simeon Strunsky, *Post-Impressions* | 4 | 4 | 2 | Not used |
+| Maurice Francis Egan, *Confessions of a Book-Lover* | 4 | 4 | 2 | Not used |
+| A. G. Gardiner, *Pebbles on the Shore* | 4 | 4 | 3 | Not used |
+| Heywood Broun, *Pieces of Hate* | 4 | 4 | 3 | Not used |
+
+The model names even obscure essayists correctly at low confidence, often from what a passage is
+about. So the real-author group is never free of the model's prior knowledge; every run therefore
+checks each passage again and leaves recognised briefs out of the score.
+
+## Retired
 
 Moved to `evals/_to_delete/`, not deleted.
 
 | Author | Why |
 | --- | --- |
-| Charles Dudley Warner, *Backlog Studies* | Judge named author **and** work with medium-high confidence |
-| Agnes Repplier, *Essays in Idleness* | Judge named author and a likely essay with low-medium confidence |
+| Charles Dudley Warner, *Backlog Studies* | Phase 0: judge named author **and** work with medium-high confidence |
+| Agnes Repplier, *Essays in Idleness* | Phase 0: judge named author and a likely essay with low-medium confidence |
+| Alexander Smith, *Dreamthorp* | Run 1: 9 of 10 passages recognised at medium or higher |
+| Alice Meynell, *The Rhythm of Life* and *The Colour of Life* | Run 1: 7 of 7 passages recognised |
+| A. C. Benson, *From a College Window* | Run 1: 9 of 10 passages recognised |
 
-## What the recognition check showed
+Their evaluation-store profiles were forgotten through `forget` (every text, then approved); copies of
+the profiles as learned, their manifest entries and cached texts are in
+`evals/_to_delete/store-<author>/`. The phase 0 metric experiment (`evals/spike/`) was run on the
+original six authors and is kept as it was.
 
-A fresh agent with no tools saw one anonymous ~200-word excerpt per author. It named **all six
-authors correctly**; for four it said it was guessing from era and style. So:
+## What the phase 0 check showed
 
-- The rule "replace a recognised author" is applied at **medium confidence or higher**. Low-confidence
-  correct guesses are recorded here, not treated as recognition.
-- The model clearly has a sense of these writers' styles even when it cannot place the text. Results
-  on real fixture authors may therefore flatter Idiolect, and they flatter the few-shot baseline in
-  the same way.
-- For that reason the protocol reports **synthetic and real authors separately**, and Idiolect must
-  meet the bar on both groups. The synthetic authors cannot be known from training; the real ones
-  bring the irregularity of genuine prose that synthetic text lacks.
+One anonymous ~200-word excerpt per author named all six original authors correctly, four of them at
+low confidence. That single-passage check missed how often individual passages are recognised, which
+is why screening is now per passage.
 
 ## Synthetic authors
 

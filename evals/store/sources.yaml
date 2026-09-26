@@ -64,3 +64,23 @@ sources:
   - 11-darning-a-sock.md
   facets:
     type: essay
+- path: robert-cortes-holliday
+  profile: robert-cortes-holliday
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 08-henry-james-himself.md
+  - 15-hunting-lodgings.md
+  - 20-humours-of-the-book-shop.md
+  facets:
+    type: essay
+- path: katharine-fullerton-gerould
+  profile: katharine-fullerton-gerould
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 03-caviare-on-principle.md
+  - 04-the-extirpation-of-culture.md
+  - 08-the-boundaries-of-truth.md
+  facets:
+    type: essay

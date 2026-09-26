@@ -1,0 +1,226 @@
+[
+ {
+  "passage": "s01",
+  "candidate": "brooks",
+  "named": "Charles S. Brooks",
+  "confidence": "low",
+  "why": "Whimsical early-20th-century American familiar essay on walking and a Pickwick inn pilgrimage; style fits Brooks (Journeys to Bagdad / Chimney-Pot Papers), but no verbatim recall."
+ },
+ {
+  "passage": "s02",
+  "candidate": "brooks",
+  "named": "Charles S. Brooks",
+  "confidence": "low",
+  "why": "Whimsical WWI-era American familiar essay (nephew, castles on a chair, grandson serving in France) resembles Brooks's Chimney-Pot Papers style, but no specific passage recalled; Christopher Morley also plausible."
+ },
+ {
+  "passage": "s03",
+  "candidate": "brooks",
+  "named": "Charles S. Brooks",
+  "confidence": "medium",
+  "why": "Whimsical 1910s-20s American familiar essay with the bookish character Wurm and Fourth Avenue bookshops reads like Brooks's Chimney-Pot Papers / Hints to Pilgrims era."
+ },
+ {
+  "passage": "s04",
+  "candidate": "brooks",
+  "named": "Charles S. Brooks",
+  "confidence": "medium",
+  "why": "Reads like the opening of 'On Going to a Party' from Brooks's familiar-essay collection Chimney-Pot Papers (1919): whimsical fireside persona, exclamatory asides, early-20th-century American familiar-essay style."
+ },
+ {
+  "passage": "s05",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "Whimsical early-1900s New York familiar essay (Fifth Avenue art exhibition, Manet) resembles Holliday's Walking-Stick Papers style, but I recall no specific passage."
+ },
+ {
+  "passage": "s06",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "1910s New York gallery-going sketch in a wry familiar-essay voice (Whistler, Chelsea, 'new crowd') resembling Holliday's Turns About Town; no specific passage recalled."
+ },
+ {
+  "passage": "s07",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "Whimsical early-1900s American familiar-essay style (bums, 'ingenious way of miscellaneous writing') resembles Holliday's Walking-Stick Papers, but no specific passage is recalled with certainty."
+ },
+ {
+  "passage": "s08",
+  "candidate": "holliday",
+  "named": null,
+  "confidence": "none",
+  "why": "Antiquarian local-history quotation of 18th-century City of London titles and constable's accounts; no distinctive authorial voice I can attribute."
+ },
+ {
+  "passage": "s09",
+  "candidate": "strunsky",
+  "named": "Simeon Strunsky",
+  "confidence": "low",
+  "why": "Early-1900s American humorous essay style and satirical dictionary entry (\"one-third of a French family\") resemble Strunsky's Evening Post sketches, but no passage is recalled verbatim."
+ },
+ {
+  "passage": "s10",
+  "candidate": "strunsky",
+  "named": "Simeon Strunsky",
+  "confidence": "low",
+  "why": "Whimsical early-1900s American familiar essay about a child 'Harold' (Kaiser reference) resembles Strunsky's essays, but no specific passage is recalled."
+ },
+ {
+  "passage": "s11",
+  "candidate": "strunsky",
+  "named": "Simeon Strunsky",
+  "confidence": "medium",
+  "why": "Early-1900s New York humorous essay with the recurring wife 'Emmeline' and apartment-court setting, characteristic of Strunsky's Belshazzar Court / Patient Observer essays."
+ },
+ {
+  "passage": "s12",
+  "candidate": "strunsky",
+  "named": "Simeon Strunsky",
+  "confidence": "medium",
+  "why": "Early-1910s New York humorous sketch about magazine second-class postage, with an ironic unpublished-poet friend; the style matches Strunsky's 'The Patient Observer' essays, but I don't recall the exact text."
+ },
+ {
+  "passage": "s13",
+  "candidate": "gardiner",
+  "named": "A. G. Gardiner (Alpha of the Plough)",
+  "confidence": "low",
+  "why": "WWI-era English village essay (Belgian refugees, pub landlord, wasps, dialect) resembles Gardiner's Chilterns wartime essays in Pebbles on the Shore, but I recall no specific passage."
+ },
+ {
+  "passage": "s14",
+  "candidate": "gardiner",
+  "named": "A. G. Gardiner (Alpha of the Plough)",
+  "confidence": "medium",
+  "why": "Reads like his essay 'On Talking to Oneself': an early-20th-century English familiar essay with self-mocking asides about golf and the Tate."
+ },
+ {
+  "passage": "s15",
+  "candidate": "gardiner",
+  "named": "A. G. Gardiner (Alpha of the Plough)",
+  "confidence": "medium",
+  "why": "WWI-era English familiar essays (spider's point of view, beer out of porcelain) match Gardiner's 'Alpha of the Plough' collections in tone and subject."
+ },
+ {
+  "passage": "s16",
+  "candidate": "gardiner",
+  "named": "A. G. Gardiner (Alpha of the Plough)",
+  "confidence": "medium",
+  "why": "Genial first-person Edwardian/1910s-20s English essay style with personal anecdotes of Morley, Goschen, Chamberlain and Churchill 'to-day' fits Gardiner's Pebbles on the Shore / Leaves in the Wind essays, but I don't recall this exact passage."
+ },
+ {
+  "passage": "s17",
+  "candidate": "egan",
+  "named": "Maurice Francis Egan",
+  "confidence": "medium",
+  "why": "Early-1920s American Catholic book-lover essay on reading Dante (Temple Edition, Gollancz, Longfellow sonnets, 'rime' spelling) matches Egan's 'Confessions of a Book-Lover'."
+ },
+ {
+  "passage": "s18",
+  "candidate": "egan",
+  "named": "Maurice Francis Egan",
+  "confidence": "low",
+  "why": "Opens by quoting William James's well-known letter to his wife, then reviews the 1920 'Letters of William James' in a Catholic book-lover's register (Newman, Aquinas, Pepys), which suggests Egan's 'Confessions of a Book-Lover'; the attribution is a guess, not recalled text."
+ },
+ {
+  "passage": "s19",
+  "candidate": "egan",
+  "named": "Maurice Francis Egan",
+  "confidence": "medium",
+  "why": "Early-1920s bookish essay (cites Hawes's The Mutineers, Zahm/Mozans) matching the tone and Catholic-literary circle of Egan's Confessions of a Book-Lover (1922)."
+ },
+ {
+  "passage": "s20",
+  "candidate": "egan",
+  "named": "Maurice Francis Egan",
+  "confidence": "low",
+  "why": "The a Kempis and Adirondacks book-lover passages feel like Egan's Confessions of a Book-Lover, but the Machiavelli and sovereignty passages read more like David Jayne Hill, so the sample may be mixed."
+ },
+ {
+  "passage": "s21",
+  "candidate": "gerould",
+  "named": "Katharine Fullerton Gerould",
+  "confidence": "low",
+  "why": "Reads like her essay 'The Extirpation of Culture' (Modes and Morals, 1920): early-1900s American essay lamenting the democratized college, the decline of Greek and public-school literacy."
+ },
+ {
+  "passage": "s22",
+  "candidate": "gerould",
+  "named": "Katharine Fullerton Gerould",
+  "confidence": "low",
+  "why": "Early-1910s American essay on convention and manners (Damaged Goods reference, urbane epigrammatic style) resembles Gerould's Modes and Morals essays, but no specific passage recalled; Agnes Repplier also plausible."
+ },
+ {
+  "passage": "s23",
+  "candidate": "gerould",
+  "named": "Katharine Fullerton Gerould",
+  "confidence": "low",
+  "why": "1910s American essayist voice (vice commissions, Brieux, novelist Winston Churchill, 'my own small town') suggests Gerould's Atlantic essays, though Agnes Repplier is a close alternative; no specific passage recalled."
+ },
+ {
+  "passage": "s24",
+  "candidate": "gerould",
+  "named": "Katharine Fullerton Gerould",
+  "confidence": "medium",
+  "why": "The 'syndicate' framing of younger British novelists, set against Wells and Bennett circa Mr. Britling (1916), matches her essay 'British Novelists, Ltd.' (Modes and Morals)."
+ },
+ {
+  "passage": "s25",
+  "candidate": "broun",
+  "named": "Heywood Broun",
+  "confidence": "medium",
+  "why": "1921 Dempsey-Carpentier camp reportage with wry first-person-plural wit ('Say it with cauliflowers') matches Broun's New York World sports columns."
+ },
+ {
+  "passage": "s26",
+  "candidate": "broun",
+  "named": "Heywood Broun",
+  "confidence": "low",
+  "why": "Witty 1920s editorial-'we' essay on the Strongheart film The Silent Call mocking reformers fits Broun's newspaper columns (e.g. Pieces of Hate), but I recall no specific attribution; Robert E. Sherwood is an alternative."
+ },
+ {
+  "passage": "s27",
+  "candidate": "broun",
+  "named": "Heywood Broun",
+  "confidence": "medium",
+  "why": "1920s New York columnist voice, 1921 Giants-Yankees World Series and Hughie Jennings references, wry essay on after-dinner speaking resembles Broun's Seeing Things at Night-era pieces"
+ },
+ {
+  "passage": "s28",
+  "candidate": "broun",
+  "named": "Heywood Broun",
+  "confidence": "medium",
+  "why": "Early-1920s humorous columnist voice, a Harvard man writing on football, Prohibition near beer and the sedition law; fits Broun's essays such as those in Seeing Things at Night."
+ },
+ {
+  "passage": "s29",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "Whimsical early-1900s American familiar essay (Little Billie/Trilby allusion, art-critic in-joke) matches Holliday's Walking-Stick Papers style, but no specific passage recalled."
+ },
+ {
+  "passage": "s30",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "Whimsical 1910s American familiar essay (Spectator, Hornaday, Moody) in the manner of Holliday's Walking-Stick Papers; attribution is a guess, not a recalled text."
+ },
+ {
+  "passage": "s31",
+  "candidate": "holliday",
+  "named": "Robert Cortes Holliday",
+  "confidence": "low",
+  "why": "Whimsical 1910s New York literary-journalism essay whose unnamed reviewer (lexicographer, socialist, aesthete, Catholic convert, near thirty) matches Joyce Kilmer, Holliday's close friend; fits Walking-Stick Papers style, but not a recognised passage."
+ },
+ {
+  "passage": "s32",
+  "candidate": "holliday",
+  "named": null,
+  "confidence": "low",
+  "why": "Reads like an early-1900s American bibliophile essay on collecting municipal documents, but I cannot place the specific author."
+ }
+]

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "profile": "alexander-smith",
+  "slot": "en._",
+  "pooled": true,
+  "metrics": {
+    "sentence_length_sd": {
+      "value": 17.443038,
+      "overshoot": 1.61,
+      "shortfall": 0.61,
+      "primary": true
+    },
+    "sentences_per_paragraph": {
+      "value": 8.906475,
+      "overshoot": 1.88,
+      "shortfall": 0.43,
+      "primary": false
+    },
+    "long_sentence_share": {
+      "value": 0.302908,
+      "overshoot": 1.65,
+      "shortfall": 0.49,
+      "primary": false
+    },
+    "sentence_length_mean": {
+      "value": 24.754443,
+      "overshoot": 1.33,
+      "shortfall": 0.76,
+      "primary": false
+    },
+    "commas_per_sentence": {
+      "value": 2.03231,
+      "overshoot": 1.48,
+      "shortfall": 0.62,
+      "primary": true
+    },
+    "semicolons_per_1k": {
+      "value": 10.670234,
+      "overshoot": 1.94,
+      "shortfall": 0.29,
+      "primary": false
+    },
+    "conjunction_opener_share": {
+      "value": 0.073506,
+      "overshoot": 2.25,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "contractions_per_1k": {
+      "value": 5.318802,
+      "overshoot": 2.77,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "dashes_per_1k": {
+      "value": 6.819813,
+      "overshoot": 2.69,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "colons_per_1k": {
+      "value": 1.468381,
+      "overshoot": 4.28,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "short_sentence_share": {
+      "value": 0.077544,
+      "overshoot": 2.61,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "long_word_share": {
+      "value": 0.202963,
+      "overshoot": 1.25,
+      "shortfall": 0.78,
+      "primary": false
+    },
+    "hedges_per_1k": {
+      "value": 3.165177,
+      "overshoot": 2.1,
+      "shortfall": 0.25,
+      "primary": false
+    },
+    "digits_per_1k": {
+      "value": 0.750506,
+      "overshoot": 2.01,
+      "shortfall": 0.32,
+      "primary": true
+    }
+  },
+  "counts": {
+    "texts": 5,
+    "words": 30675
+  },
+  "confidence": {
+    "level": "low",
+    "count_level": "medium",
+    "stability_level": "low",
+    "splits": 5
+  },
+  "seed": 3550657051,
+  "metric_list": "contrast",
+  "built": "2026-09-26T14:33:56Z",
+  "personal_data": "none",
+  "contrast": {
+    "sample_texts": [
+      "1a93b04c773db4f3ce2f35c8bdc050a46b2ff2e18961a295c86c1ac4a6b8f9d0",
+      "278c4df7b4897cf47a3e6a34195008a2ad15191f94f81ac97a2bfcb0e212c6b7",
+      "38ba13c8c622a6a83a5066b8e962dbd9df9d32bbfd245bbe53a361bc6aeed8d8",
+      "5eff8d33f5ccfc86957c1de5aa0b94ec3f248ba381a6a25f77221638a0224ae3",
+      "6c267c17216aa9abc0fea5e8c9da56e18f5811aa290558d2db5e1935de5c3851",
+      "8f7aa5215e29051d7237aaa7c898ea7b0527848bdc80d49f2e9e07a832ab1d29",
+      "b1eab39c2fd21690008a74b40fb10f84fe376a827a120a227030703b42208f75",
+      "d6cc8e442ce71c52461ce4b35a0b03d5c6daaba056d51db57e22c8f1ef7618a5"
+    ],
+    "corpus_words_at_sample": 53068,
+    "fresh_context": true
+  }
+}

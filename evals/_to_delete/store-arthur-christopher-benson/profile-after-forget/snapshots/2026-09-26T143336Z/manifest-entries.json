@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "profile": "arthur-christopher-benson",
+  "taken": "2026-09-26T14:33:36Z",
+  "texts": {
+    "08a0df55e1ca9a394afd12323410b462628ffa58752d6ca5df71773af21c060e": {
+      "path": "arthur-christopher-benson/16-habits.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2535,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "0d5eada2b5b686bfdbc1d0eb35b44e17ea12f5478db7a3769df192da1a057fa4": {
+      "path": "arthur-christopher-benson/15-spiritualism.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2818,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "0ddf4820d0d96c83d46378ba5915fb60baa979a8e48b2c1087e20941445f3f49": {
+      "path": "arthur-christopher-benson/13-the-simple-life.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2903,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "14501040a03e631287e94761d57d211afc614391d32067d3a41060440cb1bcef": {
+      "path": "arthur-christopher-benson/03-books.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4146,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "1459a962cbd29605c595317b1b5a3ef8903d33c1f3a0f5a95a9de85c12a3506a": {
+      "path": "arthur-christopher-benson/01-the-point-of-view.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4185,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "25f8f191edd78462f4b3d0b18e1f5e32d517ed29d89da18ebe2c4c026cbb81b6": {
+      "path": "arthur-christopher-benson/11-priests.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3466,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "3d5d266f1f7a9daab8870363db54e1cf8f2940be2b3553dc93fb72ca68ad6690": {
+      "path": "arthur-christopher-benson/02-on-growing-older.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3984,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "45912c17786fdb6d22ae25a2643cc666678b8de387ff3125bf737a69ca4a766d": {
+      "path": "arthur-christopher-benson/08-education.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4793,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "557aa83b4e4b29e00b981a03573bd099ec6ef48ea64ae20b2fc4d81c3b3428fd": {
+      "path": "arthur-christopher-benson/05-conversation.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4045,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "60bfab27dd7d40476f9674f3e82f00d162e610acc9220263af47ab7c8457d28d": {
+      "path": "arthur-christopher-benson/12-ambition.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4012,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "772c20a41b176720705acb13ab4ffec4a04c397165c41ccbd659f7f5604dfd28": {
+      "path": "arthur-christopher-benson/07-egotism.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4060,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "9fb23ba9da7b059ee73fcf9cae4f2914b3201efc9278beae28d60975d3f8c947": {
+      "path": "arthur-christopher-benson/09-authorship.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4328,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d236f2a4c5f5b141b4aeff03495eb083d9201828562809a1d58e332732843967": {
+      "path": "arthur-christopher-benson/14-games.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3169,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d7f6b2aad1cc77b9a173ad24425323b40918131d9edd3f772e77d1e64b6b24a4": {
+      "path": "arthur-christopher-benson/06-beauty.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "arthur-christopher-benson": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 8583,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    }
+  }
+}

@@ -1,0 +1,58 @@
+---
+author: Robert Cortes Holliday
+author_died: 1947
+book: "Walking-Stick Papers"
+first_published: 1918
+title: "Help Wanted--Male, Female"
+source: https://www.gutenberg.org/ebooks/13708
+licence: public domain (US and EU)
+words: 1900
+---
+
+The people who (because they think they don't need to) do not read the "Help Wanted" "ads" in the newspapers really ought to do this, anyway for a week or so in every year.  They are the people, above all others, that would be most benefited by this department of journalism.
+
+Now, there is nobody who more than myself objects in his spirit to the very common practice of this one's saying to that one that he, or she, "ought to" do this or that thing.  Nobody knows all the circumstances in which another is placed.  Some people insist upon saying "under the circumstances."  But that is wrong.  One is surrounded by circumstances; one is not under them, as though they were an umbrella.  Nobody ought to say "under the circumstances."  However, this is merely by the by.
+
+It's a queer thing, though, that Mr. Hilaire Belloc, who certainly writes some of the best English going, says that "under the" and so forth is all right.  Certainly it is not.  But, as I said before, this is not a point about which we are talking.
+
+One ought to read want "ads" for many reasons.  For instance, you can thus become completely mixed up as to whether or not you are still young. "Young man wanted," you will read, "about sixteen years of age, in an office."  Goodness gracious!  It does seem that this is an age of young, very young, men.  What chance does one of your years have now?  On the other hand, you read: "Wanted, young man, about thirty-five."  So!  Well, this is an age, too (you reflect) in which people remain young.  There are no old folks any more; they are out of fashion.  Witness, "Boy wanted, strong, about eighteen."
+
+They (want "ads") ought, particularly, to be read at times when you have a very good job.  It is then especially that the reading of them is best for you.  They do (or they ought to) soften your arrogance.
+
+If--like Mr. Rockefeller, jr.--I were a teacher of a Sunday school class (which, as Mr. Dooley used to say, I am not).  I would say: "The best religious teaching is to be found in the help-wanted advertisements in the newspapers.  We will take up this morning these columns in this morning's papers."
+
+As a matter of fact, if you are out of a job I should strongly advise against your reading advertisements for help wanted.  In the first place, nobody ever got a job through one of these advertisements.  I know this, as the phrase is, of my own knowledge.  Then, the influence of suggestion is very powerful in these announcements.  If you are without a position, it is depressingly plain to you that you are totally unqualified to obtain one again, of any account.  If you have a berth paying a living wage, you perceive that some mysterious good fortune attends you, and you are made humble by fear for yourself, and compassionate towards others. For who are you, in heaven's name, and what the devil do you know, that you should make a living in this world!  In this world where there is wanted: "Highly educated man, having extensive business and social connection.  Must be fluent correspondent in Arabic, Japanese, and Swedish, and an expert accountant.  Knowledge of Russian and the broadsword essential.  Acquaintance with the subject of mining engineering expected.  Experience in the diplomatic service desired. Gentleman of impressive presence required.  Highest credentials demanded. Salary, to begin, seven dollars."  Knowledge, undoubtedly, is power!
+
+Still, one seeking a position through want "ads" need not altogether despair.  A little further down these very catholic columns you will find that: "Any person of ordinary intelligence, common-school education not necessary, can make $1000 a week writing for newspapers, by our system, taught by mail.  Only ten minutes a day before going to bed required to learn."
+
+One thing stands out above all others in advertisements for help wanted. This is the land of hustle.  Tinker, tailor, candlestick-maker; lawyer, merchant, priest; if you are not a "live-wire" you are not "help wanted"--"Cook wanted.  On dairy farm, twelve miles from town.  White, industrious.  Must be a live-wire!  One that can get results.  No stick-in-the-muds need apply!"
+
+Uplifters and governments do not deal a more telling blow at the demon rum than do want "ads."  There is no longer any job for the drinker. "Bartender wanted.  In a very low place.  Must be strict teetotaler!" The student of the help-wanted columns will come to regard it as a very great mystery who floats all our "public-houses."
+
+Persons whose outlook on life is restricted to the dull round of one occupation and to one class of society will find a decidedly broadening influence in the perusal of help-wanted "ads," a liberal and a humane education in the subject of the variety and picaresque quality of humanity's manifold activities.  And such persons will be made aware of their dark ignorance of many matters.  What, for instance (they will say) is a "bushelman"?  A great many bushelmen are continually "wanted."  It might be well to be one so much in constant demand as a bushelman.  Has this welcome character something to do with the delectable grocery trade? No, my dears (for though I never saw a bushelman, I'd rather see than be one), he engages in the tailoring business, in the sweatshop way (as well as I can make out).
+
+There are people wanted in help-wanted "ads" (but not in real life) to do nothing but travel in pleasant and historic places as companions to wealthy, "refined" persons in delicate health.  There are people wanted (in want "ads") to share attractive homes in fashionable country places whose duties will be to smoke excellent cigars and take naps in the afternoon.
+
+And there are as romantic things to be found among help-wanted "ads" as there are in the most romantic romances.  Now, lest it may be thought that some of the help-wanted "ads" which I have written right out of my head to illustrate the type of each are somewhat fanciful, I will copy out of yesterday's paper an advertisement which "Robinson Crusoe" hasn't anything on, to put it thusly.  Here you are.
+
+"WANTED--A man (or woman) to live alone on an island, eight miles from shore; food, shelter, clothing furnished; no work, no compensation. Summer time, Box G, 532 Times, Downtown."
+
+I knew a man once who got several replies to advertisements for help wanted.  He bought ten New York papers one Sunday and a dollar's worth of two cent stamps.  At ten o'clock in the evening he went out and stuffed the ballot-box, I mean the letter box.  He said in his own handwriting that he was an excellent man to be manager of "the upper floors of an apartment house"; that he was uncommonly experienced in the moving-picture business and knew "the screen" from A to izzard; that he had edited trade journals from the time he could talk; that he had an admirable figure for a clothing model; that he was very successful in interviewing bankers and brokers; that he was fond of children; that he would like to add a side line of metal polisher to his list; and that he certainly knew more about Bolivera than anybody else in the world, and would be prepared to head an expedition there by half-past two the following day.
+
+That man already had a job that he had got from a want "ad."  He had been "copying letters" at home, "light, genteel work for one of artistic tastes."  But he found that one could not make any money out of it. Because, after one had bought the "outfit" necessary one discovered that it was humanly impossible to copy the bloomin' letters in the somewhat eccentric fashion required.
+
+He got several replies, as I said, to his replies to want "ads," this man.  One was a postcard which read: "Call to-morrow morning about work, Room 954, Horseshoe Building, X. Y. Z. Co."  Considering himself a gentleman, and being touchy about such things, he was annoyed at this manner of addressing him on a postcard.  However he went to the Horseshoe Building.  Room 954 had a great many names on the door, names there stated to be those of "attorneys," "syndicates," and "corporations, limited."  Among these names was that of the X. Y. Z. Co.  Within, one side of Room 954 was partitioned off into many little alcoves.  An antique, though youthfully dressed, typist, by the railing near the door, showed our friend to the X. Y. Z. Co., who was seated at a bleak-looking desk in one of the little alcoves.  The alcove contained, besides the "Co." (a little whiskered man, wearing his hat and overcoat) and the desk, an empty waste basket, and one unoccupied chair.
+
+It was a "demonstrator" that was wanted, on a commission basis, for a fluid to cleanse silver.  This alcove, it developed, was merely one of many thousand branch offices of the "Co." scattered across the country. The "Co's." "factory," he said, was over in New Jersey, a very large affair.
+
+Mr. Bivens, that is the name of the gentleman of whom I have just been speaking, was invited, too, this time in a letter politely beginning "My Dear Sir," to call at the offices of a moving-picture "corporation." Asking to see "M. T. Cummings," who had signed the letter, he was presented to an efficient-looking person, evidently an elderly, retired show-girl, who directly proved him wofully deficient in knowledge of "the screen."
+
+His next experience was with a portly, prosperous-looking gentleman who had elaborate offices in a very swell skyscraper.  This man wrote an excellent business-like letter; he unfolded to H. T. (I always affectionately call Bivens "H. T.") admiration-compelling plans for large business enterprises, which included a project of taking five hundred American business men on a trip through Europe after the war at a cost to each one of only four dollars and a half, the balance of the expenses of each to be paid for in local business co-operation.
+
+Bivens was taken right into this energetic and enterprising man's confidence.  He did considerable outside work for his employer for ten days.  On the eleventh day, reporting at the office, he found the promoter's secretary and office boy awaiting him, in company with his office furniture, outside the locked door.
+
+Bivens next answered an advertisement for a strike-breaker to light street lamps, and for a person to distribute handbills at a pay of seventy-five cents a day.  But his luck had changed; he never got another reply to any answer to a help-wanted "ad."
+
+He thinks this is strange, because he believes (and I know this is true) that he writes a letter which would instantly mark him as a man of high merit among the multitude.
+
+But I once knew a man who put a help-wanted "ad" in the paper.  He ran a hotel, and he advertised for a clerk.  I was stopping at his place at the time, I and my three brothers.  And the five of us, Mr. Snuvel (the hotel man), I, and my three brothers, used to bring up from the village every night for a week (the place was in the country) the mail, which consisted of replies to this help-wanted advertisement.  We used large sacks for this purpose.

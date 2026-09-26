@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Split public-domain essay collections from Project Gutenberg into fixture texts.
 
-    python3 tools/build_fixtures.py <folder with pgNNNN.txt files>
+    python3 tools/build_fixtures.py <folder with pgNNNN.txt files> [author,author]
 
 Writes evals/fixtures/<author>/<nn>-<slug>.md, one essay per file, with frontmatter
 naming the source. Only authors who died before 1956 (public domain in the US and
@@ -51,9 +51,26 @@ BOOKS = {
         (3134, "Backlog Studies", 1873,
          ["FIRST STUDY", "SECOND STUDY", "THIRD STUDY", "FOURTH STUDY", "FIFTH STUDY", "SIXTH STUDY",
           "SEVENTH STUDY", "EIGHTH STUDY", "NINTH STUDY", "TENTH STUDY", "ELEVENTH STUDY"])]},
+    "robert-cortes-holliday": {"name": "Robert Cortes Holliday", "died": 1947, "books": [
+        (13708, "Walking-Stick Papers", 1918,
+         ["ON CARRYING A CANE", "THE FISH REPORTER", "ON GOING A JOURNEY", "GOING TO ART EXHIBITIONS",
+          "A ROUNDABOUT PAPER", "THAT REVIEWER \"CUSS\"", "LITERARY LEVITIES IN LONDOW|LITERARY LEVITIES IN LONDON", "HENRY JAMES, HIMSELF",
+          "MEMORIES OF A MANUSCRIPT", "\"YOU ARE AN AMERICAN\"", "WHY MEN CAN'T READ NOVELS BY WOMEN",
+          "THE DESSERT OF LIFE", "A CLERK MAY LOOK AT A CELEBRITY", "CAUN'T SPEAK THE LANGUAGE",
+          "HUNTING LODGINGS", "MY FRIEND, THE POLICEMAN", "HELP WANTED--MALE, FEMALE", "HUMAN MUNICIPAL DOCUMENTS",
+          "AS TO PEOPLE", "HUMOURS OP THE BOOK SHOP|HUMOURS OF THE BOOK SHOP", "THE DECEASED", "A TOWN CONSTITUTIONAL",
+          "READING AFTER THIRTY", "ON WEARING A HAT"])]},
+    "katharine-fullerton-gerould": {"name": "Katharine Fullerton Gerould", "died": 1944, "books": [
+        (78310, "Modes and Morals", 1920,
+         ["THE NEW SIMPLICITY", "DRESS AND THE WOMAN", "CAVIARE ON PRINCIPLE", "THE EXTIRPATION OF CULTURE",
+          "FASHIONS IN MEN", "THE NEWEST WOMAN", "TABU AND TEMPERAMENT", "THE BOUNDARIES OF TRUTH",
+          "MISS ALCOTT’S NEW ENGLAND", "THE SENSUAL EAR", "BRITISH NOVELISTS, LTD.",
+          "THE REMARKABLE RIGHTNESS OF RUDYARD KIPLING", "FOOTNOTES:"])]},
 }
 
 MIN_WORDS = 400
+# Section markers that end the previous essay but are not essays themselves.
+NOT_ESSAYS = {"FOOTNOTES:"}
 
 
 def body_of(raw):
@@ -71,7 +88,9 @@ def clean(text):
     text = re.sub(r"\[Illustration[^\]]*\]", "", text)
     text = re.sub(r"\[(\d+|[A-Z])\]", "", text)                 # footnote markers
     text = re.sub(r"(?m)^\s*\[?Footnote.*$", "", text)
-    text = re.sub(r"_([^_\n]+)_", r"\1", text)                   # PG italics
+    text = re.sub(r"_([^_\n]+(?:\n[^_\n]+)?)_", r"\1", text)    # PG italics, also across one line break
+    text = re.sub(r"\+([^+\n]+)\+", r"\1", text)                 # PG small caps
+    text = re.sub(r"(?m)^\s*(?:PROLOGUE|EPILOGUE|[IVXL]{1,6})\s*$", "", text)   # part and chapter markers
     text = re.sub(r"(?im)^\s*end of (the )?project gutenberg.*$", "", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     paras = [re.sub(r"\s*\n\s*", " ", p).strip() for p in text.split("\n\n")]
@@ -83,25 +102,30 @@ def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:50] or "untitled"
 
 
-def main(src):
+def main(src, only=None):
     src = pathlib.Path(src)
     total = 0
     for author, meta in BOOKS.items():
+        if only and author not in only:
+            continue
         n = 0
         (OUT / author).mkdir(parents=True, exist_ok=True)
         for pg, book, year, titles in meta["books"]:
             lines = body_of((src / f"pg{pg}.txt").read_text(encoding="utf-8")).split("\n")
             # take the LAST standalone occurrence of each title (the first ones are title page / contents)
             pos = []
-            for title in titles:
+            for entry in titles:
+                title, _, shown = entry.partition("|")    # "HEADING|Name" where the source has a typo
                 hits = [i for i in range(len(lines)) if is_heading_line(lines, i, title)]
                 if not hits:
                     print(f"  ! {author}: heading not found: {title}")
                     continue
-                pos.append((hits[-1], title))
+                pos.append((hits[-1], shown or title))
             pos.sort()
             for k, (i, title) in enumerate(pos):
                 end = pos[k + 1][0] if k + 1 < len(pos) else len(lines)
+                if title in NOT_ESSAYS:
+                    continue
                 text = clean("\n".join(lines[i + 1:end]))
                 words = len(text.split())
                 if words < MIN_WORDS:
@@ -118,4 +142,4 @@ def main(src):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], set(sys.argv[2].split(",")) if len(sys.argv) > 2 else None)

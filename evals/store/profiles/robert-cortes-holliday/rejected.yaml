@@ -1,0 +1,24 @@
+schema_version: 1
+entries:
+- id: x-001
+  slot: null
+  kind: vocabulary
+  text: my knowledge and belief
+  normalised: my knowledge and belief
+  rejected: '2026-09-26'
+  rejects: v-004
+- id: x-002
+  slot: null
+  kind: vocabulary
+  text: rather see than be one
+  normalised: rather see than be one
+  rejected: '2026-09-26'
+  rejects: v-005
+- id: x-003
+  slot: null
+  kind: vocabulary
+  text: steadily and see it whole
+  normalised: steadily and see it whole
+  rejected: '2026-09-26'
+  rejects: v-007
+last_id: 3

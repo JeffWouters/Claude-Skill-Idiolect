@@ -300,7 +300,7 @@ def test_fingerprints_and_pooled_slot(tmp_path):
 
 
 def test_high_confidence_for_a_large_consistent_corpus(tmp_path):
-    store = _author_store(tmp_path, "alexander-smith")
+    store = _author_store(tmp_path, "robert-cortes-holliday")
     fp = next(x["fingerprint"] for x in measure.fingerprints(store, "fx") if x["fingerprint"]["slot"] == "en.essay")
     assert fp["confidence"]["count_level"] == "high"
 

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "profile": "alexander-smith",
+  "taken": "2026-09-26T14:34:43Z",
+  "texts": {
+    "1821ebb1341f9342caa0886e29f3bdcf0a3c395f9ec1f55b62366d935412e84e": {
+      "path": "alexander-smith/09-a-shelf-in-my-bookcase.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5766,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "1a93b04c773db4f3ce2f35c8bdc050a46b2ff2e18961a295c86c1ac4a6b8f9d0": {
+      "path": "alexander-smith/08-on-the-importance-of-a-man-to-himself.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5143,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "278c4df7b4897cf47a3e6a34195008a2ad15191f94f81ac97a2bfcb0e212c6b7": {
+      "path": "alexander-smith/03-of-death-and-the-fear-of-dying.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5161,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "38ba13c8c622a6a83a5066b8e962dbd9df9d32bbfd245bbe53a361bc6aeed8d8": {
+      "path": "alexander-smith/02-on-the-writing-of-essays.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 6323,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "5eff8d33f5ccfc86957c1de5aa0b94ec3f248ba381a6a25f77221638a0224ae3": {
+      "path": "alexander-smith/05-a-lark-s-flight.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5006,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "6c267c17216aa9abc0fea5e8c9da56e18f5811aa290558d2db5e1935de5c3851": {
+      "path": "alexander-smith/11-books-and-gardens.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5686,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "8f7aa5215e29051d7237aaa7c898ea7b0527848bdc80d49f2e9e07a832ab1d29": {
+      "path": "alexander-smith/06-christmas.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5842,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "b1eab39c2fd21690008a74b40fb10f84fe376a827a120a227030703b42208f75": {
+      "path": "alexander-smith/04-william-dunbar.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 6447,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "d6cc8e442ce71c52461ce4b35a0b03d5c6daaba056d51db57e22c8f1ef7618a5": {
+      "path": "alexander-smith/07-men-of-letters.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "alexander-smith": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 7694,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    }
+  }
+}

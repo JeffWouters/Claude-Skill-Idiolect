@@ -1,0 +1,602 @@
+{
+ "0bde2a89732ff3ad070af8bd28264a3c410770caee6e793fe66d492893d7f8e7": {
+  "path": "alice-meynell/28-donkey-races.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1395,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "1b32632c5c5d4fa60a6d7d0432816956b2dc2dc98075af57bcf2986e2554c96b": {
+  "path": "alice-meynell/06-unstable-equilibrium.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 493,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "24e5913ed4cdbc0bfe031d3716dab1f83c0de10cba50efe58789d5f0cced23fb": {
+  "path": "alice-meynell/20-penultimate-caricature.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1069,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "258f02315821c9a055ebcfef93a9c33938f830506278d5a4c3de9f9e12eec0b4": {
+  "path": "alice-meynell/01-the-rhythm-of-life.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1110,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "26db5b148f7a443e121f628242f62cf57975010926181774d511d676f4733dc6": {
+  "path": "alice-meynell/16-rejection.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 674,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "450273865e6399c01e2e91f055590e95fa315fb963e7afbef267dd75c2a79e2e": {
+  "path": "alice-meynell/33-eyes.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1481,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "47f343b306dcb95a45c365bc3e56989430d5544012c6b96453c093da7991a465": {
+  "path": "alice-meynell/25-at-monastery-gates.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1443,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "49800015f2bc47b8cd376d455ce5c9ecaa7278591337bbeeb0ce6cb2fc799fda": {
+  "path": "alice-meynell/09-pocket-vocabularies.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 895,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "5b00765f2308f1f1f86ad5c8ca26c6058c6c618e9a24133b34cb98d87c31e378": {
+  "path": "alice-meynell/31-symmetry-and-incident.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 2840,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "5b1e924a859d1843d9fa0f9a92c0d7bbfc99d6a873fe208703fc550199376ac1": {
+  "path": "alice-meynell/03-a-remembrance.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 844,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "66ed13ed8119eb79ac31701f09ea18298280c752e0313e721e2a5ab1954fad25": {
+  "path": "alice-meynell/07-the-unit-of-the-world.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1234,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "7736e72dcc4b96896e4f278d0fabf8d9b107ae2bc3721eadc53d6a5e1f541dbd": {
+  "path": "alice-meynell/02-decivilised.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 916,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "78862446789c8306db59de7b4b4e08dda279b137edb3260c58cb814e29b79b23": {
+  "path": "alice-meynell/08-by-the-railway-side.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 811,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "79a7baf745248631f53c67b507c226363988a240e8e1ebeca5210dee788dcc34": {
+  "path": "alice-meynell/23-cloud.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1580,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "7b3495c2b5b19c72528b15f647bb6ca24157671b81204e22f4ed98626e4ea255": {
+  "path": "alice-meynell/21-the-colour-of-life.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1259,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "8af11e353ff7b5a83bd9b2326d6ed9bccb11fd715c0f09334c3395e698a32674": {
+  "path": "alice-meynell/29-grass.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 916,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "9349320fb27e7147d5f1c8f8387fe01548eddc87577fc2b9cfa363b6bdb747dc": {
+  "path": "alice-meynell/15-domus-angusta.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 805,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "976144f2eef85adc70efc5424ca21a184679be1b1d5db3128eaa4e24a06eecf8": {
+  "path": "alice-meynell/11-the-point-of-honour.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 885,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "99ac97b5c94eb19bc2ccb93705f5fc41f6baef96aa9024133f5eb7741d42435b": {
+  "path": "alice-meynell/05-the-flower.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 656,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "ab1b52f1afc5585301c03766b27f4464d69767017f08f0dd0a692050fdcf332d": {
+  "path": "alice-meynell/13-dr-oliver-wendell-holmes.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1383,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "ac95ee8f8861731c31025d753d25bd7b1db4d343a6ab16d85bb11cd54f17d288": {
+  "path": "alice-meynell/30-a-woman-in-grey.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1383,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "b21dbaf73dddf165a23c627fb04da4b26a7355f9be1dee22727767a10d5dbd5a": {
+  "path": "alice-meynell/19-innocence-and-experience.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 650,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "c123fe52fd50031aea7a65795b22e85fb2c2ccbc82902c9edcfaf335cf215294": {
+  "path": "alice-meynell/12-composure.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1110,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "cb91c388eb0953ee0a700e1538602d58cbe28627eb784f3cabc8cc2dc53bf655": {
+  "path": "alice-meynell/24-winds-of-the-world.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1266,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "cc9e134222ffe4f34c82bde06f44d39d689a899904f7cfb7fbb065ad494db5c2": {
+  "path": "alice-meynell/26-rushes-and-reeds.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 942,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "d1f43d564a580ca30abdf67d696d049dab6a4aa5e8006ce174c783c66cb71f13": {
+  "path": "alice-meynell/17-the-lesson-of-landscape.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1131,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "d20b15a14d8aef2333717a2adef3c4aa16ecf946609e0a8db22d8fd993f38580": {
+  "path": "alice-meynell/14-james-russell-lowell.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1107,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "e76066ff3232ca441bae077c6446bcd5b2eea2c5f85f73c32b97dab3f660a21c": {
+  "path": "alice-meynell/04-the-sun.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 878,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "efb16dae77ea252e7b4a593d414e464d790cb3aad5a98d7fe757e8994d35c4dd": {
+  "path": "alice-meynell/27-eleonora-duse.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1541,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ },
+ "ffa282db2d67eb5bc8429d768daaad36e441e38952230dd5d48cee8b117ff124": {
+  "path": "alice-meynell/18-mr-coventry-patmore-s-odes.md",
+  "date": null,
+  "origin": "file",
+  "profiles": {
+   "alice-meynell": {
+    "ownership": "own",
+    "decided": "2026-09-26",
+    "decided_by": "path-rule"
+   }
+  },
+  "facets": {
+   "lang": "en",
+   "type": "essay"
+  },
+  "words": 1533,
+  "holdout": false,
+  "status": "active",
+  "cached": true
+ }
+}

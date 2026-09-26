@@ -14,12 +14,19 @@ SEED = 20261003
 
 
 def main():
-    rng = random.Random(SEED)
+    """Authors already in holdouts.json keep their holdouts (their profiles were learned without them);
+    a new author gets holdouts from a seed of its own, so adding or retiring an author never moves
+    another author's holdouts. Retired authors drop out."""
+    path = ROOT / "evals" / "holdouts.json"
+    old = json.loads(path.read_text())["authors"] if path.exists() else {}
     out = {"seed": SEED, "authors": {}}
     for d in sorted(p for p in FIX.iterdir() if p.is_dir()):
+        if d.name in old:
+            out["authors"][d.name] = old[d.name]
+            continue
         files = sorted(f.name for f in d.glob("[0-9]*.md"))
         n = 5 if d.name.startswith("synthetic-") else 3
-        out["authors"][d.name] = sorted(rng.sample(files, n))
+        out["authors"][d.name] = sorted(random.Random(f"{SEED}/{d.name}").sample(files, n))
     (ROOT / "evals" / "holdouts.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 

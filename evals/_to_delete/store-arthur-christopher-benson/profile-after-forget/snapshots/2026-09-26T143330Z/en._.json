@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "profile": "arthur-christopher-benson",
+  "slot": "en._",
+  "pooled": true,
+  "metrics": {
+    "sentence_length_sd": {
+      "value": 21.003332,
+      "overshoot": 1.61,
+      "shortfall": 0.61,
+      "primary": true
+    },
+    "sentences_per_paragraph": {
+      "value": 6.341463,
+      "overshoot": 1.88,
+      "shortfall": 0.43,
+      "primary": false
+    },
+    "long_sentence_share": {
+      "value": 0.503846,
+      "overshoot": 1.65,
+      "shortfall": 0.49,
+      "primary": false
+    },
+    "sentence_length_mean": {
+      "value": 33.10641,
+      "overshoot": 1.33,
+      "shortfall": 0.76,
+      "primary": true
+    },
+    "commas_per_sentence": {
+      "value": 2.490385,
+      "overshoot": 1.48,
+      "shortfall": 0.62,
+      "primary": true
+    },
+    "semicolons_per_1k": {
+      "value": 14.212136,
+      "overshoot": 1.94,
+      "shortfall": 0.29,
+      "primary": true
+    },
+    "conjunction_opener_share": {
+      "value": 0.144872,
+      "overshoot": 2.25,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "contractions_per_1k": {
+      "value": 2.226697,
+      "overshoot": 2.77,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "dashes_per_1k": {
+      "value": 1.355381,
+      "overshoot": 2.69,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "colons_per_1k": {
+      "value": 0.406614,
+      "overshoot": 4.28,
+      "shortfall": 0.05,
+      "primary": true
+    },
+    "short_sentence_share": {
+      "value": 0.033333,
+      "overshoot": 2.61,
+      "shortfall": 0.05,
+      "primary": true
+    },
+    "long_word_share": {
+      "value": 0.203811,
+      "overshoot": 1.25,
+      "shortfall": 0.78,
+      "primary": false
+    },
+    "hedges_per_1k": {
+      "value": 5.227898,
+      "overshoot": 2.1,
+      "shortfall": 0.25,
+      "primary": false
+    },
+    "digits_per_1k": {
+      "value": 0.058088,
+      "overshoot": 2.01,
+      "shortfall": 0.32,
+      "primary": false
+    }
+  },
+  "counts": {
+    "texts": 12,
+    "words": 51674
+  },
+  "confidence": {
+    "level": "high",
+    "count_level": "high",
+    "stability_level": "high",
+    "splits": 5
+  },
+  "seed": 4217872428,
+  "metric_list": "contrast",
+  "built": "2026-09-26T14:33:24Z",
+  "personal_data": "none",
+  "contrast": {
+    "sample_texts": [
+      "08a0df55e1ca9a394afd12323410b462628ffa58752d6ca5df71773af21c060e",
+      "0d5eada2b5b686bfdbc1d0eb35b44e17ea12f5478db7a3769df192da1a057fa4",
+      "0ddf4820d0d96c83d46378ba5915fb60baa979a8e48b2c1087e20941445f3f49",
+      "14501040a03e631287e94761d57d211afc614391d32067d3a41060440cb1bcef",
+      "45912c17786fdb6d22ae25a2643cc666678b8de387ff3125bf737a69ca4a766d",
+      "557aa83b4e4b29e00b981a03573bd099ec6ef48ea64ae20b2fc4d81c3b3428fd",
+      "9fb23ba9da7b059ee73fcf9cae4f2914b3201efc9278beae28d60975d3f8c947",
+      "d236f2a4c5f5b141b4aeff03495eb083d9201828562809a1d58e332732843967"
+    ],
+    "corpus_words_at_sample": 57027,
+    "fresh_context": true
+  }
+}

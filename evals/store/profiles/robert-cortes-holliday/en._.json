@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "profile": "robert-cortes-holliday",
+  "slot": "en._",
+  "pooled": true,
+  "metrics": {
+    "sentence_length_sd": {
+      "value": 15.266058,
+      "overshoot": 1.61,
+      "shortfall": 0.61,
+      "primary": false
+    },
+    "sentences_per_paragraph": {
+      "value": 5.474672,
+      "overshoot": 1.88,
+      "shortfall": 0.43,
+      "primary": false
+    },
+    "long_sentence_share": {
+      "value": 0.170322,
+      "overshoot": 1.65,
+      "shortfall": 0.49,
+      "primary": false
+    },
+    "sentence_length_mean": {
+      "value": 18.195682,
+      "overshoot": 1.33,
+      "shortfall": 0.76,
+      "primary": false
+    },
+    "commas_per_sentence": {
+      "value": 1.480123,
+      "overshoot": 1.48,
+      "shortfall": 0.62,
+      "primary": false
+    },
+    "semicolons_per_1k": {
+      "value": 7.269988,
+      "overshoot": 1.94,
+      "shortfall": 0.29,
+      "primary": false
+    },
+    "conjunction_opener_share": {
+      "value": 0.096299,
+      "overshoot": 2.25,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "contractions_per_1k": {
+      "value": 6.780299,
+      "overshoot": 2.77,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "dashes_per_1k": {
+      "value": 3.503155,
+      "overshoot": 2.69,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "colons_per_1k": {
+      "value": 2.297768,
+      "overshoot": 4.28,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "short_sentence_share": {
+      "value": 0.213502,
+      "overshoot": 2.61,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "long_word_share": {
+      "value": 0.202053,
+      "overshoot": 1.25,
+      "shortfall": 0.78,
+      "primary": true
+    },
+    "hedges_per_1k": {
+      "value": 4.539034,
+      "overshoot": 2.1,
+      "shortfall": 0.25,
+      "primary": false
+    },
+    "digits_per_1k": {
+      "value": 1.864582,
+      "overshoot": 2.01,
+      "shortfall": 0.32,
+      "primary": true
+    }
+  },
+  "counts": {
+    "texts": 21,
+    "words": 53103
+  },
+  "confidence": {
+    "level": "high",
+    "count_level": "high",
+    "stability_level": "high",
+    "splits": 5
+  },
+  "seed": 2483764732,
+  "metric_list": "contrast",
+  "built": "2026-09-26T14:35:34Z",
+  "personal_data": "none",
+  "contrast": {
+    "sample_texts": [
+      "032f5fd0a950d4e03ab2e14ef7046a71c403110c818e84977186ecf856716a4d",
+      "2b9fda09c5bef6c39fb31ff2301a89c1d50dfb5fea54e423fda592df2f66eb13",
+      "39b4921d4f5fbb1dc1a5a25193330e33ce3aea9e05a428527c81766f4c885734",
+      "4799bc50ddf4a5120385cb89a4ac0d1c8e65a781d8052225be79eab760d90fcf",
+      "835bd2d323b58a182ebe4f43d0f34c9fbdc5b5f062998be9527dd04ccb8ee827",
+      "c4629f5a6ea8084d749bf7c206ff68af0a520f4bc04099943b3db76467e7cd15",
+      "c6671560bd1575749f9b0526d73e273a887947d4dae3ba6114df86c1a4458b7b",
+      "d40dad10d82c010cfa430b5f4a44bef379dd04d23066c19a2abb94c55590cfad"
+    ],
+    "corpus_words_at_sample": 53103,
+    "fresh_context": true
+  }
+}

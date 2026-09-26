@@ -1,6 +1,26 @@
 {
   "schema_version": 1,
   "texts": {
+    "032f5fd0a950d4e03ab2e14ef7046a71c403110c818e84977186ecf856716a4d": {
+      "path": "robert-cortes-holliday/13-a-clerk-may-look-at-a-celebrity.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2848,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "08a0df55e1ca9a394afd12323410b462628ffa58752d6ca5df71773af21c060e": {
       "path": "arthur-christopher-benson/16-habits.md",
       "date": null,
@@ -18,8 +38,8 @@
       },
       "words": 2535,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "0b24937477a8135e68c13f1dfb2d9f3ae7a5225f94b4060ec628b1e809ef3c61": {
       "path": "samuel-mcchord-crothers/01-the-pardoner.md",
@@ -58,8 +78,8 @@
       },
       "words": 1395,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "0c23f4a952be463d465fec937ed6e9136b42a7dc5af8689d7a4fd370f0757e0d": {
       "path": "samuel-mcchord-crothers/11-the-cruelty-of-good-people.md",
@@ -98,8 +118,8 @@
       },
       "words": 2818,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "0ddf4820d0d96c83d46378ba5915fb60baa979a8e48b2c1087e20941445f3f49": {
       "path": "arthur-christopher-benson/13-the-simple-life.md",
@@ -118,8 +138,8 @@
       },
       "words": 2903,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "0fd7a4c2a82374b2a50e75d9112356c4d89d654ad0d0b9edd44eea037a41f482": {
       "path": "synthetic-idris/03-documentation-as-hospitality.md",
@@ -141,6 +161,26 @@
       "status": "active",
       "cached": true
     },
+    "1285229fcd42450cfbff24dd00b3beff5d5a2f367df1e5e2be5966abcd7a820b": {
+      "path": "robert-cortes-holliday/01-on-carrying-a-cane.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2881,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "14501040a03e631287e94761d57d211afc614391d32067d3a41060440cb1bcef": {
       "path": "arthur-christopher-benson/03-books.md",
       "date": null,
@@ -158,8 +198,8 @@
       },
       "words": 4146,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "1459a962cbd29605c595317b1b5a3ef8903d33c1f3a0f5a95a9de85c12a3506a": {
       "path": "arthur-christopher-benson/01-the-point-of-view.md",
@@ -178,8 +218,8 @@
       },
       "words": 4185,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "15b70f5486819418af46f574ae398b2c90faf4fb533519848414cd1bb0b51677": {
       "path": "synthetic-idris/05-what-code-review-is-for.md",
@@ -218,8 +258,8 @@
       },
       "words": 5766,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "1a93b04c773db4f3ce2f35c8bdc050a46b2ff2e18961a295c86c1ac4a6b8f9d0": {
       "path": "alexander-smith/08-on-the-importance-of-a-man-to-himself.md",
@@ -238,8 +278,8 @@
       },
       "words": 5143,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "1b32632c5c5d4fa60a6d7d0432816956b2dc2dc98075af57bcf2986e2554c96b": {
       "path": "alice-meynell/06-unstable-equilibrium.md",
@@ -257,6 +297,26 @@
         "type": "essay"
       },
       "words": 493,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "1c72556823f517435be3db0db873e6ee5a9e1d23cc208c8298dc2e418f31f13c": {
+      "path": "katharine-fullerton-gerould/12-the-remarkable-rightness-of-rudyard-kipling.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5655,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -278,8 +338,8 @@
       },
       "words": 1069,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "258f02315821c9a055ebcfef93a9c33938f830506278d5a4c3de9f9e12eec0b4": {
       "path": "alice-meynell/01-the-rhythm-of-life.md",
@@ -298,8 +358,8 @@
       },
       "words": 1110,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "25f8f191edd78462f4b3d0b18e1f5e32d517ed29d89da18ebe2c4c026cbb81b6": {
       "path": "arthur-christopher-benson/11-priests.md",
@@ -318,8 +378,8 @@
       },
       "words": 3466,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "26db5b148f7a443e121f628242f62cf57975010926181774d511d676f4733dc6": {
       "path": "alice-meynell/16-rejection.md",
@@ -338,8 +398,8 @@
       },
       "words": 674,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "26feb7c027067febbe7ef8cecae8231c8a53bad57785002eb0037fd8b466fea9": {
       "path": "samuel-mcchord-crothers/08-a-saint-recanonized.md",
@@ -361,6 +421,26 @@
       "status": "active",
       "cached": true
     },
+    "2749d7595cc14a2d3656e01e675268d7dd94eed37409626ddce2fda49147223a": {
+      "path": "robert-cortes-holliday/11-why-men-can-t-read-novels-by-women.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2330,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "278c4df7b4897cf47a3e6a34195008a2ad15191f94f81ac97a2bfcb0e212c6b7": {
       "path": "alexander-smith/03-of-death-and-the-fear-of-dying.md",
       "date": null,
@@ -378,8 +458,8 @@
       },
       "words": 5161,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "27fe26a05e222c0e959e02a8533e55506f6a010ea1fa9aba2d36aedad471ddf4": {
       "path": "synthetic-noor/04-tomatoes-in-a-cold-year.md",
@@ -397,6 +477,26 @@
         "type": "essay"
       },
       "words": 654,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2a8be1265da90734c7225f5bb1cd897142661b976320c5aea53e407ac5c97aa8": {
+      "path": "robert-cortes-holliday/23-reading-after-thirty.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 836,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -421,6 +521,46 @@
       "status": "active",
       "cached": true
     },
+    "2b9fda09c5bef6c39fb31ff2301a89c1d50dfb5fea54e423fda592df2f66eb13": {
+      "path": "robert-cortes-holliday/10-you-are-an-american.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2972,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2cb2a70584b4d36c6c40f2735c37c9bbd173e8eaf126f658caa55724a017c7e6": {
+      "path": "robert-cortes-holliday/22-a-town-constitutional.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2738,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "38ba13c8c622a6a83a5066b8e962dbd9df9d32bbfd245bbe53a361bc6aeed8d8": {
       "path": "alexander-smith/02-on-the-writing-of-essays.md",
       "date": null,
@@ -438,8 +578,8 @@
       },
       "words": 6323,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "38e6518e3ad7d537bcd6e9a5fb8455cad6da87afcc80081277390c0235e8bcf1": {
       "path": "samuel-mcchord-crothers/02-unseasonable-virtues.md",
@@ -461,6 +601,26 @@
       "status": "active",
       "cached": true
     },
+    "39b4921d4f5fbb1dc1a5a25193330e33ce3aea9e05a428527c81766f4c885734": {
+      "path": "robert-cortes-holliday/07-literary-levities-in-london.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2598,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "3d5d266f1f7a9daab8870363db54e1cf8f2940be2b3553dc93fb72ca68ad6690": {
       "path": "arthur-christopher-benson/02-on-growing-older.md",
       "date": null,
@@ -477,6 +637,26 @@
         "type": "essay"
       },
       "words": 3984,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "3f98f15da0d223adc3a900ef2849981ae28c839889031e39e644f1b5a17392cb": {
+      "path": "robert-cortes-holliday/21-the-deceased.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2496,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -501,6 +681,26 @@
       "status": "active",
       "cached": true
     },
+    "44674449049610bde2faba47268ef6908e0e19e90dabcb2e957de5279c64f646": {
+      "path": "robert-cortes-holliday/05-a-roundabout-paper.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2624,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "450273865e6399c01e2e91f055590e95fa315fb963e7afbef267dd75c2a79e2e": {
       "path": "alice-meynell/33-eyes.md",
       "date": null,
@@ -518,8 +718,8 @@
       },
       "words": 1481,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "45912c17786fdb6d22ae25a2643cc666678b8de387ff3125bf737a69ca4a766d": {
       "path": "arthur-christopher-benson/08-education.md",
@@ -537,6 +737,46 @@
         "type": "essay"
       },
       "words": 4793,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "467f762615ceea5fa7ece684cfb00a84f6399b409180344a66d1d1bda886ac23": {
+      "path": "katharine-fullerton-gerould/07-tabu-and-temperament.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 7336,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "4799bc50ddf4a5120385cb89a4ac0d1c8e65a781d8052225be79eab760d90fcf": {
+      "path": "robert-cortes-holliday/02-the-fish-reporter.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3255,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -558,8 +798,8 @@
       },
       "words": 1443,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "49800015f2bc47b8cd376d455ce5c9ecaa7278591337bbeeb0ce6cb2fc799fda": {
       "path": "alice-meynell/09-pocket-vocabularies.md",
@@ -577,6 +817,26 @@
         "type": "essay"
       },
       "words": 895,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "4bd363d57494e8a00e1c57a599b27c46c5e5e20635a4ce15fae45bcf0fde983d": {
+      "path": "katharine-fullerton-gerould/05-fashions-in-men.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5555,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -601,6 +861,26 @@
       "status": "active",
       "cached": true
     },
+    "5143ea83e3ad00d8aefd02d494f6c48c0c19df3853d27507008d9dd9db9e86ac": {
+      "path": "katharine-fullerton-gerould/06-the-newest-woman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3576,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "557aa83b4e4b29e00b981a03573bd099ec6ef48ea64ae20b2fc4d81c3b3428fd": {
       "path": "arthur-christopher-benson/05-conversation.md",
       "date": null,
@@ -617,6 +897,26 @@
         "type": "essay"
       },
       "words": 4045,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "59c37e7815d89f043bf55a00e1fc7bd148cb436be586f61c9da043f5bba7010f": {
+      "path": "katharine-fullerton-gerould/11-british-novelists-ltd.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 8670,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -638,8 +938,8 @@
       },
       "words": 2840,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "5b1e924a859d1843d9fa0f9a92c0d7bbfc99d6a873fe208703fc550199376ac1": {
       "path": "alice-meynell/03-a-remembrance.md",
@@ -658,8 +958,8 @@
       },
       "words": 844,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "5eff8d33f5ccfc86957c1de5aa0b94ec3f248ba381a6a25f77221638a0224ae3": {
       "path": "alexander-smith/05-a-lark-s-flight.md",
@@ -678,8 +978,8 @@
       },
       "words": 5006,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "5f9d5c57e0a43d143176d988cbc1e80987f1becfd4dd729d1aeef1c75f114491": {
       "path": "synthetic-noor/06-the-ladder-next-door.md",
@@ -718,8 +1018,8 @@
       },
       "words": 4012,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "66ed13ed8119eb79ac31701f09ea18298280c752e0313e721e2a5ab1954fad25": {
       "path": "alice-meynell/07-the-unit-of-the-world.md",
@@ -738,8 +1038,8 @@
       },
       "words": 1234,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "6bbf8dffa5472a3fb78bb337790277398af725071a06c50a70a540321d52f680": {
       "path": "samuel-mcchord-crothers/04-how-to-know-the-fallacies.md",
@@ -778,6 +1078,26 @@
       },
       "words": 5686,
       "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "7268b79fcfcb5b17742ad87919a90b554207749f2f3782129b7ee428fed507f2": {
+      "path": "robert-cortes-holliday/09-memories-of-a-manuscript.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2919,
+      "holdout": false,
       "status": "active",
       "cached": true
     },
@@ -798,8 +1118,8 @@
       },
       "words": 4060,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "7736e72dcc4b96896e4f278d0fabf8d9b107ae2bc3721eadc53d6a5e1f541dbd": {
       "path": "alice-meynell/02-decivilised.md",
@@ -818,8 +1138,8 @@
       },
       "words": 916,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "7853556eef3bded7a8138fd6abf796784e8ddc44c442b57722519128d8820cff": {
       "path": "synthetic-idris/09-the-first-weeks-on-a-team.md",
@@ -858,8 +1178,8 @@
       },
       "words": 811,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "79a7baf745248631f53c67b507c226363988a240e8e1ebeca5210dee788dcc34": {
       "path": "alice-meynell/23-cloud.md",
@@ -878,8 +1198,8 @@
       },
       "words": 1580,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "7b3495c2b5b19c72528b15f647bb6ca24157671b81204e22f4ed98626e4ea255": {
       "path": "alice-meynell/21-the-colour-of-life.md",
@@ -897,6 +1217,46 @@
         "type": "essay"
       },
       "words": 1259,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "835bd2d323b58a182ebe4f43d0f34c9fbdc5b5f062998be9527dd04ccb8ee827": {
+      "path": "robert-cortes-holliday/14-caun-t-speak-the-language.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2662,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "8825eef6ef1375e34e8901b9b4a44a2c1b8c696a706f7d45a9de04e34d2129be": {
+      "path": "robert-cortes-holliday/16-my-friend-the-policeman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1476,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -918,8 +1278,8 @@
       },
       "words": 916,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "8f7aa5215e29051d7237aaa7c898ea7b0527848bdc80d49f2e9e07a832ab1d29": {
       "path": "alexander-smith/06-christmas.md",
@@ -938,8 +1298,8 @@
       },
       "words": 5842,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "9349320fb27e7147d5f1c8f8387fe01548eddc87577fc2b9cfa363b6bdb747dc": {
       "path": "alice-meynell/15-domus-angusta.md",
@@ -958,8 +1318,8 @@
       },
       "words": 805,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "976144f2eef85adc70efc5424ca21a184679be1b1d5db3128eaa4e24a06eecf8": {
       "path": "alice-meynell/11-the-point-of-honour.md",
@@ -977,6 +1337,26 @@
         "type": "essay"
       },
       "words": 885,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "978d3cca134844279a6d9ca80dad1569b4a4775faa037cd7d84814e667e960d6": {
+      "path": "katharine-fullerton-gerould/10-the-sensual-ear.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4193,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -998,8 +1378,8 @@
       },
       "words": 656,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "9df2994c14437fcc1d0842a18a0959f889008061f6377a490ce76fb05494d380": {
       "path": "samuel-mcchord-crothers/06-the-land-of-the-large-and-charitable-air.md",
@@ -1037,6 +1417,26 @@
         "type": "essay"
       },
       "words": 4328,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "a71e16c8cbe4a8a5b71813435cd3f8a59982a857308d0912085ab80b3831184c": {
+      "path": "robert-cortes-holliday/24-on-wearing-a-hat.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1800,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -1118,8 +1518,8 @@
       },
       "words": 1383,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "ac95ee8f8861731c31025d753d25bd7b1db4d343a6ab16d85bb11cd54f17d288": {
       "path": "alice-meynell/30-a-woman-in-grey.md",
@@ -1138,8 +1538,8 @@
       },
       "words": 1383,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "ad73563fdec9c8848c49b94cc267bb906dd046eb19c60de71dea7566df5e47d2": {
       "path": "samuel-mcchord-crothers/03-an-hour-with-our-prejudices.md",
@@ -1178,8 +1578,8 @@
       },
       "words": 6447,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "b21dbaf73dddf165a23c627fb04da4b26a7355f9be1dee22727767a10d5dbd5a": {
       "path": "alice-meynell/19-innocence-and-experience.md",
@@ -1198,8 +1598,8 @@
       },
       "words": 650,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "bafc27263c1ee8aa23f646b56f5c47b97458b5239e4e625e45387ef48c10ab3f": {
       "path": "samuel-mcchord-crothers/10-a-man-under-enchantment.md",
@@ -1238,6 +1638,86 @@
       },
       "words": 1110,
       "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "c4629f5a6ea8084d749bf7c206ff68af0a520f4bc04099943b3db76467e7cd15": {
+      "path": "robert-cortes-holliday/18-human-municipal-documents.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2648,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c6671560bd1575749f9b0526d73e273a887947d4dae3ba6114df86c1a4458b7b": {
+      "path": "robert-cortes-holliday/19-as-to-people.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1338,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c722de3109a3dcab3faa800197b36cf839aa856631a41e4f8ca1ff3be442b5be": {
+      "path": "robert-cortes-holliday/03-on-going-a-journey.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2436,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c74c6eda29ce2df101aeed98f96bec0a81c94988f6da2ce3711ee19837ce6ccc": {
+      "path": "katharine-fullerton-gerould/01-the-new-simplicity.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 8132,
+      "holdout": false,
       "status": "active",
       "cached": true
     },
@@ -1258,8 +1738,8 @@
       },
       "words": 1266,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "cc9e134222ffe4f34c82bde06f44d39d689a899904f7cfb7fbb065ad494db5c2": {
       "path": "alice-meynell/26-rushes-and-reeds.md",
@@ -1278,8 +1758,8 @@
       },
       "words": 942,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "cf522b12da7f3f023cbed3fe6039ddcc83dbf939596a59746d0f8684f8e4350a": {
       "path": "synthetic-noor/05-the-shed-bench.md",
@@ -1318,8 +1798,8 @@
       },
       "words": 1131,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "d20b15a14d8aef2333717a2adef3c4aa16ecf946609e0a8db22d8fd993f38580": {
       "path": "alice-meynell/14-james-russell-lowell.md",
@@ -1338,8 +1818,8 @@
       },
       "words": 1107,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "d236f2a4c5f5b141b4aeff03495eb083d9201828562809a1d58e332732843967": {
       "path": "arthur-christopher-benson/14-games.md",
@@ -1357,6 +1837,46 @@
         "type": "essay"
       },
       "words": 3169,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "d40dad10d82c010cfa430b5f4a44bef379dd04d23066c19a2abb94c55590cfad": {
+      "path": "robert-cortes-holliday/17-help-wanted-male-female.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1897,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d65060fa1949d662bb901f9bca815a1abcafdaaa3be9a6a95a4e804ae4bcb266": {
+      "path": "katharine-fullerton-gerould/02-dress-and-the-woman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4792,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -1378,8 +1898,8 @@
       },
       "words": 7694,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "d7f6b2aad1cc77b9a173ad24425323b40918131d9edd3f772e77d1e64b6b24a4": {
       "path": "arthur-christopher-benson/06-beauty.md",
@@ -1397,6 +1917,26 @@
         "type": "essay"
       },
       "words": 8583,
+      "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "d946c1c962268014d0100ae53e867dd90e70eae576992dc7bea3fd5a435384f3": {
+      "path": "robert-cortes-holliday/12-the-dessert-of-life.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2848,
       "holdout": false,
       "status": "active",
       "cached": true
@@ -1438,6 +1978,26 @@
       },
       "words": 878,
       "holdout": false,
+      "status": "forgotten",
+      "cached": false
+    },
+    "ea2079e5526cd959c0bd36c1da2c1bed50e7e928fc1b7cd9ce46e639cbf297e1": {
+      "path": "robert-cortes-holliday/04-going-to-art-exhibitions.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3274,
+      "holdout": false,
       "status": "active",
       "cached": true
     },
@@ -1458,8 +2018,8 @@
       },
       "words": 1541,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     },
     "f498516a41b8a9fcb92c812f00bd3996d87d076f108588ccb6bef833b27549d3": {
       "path": "synthetic-idris/10-the-seduction-of-the-new-tool.md",
@@ -1481,6 +2041,46 @@
       "status": "active",
       "cached": true
     },
+    "fb1a043a58961549702070c5628001837120fe4d617477f2c71e48b2c7b9c48a": {
+      "path": "robert-cortes-holliday/06-that-reviewer-cuss.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4227,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "fb65c1ed56ccfd82e26e5004243118e1449877737303b6327d23836b1f4d306d": {
+      "path": "katharine-fullerton-gerould/09-miss-alcotts-new-england.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3801,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
     "ffa282db2d67eb5bc8429d768daaad36e441e38952230dd5d48cee8b117ff124": {
       "path": "alice-meynell/18-mr-coventry-patmore-s-odes.md",
       "date": null,
@@ -1498,8 +2098,8 @@
       },
       "words": 1533,
       "holdout": false,
-      "status": "active",
-      "cached": true
+      "status": "forgotten",
+      "cached": false
     }
   }
 }

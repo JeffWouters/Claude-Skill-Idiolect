@@ -1,0 +1,60 @@
+schema_version: 2
+entries:
+- id: v-001
+  text: sate
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Archaic past tense of sit, used consistently instead of "sat".
+- id: v-002
+  text: to-day
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Hyphenated form of today.
+- id: v-003
+  text: half-a-dozen
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Hyphenated, as are half-an-hour and similar phrases.
+- id: v-004
+  text: tete-a-tete
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: French loan kept for an intimate two-person talk.
+  rate:
+    per_1k: 0.07
+    texts: 2
+    of: 14
+    measured: '2026-09-26'
+- id: v-005
+  text: so to speak
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: Recurring hedge inserted mid-sentence to soften a figure of speech.
+  rate:
+    per_1k: 0.11
+    texts: 4
+    of: 14
+    measured: '2026-09-26'
+- id: v-006
+  text: the worst of it is
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: Stock turn used to introduce the chief drawback of a situation.
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 14
+    measured: '2026-09-26'
+- id: v-007
+  text: zest
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: Favoured word for relish and energy in life and work.
+last_id: 7

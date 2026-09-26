@@ -1,0 +1,49 @@
+schema_version: 2
+entries:
+- id: v-001
+  text: to-day
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Hyphenated form, likewise to-morrow and to-night.
+- id: v-002
+  text: nay
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: Escalates a clause mid-sentence, as in 'nay, more' or 'nay, even'.
+  rate:
+    per_1k: 0.08
+    texts: 3
+    of: 9
+    measured: '2026-09-26'
+- id: v-003
+  text: peculiar
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: In the sense of distinctive or proper to one person or thing; used often.
+- id: v-004
+  text: foolishest
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: -est superlative on longer adjectives (also gracefulest).
+- id: v-005
+  text: the commonplace
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: Used as a noun for ordinary life, which death or thought lifts out of.
+- id: v-006
+  text: verily
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: Archaic emphatic, also 'of a verity'.
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
+last_id: 6

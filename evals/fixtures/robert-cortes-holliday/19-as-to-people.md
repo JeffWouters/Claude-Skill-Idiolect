@@ -1,0 +1,42 @@
+---
+author: Robert Cortes Holliday
+author_died: 1947
+book: "Walking-Stick Papers"
+first_published: 1918
+title: "As To People"
+source: https://www.gutenberg.org/ebooks/13708
+licence: public domain (US and EU)
+words: 1336
+---
+
+It is a very pleasant thing to go about in the world and see all the people.
+
+Among the finest people in the world to talk with are scrubwomen. Bartenders, particularly those in very low places, are not without considerable merit in this respect.  Policemen and trolley-car conductors have great social value.  Rustic ferry-men are very attractive intellectually.  But for a feast of reason and a flow of soul I know of no society at all comparable to that of scrubwomen.
+
+It is possible that you do not cultivate scrubwomen.  That is your misfortune.  Let me tell you about my scrubwoman.  I know only this one, I regret to say, but she, I take it, is representative.
+
+Her name--ah, what does it matter, her name?  The thing beyond price is her mind.  There is stored, in opulence, all the ready-made language, the tag-ends of expression, coined by modern man.  But she does not use this rich dross as others do.  She touches nothing that she does not adorn. She turns the familiar into the unexpected, which is precisely what great writers do.  To employ her own expression, she's "a hot sketch, all right."
+
+She did not like the former occupant of my office.  No; she told me that she "could not bear a hair of his head."  It seems that some altercation occurred between them.  And whatever it was she had to say, she declares that she "told it to him in black and white."  This gentleman, it seems, was "the very Old Boy."  Though my scrubwoman admits that she herself is "a sarcastic piece of goods."  By way of emphasis she invariably adds to her assertions, "Believe me!"
+
+Her son--she has a son--has much trouble with his feet.  His mother says that if he has gone to one "shoeopodist" he has gone to a dozen.  My scrubwoman tells me that she is "the only fair one" of her family.  Her people, it appears, "are all olive."  My scrubwoman is a widow.  She has told me a number of times of the last days of her husband.  It is a touching story.  She realised that the end was near, and humoured him in his idea of returning before it was too late to "the old country."  One day when he had asked her again if she had got the tickets, and then turned his face to the wall to cough, she said to herself, "Good-night--shirt."
+
+But most of the discourse of my scrubwoman is cheerful.  She is a valiant figure, a brave being very fond of the society of her friends (of whom I hold myself to be one), who works late at night, and talks continually. I know that if you would contrive to find favour with your scrubwoman you would often be like that person told of by mine who "laughed until she thought his heart would break."
+
+The most brotherly car-conductors, naturally, are those with not over much business, those on lines in remote places.  I remember the loss I suffered not long ago on a suburban car, which results, I am sorry to say, in your loss also.
+
+The bell signalling to stop rang, and a vivaciously got-up woman with an extremely broad-at-the-base, pear-shaped torse, arose and got herself carefully off the car.  The conductor went forward to assist her.  When he returned aft he came inside the car and sat on the last seat with two of us who were his passengers.  The restlessness was in him which betrays that a man will presently unbosom himself of something.  This finally culminated in his remarking, as if simply for something to say to be friendly, "You noticed that lady that just got off back there?  Well," he continued, leaning forward, having received a look intended to be not discouraging, "that's the mother of Cora Splitts, the little actress;--that lady's the mother of Cora Splitts, the little actress."
+
+"Is that so!" exclaimed one who was his passenger, not wishing to deny him the pleasure he expected of having excited astonishment.  A car conductor leads a hard life, poor fellow, and one should not begrudge him a little pleasure like that.
+
+The conductor twisted away his face for an instant while he spat tobacco-juice.  Thus cleared for action, he returned to the subject of his thoughts.  "That's the mother of Cora Splitts," he repeated again. "She's at White Plains tonight, Cora is.  Cora and me," he said, as one that says, "ah, me, what a world it is!"--"Cora and me was chums once. Yes, sir; we was chums and went to school together."  Some valuable reminiscences of the distinguished woman, dating back to days before the world dreamed of what she would become, by one who played with her as a child, doubtless would have been told, but the conductor was interrupted; a great many people got off, some others got on the car just then, and he went forward to collect fares from these, and the thread was broken.
+
+At my journey's end, I recollect, I went into a public-house.  There was a person there whose presence made a deep impression upon my memory.  A fine stocky lad, with a great square jaw, heavy beery jowls, and a blue-black, bearded chin; in a blue striped collar.  He put both hands firmly on the bar-rail at a good distance apart; straightened his arms taut and his body at right angles with them, so that he resembled a huge carpenter's square; then curled his back finely in, and said, with a significant look at the man behind the bar, "Gimme one o' them shells." A thin glass of beer was set before him; he relaxed, straightened up, and drank off its contents.  Then, apparently, feeling that he was observed, he looked very unconcernedly all about the room and appeared to be bored. He then examined very attentively a picture on the wall, and his neck seemed to be temporarily stiff.  I can see him now, I am happy to say, as plain as print.
+
+One's mind is, indeed, a grand photograph album.  How precious to one it will be when one is old and may sit all day in a house by the sea and, so to say, turn the leaves.  That is why one should be going about all the while in one's vigour with an alert and an open mind.
+
+Wives are picturesque characters, too.  I mind me of my friend Billy Henderson's new wife.  Billy Henderson's wife looks like a balloon. She's so fat that she has busted down the arches of her feet.  In order to "fight flesh" she walks a great deal.  She walks a mile every day, and then takes a car back home.  Her father comes over from Philadelphia once every week to see her, because she is so homesick.  For months after she was married she just cried all the time, she was so homesick.  She never goes to the movies.  The movies make her cry.  One time she saw at the movies a hospital scene.  It horrified her for days.  A friend of hers is about to be married.  But she has told her friend that she cannot go to the wedding.  Weddings always make her cry so.  She just can't read the war news; it is too terrible; it affects her so that she can't sleep a bit.  She hasn't read any of it at all, and, she says, she has no idea who is winning the war.  She takes some kind of capsules to reduce flesh, which cost six dollars for fifty.  She has taken twenty-five.  The extension of the draft age being spoken of, she said to Billy:
+
+"Dearie, I'll put you under the bed where they won't get you."  She doesn't want to vote, and she can't understand why any one should want to go to poles and vote and all that kind of thing.
+
+Billy Henderson's wife is handsome; she is rich; she is an excellent cook; she loves Billy Henderson.
