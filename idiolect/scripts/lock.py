@@ -17,7 +17,7 @@ ABANDONED_AFTER = dt.timedelta(hours=1)
 WRITING_MODES = ("learn", "learn-edit", "interview", "forget", "rollback", "prune", "test")
 
 
-class Locked(Exception):
+class Locked(StoreError):
     """Another run holds a live lock."""
 
 
@@ -57,7 +57,7 @@ def _pending_exists(store_root):
 
 def acquire(store_root, mode, profile=None, now=None):
     """Take the lock. Returns a dict with 'taken_over' and 'pending' (a leftover pending area to
-    offer resume/discard for, spec §9.6). Raises Locked when a live lock exists."""
+    offer resume/discard for, spec §9.7). Raises Locked when a live lock exists."""
     if mode not in WRITING_MODES:
         raise StoreError(f"{mode} is not a store-writing mode")
     now = now or utcnow()

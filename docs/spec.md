@@ -116,8 +116,9 @@ the first match decides. The `result` values are the exact strings of the invent
   was found nowhere in the scan, and which is not about to be superseded by a `changed` or `reverted` row, is listed
   under `unreachable`. A changed file that became too short (row 10) therefore leaves its old entry
   unreachable. Entries outside the scope are not touched.
-- **Cache consistency.** An entry with `cached: true` whose `corpus/<key>.txt` is missing is a store
-  inconsistency: the run stops with `status: error` naming the entry. A dry run reports it in `notes`
+- **Cache consistency.** `cached` becomes true only in a change that also writes `corpus/<key>.txt`
+  (a text found again after its cache was deleted is re-extracted in the same item). An entry with
+  `cached: true` whose `corpus/<key>.txt` is missing is a store inconsistency: the run stops with `status: error` naming the entry. A dry run reports it in `notes`
   and continues.
 - **Report.** The inventory report (and the whole output of a dry run) follows
   `inventory-report.schema.json`: one row per text with `path`, `key`, `result`, `words`, `lang`,
@@ -198,7 +199,7 @@ anything else is a bug. Every change except those marked *housekeeping* goes thr
 | `active` | `unreachable` | Inventory: path in scope not found (*housekeeping*, listed in the run report) |
 | `unreachable` | `active` | Inventory: same hash found again, at the old or a new path (*housekeeping*) |
 | `active`, `unreachable` | `forgotten` | Approved `forget` of the text for **every** profile it feeds; cached text deleted |
-| `forgotten` | `active` | Approved `forget <source> ownership=own`: the file is found with the same hash, extracted and cached again |
+| `forgotten` | `active` | Approved `forget <source> ownership=own`: the file is found with the same hash, extracted and cached again. The entry's old profile records are replaced by the new ones, so re-owning for one profile never revives another |
 | any | the snapshot's status | Approved `rollback` (below) |
 
 `holdout` can be set on any `active` entry by an approved `test` and is cleared only by `rollback` or
@@ -208,7 +209,7 @@ by an approved `forget`.
 
 | Change | Effect on the entry |
 | --- | --- |
-| `forget <source>` for one profile of several | That profile's record is removed from `profiles`; status unchanged |
+| `forget <source>` (by path: the current version and its segments; by key: that text) for one profile of several | That profile's record is removed from `profiles`; status unchanged |
 | `forget <source>` for its only (or last) profile | Status `forgotten`; text deleted |
 | `forget <source> ownership=assisted` or `exclude` | Record changed; if no profile is `own` any more, text deleted and `cached: false` |
 | `forget <source> ownership=own` | Record changed; text extracted and cached if it was not (`cached: true`) |
@@ -221,6 +222,9 @@ manifest that feeds the rolled-back profile:
 1. In the snapshot: its status, holdout flag and this profile's ownership record are restored. If
    that makes it cached again and the text is gone, the file is re-extracted when its path gives the
    same hash; otherwise it is restored as `unreachable` with `cached: false`, and the report says so.
+   **A text another profile also uses keeps its status and holdout flag**: status belongs to the
+   text, and a rollback never changes another profile. Only this profile's record is restored (or
+   removed), which can leave this profile without that text until its next learn; the diff says so.
 2. Not in the snapshot (added later): this profile's record is removed. If no profile remains, the
    entry becomes `forgotten` and its text is deleted.
 
@@ -237,9 +241,18 @@ Entries that do not feed the profile are never touched by its rollback.
    Several items can land in one file (all lessons of a slot page).
 3. The diff is grouped per profile and slot. Rejected observed, edit, vocabulary and example items are
    recorded in `rejected.yaml` on commit.
-4. **Commit** on approval:
-   1. The engine regenerates each affected staged file from the **approved** items only. Staged files
-      are never patched by hand.
+4. **Decisions carry through** (applied whenever decisions change, and again before commit):
+   - An item may *require* others (a text decided by a new rule requires that rule; anything of a
+     new profile requires the profile item). When a required item is rejected, so is the item.
+   - An example drawn from a rejected text is rejected; a lesson whose evidence texts are all
+     rejected is rejected; other lessons lose the rejected texts from their evidence at commit.
+   - An item on a pooled slot that holds exactly the texts of one exact slot *follows* the matching
+     item there and takes its decision; the diff shows only the leading item.
+   - `forget`, `rollback` and `prune` proposals are **atomic**: rejecting any item rejects all.
+5. **Commit** on approval:
+   1. Approved fingerprints are re-measured on the approved corpus only, so a rejected text never
+      counts; a slot left without texts drops its fingerprint. Then the engine regenerates each
+      affected staged file from the **approved** items only. Staged files are never patched by hand.
    2. It writes the **journal**: the `commit` block of `plan.json`, listing every step in order, each
       with state `todo`: first a `snapshot` step per affected profile (§11; not for `prune`, whose purpose is
       removing snapshots), then corpus texts, the
@@ -247,9 +260,9 @@ Entries that do not feed the profile are never touched by its rollback.
    3. It applies the journal in order, marking each step `done` after it. Every write is atomic
       (§1.4), so repeating a step is harmless; a snapshot step that finds its folder complete is done.
    4. Clear `.state/pending/` and release the lock.
-5. If everything is rejected: record the rejections, clear `.state/pending/`, release the lock, write
+6. If everything is rejected: record the rejections, clear `.state/pending/`, release the lock, write
    nothing else.
-6. **Leftovers.** A pending area found at the start of any store-writing run is shown before anything
+7. **Leftovers.** A pending area found at the start of any store-writing run is shown before anything
    else:
    - with a `commit` block: **resume** continues the journal from its first `todo` step; nothing else
      is offered, because the store is half-written.
@@ -265,7 +278,9 @@ Entries that do not feed the profile are never touched by its rollback.
    the lock and read only committed files.
 2. The heartbeat is updated at every pipeline step and every script call the run makes. Nothing runs
    between the writer's messages, so a run waiting for the writer does not update it; that case is
-   handled by rule 4.
+   handled by rule 4. The pending area records which lock (its `started` and `mode`) it belongs to;
+   every later script call on that pending area checks it still holds that lock, takes it back if it
+   was abandoned, and stops if another live run holds it.
 3. A lock whose heartbeat is **less than one hour old** blocks: stop and say which mode holds it, since
    when.
 4. A lock whose heartbeat is **one hour old or older** is abandoned. The next store-writing run tells
@@ -273,7 +288,7 @@ Entries that do not feed the profile are never touched by its rollback.
    - it writes its own lock to `.state/lock.tmp`, renames it over `.state/lock`, reads it back and
      continues only if it holds its own `started` value (two runs taking over at once: one wins);
    - with no pending area, it starts normally;
-   - with a pending area, it offers resume or discard first (§9.6).
+   - with a pending area, it offers resume or discard first (§9.7).
    A leftover pending area therefore never locks the store for good.
 5. A lock file that is empty or does not validate (a crash while creating it) is treated as a lock
    whose heartbeat is the file's modification time, reported as damaged, and taken over by rule 4.
@@ -283,13 +298,15 @@ Entries that do not feed the profile are never touched by its rollback.
 ## 11. Snapshots, rollback, prune, deletion
 
 1. A snapshot is `profiles/<profile>/snapshots/<UTC timestamp YYYY-MM-DDTHHMMSSZ>/` (a `-2`, `-3` …
-   suffix if that name exists) containing a copy of
+   suffix if that name exists; snapshots sort by time, then suffix number) containing a copy of
    every file in the profile folder except `snapshots/`, plus `manifest-entries.json`: the manifest
    entries whose `profiles` include this profile (schema `manifest-entries.schema.json`).
 2. `rollback` (latest snapshot when `to=` is omitted):
    1. Takes a new snapshot first.
    2. Restores the profile's files from the snapshot and removes profile files created after it.
    3. Restores manifest entries as set out in §8 (Rollback).
+   A profile's first commit takes an empty snapshot (no files, no entries), so the first learn can be
+   rolled back too.
    4. Goes through the pending area and approval like any change.
 3. `prune` keeps the newest `keep` snapshots (default 10) and deletes the rest.
 4. Only `forget`, `rollback` and `prune` delete, always after an approved diff. Where the environment
@@ -360,6 +377,9 @@ Entries that do not feed the profile are never touched by its rollback.
    | `x-` | Rejection | `rejected.yaml`, with the rejected item's id in `rejects` |
    | `i-` | Pending item | `.state/pending/plan.json` only |
 
+   The next number is above every number the file has used, including ids of items rejected in this
+   proposal and ids named by `rejects` in `rejected.yaml`.
+
    On relearn, a proposed lesson whose normalised form (below) equals an existing lesson's in the
    same slot keeps that lesson's id; otherwise it gets a new one. So a ruling promoted from `l-003`,
    or a rejection of it, still points at the same lesson after a relearn.
@@ -392,7 +412,7 @@ Entries that do not feed the profile are never touched by its rollback.
 | Two store-writing runs | The second stops on the lock |
 | Unquoted date in YAML | Read as a string (§1.2) |
 | `lang: no` unquoted | The string `no`, not false (§1.2) |
-| Leftover pending area | Resume or discard offered first; an abandoned lock is taken over (§9.6, §10.4) |
+| Leftover pending area | Resume or discard offered first; an abandoned lock is taken over (§9.7, §10.4) |
 | One text, two profiles | Ownership per profile (§7); forgetting it for one keeps it for the other |
 | Store file fails validation | Run stops with `status: error` naming the file |
 

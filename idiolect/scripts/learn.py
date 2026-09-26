@@ -57,6 +57,7 @@ class Run:
         self.pending = stage.Pending(self.store)
         if not self.pending.exists() or self.pending.plan["mode"] != "learn":
             raise StoreError("no learn run is waiting; start one with `learn.py start`")
+        stage.ensure_owner(self.store, self.pending)   # refreshes the heartbeat (spec §10.2)
         self.state_path = self.pending.work("state.json")
         self.state = json.loads(self.state_path.read_text(encoding="utf-8"))
 
@@ -67,7 +68,25 @@ class Run:
         p = self.pending.work("texts", key.replace("#", "-") + ".txt")
         if p.exists():
             return p.read_text(encoding="utf-8")
+        if not hasattr(self, "_staged"):
+            self._staged = {}
+            for it in self.pending.plan["items"]:
+                if self.included(it):
+                    self._staged.update(self.pending.payload(it["id"]).get("corpus") or {})
+        if key in self._staged:
+            return self._staged[key]
         return self.store.corpus_text(key)
+
+    def text_from_source(self, key, path):
+        """The cleaned text for key if the source file still gives it, else None."""
+        f = self.store.sources_root / path
+        if not f.exists():
+            return None
+        ex = extract(f)
+        for t in (detect.split(ex.blocks) if ex else []):
+            if t.key == key:
+                return t.text
+        return None
 
     def included(self, it):
         return it["decision"] != "rejected"
@@ -117,7 +136,7 @@ def init(store_root, sources_root, profile, types_=("essay",), lang="en"):
 
 # ---------- start ----------
 
-def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=None):
+def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=None, since=None):
     store = Store(store_root)
     profile = profile or store.config["default_profile"]
     store, pending, got = stage.begin(store_root, "learn", [profile])
@@ -133,7 +152,7 @@ def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=No
         if r["result"] in ("skipped: not prose",):
             continue
         texts.setdefault(r["path"], []).append(r)
-    state = {"profile": profile, "command": {"lang": lang, "type": type_}, "targets": targets or [],
+    state = {"profile": profile, "since": since, "command": {"lang": lang, "type": type_}, "targets": targets or [],
              "tags": tags or [], "texts": {}, "answers": {"files": {}, "rules": [], "profiles": {}},
              "types": {}, "steps": {"texts": False, "measure": False, "contrast": [], "lessons": [],
                                      "vocab": [], "examples": []}}
@@ -167,19 +186,20 @@ def _decide(run, key, info):
     ans = st["answers"]
     rules = list(store.sources["sources"]) + ans["rules"]
     decided, open_q = {}, []
-    profs = {r["profile"] for r in rules if ("path" in r and _under(r["path"], info["path"], ci))
+    profs = {r["profile"] for r in rules if ("path" in r and _covers(r, info["path"], ci))
              or ("tag" in r and r["tag"] in info["tags"])}
     fa = ans["files"].get(info["path"]) or {}
     profs |= set(fa)
-    if not profs:
-        profs = {st["profile"]}
     old = store.manifest["texts"]
     prev_file = {}
     for k, e in old.items():
-        if e.get("path") == info["path"] and k != key:
+        if e.get("path") == info["path"] and k != key and e["status"] in ("active", "unreachable"):
             for p, rec in e["profiles"].items():
                 if rec["decided_by"] == "writer":
                     prev_file[p] = rec["ownership"]
+    profs |= set(prev_file)          # spec §7.3: a per-file answer is asked again, never dropped
+    if not profs:
+        profs = {st["profile"]}
     for p in sorted(profs):
         if p in fa:
             decided[p] = (fa[p], "writer")
@@ -188,7 +208,7 @@ def _decide(run, key, info):
             open_q.append({"path": info["path"], "profile": p, "default": prev_file[p],
                            "why": "changed file that was decided per file; ask again"})
             continue
-        prs = [r for r in rules if "path" in r and r["profile"] == p and _under(r["path"], info["path"], ci)
+        prs = [r for r in rules if "path" in r and r["profile"] == p and _covers(r, info["path"], ci)
                and not _excluded_by(r, info["path"], ci)]
         if prs:
             best = max(rule_depth(r) for r in prs)
@@ -211,6 +231,18 @@ def excluded_now(run, path):
     ci = case_insensitive(run.store.sources_root)
     rules = list(run.store.sources["sources"]) + run.state["answers"]["rules"]
     return any("path" in r and _under(r["path"], path, ci) and _excluded_by(r, path, ci) for r in rules)
+
+
+def _covers(rule, path, ci):
+    """The path rule applies to this file: at or under its path, and directly inside it when
+    recursive is false."""
+    if not _under(rule["path"], path, ci):
+        return False
+    if rule.get("recursive", True) is False:
+        base = "" if rule["path"] in (".", "") else rule["path"].rstrip("/")
+        parent = path.rsplit("/", 1)[0] if "/" in path else ""
+        return parent.lower() == base.lower() if ci else parent == base
+    return True
 
 
 def _under(rule_path, path, ci):
@@ -279,7 +311,7 @@ def _type_for(run, key, info):
     if info["type"] not in ("?", None):
         return info["type"]
     ci = case_insensitive(run.store.sources_root)
-    rules = [r for r in run.state["answers"]["rules"] if "path" in r and _under(r["path"], info["path"], ci)
+    rules = [r for r in run.state["answers"]["rules"] if "path" in r and _covers(r, info["path"], ci)
              and (r.get("facets") or {}).get("type")]
     if rules:
         return max(rules, key=rule_depth)["facets"]["type"]
@@ -320,15 +352,39 @@ def stage_texts(store_root):
         raise StoreError("ownership or new profiles still undecided; run `learn.py questions`")
     pending, store, st = run.pending, run.store, run.state
     pending.remove_items(lambda it: it["kind"] in ("corpus-text", "ownership", "status", "rule", "profile"))
+    st["steps"]["measure"] = False
+    st["slots"] = []
     today = utcnow().date().isoformat()
+    ci = case_insensitive(store.sources_root)
+    profile_items, rule_items = {}, []
     for name, prof in sorted(st["answers"]["profiles"].items()):
-        pending.add("profile", "add", f"profiles/{name}/profile.yaml",
-                    f"new profile {name}: {prof['subject']} (consent: {prof['consent']})",
-                    {"profile_yaml": {"name": name, "data": prof}}, profile=name)
+        profile_items[name] = pending.add("profile", "add", f"profiles/{name}/profile.yaml",
+                                          f"new profile {name}: {prof['subject']} (consent: {prof['consent']})",
+                                          {"profile_yaml": {"name": name, "data": prof}}, profile=name)
+    if st.get("since") is not None:
+        prof = st["profile"]
+        py = store.root / "profiles" / prof / "profile.yaml"
+        if prof in st["answers"]["profiles"]:
+            pl = pending.payload(profile_items[prof])
+            pl["profile_yaml"]["data"]["since"] = st["since"]
+            stage.atomic_write(pending.dir / "items" / f"{profile_items[prof]}.json", json.dumps(pl, indent=1) + "\n")
+        elif py.exists():
+            data = read_store_file(py, "profile")
+            if data.get("since") != st["since"]:
+                data["since"] = st["since"]
+                profile_items[prof] = pending.add("profile", "modify", f"profiles/{prof}/profile.yaml",
+                                                  f"{prof}: weight writing from {st['since']} onward more (since=)",
+                                                  {"profile_yaml": {"name": prof, "data": data}}, profile=prof)
     for r in st["answers"]["rules"]:
-        pending.add("rule", "add", "sources.yaml",
-                    f"{r['ownership']} for {r['profile']}: {r['path']}" + (f" (except {', '.join(r['exclude'])})" if r.get("exclude") else ""),
-                    {"sources_rules": [r]}, profile=r["profile"])
+        iid = pending.add("rule", "add", "sources.yaml",
+                          f"{r['ownership']} for {r['profile']}: {r['path']}" + (f" (except {', '.join(r['exclude'])})" if r.get("exclude") else ""),
+                          {"sources_rules": [r], "requires": [profile_items[r["profile"]]] if r["profile"] in profile_items and
+                           st["answers"]["profiles"].get(r["profile"]) else []}, profile=r["profile"])
+        rule_items.append((r, iid))
+    new_types = sorted({t for t in st["types"].values() if t not in store.config["types"]})
+    if new_types:
+        pending.add("rule", "modify", "idiolect.yaml", f"new text types: {', '.join(new_types)}",
+                    {"types_add": new_types})
     manifest = store.manifest["texts"]
     for key, info in sorted(st["texts"].items(), key=lambda kv: (kv[1]["path"], kv[0])):
         res = info["result"]
@@ -338,8 +394,16 @@ def stage_texts(store_root):
                         {"manifest": [{"key": key, "set": {"path": info["path"], "status": "active"}}]},
                         ref=key, decision="approved")
         elif res == "unchanged" and entry and entry["status"] == "unreachable":
-            pending.add("status", "modify", "corpus/manifest.json", f"{info['path']}: found again",
-                        {"manifest": [{"key": key, "set": {"status": "active"}}]}, ref=key, decision="approved")
+            patch = {"key": key, "set": {"status": "active"}}
+            pl = {"manifest": [patch]}
+            owned = any(r["ownership"] == "own" for r in entry["profiles"].values())
+            if owned and not store.corpus_path(key).exists():
+                text = run.text_from_source(key, info["path"])
+                if text is not None:
+                    pl["corpus"] = {key: text}
+                    patch["cache"] = True
+            pending.add("status", "modify", "corpus/manifest.json", f"{info['path']}: found again"
+                        + ("; text cached again" if "corpus" in pl else ""), pl, ref=key, decision="approved")
         elif res == "reverted":
             cur = [k for k, e in manifest.items() if e.get("path") == info["path"] and e["status"] == "active" and k != key]
             patches = [{"key": key, "set": {"status": "active"}}]
@@ -362,16 +426,23 @@ def stage_texts(store_root):
         create = {"path": info["path"], "date": _date(info["date"]), "origin": "file", "profiles": profiles,
                   "facets": facets, "words": info["words"], "holdout": False, "status": "active",
                   "cached": owned}
-        patches = [{"key": key, "create": create}]
+        patches = [{"key": key, "create": create, "cache": owned}]
         olds = [k for k, e in manifest.items() if e.get("path") == info["path"] and e["status"] in ("active", "unreachable")
                 and k != key and ("#" in k) == ("#" in key)]
+        if "#" not in key and res == "changed":
+            # segments of the earlier version that are not in the new file go with it (review I4)
+            olds += [k for k, e in manifest.items() if e.get("path") == info["path"] and "#" in k
+                     and e["status"] in ("active", "unreachable") and k not in st["texts"]]
         for k in olds:
             patches.append({"key": k, "set": {"status": "superseded", "superseded_by": key}})
+        requires = [profile_items[p] for p in decided if p in profile_items and p in st["answers"]["profiles"]]
+        requires += [iid for r, iid in rule_items if r["profile"] in decided and _covers(r, info["path"], ci)
+                     and decided[r["profile"]][1] == "path-rule"]
         who = ", ".join(f"{o} for {p}" for p, (o, _) in sorted(decided.items()))
         summ = f"{info['path']}{' (segment ' + key.split('#')[1] + ')' if '#' in key else ''}: {res}, {info['words']} words, {facets['lang']}.{facets['type']}; {who}"
         if olds:
             summ += "; supersedes the earlier version"
-        payload = {"manifest": patches}
+        payload = {"manifest": patches, "requires": requires}
         if owned:
             payload["corpus"] = {key: run.text(key)}
             pending.add("corpus-text", "add", f"corpus/{key.replace('#', '-')}.txt", summ, payload,
@@ -425,7 +496,8 @@ def do_measure(store_root):
     run = Run(store_root)
     if not run.state["steps"]["texts"]:
         raise StoreError("run `learn.py stage-texts` first")
-    run.pending.remove_items(lambda it: it["kind"] in ("fingerprint",))
+    run.pending.remove_items(lambda it: it["kind"] in ("fingerprint",) or
+                             (it["kind"] == "deletion" and it.get("slot")))
     view = run.view()
     pairs = affected(run)
     profiles = sorted({p for p, _ in pairs})
@@ -435,10 +507,14 @@ def do_measure(store_root):
         py = run.store.root / "profiles" / prof / "profile.yaml"
         if since is None and py.exists():
             since = read_store_file(py, "profile").get("since")
+        if run.state.get("since") is not None and prof == run.state["profile"]:
+            since = run.state["since"]
         slots = sorted(s for p, s in pairs if p == prof)
         keep = {s: _existing_fp(run.store, prof, s) for s in slots}
+        produced = set()
         for x in measure.fingerprints_view(view, run.text, run.store.facets, prof, only=slots, since=since,
                                            keep={k: v for k, v in keep.items() if v}):
+            produced.add(x["fingerprint"]["slot"])
             fp = x["fingerprint"]
             run.pending.add("fingerprint", "modify" if keep.get(fp["slot"]) else "add",
                             f"profiles/{prof}/{fp['slot']}.json",
@@ -448,6 +524,14 @@ def do_measure(store_root):
                             {"fingerprint": fp}, profile=prof, slot=fp["slot"])
             out.append({"profile": prof, "slot": fp["slot"], "pooled": fp["pooled"],
                         "texts": fp["counts"]["texts"], "confidence": fp["confidence"]["level"]})
+        for slot in slots:
+            if slot in produced or not keep.get(slot):
+                continue
+            files = [f"profiles/{prof}/{slot}{ext}" for ext in (".json", ".md", ".never.md", ".examples.md")
+                     if (run.store.root / "profiles" / prof / f"{slot}{ext}").exists()]
+            run.pending.add("deletion", "remove", f"profiles/{prof}/{slot}.json",
+                            f"slot {slot} has no texts left; its files are removed (edit lessons are kept)",
+                            {"delete": files}, profile=prof, slot=slot)
     # a pooled slot with exactly the texts of one exact slot mirrors it: contrast and lessons are shared
     for o in out:
         if not o["pooled"]:
@@ -496,6 +580,8 @@ def contrast_sample(store_root, prof, slot):
         active = {k for k, _ in texts}
         if set(c.get("sample_texts", [])) <= active and c.get("corpus_words_at_sample") and \
                 abs(total - c["corpus_words_at_sample"]) / c["corpus_words_at_sample"] <= REUSE_CHANGE:
+            run.state["steps"]["contrast"] += [f"{prof}/{slot}"] + [f"{prof}/{m}" for m in _mirrors(run, prof, slot)]
+            run.save()
             return {"reuse": True, "message": "corpus changed by 20% or less since the last contrast pass; "
                                               "primary metrics and never-list are kept"}
     rng = random.Random(measure.slot_seed(prof, slot) + 1)
@@ -551,7 +637,7 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
                 flagged.append((m, 99.0))
             continue
         r = ai_vals[m] / w if w else 0
-        sparse = g["shortfall"] <= 0.05
+        sparse = g.get("sparse", g["shortfall"] <= 0.05)
         if r > g["overshoot"]:
             flagged.append((m, r / g["overshoot"]))
         elif not sparse and r < g["shortfall"]:
@@ -663,7 +749,15 @@ def _norm_ws(s):
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
-def lessons_apply(store_root, prof, slot, file, names=None):
+def _rejected_ids(store, prof, slot, prefix):
+    rf = store.root / "profiles" / prof / "rejected.yaml"
+    if not rf.exists():
+        return 0
+    return max([0] + [int(e["rejects"].split("-")[1]) for e in read_store_file(rf, "rejected")["entries"]
+                      if e.get("rejects", "").startswith(prefix + "-") and e.get("slot") == slot])
+
+
+def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
     run = Run(store_root)
     data = load_yaml_text(pathlib.Path(file).read_text(encoding="utf-8")) or []
     lang = slot.split(".")[0]
@@ -674,8 +768,10 @@ def lessons_apply(store_root, prof, slot, file, names=None):
     if page.exists():
         meta, _, existing = pages.parse_slot_page(page.read_text(encoding="utf-8"))
     ex_by_norm = {stage.normalise_lesson(x["text"], lang): x for x in existing}
-    last = meta.get("last_id") or 0
     run.pending.remove_items(lambda i: i["kind"] == "lesson" and i.get("profile") == prof and i.get("slot") == slot)
+    last = max(meta.get("last_id") or 0, _rejected_ids(run.store, prof, slot, "l"),
+               stage._plan_ids(run.pending, "lesson", prof, slot))
+    made = {}
     kept, dropped, problems = set(), [], []
     for les in data:
         if les.get("section") not in pages.SLOT_SECTIONS[:-1]:
@@ -685,13 +781,15 @@ def lessons_apply(store_root, prof, slot, file, names=None):
         if norm in rejected:
             dropped.append(les["text"])
             continue
-        ev = [k for k in les.get("evidence", []) if k in texts]
+        ev = sorted({k for k in les.get("evidence", []) if k in texts})
         quote = les.get("quote") or ""
-        if quote and not any(_norm_ws(quote) in _norm_ws(texts[k]) for k in ev):
+        qkey = next((k for k in ev if quote and _norm_ws(quote) in _norm_ws(texts[k])), None)
+        if quote and not qkey:
             problems.append(f"quote not found in its evidence texts: {quote[:60]}")
             quote = ""
+        repl = []
         if quote:
-            quote, _ = redactmod.redact(quote, names)
+            quote, repl = redactmod.redact(quote, names)
         count = len(set(ev))
         if count == 0:
             problems.append(f"no valid evidence: {les['text']}")
@@ -704,14 +802,20 @@ def lessons_apply(store_root, prof, slot, file, names=None):
             last += 1
             lid = f"l-{last:03d}"
         lesson = {"profile": prof, "slot": slot, "id": lid, "section": les["section"], "text": les["text"].strip(),
-                  "evidence": {"count": count, "quote": quote}, "seen_once": count < 2, "unit": "text"}
+                  "evidence": {"count": count, "quote": quote}, "seen_once": count < 2, "unit": "text",
+                  "evidence_keys": ev, "quote_key": qkey}
         new_line_ev = pages.evidence_text(lesson)
         if cur and cur["section"] == lesson["section"] and cur["evidence_raw"] == new_line_ev and cur["text"] == lesson["text"] \
                 and (cur["section"] != "Seen once") == (count >= 2):
             continue
-        run.pending.add("lesson", "modify" if cur else "add", f"profiles/{prof}/{slot}.md",
-                        f"{lid} ({'Seen once' if count < 2 else les['section']}): {lesson['text']} _({new_line_ev})_",
-                        {"lesson": lesson}, profile=prof, slot=slot, ref=lid)
+        shown = "; ".join(f"{r['found']} → {r['placeholder']}" for r in repl)
+        payload = {"lesson": lesson}
+        if follows and norm in follows:
+            payload["follows"] = follows[norm]
+        made[norm] = run.pending.add("lesson", "modify" if cur else "add", f"profiles/{prof}/{slot}.md",
+                                     f"{lid} ({'Seen once' if count < 2 else les['section']}): {lesson['text']} _({new_line_ev})_"
+                                     + (f" [redacted: {shown}]" if shown else ""),
+                                     payload, profile=prof, slot=slot, ref=lid)
     for x in existing:
         if x["id"] not in kept and stage.normalise_lesson(x["text"], lang) not in {stage.normalise_lesson(d["text"], lang) for d in data}:
             run.pending.add("lesson", "remove", f"profiles/{prof}/{slot}.md",
@@ -720,7 +824,7 @@ def lessons_apply(store_root, prof, slot, file, names=None):
     run.state["steps"]["lessons"].append(f"{prof}/{slot}")
     run.save()
     for m in _mirrors(run, prof, slot):
-        lessons_apply(store_root, prof, m, file, names)
+        lessons_apply(store_root, prof, m, file, names, follows=made)
     return {"dropped_as_rejected": dropped, "problems": problems, "next": _next(Run(store_root))}
 
 
@@ -736,8 +840,9 @@ def vocab_apply(store_root, prof, file):
     rf = run.store.root / "profiles" / prof / "rejected.yaml"
     if rf.exists():
         rejected = {e["text"].lower() for e in read_store_file(rf, "rejected")["entries"] if e["kind"] == "vocabulary"}
-    last = max([base.get("last_id") or 0] + [int(e["id"].split("-")[1]) for e in base["entries"]])
     run.pending.remove_items(lambda i: i["kind"] == "vocabulary" and i.get("profile") == prof)
+    last = max([base.get("last_id") or 0, _rejected_ids(run.store, prof, None, "v"),
+                stage._plan_ids(run.pending, "vocab", prof)] + [int(e["id"].split("-")[1]) for e in base["entries"]])
     added, skipped = [], []
     today = utcnow().date().isoformat()
     for v in data:
@@ -793,9 +898,14 @@ def examples_apply(store_root, prof, slot, file):
     meta, cur = ({}, [])
     if ef.exists():
         meta, cur = pages.parse_examples(ef.read_text(encoding="utf-8"))
-    last = max([meta.get("last_id") or 0] + [int(e["id"].split("-")[1]) for e in cur])
-    have = {_norm_ws(e["text"]) for e in cur}
     run.pending.remove_items(lambda i: i["kind"] == "example" and i.get("profile") == prof and i.get("slot") == slot)
+    last = max([meta.get("last_id") or 0, _rejected_ids(run.store, prof, slot, "e"),
+                stage._plan_ids(run.pending, "example", prof, slot)] + [int(e["id"].split("-")[1]) for e in cur])
+    have = {_norm_ws(e["text"]) for e in cur}
+    rf = run.store.root / "profiles" / prof / "rejected.yaml"
+    if rf.exists():
+        have |= {_norm_ws(e["text"]) for e in read_store_file(rf, "rejected")["entries"]
+                 if e["kind"] == "example" and e.get("slot") == slot}
     problems, added = [], []
     for ex in items:
         if ex["key"] not in texts or _norm_ws(ex["text"]) not in _norm_ws(texts[ex["key"]]):
@@ -900,6 +1010,7 @@ def main(argv=None):
     ap.add_argument("--from", dest="from_lesson")
     ap.add_argument("--names")
     ap.add_argument("--sources", help="init: sources_root relative to the store")
+    ap.add_argument("--since", type=int, help="start: weight writing from this year onward more")
     ap.add_argument("--types", help="init: comma-separated text types")
     a = ap.parse_args(argv)
     try:
@@ -908,7 +1019,7 @@ def main(argv=None):
         if act == "init":
             out = init(s, a.sources or "..", a.profile or "me", (a.types or "essay").split(","), a.lang or "en")
         elif act == "start":
-            out = start(s, a.target, a.tag, a.profile, a.lang, a.type)
+            out = start(s, a.target, a.tag, a.profile, a.lang, a.type, a.since)
         elif act == "questions":
             out = questions(Run(s))
         elif act == "answer":

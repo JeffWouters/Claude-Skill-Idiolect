@@ -34,17 +34,47 @@ ITEM_KINDS_REJECTABLE = {"lesson": "observed", "edit-lesson": "edit", "vocabular
 
 # ---------- the pending area ----------
 
-def begin(store_root, mode, profiles=()):
+def begin(store_root, mode, profiles=(), atomic=False):
     """Start a store-writing run: take the lock (spec §10), refuse to start over a leftover pending area
-    (spec §9.6: the caller offers resume or discard), create an empty proposal."""
+    (spec §9.7: the caller offers resume or discard), create an empty proposal. `atomic` proposals
+    (forget, rollback, prune) are approved or rejected as a whole."""
     store = Store(store_root)
     got = lockmod.acquire(str(store.root), mode, profiles[0] if profiles else None)
     pending = Pending(store)
     if pending.exists() or (pending.dir.exists() and any(pending.dir.iterdir())):
         # The lock stays with this run, so `stage.py resume` or `discard` can follow straight away.
-        raise StoreError("a pending area is waiting: offer resume or discard first (spec §9.6)")
+        if pending.dir.exists():
+            _write_owner(pending, got["lock"])
+        raise StoreError("a pending area is waiting: offer resume or discard first (spec §9.7)")
     pending.create(mode, profiles)
+    _write_owner(pending, got["lock"])
+    if atomic:
+        pending.work("meta.json").write_text(json.dumps({"atomic": True}), encoding="utf-8")
     return store, pending, got
+
+
+def _write_owner(pending, lock):
+    pending.work("owner.json").write_text(json.dumps({"started": lock["started"], "mode": lock["mode"]}),
+                                          encoding="utf-8")
+
+
+def ensure_owner(store, pending):
+    """The run working on this pending area must hold the lock (spec §10). Refreshes the heartbeat; takes
+    an abandoned lock over; refuses when another live run holds it."""
+    root = str(store.root)
+    own = pending.dir / "work" / "owner.json"
+    mine = json.loads(own.read_text(encoding="utf-8")) if own.exists() else {}
+    data, damaged, _ = lockmod.read(root)
+    st = lockmod.state(root)
+    if data and not damaged and st == "held" and data["started"] == mine.get("started") \
+            and data["mode"] == mine.get("mode"):
+        lockmod.heartbeat(root)
+        return
+    if st in ("held", "damaged"):
+        raise lockmod.Locked("another run holds the lock; wait for it or for its heartbeat to be an hour old")
+    got = lockmod.acquire(root, (mine.get("mode") or (pending.plan["mode"] if pending.exists() else "learn")))
+    if pending.dir.exists():
+        _write_owner(pending, got["lock"])
 
 
 class Pending:
@@ -58,7 +88,7 @@ class Pending:
 
     def create(self, mode, profiles=()):
         if self.exists():
-            raise StoreError("a pending area already exists; resume or discard it first (spec §9.6)")
+            raise StoreError("a pending area already exists; resume or discard it first (spec §9.7)")
         now = utcnow()
         plan = {"schema_version": 1, "run_id": run_id(now), "mode": mode, "profiles": sorted(set(profiles)),
                 "created": iso(now), "items": []}
@@ -109,6 +139,7 @@ class Pending:
         return json.loads((self.dir / "items" / f"{iid}.json").read_text(encoding="utf-8"))
 
     def decide(self, approve=(), reject=(), all_decision=None):
+        ensure_owner(self.store, self)
         plan = self.plan
         if "commit" in plan:
             raise StoreError("the commit has started; decisions can no longer change")
@@ -117,13 +148,52 @@ class Pending:
             if x not in ids:
                 raise StoreError(f"no pending item {x}")
         for it in plan["items"]:
-            if all_decision and it["decision"] == "pending":
-                it["decision"] = all_decision
             if it["id"] in approve:
                 it["decision"] = "approved"
             if it["id"] in reject:
                 it["decision"] = "rejected"
+        self.cascade(plan)
+        for it in plan["items"]:
+            if all_decision and it["decision"] == "pending":
+                it["decision"] = all_decision
+        self.cascade(plan)
         self.save(plan)
+        return plan
+
+    def atomic(self):
+        m = self.dir / "work" / "meta.json"
+        return m.exists() and json.loads(m.read_text(encoding="utf-8")).get("atomic", False)
+
+    def cascade(self, plan):
+        """Decisions that follow from others (spec §9.2): an item whose requirement is rejected is
+        rejected; a mirrored item takes the decision of the item it follows; an example drawn from a
+        rejected text is rejected; an atomic proposal is rejected as a whole."""
+        by_id = {i["id"]: i for i in plan["items"]}
+        payloads = {i["id"]: self.payload(i["id"]) for i in plan["items"]}
+        if self.atomic() and any(i["decision"] == "rejected" for i in plan["items"]):
+            for i in plan["items"]:
+                i["decision"] = "rejected"
+            return plan
+        changed = True
+        while changed:
+            changed = False
+            rejected_keys = {i.get("ref") for i in plan["items"] if i["decision"] == "rejected"
+                             and i["kind"] in ("corpus-text", "ownership")}
+            for i in plan["items"]:
+                pl = payloads[i["id"]]
+                want = None
+                if any(by_id.get(r, {}).get("decision") == "rejected" for r in pl.get("requires", [])):
+                    want = "rejected"
+                elif pl.get("follows") and by_id.get(pl["follows"], {}).get("decision") in ("approved", "rejected"):
+                    want = by_id[pl["follows"]]["decision"]
+                elif (pl.get("example") or {}).get("source") in rejected_keys:
+                    want = "rejected"
+                elif pl.get("lesson") and pl["lesson"].get("evidence_keys") and \
+                        not set(pl["lesson"]["evidence_keys"]) - rejected_keys:
+                    want = "rejected"
+                if want and i["decision"] != want and not (want == "approved" and i["decision"] == "rejected"):
+                    i["decision"] = want
+                    changed = True
         return plan
 
     def work(self, *parts):
@@ -143,6 +213,7 @@ def _apply_manifest_patch(texts, patch):
     key = patch["key"]
     if "create" in patch:
         texts[key] = copy.deepcopy(patch["create"])
+        texts[key]["cached"] = False
     if key not in texts:
         return
     e = texts[key]
@@ -156,18 +227,52 @@ def _apply_manifest_patch(texts, patch):
             e["profiles"].pop(prof, None)
         else:
             e["profiles"][prof] = rec
+    if "replace_profiles" in patch:
+        e["profiles"] = copy.deepcopy(patch["replace_profiles"])
     owned = any(r["ownership"] == "own" for r in e["profiles"].values())
-    e["cached"] = owned and e["status"] != "forgotten"
+    if not owned or e["status"] == "forgotten":
+        e["cached"] = False
+    elif not e.get("cached"):
+        # cached turns true only when the same payload writes corpus/<key>.txt (spec §5 cache consistency)
+        e["cached"] = bool(patch.get("cache"))
     for k, v in (patch.get("force") or {}).items():   # e.g. cached: false when a text cannot be restored
         e[k] = v
     if e["status"] != "superseded":
         e.pop("superseded_by", None)
 
 
-def render(store, pending, include):
-    """{store-relative path: new content, or None to delete} for the included items."""
+def _plan_ids(pending, field, prof, slot=None):
+    """Highest id number any item of this plan uses in one file, rejected ones included, so an id is
+    never handed out twice (spec §14.2)."""
+    n = 0
+    for it in pending.plan["items"]:
+        pl = pending.payload(it["id"])
+        body = pl.get(field)
+        if not body:
+            continue
+        if field in ("vocab", "ruling"):
+            if body["profile"] != prof:
+                continue
+            body = body["entry"]
+        elif body.get("profile") != prof or body.get("slot") != slot:
+            continue
+        m = re.match(r"^[a-z]-(\d+)$", body.get("id", ""))
+        if m:
+            n = max(n, int(m.group(1)))
+    return n
+
+
+def rejected_keys(pending):
+    return {i.get("ref") for i in pending.plan["items"] if i["decision"] == "rejected"
+            and i["kind"] in ("corpus-text", "ownership") and i.get("ref")}
+
+
+def render(store, pending, include, final=False):
+    """{store-relative path: new content, or None to delete} for the included items. `final` marks the
+    commit rendering: approved examples are marked reviewed, and lesson evidence drops rejected texts."""
     plan = pending.plan
     items = [(it, pending.payload(it["id"])) for it in plan["items"] if include(it)]
+    gone = rejected_keys(pending)
     out = {}
 
     # corpus texts, deletions and restores
@@ -188,6 +293,14 @@ def render(store, pending, include):
         man = {"schema_version": 1, "texts": dict(sorted(texts.items()))}
         check_schema("manifest", man, "rendered manifest")
         out["corpus/manifest.json"] = json.dumps(man, indent=2, ensure_ascii=False) + "\n"
+
+    # idiolect.yaml: new text types
+    new_types = sorted({t for it, pl in items for t in pl.get("types_add") or []})
+    if new_types:
+        cfg = copy.deepcopy(store.config)
+        cfg["types"] = cfg["types"] + [t for t in new_types if t not in cfg["types"]]
+        check_schema("idiolect", cfg, "rendered idiolect.yaml")
+        out["idiolect.yaml"] = dump_yaml(cfg)
 
     # sources.yaml
     rules = [r for it, pl in items for r in pl.get("sources_rules") or []]
@@ -243,14 +356,23 @@ def render(store, pending, include):
         for op, les in lessons.get(key, []):
             if op == "remove":
                 byid.pop(les["id"], None)
-            else:
-                byid[les["id"]] = les
+                continue
+            if les.get("evidence_keys") and gone & set(les["evidence_keys"]):
+                les = copy.deepcopy(les)
+                keys = [k for k in les["evidence_keys"] if k not in gone]
+                les["evidence_keys"] = keys
+                les["evidence"]["count"] = len(set(keys))
+                les["seen_once"] = len(set(keys)) < 2
+                if les.get("quote_key") in gone:
+                    les["evidence"]["quote"] = ""
+            byid[les["id"]] = les
         fp = new_fp.get(key)
         if fp is None:
             fpt = _read(store, f"profiles/{prof}/{slot}.json")
             fp = json.loads(fpt) if fpt else None
         conf = pages.confidence_line(fp["confidence"]) if fp else ""
-        meta["last_id"] = max([meta.get("last_id") or 0] + [int(i.split("-")[1]) for i in byid])
+        meta["last_id"] = max([meta.get("last_id") or 0, _plan_ids(pending, "lesson", prof, slot)]
+                              + [int(i.split("-")[1]) for i in byid])
         if fp:
             meta["pooled"] = fp["pooled"]
             meta["built"] = fp["built"]
@@ -268,8 +390,12 @@ def render(store, pending, include):
             if op == "remove":
                 byid.pop(ex["id"], None)
             else:
+                if final:
+                    ex = copy.deepcopy(ex)
+                    ex["redaction"]["reviewed"] = True
                 byid[ex["id"]] = ex
-        meta["last_id"] = max([meta.get("last_id") or 0] + [int(i.split("-")[1]) for i in byid])
+        meta["last_id"] = max([meta.get("last_id") or 0, _plan_ids(pending, "example", prof, slot)]
+                              + [int(i.split("-")[1]) for i in byid])
         out[rel] = pages.render_examples(meta, list(byid.values()))
 
     # rulings and vocabulary
@@ -288,7 +414,8 @@ def render(store, pending, include):
                 else:
                     byid[entry["id"]] = entry
             base["entries"] = sorted(byid.values(), key=lambda e: e["id"])
-            base["last_id"] = max([base.get("last_id") or 0] + [int(i.split("-")[1]) for i in byid])
+            base["last_id"] = max([base.get("last_id") or 0, _plan_ids(pending, field, prof)]
+                                  + [int(i.split("-")[1]) for i in byid])
             check_schema(schema, base, rel)
             out[rel] = dump_yaml(base)
     return out
@@ -374,16 +501,24 @@ def diff(store, pending):
         where = "store" if not it.get("profile") else it["profile"] + (f" / {it['slot']}" if it.get("slot") else "")
         groups[where].append(it)
     lines = [f"Proposal from {plan['mode']} (run {plan['run_id']}): {len(plan['items'])} items"]
+    if pending.atomic():
+        lines.append("This proposal is approved or rejected as a whole.")
     for where in sorted(groups, key=lambda w: (w != "store", w)):
         lines.append(f"\n{where}")
+        followers = 0
         for it in groups[where]:
+            if pending.payload(it["id"]).get("follows"):
+                followers += 1
+                continue
             lines.append(f"  [{MARK[it['decision']]}] {it['id']} {OPS[it['op']]} {it['kind']}: {it['summary']}")
+        if followers:
+            lines.append(f"  (+{followers} items that follow the decisions on the slot with the same texts)")
     counts = collections.Counter(i["decision"] for i in plan["items"])
     lines.append(f"\n{counts['approved']} approved, {counts['rejected']} rejected, {counts['pending']} undecided")
     return "\n".join(lines)
 
 
-# ---------- commit (spec §9.4) ----------
+# ---------- commit (spec §9.5) ----------
 
 def _snapshot_name(store, profile, now):
     base = now.strftime("%Y-%m-%dT%H%M%SZ")
@@ -395,22 +530,81 @@ def _snapshot_name(store, profile, now):
 
 
 def affected_profiles(store, pending, include):
+    """Profiles whose files or ledger records the included items change (and only those)."""
     profs = set()
     for it in pending.plan["items"]:
         if not include(it):
             continue
-        if it.get("profile"):
-            profs.add(it["profile"])
-        for p in pending.payload(it["id"]).get("manifest") or []:
-            e = store.manifest["texts"].get(p["key"]) or p.get("create") or {}
-            profs.update((e.get("profiles") or {}).keys())
+        pl = pending.payload(it["id"])
+        for body in (pl.get("lesson"), pl.get("example"), pl.get("never"), pl.get("fingerprint")):
+            if body:
+                profs.add(body["profile"])
+        for field in ("vocab", "ruling"):
+            if pl.get(field):
+                profs.add(pl[field]["profile"])
+        if pl.get("profile_yaml"):
+            profs.add(pl["profile_yaml"]["name"])
+        for rel in list(pl.get("restore") or {}) + list(pl.get("delete") or []):
+            if rel.startswith("profiles/"):
+                profs.add(rel.split("/")[1])
+        for p in pl.get("manifest") or []:
             profs.update((p.get("profiles") or {}).keys())
-    return sorted(p for p in profs if (store.root / "profiles" / p).exists()
-                  or any(it.get("profile") == p for it in pending.plan["items"]))
+            profs.update((p.get("replace_profiles") or {}).keys())
+            profs.update(((p.get("create") or {}).get("profiles") or {}).keys())
+            if p.get("set") and "status" in p["set"]:
+                e = store.manifest["texts"].get(p["key"]) or {}
+                profs.update((e.get("profiles") or {}).keys())
+    return sorted(profs)
+
+
+def rederive_fingerprints(store, pending):
+    """Re-measure approved fingerprints on the approved corpus only, so a rejected text never counts
+    (spec §9.5). Primary flags, contrast block and metric list are kept."""
+    import measure
+    plan = pending.plan
+    approved = [i for i in plan["items"] if i["decision"] == "approved"]
+    view = copy.deepcopy(store.manifest["texts"])
+    texts = {}
+    for it in approved:
+        pl = pending.payload(it["id"])
+        for p in pl.get("manifest") or []:
+            _apply_manifest_patch(view, p)
+        texts.update(pl.get("corpus") or {})
+
+    def get_text(k):
+        return texts[k] if k in texts else store.corpus_text(k)
+
+    for it in approved:
+        if it["kind"] != "fingerprint":
+            continue
+        pl = pending.payload(it["id"])
+        old = pl["fingerprint"]
+        prof = old["profile"]
+        since = None
+        py = store.root / "profiles" / prof / "profile.yaml"
+        if py.exists():
+            since = read_store_file(py, "profile").get("since")
+        for a in approved:
+            pp = pending.payload(a["id"]).get("profile_yaml")
+            if pp and pp["name"] == prof:
+                since = pp["data"].get("since")
+        slots = measure.slot_texts(view, get_text, store.facets, prof)
+        if old["slot"] not in slots:
+            it["decision"] = "rejected"
+            it["summary"] += " (dropped: no approved texts left)"
+            continue
+        v = slots[old["slot"]]
+        primary = [m for m, x in old["metrics"].items() if x.get("primary")]
+        fp, _ = measure.build_fingerprint(prof, old["slot"], v["pooled"], v["texts"], since, primary,
+                                          old.get("metric_list", "global"), old.get("contrast"), old["built"])
+        if fp != old:
+            pl["fingerprint"] = fp
+            atomic_write(pending.dir / "items" / f"{it['id']}.json", json.dumps(pl, ensure_ascii=False, indent=1) + "\n")
+    pending.save(plan)
 
 
 def prepare_commit(store, pending):
-    """Render approved items into .state/pending/commit/ and write the journal (spec §9.4 steps 1-2)."""
+    """Render approved items into .state/pending/commit/ and write the journal (spec §9.5 steps 1-2)."""
     plan = pending.plan
     if "commit" in plan:
         return plan
@@ -418,7 +612,10 @@ def prepare_commit(store, pending):
     undecided = [i["id"] for i in plan["items"] if i["decision"] == "pending"]
     if undecided:
         raise StoreError(f"undecided items: {', '.join(undecided)}; approve or reject them first")
-    files = render(store, pending, approved)
+    pending.save(pending.cascade(plan))
+    rederive_fingerprints(store, pending)
+    plan = pending.plan
+    files = render(store, pending, approved, final=True)
     files.update(render_rejections(store, pending))
     any_approved = any(approved(i) for i in plan["items"])
     now = utcnow()
@@ -426,7 +623,8 @@ def prepare_commit(store, pending):
     profs = affected_profiles(store, pending, approved) if any_approved else []
     snaps = {}
     for p in profs:
-        if (store.root / "profiles" / p).exists() and plan["mode"] != "prune":   # pruning is not undone by a snapshot
+        if plan["mode"] != "prune":   # pruning is not undone by a snapshot
+            # a profile's first learn gets an empty snapshot, so it can be rolled back too
             snaps[p] = _snapshot_name(store, p, now)
             steps.append({"op": "snapshot", "path": f"profiles/{p}/snapshots/{snaps[p]}", "state": "todo"})
     staging = pending.dir / "commit"
@@ -438,11 +636,11 @@ def prepare_commit(store, pending):
     for rel in sorted(r for r, c in files.items() if c is None):
         steps.append({"op": "delete", "path": rel, "state": "todo"})
     if any_approved:
-        counts = collections.Counter((i["kind"], i["decision"]) for i in plan["items"])
         for p in profs:
-            slots = sorted({i["slot"] for i in plan["items"] if i.get("profile") == p and i.get("slot")
-                            and approved(i)})
-            summ = ", ".join(f"{n} {k} {d}" for (k, d), n in sorted(counts.items()))
+            mine = [i for i in plan["items"] if i.get("profile") == p]
+            counts = collections.Counter((i["kind"], i["decision"]) for i in mine)
+            slots = sorted({i["slot"] for i in mine if i.get("slot") and approved(i)})
+            summ = ", ".join(f"{n} {k} {d}" for (k, d), n in sorted(counts.items())) or "ledger changes only"
             rel = f"profiles/{p}/changelog.md"
             text = pages.changelog_append(_read(store, rel), p, iso(now), plan["mode"], plan["run_id"], slots,
                                           summ, f"snapshots/{snaps[p]}" if p in snaps else None)
@@ -465,7 +663,7 @@ def _snapshot(store, rel):
     if tmp.exists():
         shutil.rmtree(tmp)
     tmp.mkdir(parents=True)
-    for f in pdir.iterdir():
+    for f in (pdir.iterdir() if pdir.exists() else []):
         if f.name == "snapshots":
             continue
         if f.is_dir():
@@ -517,6 +715,7 @@ def commit(store_root):
     pending = Pending(store)
     if not pending.exists():
         raise StoreError("nothing pending")
+    ensure_owner(store, pending)
     if prepare_commit(store, pending) is None:
         shutil.rmtree(pending.dir)
         lockmod.release(str(store.root))
@@ -529,6 +728,7 @@ def resume(store_root):
     pending = Pending(store)
     if not pending.exists() or "commit" not in pending.plan:
         raise StoreError("no interrupted commit to resume")
+    ensure_owner(store, pending)
     return run_journal(store, pending)
 
 
@@ -536,8 +736,9 @@ def discard(store_root):
     store = Store(store_root)
     pending = Pending(store)
     if pending.exists() and "commit" in pending.plan:
-        raise StoreError("a commit was interrupted; it can only be resumed (spec §9.6)")
+        raise StoreError("a commit was interrupted; it can only be resumed (spec §9.7)")
     if pending.dir.exists():
+        ensure_owner(store, pending)
         shutil.rmtree(pending.dir)
     lockmod.release(str(store.root))
     return {"discarded": True}

@@ -37,6 +37,9 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 | `lang`, `type`, other facets | e.g. `lang=en type=essay` | detected |
 | `dry-run` | `true` | — |
 | `interactive` | `true`, `false` | `true`; with `false` never ask, return the question instead |
+| `since` | a year: writing from then on counts more (saved in the profile) | — |
+| `exclude`, `recursive` | globs to skip; `false` = only the folder's own files (saved in the rule) | — |
+| `to`, `keep` | rollback's snapshot; prune's number of snapshots to keep | latest; 10 |
 
 ## Every run starts the same way
 

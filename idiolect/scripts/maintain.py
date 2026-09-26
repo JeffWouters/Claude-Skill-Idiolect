@@ -24,7 +24,8 @@ def _entries_for(store, source):
     if source in texts or source.split("#")[0] in texts:
         base = source.split("#")[0]
         return {k: e for k, e in texts.items() if k == source or (source == base and k.split("#")[0] == base)}
-    return {k: e for k, e in texts.items() if e.get("path") == source}
+    # by path: the current version and its segments; superseded versions are history (spec §8)
+    return {k: e for k, e in texts.items() if e.get("path") == source and e["status"] != "superseded"}
 
 
 def _reextract(store, entry, key):
@@ -76,23 +77,29 @@ def _remeasure(store, pending, patches, profiles, corpus_add):
 
 
 def forget(store_root, source, profile=None, ownership=None):
-    store, pending, _ = stage.begin(store_root, "forget", [profile] if profile else [])
+    store, pending, _ = stage.begin(store_root, "forget", [profile] if profile else [], atomic=True)
     try:
         entries = _entries_for(store, source)
         if not entries:
             raise StoreError(f"no manifest entry for {source}")
         today = utcnow().date().isoformat()
-        patches, corpus_add, affected = [], {}, set()
+        patches, corpus_add, affected, losing = [], {}, set(), {}
         for key, e in sorted(entries.items()):
             profs = [profile] if profile else (list(e["profiles"]) or [store.config["default_profile"]])
-            affected.update(e["profiles"])
             affected.update(profs)
+            if not ownership or ownership != "own":
+                losing.setdefault(key, set()).update(profs)
             if ownership:
                 recs = {p: {"ownership": ownership, "decided": today, "decided_by": "writer"} for p in profs}
-                after = dict(e["profiles"])
-                after.update(recs)
+                if e["status"] == "forgotten":
+                    # a forgotten entry's old records are history; re-owning starts from these only
+                    after = dict(recs)
+                    patch = {"key": key, "replace_profiles": recs}
+                else:
+                    after = dict(e["profiles"])
+                    after.update(recs)
+                    patch = {"key": key, "profiles": recs}
                 owned = any(r["ownership"] == "own" for r in after.values())
-                patch = {"key": key, "profiles": recs}
                 summary = f"{e.get('path') or key}: ownership {ownership} for {', '.join(profs)}"
                 if owned and (not e.get("cached") or e["status"] == "forgotten"):
                     text = _reextract(store, e, key)
@@ -100,6 +107,7 @@ def forget(store_root, source, profile=None, ownership=None):
                         raise StoreError(f"{e.get('path')} no longer gives the same text; learn it again instead")
                     corpus_add[key] = text
                     patch["set"] = {"status": "active"}
+                    patch["cache"] = True
                     summary += "; text extracted and cached"
                     pending.add("corpus-text", "add", f"corpus/{key.replace('#', '-')}.txt", summary,
                                 {"corpus": {key: text}, "manifest": [patch]}, profile=profs[0], ref=key)
@@ -134,6 +142,7 @@ def forget(store_root, source, profile=None, ownership=None):
                                 f"{e.get('path') or key}: forgotten; cached text deleted", pl,
                                 profile=profs[0], ref=key)
                 patches.append(patch)
+        _drop_examples(store, pending, losing)
         _remeasure(store, pending, patches, affected, corpus_add)
         return {"proposed": len(pending.plan["items"]), "next": "stage.py diff, decide, commit"}
     except Exception:
@@ -141,13 +150,35 @@ def forget(store_root, source, profile=None, ownership=None):
         raise
 
 
+def _drop_examples(store, pending, losing):
+    """Examples drawn from a text a profile no longer has are removed with it (review I6)."""
+    import pages
+    for key, profs in losing.items():
+        for prof in sorted(profs):
+            for f in sorted((store.root / "profiles" / prof).glob("*.examples.md")):
+                slot = f.name[: -len(".examples.md")]
+                _, exs = pages.parse_examples(f.read_text(encoding="utf-8"))
+                for ex in exs:
+                    if ex.get("source") == key:
+                        pending.add("example", "remove", f"profiles/{prof}/{slot}.examples.md",
+                                    f"{ex['id']} came from the forgotten text; removed",
+                                    {"example": {**ex, "profile": prof, "slot": slot}}, profile=prof, slot=slot,
+                                    ref=ex["id"])
+
+
+def _snap_order(name):
+    base, _, n = name.partition("Z-")
+    return (base if n else name.rstrip("Z"), int(n) if n.isdigit() else 1)
+
+
 def _snapshots(store, profile):
     d = store.root / "profiles" / profile / "snapshots"
-    return sorted(p.name for p in d.iterdir() if p.is_dir() and not p.name.endswith(".tmp")) if d.exists() else []
+    names = [p.name for p in d.iterdir() if p.is_dir() and not p.name.endswith(".tmp")] if d.exists() else []
+    return sorted(names, key=_snap_order)
 
 
 def rollback(store_root, profile, to=None):
-    store, pending, _ = stage.begin(store_root, "rollback", [profile])
+    store, pending, _ = stage.begin(store_root, "rollback", [profile], atomic=True)
     try:
         snaps = _snapshots(store, profile)
         if not snaps:
@@ -174,9 +205,26 @@ def rollback(store_root, profile, to=None):
                         {"delete": [f"profiles/{profile}/{rel}"]}, profile=profile)
         then = read_store_file(sdir / "manifest-entries.json", "manifest-entries")["texts"]
         for key, e in sorted(store.manifest["texts"].items()):
+            others = [p for p in set(e["profiles"]) | set((then.get(key) or {}).get("profiles", {})) if p != profile]
             if key in then:
                 old = then[key]
                 want = {"status": old["status"], "holdout": old.get("holdout", False)}
+                if others and (e["status"], e.get("holdout", False)) != (want["status"], want["holdout"]):
+                    # status belongs to the text, which other profiles still use: only this profile's
+                    # record is restored (spec §8, rollback of a shared text)
+                    rec = old["profiles"].get(profile)
+                    if e["profiles"].get(profile) != rec:
+                        pending.add("status", "modify", "corpus/manifest.json",
+                                    f"{e.get('path') or key}: {profile}'s record restored; status kept "
+                                    f"because {', '.join(sorted(others))} also use this text",
+                                    {"manifest": [{"key": key, "profiles": {profile: rec} if rec else {profile: None}}]},
+                                    profile=profile, ref=key)
+                    elif e["status"] == "active" and old["status"] == "superseded" and profile in e["profiles"]:
+                        pending.add("status", "modify", "corpus/manifest.json",
+                                    f"{e.get('path') or key}: newer version removed from {profile}; kept for "
+                                    f"{', '.join(sorted(others))}", {"manifest": [{"key": key, "profiles": {profile: None}}]},
+                                    profile=profile, ref=key)
+                    continue
                 if old.get("superseded_by"):
                     want["superseded_by"] = old["superseded_by"]
                 rec = old["profiles"].get(profile)
@@ -193,6 +241,7 @@ def rollback(store_root, profile, to=None):
                     text = _reextract(store, e, key)
                     if text is not None:
                         pl["corpus"] = {key: text}
+                        patch["cache"] = True
                         summary += "; text re-extracted"
                     else:
                         patch["set"]["status"] = "unreachable"
@@ -223,7 +272,7 @@ def rollback(store_root, profile, to=None):
 
 
 def prune(store_root, profile, keep=10):
-    store, pending, _ = stage.begin(store_root, "prune", [profile])
+    store, pending, _ = stage.begin(store_root, "prune", [profile], atomic=True)
     try:
         snaps = _snapshots(store, profile)
         for name in snaps[: max(0, len(snaps) - keep)]:

@@ -4,7 +4,7 @@
     python3 pending.py --store S discard    clear a pending area that has no commit journal
 
 Staging, approval and the commit journal are completed in phase 2; this module already defines the
-leftover rules (§9.6) so every store-writing run can check them first.
+leftover rules (§9.7) so every store-writing run can check them first.
 """
 import argparse
 import json
@@ -44,7 +44,7 @@ def discard(store_root):
     if not st["pending"]:
         return {"discarded": False, "message": "nothing pending"}
     if "discard" not in st["choices"]:
-        raise StoreError("a commit was interrupted; it can only be resumed (spec §9.6)")
+        raise StoreError("a commit was interrupted; it can only be resumed (spec §9.7)")
     shutil.rmtree(_dir(store_root))
     return {"discarded": True}
 

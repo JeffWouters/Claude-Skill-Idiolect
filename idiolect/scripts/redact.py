@@ -19,7 +19,10 @@ PATTERNS = [
     ("[url]", re.compile(r"\bhttps?://\S*?/(?:users?|u|profile|people|~)[/\w.%-]*", re.I)),
     ("[phone]", re.compile(r"(?<![\w/])(?:\+|00)\d{1,3}[\s.-]?(?:\(0\)[\s.-]?)?\d{1,4}(?:[\s.-]?\d{2,4}){2,4}\b"
                            r"|(?<![\w/])0\d{1,3}[\s.-]?\d{3,4}[\s.-]?\d{3,4}\b")),
-    ("[postcode]", re.compile(r"\b\d{4}\s?[A-Z]{2}\b(?=[\s,.]|$)|\b[A-Z]{1,2}\d[A-Z\d]?\s\d[A-Z]{2}\b")),
+    # Dutch postcode followed by a place name ("1012 AB Amsterdam"); UK postcode ("SW1A 1AA"). A bare
+    # "1066 AD" or "3000 MB" is not a postcode.
+    ("[postcode]", re.compile(r"\b[1-9]\d{3}\s?(?!AD|BC|MB|GB|KB|TB|PB|SP|NL|CE)[A-Z]{2}(?=\s+[A-Z][a-z]{2,})"
+                              r"|\b[A-Z]{1,2}\d[A-Z\d]?\s\d[ABD-HJLNP-UW-Z]{2}\b")),
 ]
 
 

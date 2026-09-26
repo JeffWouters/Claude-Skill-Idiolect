@@ -150,7 +150,9 @@ def test_full_cycle(tmp_path):
     _, _, lessons2 = pages.parse_slot_page((st / "profiles" / "noor" / "en.essay.md").read_text())
     assert {x["text"]: x["id"] for x in lessons2} == ids
     snaps = sorted((st / "profiles" / "noor" / "snapshots").iterdir())
-    assert len(snaps) == 1 and (snaps[0] / "manifest-entries.json").exists()
+    assert len(snaps) == 2 and all((x / "manifest-entries.json").exists() for x in snaps)
+    first = json.loads((snaps[0] / "manifest-entries.json").read_text())
+    assert first["texts"] == {}      # the first learn's snapshot is empty, so it can be rolled back too
 
     # a second profile, then rollback of the first must not touch it
     full_learn(tmp_path, st, "idris", "idris")
@@ -214,17 +216,20 @@ def test_interrupted_commit_resumes_to_the_same_result(tmp_path):
     stage.resume(sb)
     assert not (sb / ".state" / "pending").exists()
 
+    import re
+    stamp = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:?\d{2}:?\d{2}Z(-\d+)?|\d{8}T\d{6}Z")
+
     def content(root):
         out = {}
         for f in sorted(root.rglob("*")):
-            if f.is_file() and "snapshots" not in f.parts and f.name != "changelog.md" and f.suffix != ".json" \
-                    and not f.name.endswith(".md"):
-                out[str(f.relative_to(root))] = f.read_bytes()
+            if f.is_file():
+                rel = stamp.sub("<t>", str(f.relative_to(root)))
+                out[rel] = stamp.sub("<t>", f.read_text(encoding="utf-8"))
         return out
-    assert content(sa) == content(sb)
-    ja = json.loads((sa / "corpus" / "manifest.json").read_text())
-    jb = json.loads((sb / "corpus" / "manifest.json").read_text())
-    assert ja == jb
+    ca, cb = content(sa), content(sb)
+    assert ca.keys() == cb.keys()
+    for k in ca:
+        assert ca[k] == cb[k], k
 
 
 def test_leftover_pending_blocks_a_new_run(tmp_path):

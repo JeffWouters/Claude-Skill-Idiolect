@@ -204,7 +204,8 @@ def profile_texts(entries, get_text, facet_names, profile):
     out = []
     for key, e in sorted(entries.items()):
         rec = e["profiles"].get(profile)
-        if not rec or rec["ownership"] != "own" or e["status"] != "active" or e.get("holdout") \
+        # unreachable texts are still learned until forgotten (design: corpus manifest)
+        if not rec or rec["ownership"] != "own" or e["status"] not in ("active", "unreachable") or e.get("holdout") \
                 or not e.get("cached"):
             continue
         out.append((key, slot_key(facet_names, e["facets"]), get_text(key), e.get("date")))

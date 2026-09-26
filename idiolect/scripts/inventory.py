@@ -119,15 +119,25 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
             roots.append(sources_root)
     elif store:
         scope_rel = sorted({r["path"] for r in store.sources["sources"] if "path" in r})
+        flat = {r["path"] for r in store.sources["sources"] if "path" in r and r.get("recursive", True) is False}
+        # a folder registered only with recursive: false covers its own files, not its subfolders
+        scope_rel = [p for p in scope_rel if p not in flat or any(
+            r.get("path") == p and r.get("recursive", True) for r in store.sources["sources"])]
+        scope_flat = sorted(flat - set(scope_rel))
         scope_desc = "all registered sources"
-        roots = [sources_root / p for p in scope_rel]
+        roots = [sources_root / p for p in scope_rel + scope_flat]
         if any("tag" in r for r in store.sources["sources"]):
             roots.append(sources_root)
     else:
         scope_rel, scope_desc, roots = ["."], "the whole folder (no store)", [sources_root]
 
+    scope_flat = locals().get("scope_flat", [])
+
     def in_scope(relpath):
-        return any(under(s, relpath, ci) for s in scope_rel)
+        if any(under(s, relpath, ci) for s in scope_rel):
+            return True
+        parent = relpath.rsplit("/", 1)[0] if "/" in relpath else "."
+        return any((parent.lower() == f.rstrip("/").lower()) if ci else parent == f.rstrip("/") for f in scope_flat)
 
     rows, texts_found, candidates = [], set(), []
     paths_by_entry = collections.defaultdict(list)
@@ -257,10 +267,13 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
 
     # unreachable (spec §5)
     superseded_now = {k for r in rows for k in r.get("_supersedes", [])}
+    changed_paths = {norm(r["path"]) for r in rows if r["result"] == "changed" and "#" not in (r["key"] or "")}
     unreachable = []
     for key, e in manifest.items():
         if e["status"] != "active" or not e.get("path") or key in texts_found or key in superseded_now:
             continue
+        if "#" in key and norm(e["path"]) in changed_paths:
+            continue      # a segment of a changed file goes with its main text (superseded, not unreachable)
         if in_scope(e["path"]):
             unreachable.append({"path": e["path"], "key": key})
 
