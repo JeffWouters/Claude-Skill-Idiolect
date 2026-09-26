@@ -3,6 +3,7 @@ entries:
   - id: x-001
     slot: en.essay
     kind: observed
+    rejects: l-004
     text: Opens every essay with a question.
     normalised: opens every essay question
     rejected: "2026-10-02"

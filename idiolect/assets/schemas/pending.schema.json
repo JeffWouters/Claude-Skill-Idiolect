@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/pending.schema.json",
-  "title": ".state/pending/plan.json — what a run proposes, awaiting approval",
+  "title": ".state/pending/plan.json — what a run proposes, awaiting approval (spec §9)",
   "type": "object",
   "required": [
     "schema_version",
     "run_id",
     "mode",
     "created",
-    "changes"
+    "items"
   ],
   "properties": {
     "schema_version": {
@@ -38,15 +38,41 @@
     "created": {
       "$ref": "common.schema.json#/$defs/dateTime"
     },
-    "changes": {
+    "items": {
       "type": "array",
       "items": {
         "type": "object",
         "required": [
+          "id",
+          "kind",
           "op",
-          "path"
+          "path",
+          "summary",
+          "decision"
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^i-[0-9]{3,6}$"
+          },
+          "kind": {
+            "enum": [
+              "corpus-text",
+              "ownership",
+              "status",
+              "lesson",
+              "edit-lesson",
+              "ruling",
+              "vocabulary",
+              "example",
+              "fingerprint",
+              "slot-page",
+              "rejection",
+              "holdout",
+              "deletion",
+              "snapshot-prune"
+            ]
+          },
           "op": {
             "enum": [
               "add",
@@ -54,24 +80,79 @@
               "remove"
             ]
           },
-          "path": {
+          "profile": {
+            "$ref": "common.schema.json#/$defs/profileName"
+          },
+          "slot": {
+            "$ref": "common.schema.json#/$defs/slotKey"
+          },
+          "ref": {
             "type": "string",
-            "description": "Store-relative path; the proposed file lives at .state/pending/<path>."
+            "description": "The id or text key the item is about (l-003, a hash, ...)."
+          },
+          "path": {
+            "$ref": "common.schema.json#/$defs/storePath"
           },
           "summary": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "decision": {
             "enum": [
               "pending",
               "approved",
               "rejected"
-            ],
-            "default": "pending"
+            ]
           }
         },
         "additionalProperties": false
       }
+    },
+    "commit": {
+      "type": "object",
+      "required": [
+        "started",
+        "steps"
+      ],
+      "description": "The journal, written before the first commit write (spec §9.4). Its presence means the store is half-written.",
+      "properties": {
+        "started": {
+          "$ref": "common.schema.json#/$defs/dateTime"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "op",
+              "path",
+              "state"
+            ],
+            "properties": {
+              "op": {
+                "enum": [
+                  "write",
+                  "delete",
+                  "snapshot",
+                  "changelog"
+                ]
+              },
+              "path": {
+                "$ref": "common.schema.json#/$defs/storePath"
+              },
+              "state": {
+                "enum": [
+                  "todo",
+                  "done"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

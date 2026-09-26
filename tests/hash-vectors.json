@@ -1,0 +1,57 @@
+{
+  "spec": "docs/spec.md \u00a74",
+  "vectors": [
+    {
+      "name": "plain",
+      "input": "It broke. Nobody noticed.",
+      "sha256": "36d28a0a71da813cafa95d130f7b9d4360038aaa42ab19ad39d3152354e9331a"
+    },
+    {
+      "name": "crlf-and-tabs",
+      "input": "It broke.\r\n\r\n\tNobody   noticed.\n",
+      "sha256": "36d28a0a71da813cafa95d130f7b9d4360038aaa42ab19ad39d3152354e9331a"
+    },
+    {
+      "name": "leading-trailing",
+      "input": "  \n It broke. Nobody noticed. \n\n",
+      "sha256": "36d28a0a71da813cafa95d130f7b9d4360038aaa42ab19ad39d3152354e9331a"
+    },
+    {
+      "name": "nbsp",
+      "input": "It broke.\u00a0Nobody noticed.",
+      "sha256": "36d28a0a71da813cafa95d130f7b9d4360038aaa42ab19ad39d3152354e9331a"
+    },
+    {
+      "name": "nfd-accent",
+      "input": "Cafe\u0301 notes.",
+      "sha256": "1f1f49cf48fe4bf52153e88028e3151d4810586eb502ad4ac6623e64ea94520f"
+    },
+    {
+      "name": "nfc-accent",
+      "input": "Caf\u00e9 notes.",
+      "sha256": "1f1f49cf48fe4bf52153e88028e3151d4810586eb502ad4ac6623e64ea94520f"
+    },
+    {
+      "name": "case-kept",
+      "input": "it broke. nobody noticed.",
+      "sha256": "71b89aa1eb16176aab0f6756158771f3fb71de43b2c73dd1d9161ad96b9deea6"
+    },
+    {
+      "name": "empty",
+      "input": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "equal_groups": [
+    [
+      "plain",
+      "crlf-and-tabs",
+      "leading-trailing",
+      "nbsp"
+    ],
+    [
+      "nfd-accent",
+      "nfc-accent"
+    ]
+  ]
+}

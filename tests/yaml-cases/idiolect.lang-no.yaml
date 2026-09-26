@@ -1,0 +1,7 @@
+schema_version: 1
+sources_root: ../Writing
+facets: [lang, type]
+types: [essay]
+default_profile: sam
+defaults:
+  lang: no

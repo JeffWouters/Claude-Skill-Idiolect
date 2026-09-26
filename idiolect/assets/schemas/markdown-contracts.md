@@ -29,8 +29,9 @@ personal_data: none
 
 - `## Confidence` is one line copied from the fingerprint, e.g. `medium (count: high, stability: medium)`.
   The fingerprint JSON is the source; the page is never edited to change it.
-- Every lesson under the other headings is one list item ending in its evidence:
-  `- Short sentences land a point after a long one. _(12 texts; "It broke. Nobody noticed.")_`
+- Every lesson under the other headings is one list item that starts with its id and ends in its
+  evidence (ids: spec §14.2):
+  `- [l-003] Short sentences land a point after a long one. _(12 texts; "It broke. Nobody noticed.")_`
   The quote is redacted. `## Seen once` items carry `_(1 text)_`.
 
 ## Edit lessons — `profiles/<profile>/<slot>.edits.md`
@@ -46,7 +47,8 @@ personal_data: none
 ## Seen once
 ```
 
-Each item ends in its evidence: `_(3 pairs: p-001, p-004, p-007)_`.
+Each item starts with its id and ends in its evidence:
+`- [d-002] Cuts hedges before a claim. _(3 pairs: p-001, p-004, p-007)_`.
 
 ## Examples — `profiles/<profile>/<slot>.examples.md`
 

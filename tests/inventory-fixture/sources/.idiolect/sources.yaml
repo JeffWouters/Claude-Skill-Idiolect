@@ -1,0 +1,13 @@
+schema_version: 1
+sources:
+  - path: .
+    profile: sam
+    ownership: own
+    decided: "2026-09-01"
+  - path: essays
+    profile: sam
+    ownership: own
+    facets: { type: essay }
+    decided: "2026-09-01"
+exclude:
+  - "drafts/**"

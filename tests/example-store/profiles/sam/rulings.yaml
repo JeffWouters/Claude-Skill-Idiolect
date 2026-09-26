@@ -4,5 +4,6 @@ entries:
     text: Never use semicolons.
     slot: null
     origin: promoted
+    promoted_from: l-002
     created: "2026-10-02"
     personal_data: none

@@ -1,0 +1,1 @@
+{"schema_version": 1, "run_id": "20261002T211000Z", "mode": "learn", "created": "2026-10-02T21:35:00Z", "items": [], "commit": {"started": "2026-10-02T21:41:00Z", "steps": [{"op": "write", "path": "corpus/manifest.json"}]}}

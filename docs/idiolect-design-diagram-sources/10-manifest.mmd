@@ -1,12 +1,9 @@
-stateDiagram-v2
-    [*] --> undecided: found by inventory
-    undecided --> active: own, approved
-    undecided --> recorded: assisted or exclude
-    recorded --> active: promoted to own
-    active --> superseded: file edited, new hash
-    active --> unreachable: path gone
-    unreachable --> active: path back
-    active --> forgotten: forget
-    unreachable --> forgotten: forget
-    superseded --> [*]
-    forgotten --> [*]
+flowchart TB
+    S(( )) -->|found by inventory| U(undecided)
+    U -->|own, approved| A(active)
+    U -->|assisted or exclude| R(recorded)
+    R -->|promoted to own| A
+    A <-->|edited / reverted| SU(superseded)
+    A <-->|path gone / back| UN(unreachable)
+    A <-->|forget / re-owned| F(forgotten)
+    UN -->|forget| F

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1, "profile": "sam", "taken": "2026-10-02T21:41:00Z",
+  "texts": {
+    "76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa#2": {"path": "Published/2025-on-slowness.md", "date": "2025-03-14", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "folder-rule"}}, "facets": {"lang": "nl", "type": "essay"}, "words": 120, "holdout": false, "status": "active", "cached": true},
+    "c13941a309ba6ecde01731882b9236015916dd66b50017c6e872e4ffaa2663bb": {"path": "Published/2026-small-tools.md", "date": "2026-01-09", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "folder-rule"}, "acme": {"ownership": "assisted", "decided": "2026-10-03", "decided_by": "writer"}}, "facets": {"lang": "en", "type": "essay"}, "words": 2210, "holdout": true, "status": "active", "cached": true},
+    "c14b910378020399b3acb1a97bed77d1895ec066eea482b17639810b5df65efd": {"path": "Published/2024-guest-post.md", "date": "2024-05-11", "origin": "file", "profiles": {"sam": {"ownership": "exclude", "decided": "2026-10-02", "decided_by": "writer"}}, "facets": {"lang": "en", "type": "essay"}, "holdout": false, "status": "active", "cached": false},
+    "2b413714040f79bfb001d8ef52f25e0a0e3644a8d4d274a1b41af2dc98cba09d": {"path": "Published/2025-on-slowness.md", "date": "2023-08-01", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "folder-rule"}}, "facets": {"lang": "en", "type": "essay"}, "holdout": false, "status": "superseded", "superseded_by": "76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa", "cached": true},
+    "a983f58ef9ef755c4e5e3755f10cf3e08d9b189b388bcb59d29b56d35d7d6b9d": {"path": "Mail/2026-05-re-planning.eml", "date": "2026-05-20", "origin": "mail", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-03", "decided_by": "folder-rule"}}, "facets": {"lang": "nl", "type": "email"}, "words": 180, "holdout": false, "status": "active", "cached": true, "redaction": {"redacted": true, "version": "1.0", "reviewed": true}}
+  }
+}

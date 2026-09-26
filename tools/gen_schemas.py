@@ -43,8 +43,11 @@ common = {
         "textKey": {"type": "string", "pattern": "^[0-9a-f]{64}(#([2-9]|[1-9][0-9]+))?$",
                     "description": "A content hash, or hash#n for segment n (n >= 2) of a mixed-language file. Stored on disk as <hash>-n.txt."},
         "relPath": {"type": "string", "minLength": 1,
-                    "pattern": "^(?![A-Za-z]:)(?![/\\\\])(?!~)(?!.*(^|[/\\\\])\\.\\.([/\\\\]|$)).+$",
-                    "description": "Relative to sources_root. Forward slashes. No drive letter, leading slash, ~ or .. segments."},
+                    "pattern": "^(?![A-Za-z]:)(?!/)(?!~)(?!.*\\\\)(?!(.*/)?\\.\\.(/|$)).+$",
+                    "description": "Relative to sources_root. Forward slashes only. No drive letter, leading slash, ~, backslash or .. segments."},
+        "storePath": {"type": "string", "minLength": 1,
+                      "pattern": "^(?![A-Za-z]:)(?!/)(?!~)(?!.*\\\\)(?!(.*/)?\\.\\.(/|$)).+$",
+                      "description": "Relative to the store root, same rules as relPath."},
         "glob": {"type": "string", "minLength": 1},
         "date": {"type": "string", "format": "date"},
         "dateTime": {"type": "string", "format": "date-time"},
@@ -125,6 +128,49 @@ sources = {
     "additionalProperties": False
 }
 
+manifest_entry = {
+    "type": "object",
+    "required": ["origin", "profiles", "facets", "holdout", "status", "cached"],
+    "properties": {
+        "path": {"oneOf": [ref("relPath"), {"type": "null"}],
+                 "description": "null for interview answers and connector sources."},
+        "date": {"oneOf": [ref("date"), {"type": "null"}]},
+        "origin": {"enum": ["file", "interview", "mail", "web"]},
+        "profiles": {
+            "type": "object", "minProperties": 1,
+            "description": "Ownership per profile (spec §7). A profile the text does not feed is absent.",
+            "propertyNames": ref("profileName"),
+            "additionalProperties": {
+                "type": "object", "required": ["ownership", "decided", "decided_by"],
+                "properties": {
+                    "ownership": ref("ownership"),
+                    "decided": ref("date"),
+                    "decided_by": {"enum": ["folder-rule", "tag-rule", "writer"],
+                                   "description": "Per-file answer (writer) beats path rule beats tag rule."}
+                },
+                "additionalProperties": False}},
+        "facets": {"allOf": [ref("facetValues"), {"required": ["lang", "type"]}]},
+        "words": {"type": "integer", "minimum": 0},
+        "holdout": {"type": "boolean"},
+        "status": {"enum": ["active", "superseded", "unreachable", "forgotten"]},
+        "superseded_by": ref("textKey"),
+        "cached": {"type": "boolean",
+                   "description": "true when the text is own for at least one profile and not forgotten (spec §7.4)."},
+        "redaction": ref("redaction")
+    },
+    "additionalProperties": False,
+    "allOf": [
+        {"if": {"properties": {"status": {"const": "superseded"}}},
+         "then": {"required": ["superseded_by"]},
+         "else": {"not": {"required": ["superseded_by"]}}},
+        {"if": {"properties": {"status": {"const": "forgotten"}}},
+         "then": {"properties": {"cached": {"const": False}}}},
+        {"if": {"properties": {"origin": {"const": "mail"}, "cached": {"const": True}}},
+         "then": {"required": ["redaction"],
+                  "description": "Other people's details in mail are redacted in the corpus too."}}
+    ]
+}
+
 manifest = {
     "$schema": DRAFT, "$id": BASE + "manifest.schema.json",
     "title": "corpus/manifest.json — per-text ledger entries and corpus index",
@@ -132,45 +178,24 @@ manifest = {
     "required": ["schema_version", "texts"],
     "properties": {
         "schema_version": ref("schemaVersion"),
-        "texts": {
-            "type": "object",
-            "propertyNames": ref("textKey"),
-            "additionalProperties": {
-                "type": "object",
-                "required": ["origin", "ownership", "profiles", "facets", "holdout", "decided", "status"],
-                "properties": {
-                    "path": {"oneOf": [ref("relPath"), {"type": "null"}],
-                             "description": "null for interview answers and connector sources."},
-                    "date": {"oneOf": [ref("date"), {"type": "null"}]},
-                    "origin": {"enum": ["file", "interview", "mail", "web"]},
-                    "ownership": ref("ownership"),
-                    "profiles": {"type": "array", "minItems": 1, "uniqueItems": True, "items": ref("profileName")},
-                    "facets": {"allOf": [ref("facetValues"), {"required": ["lang", "type"]}]},
-                    "words": {"type": "integer", "minimum": 0},
-                    "holdout": {"type": "boolean"},
-                    "decided": ref("date"),
-                    "decided_by": {"enum": ["file", "folder-rule", "tag-rule", "writer"],
-                                   "description": "Which ledger layer decided ownership: per-file answer beats folder or tag rule."},
-                    "status": {"enum": ["active", "superseded", "unreachable", "forgotten"]},
-                    "superseded_by": ref("textKey"),
-                    "cached": {"type": "boolean",
-                               "description": "true only for own texts; assisted and exclude keep hash and decision, no text."},
-                    "redaction": ref("redaction")
-                },
-                "additionalProperties": False,
-                "allOf": [
-                    {"if": {"properties": {"ownership": {"const": "own"}, "status": {"const": "active"}}},
-                     "then": {"properties": {"cached": {"const": True}}}},
-                    {"if": {"properties": {"ownership": {"enum": ["assisted", "exclude"]}}},
-                     "then": {"properties": {"cached": {"const": False}}}},
-                    {"if": {"properties": {"status": {"const": "superseded"}}},
-                     "then": {"required": ["superseded_by"]}},
-                    {"if": {"properties": {"origin": {"const": "mail"}, "ownership": {"const": "own"}}},
-                     "then": {"required": ["redaction"],
-                              "description": "Other people's details in mail are redacted in the corpus too."}}
-                ]
-            }
-        }
+        "texts": {"type": "object", "propertyNames": ref("textKey"),
+                  "additionalProperties": {"$ref": "#/$defs/entry"}}
+    },
+    "additionalProperties": False,
+    "$defs": {"entry": manifest_entry}
+}
+
+manifest_entries = {
+    "$schema": DRAFT, "$id": BASE + "manifest-entries.schema.json",
+    "title": "snapshots/<timestamp>/manifest-entries.json — the manifest entries feeding one profile at snapshot time",
+    "type": "object",
+    "required": ["schema_version", "profile", "taken", "texts"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "profile": ref("profileName"),
+        "taken": ref("dateTime"),
+        "texts": {"type": "object", "propertyNames": ref("textKey"),
+                  "additionalProperties": {"$ref": "manifest.schema.json#/$defs/entry"}}
     },
     "additionalProperties": False
 }
@@ -218,6 +243,8 @@ rulings = entry_list("rulings.schema.json", {
     "slot": {"oneOf": [ref("slotKey"), {"type": "null"}], "description": "null = applies to every slot."},
     "overrides": {"oneOf": [ref("id"), {"type": "null"}], "description": "Id of a parent profile's ruling this replaces."},
     "origin": {"enum": ["stated", "promoted"]},
+    "promoted_from": {"type": "string", "pattern": "^(l|d)-[0-9]{3,6}$",
+                      "description": "The observed or edit lesson this ruling was promoted from."},
     "created": ref("date"),
     "personal_data": {"const": "none"}
 }, ["id", "text", "origin", "created", "personal_data"], {"title": "profiles/<name>/rulings.yaml"})
@@ -239,6 +266,8 @@ rejected = entry_list("rejected.schema.json", {
     "text": {"type": "string", "minLength": 1},
     "normalised": {"type": "string", "minLength": 1,
                    "description": "Lower-case, punctuation removed, stop words from references/lang/<lang>/stopwords.txt removed, single spaces."},
+    "rejects": {"type": "string", "pattern": "^(l|d|v|e)-[0-9]{3,6}$",
+                "description": "Id of the rejected lesson, vocabulary entry or example (spec §14.2)."},
     "rejected": ref("date")
 }, ["id", "slot", "kind", "text", "normalised", "rejected"], {"title": "profiles/<name>/rejected.yaml"})
 
@@ -371,24 +400,46 @@ progress = {
 
 pending = {
     "$schema": DRAFT, "$id": BASE + "pending.schema.json",
-    "title": ".state/pending/plan.json — what a run proposes, awaiting approval",
+    "title": ".state/pending/plan.json — what a run proposes, awaiting approval (spec §9)",
     "type": "object",
-    "required": ["schema_version", "run_id", "mode", "created", "changes"],
+    "required": ["schema_version", "run_id", "mode", "created", "items"],
     "properties": {
         "schema_version": ref("schemaVersion"),
         "run_id": {"type": "string", "pattern": "^[0-9]{8}T[0-9]{6}Z$"},
         "mode": {"enum": ["learn", "learn-edit", "interview", "forget", "rollback", "prune", "test"]},
         "profiles": {"type": "array", "items": ref("profileName")},
         "created": ref("dateTime"),
-        "changes": {"type": "array", "items": {
-            "type": "object", "required": ["op", "path"],
+        "items": {"type": "array", "items": {
+            "type": "object", "required": ["id", "kind", "op", "path", "summary", "decision"],
             "properties": {
+                "id": {"type": "string", "pattern": "^i-[0-9]{3,6}$"},
+                "kind": {"enum": ["corpus-text", "ownership", "status", "lesson", "edit-lesson", "ruling",
+                                  "vocabulary", "example", "fingerprint", "slot-page", "rejection",
+                                  "holdout", "deletion", "snapshot-prune"]},
                 "op": {"enum": ["add", "modify", "remove"]},
-                "path": {"type": "string", "description": "Store-relative path; the proposed file lives at .state/pending/<path>."},
-                "summary": {"type": "string"},
-                "decision": {"enum": ["pending", "approved", "rejected"], "default": "pending"}
+                "profile": ref("profileName"),
+                "slot": ref("slotKey"),
+                "ref": {"type": "string", "description": "The id or text key the item is about (l-003, a hash, ...)."},
+                "path": ref("storePath"),
+                "summary": {"type": "string", "minLength": 1},
+                "decision": {"enum": ["pending", "approved", "rejected"]}
             },
-            "additionalProperties": False}}
+            "additionalProperties": False}},
+        "commit": {
+            "type": "object", "required": ["started", "steps"],
+            "description": "The journal, written before the first commit write (spec §9.4). Its presence means the store is half-written.",
+            "properties": {
+                "started": ref("dateTime"),
+                "steps": {"type": "array", "minItems": 1, "items": {
+                    "type": "object", "required": ["op", "path", "state"],
+                    "properties": {
+                        "op": {"enum": ["write", "delete", "snapshot", "changelog"]},
+                        "path": ref("storePath"),
+                        "state": {"enum": ["todo", "done"]}
+                    },
+                    "additionalProperties": False}}
+            },
+            "additionalProperties": False}
     },
     "additionalProperties": False
 }
@@ -450,7 +501,7 @@ SCHEMAS = {
     "global-metrics": global_metrics,
     "common": common, "idiolect": idiolect, "sources": sources, "manifest": manifest,
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,
-    "fingerprint": fingerprint, "check-report": check_report, "lock": lock,
+    "fingerprint": fingerprint, "manifest-entries": manifest_entries, "check-report": check_report, "lock": lock,
     "progress": progress, "pending": pending, "edit-pair": edit_pair,
 }
 

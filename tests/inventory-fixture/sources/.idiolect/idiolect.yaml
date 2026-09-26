@@ -1,0 +1,7 @@
+schema_version: 1
+sources_root: ..
+facets: [lang, type]
+types: [essay, howto]
+default_profile: sam
+defaults:
+  lang: en

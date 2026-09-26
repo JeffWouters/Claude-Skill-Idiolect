@@ -57,6 +57,11 @@
               "promoted"
             ]
           },
+          "promoted_from": {
+            "type": "string",
+            "pattern": "^(l|d)-[0-9]{3,6}$",
+            "description": "The observed or edit lesson this ruling was promoted from."
+          },
           "created": {
             "$ref": "common.schema.json#/$defs/date"
           },

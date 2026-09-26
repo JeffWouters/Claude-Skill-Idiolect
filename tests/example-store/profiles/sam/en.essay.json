@@ -1,9 +1,9 @@
 {
   "schema_version": 1, "profile": "sam", "slot": "en.essay", "pooled": false,
   "metrics": {
-    "sentence_length_sd": {"value": 11.8, "overshoot": 1.6, "shortfall": 0.6, "primary": true},
-    "rhetorical_questions_per_1k": {"value": 1.4, "overshoot": 2.0, "shortfall": 0.3, "primary": true},
-    "conjunction_openers_share": {"value": 0.19, "overshoot": 1.5, "shortfall": 0.5, "primary": false}
+    "sentence_length_sd": {"value": 11.8, "overshoot": 1.61, "shortfall": 0.61, "primary": true},
+    "semicolons_per_1k": {"value": 0.0, "overshoot": 1.94, "shortfall": 0.29, "primary": true},
+    "conjunction_opener_share": {"value": 0.19, "overshoot": 2.25, "shortfall": 0.05, "primary": false}
   },
   "counts": {"texts": 17, "words": 31200},
   "confidence": {"level": "medium", "count_level": "high", "stability_level": "medium", "splits": 5},

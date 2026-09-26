@@ -57,8 +57,14 @@
     "relPath": {
       "type": "string",
       "minLength": 1,
-      "pattern": "^(?![A-Za-z]:)(?![/\\\\])(?!~)(?!.*(^|[/\\\\])\\.\\.([/\\\\]|$)).+$",
-      "description": "Relative to sources_root. Forward slashes. No drive letter, leading slash, ~ or .. segments."
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!~)(?!.*\\\\)(?!(.*/)?\\.\\.(/|$)).+$",
+      "description": "Relative to sources_root. Forward slashes only. No drive letter, leading slash, ~, backslash or .. segments."
+    },
+    "storePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!~)(?!.*\\\\)(?!(.*/)?\\.\\.(/|$)).+$",
+      "description": "Relative to the store root, same rules as relPath."
     },
     "glob": {
       "type": "string",

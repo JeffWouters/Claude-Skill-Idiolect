@@ -7,6 +7,8 @@ import pathlib
 
 import pytest
 import yaml
+
+from yaml12 import load as yaml12_load
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
@@ -35,7 +37,7 @@ def validator(name):
 def load(path):
     text = path.read_text()
     if path.suffix in (".yaml", ".yml"):
-        return yaml.safe_load(text)
+        return yaml12_load(text)
     return json.loads(text)
 
 
@@ -50,11 +52,15 @@ VALID = [
     ("rejected", STORE / "profiles" / "sam" / "rejected.yaml"),
     ("fingerprint", STORE / "profiles" / "sam" / "en.essay.json"),
     ("edit-pair", STORE / "profiles" / "sam" / "edits" / "p-001" / "pair.yaml"),
+    ("manifest-entries", STORE / "profiles" / "sam" / "snapshots" / "2026-10-02T2141" / "manifest-entries.json"),
     ("lock", STORE / ".state" / "lock"),
     ("progress", STORE / ".state" / "progress.json"),
     ("pending", STORE / ".state" / "pending" / "plan.json"),
     ("check-report", ROOT / "tests" / "reports" / "pass.json"),
     ("global-metrics", ROOT / "idiolect" / "assets" / "global-metrics.json"),
+    ("idiolect", ROOT / "tests" / "inventory-fixture" / "sources" / ".idiolect" / "idiolect.yaml"),
+    ("sources", ROOT / "tests" / "inventory-fixture" / "sources" / ".idiolect" / "sources.yaml"),
+    ("manifest", ROOT / "tests" / "inventory-fixture" / "sources" / ".idiolect" / "corpus" / "manifest.json"),
     ("check-report", ROOT / "tests" / "reports" / "needs_input.json"),
     ("check-report", ROOT / "tests" / "reports" / "no_slot.json"),
 ]
@@ -85,3 +91,21 @@ def test_every_schema_is_exercised():
     covered = {s for s, _ in VALID} | {"common"}
     all_names = {f.name.replace(".schema.json", "") for f in SCHEMAS.glob("*.schema.json")}
     assert all_names <= covered, f"schemas without a valid example: {all_names - covered}"
+
+
+YAML_CASES = sorted((ROOT / "tests" / "yaml-cases").iterdir())
+
+
+@pytest.mark.parametrize("path", YAML_CASES, ids=[p.name for p in YAML_CASES])
+def test_yaml12_cases_validate(path):
+    """Spec §1.2: unquoted dates stay strings and `no` stays a string, so these files are valid."""
+    schema = path.name.split(".")[0]
+    errors = list(validator(schema).iter_errors(load(path)))
+    assert not errors, "\n".join(e.message for e in errors)
+
+
+@pytest.mark.parametrize("path", YAML_CASES, ids=[p.name for p in YAML_CASES])
+def test_yaml11_loader_would_break_them(path):
+    """The same files fail under plain PyYAML (YAML 1.1), which is why the loader matters."""
+    schema = path.name.split(".")[0]
+    assert list(validator(schema).iter_errors(yaml.safe_load(path.read_text())))

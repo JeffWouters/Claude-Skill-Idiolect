@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/manifest-entries.schema.json",
+  "title": "snapshots/<timestamp>/manifest-entries.json — the manifest entries feeding one profile at snapshot time",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile",
+    "taken",
+    "texts"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "taken": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "texts": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "common.schema.json#/$defs/textKey"
+      },
+      "additionalProperties": {
+        "$ref": "manifest.schema.json#/$defs/entry"
+      }
+    }
+  },
+  "additionalProperties": false
+}

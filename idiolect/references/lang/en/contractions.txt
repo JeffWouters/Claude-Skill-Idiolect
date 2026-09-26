@@ -1,0 +1,1 @@
+\b\w+'(s|re|ve|ll|d|t|m)\b

@@ -1,0 +1,1 @@
+{"schema_version": 1, "source": "x", "fail_fraction": 0.28, "downgrade_fraction": 0.28, "min_count": 2, "metrics": [{"name": "contractions_per_1k", "overshoot": 2.77, "shortfall": 0.05, "floor": 0.5, "stability_tolerance": 2.0, "sparse": true}]}

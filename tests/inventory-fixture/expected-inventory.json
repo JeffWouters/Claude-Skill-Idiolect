@@ -1,0 +1,192 @@
+{
+  "command": "learn dry-run=true store=tests/inventory-fixture/sources/.idiolect",
+  "scope": "all registered sources",
+  "not_listed": [
+    ".idiolect/** (the store itself)",
+    "drafts/wip.md (excluded glob)"
+  ],
+  "rows": [
+    {
+      "path": "archive/original-copy.md",
+      "result": "copy",
+      "key": "f3c7eb63b3c5b19c9c873777697e4fcdaebba67bf547cab3aaf1b378ffece673",
+      "words": 241,
+      "lang": "en",
+      "type": "?",
+      "note": "same text as essays/original.md; not learned twice"
+    },
+    {
+      "path": "essays/back.md",
+      "result": "unchanged",
+      "key": "a751f62664f1546c5e52df468177f7131f030a54939762e287b3f387cbbcc778",
+      "words": 216,
+      "lang": "en",
+      "type": "essay",
+      "note": "unreachable entry returns to active"
+    },
+    {
+      "path": "essays/changed.md",
+      "result": "changed",
+      "key": "9cce5fce37a24557be15c128f36ace2fc200e08160715bd586b49db5894bfc44",
+      "words": 281,
+      "lang": "en",
+      "type": "essay",
+      "note": "old entry will be superseded; never a near-duplicate of itself"
+    },
+    {
+      "path": "essays/forgotten.md",
+      "result": "skipped: forgotten",
+      "key": "61b07809d9ddf7f095779a06f6ad003de4e84cbc3b3e3c5c2a3cb9f75f1b8952",
+      "words": 198,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/holdout.md",
+      "result": "skipped: holdout",
+      "key": "127bae2cd5abc825b662ecdb9d61437e2d77f9c9c6e0c6af294b61714ae92deb",
+      "words": 205,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/japanese.md",
+      "result": "skipped: language not supported",
+      "key": null,
+      "words": null,
+      "lang": "ja",
+      "type": "essay"
+    },
+    {
+      "path": "essays/lecture.pdf",
+      "result": "new",
+      "key": null,
+      "words": 228,
+      "lang": "en",
+      "type": "essay",
+      "note": "text layer only"
+    },
+    {
+      "path": "essays/mixed.md",
+      "result": "new",
+      "key": "ff0357f7d5b4113d8d05121e6071259369f832f7b49d32dc6baa6778c6fe8e46",
+      "words": 249,
+      "lang": "en",
+      "type": "essay",
+      "note": "main language; key is the whole-file hash"
+    },
+    {
+      "path": "essays/mixed.md",
+      "result": "new",
+      "key": "ff0357f7d5b4113d8d05121e6071259369f832f7b49d32dc6baa6778c6fe8e46#2",
+      "words": 183,
+      "lang": "nl",
+      "type": "essay",
+      "note": "segment 2, cached as <hash>-2.txt"
+    },
+    {
+      "path": "essays/near-dup-a.md",
+      "result": "skipped: near-duplicate",
+      "key": "39300c0d6044d9bedbb6cee3e5d54ae8220fae7e6d01b7853616bfab1218bd1d",
+      "words": 275,
+      "lang": "en",
+      "type": "essay",
+      "note": "of essays/near-dup-b.md, which is newer"
+    },
+    {
+      "path": "essays/near-dup-b.md",
+      "result": "new",
+      "key": "56a993a291da13eea033addb2add0d1e9025c8e44baf5adc40db3628adea8c0d",
+      "words": 278,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/new-essay.md",
+      "result": "new",
+      "key": "6607fc216c1409de7437afa99abed893286445ff857900628034be40886a833c",
+      "words": 311,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/original.md",
+      "result": "unchanged",
+      "key": "f3c7eb63b3c5b19c9c873777697e4fcdaebba67bf547cab3aaf1b378ffece673",
+      "words": 241,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/renamed.md",
+      "result": "moved",
+      "key": "b8a499a671e09c06c9c213345d867f6d2cecfc2e29d01507301fabbbd2979096",
+      "words": 239,
+      "lang": "en",
+      "type": "essay",
+      "note": "manifest path essays/old-name.md becomes essays/renamed.md"
+    },
+    {
+      "path": "essays/reverted.md",
+      "result": "reverted",
+      "key": "e4f976cb616f71602d05a00a200147948332155c59023dc5c0b3429782233373",
+      "words": 266,
+      "lang": "en",
+      "type": "essay",
+      "note": "superseded entry returns to active; the current one becomes superseded"
+    },
+    {
+      "path": "essays/short-note.md",
+      "result": "skipped: too short",
+      "key": "58b88e586af1ee40c5a9b436b8420d6514455fb38d4d38c07618d22c7af1267a",
+      "words": 97,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "essays/tracked.docx",
+      "result": "new",
+      "key": null,
+      "words": 235,
+      "lang": "en",
+      "type": "essay",
+      "note": "insertions kept, deletions dropped"
+    },
+    {
+      "path": "essays/unchanged.md",
+      "result": "unchanged",
+      "key": "77b98eb3af011319b0df0b4526fd0f68aded7709da3bfde15d370102ccd8c13b",
+      "words": 240,
+      "lang": "en",
+      "type": "essay"
+    },
+    {
+      "path": "howto/code-heavy.md",
+      "result": "skipped: too short",
+      "key": "98c6e4e9e934adebaebf1c4287dd4a91c89dca7a35b39ee937dcfc550bdb78c1",
+      "words": 103,
+      "lang": "en",
+      "type": "?",
+      "note": "heading kept as a plain line, code block removed"
+    },
+    {
+      "path": "images/diagram.png",
+      "result": "skipped: not prose",
+      "key": null,
+      "words": null,
+      "lang": null,
+      "type": null
+    }
+  ],
+  "unreachable": [
+    {
+      "path": "essays/deleted.md",
+      "key": "de2d91c547e3747fffc97ab99817ee16facd8769ae4a15f9269ddf6d5863c75c"
+    }
+  ],
+  "notes": [
+    "key null: not asserted (depends on the PDF/DOCX extractor or not computed)",
+    "words: words of prose after cleaning, as defined in idiolect/references/fingerprint.md",
+    "type '?': not set by a rule, frontmatter or the command; a dry run does not detect it"
+  ]
+}

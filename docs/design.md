@@ -130,7 +130,7 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 
 ![The twelve modes in three groups: learn, learn-edit, interview and forget change what is learned; rollback and prune maintain the store; write, rewrite, check, test, export and status use what is learned without changing lessons.](idiolect-design-images/02-modes.png)
 
-*Modes grouped by what they may change. `test` only adds a row to its results file.*
+*Modes grouped by what they may change. `test` changes no lessons, but it does write: it flags holdout texts through an approved diff and adds a row to its results file, so it takes the lock like the modes that learn (spec §10).*
 
 ### Write and rewrite, step by step
 
@@ -180,7 +180,7 @@ Scripts can only touch files in the environment they run in, and a skill keeps n
 - **Paths are relative.** `sources_root` is relative to the store (e.g. `../Writing`), and every path in the store is relative to `sources_root` or the store, so the same store works on Windows, Linux and through the bridge.
 - **No remembered state.** The store is found per session by `store=` or discovery. For a permanent default, the engine suggests one line the writer can add to their project instructions; it never writes it.
 - **Resumable batches.** Large learns run in batches of at most 50 files. After each batch, progress is written to `.state/progress.json`; every step is idempotent by content hash, so a restart continues where it stopped. Each batch is reported in one line.
-- **Lock.** Every mode that writes to the store (`learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune`) takes `.state/lock`, which records the mode and a heartbeat updated at every step. It is held while a pending area exists. A lock whose heartbeat is older than one hour and has no pending area is stale. `dry-run=true` and read-only modes take no lock.
+- **Lock.** Every mode that writes to the store (`learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune`, `test`) takes `.state/lock`, which records the mode and a heartbeat updated at every step and while waiting for the writer. A lock whose heartbeat is older than one hour is abandoned: the next writing run takes it over and, if a pending area was left behind, first offers resume or discard (resume only, if a commit had started). `dry-run=true` and read-only modes take no lock.
 - **Leftover pending area.** If a session ends before approval, the next store-writing run shows the waiting diff and offers to resume or discard it before doing anything else.
 - **Dependencies.** Python, a PDF library, a Word library and a small language-identification library. A start-up check names anything missing. Word tracked changes are read from the document XML (insertions kept, deletions dropped).
 
@@ -190,7 +190,7 @@ One pipeline for a file, folder or tag. Nothing from steps 2–9 is final until 
 
 | # | Step | Who | What happens |
 | --- | --- | --- | --- |
-| 1 | Lock and inventory | Script | Take the store lock (not in a dry run). Walk the target, always skipping the store folder. Adapters extract text in memory to compute hashes. Report usable files by detected slot; skipped (not prose, under ~150 words of prose, near-duplicates keeping the newest, holdouts); unchanged; changed (same path, new hash); unreachable. `dry-run=true` stops here and writes nothing |
+| 1 | Lock and inventory | Script | Take the store lock (not in a dry run). Walk the target, always skipping the store folder. Adapters extract text in memory to compute hashes. Report usable files by detected slot; skipped (not prose, unsupported language, forgotten, holdouts, under ~150 words of prose, near-duplicates keeping the newest); unchanged; moved; copies; reverted; changed (same path, new hash); unreachable within the scanned scope. Exact order in spec §5. `dry-run=true` stops here and writes nothing |
 | 2 | Ownership | Script + writer | Apply the ledger: per-file entry, else folder rule, else ask, once per target or per file. A folder rule applies to mail files like any other; only connector and web sources with no rule start undecided. Answers go to the pending area |
 | 3 | Extraction | Script (adapters) | For `own` texts only, cleaned text goes to the pending area: frontmatter, code, data tables, quoted replies, signatures and quoted words of others removed. `assisted` and `exclude` texts get a manifest entry but no cached text; promoting one to `own` extracts it then. Hash = SHA-256 of the text normalised to Unicode NFC with whitespace collapsed (case kept) |
 | 4 | Language and type | Script + model | Script identifies language; a paragraph of 40+ words identified as another language with probability of at least 0.9 becomes a segment (`<hash>#2`, stored as `<hash>-2.txt`). Model assigns `type` from the `types` list, or proposes a new one. Uncertain cases are listed in the diff |
@@ -395,12 +395,13 @@ exclude:
       "path": "Published/2024-guest-post.md",
       "date": "2024-05-11",
       "origin": "file",
-      "ownership": "exclude",
-      "profiles": ["sam"],
+      "profiles": {
+        "sam": { "ownership": "exclude", "decided": "2026-10-02", "decided_by": "writer" }
+      },
       "facets": { "lang": "en", "type": "essay" },
       "holdout": false,
-      "decided": "2026-10-02",
-      "status": "active"
+      "status": "active",
+      "cached": false
     }
   }
 }
@@ -408,21 +409,23 @@ exclude:
 
 - **Identity.** Keys are content hashes; segments of a mixed-language file are `<hash>#n`, stored on disk as `<hash>-n.txt`. `origin` is `file`, `interview`, `mail` or `web`.
 - **Status values:** `active`, `superseded` (a changed file replaced it), `unreachable` (path gone, still learned), `forgotten` (removed by `forget`, text deleted). `holdout: true` is a separate flag; learning refuses it.
-- **Several profiles.** A text feeds every profile whose `sources.yaml` rule matches it; the same path may appear in rules for two profiles. Rollback of one profile restores only the manifest entries of that profile.
-- **Only `own` texts are cached.** `assisted` and `exclude` entries keep the hash and decision, not the text.
+- **Several profiles, ownership per profile.** A text feeds every profile whose `sources.yaml` rule matches it; the same path may appear in rules for two profiles, with different ownership (a text can be `own` for the house style `acme` and `assisted` for `sam`). `profiles` therefore maps each profile to its own ownership record. Forgetting a text for one profile keeps it for the others; rollback of one profile restores only that profile's records (spec §7, §8).
+- **Only texts that are `own` for some profile are cached.** Entries that are only `assisted` or `exclude` keep the hash and decisions, not the text.
 - **Sources are never modified.** Existing frontmatter may be read as a hint, never written.
 
-![Life of a text in the manifest: found by inventory as undecided; own and approved becomes active; assisted or exclude is recorded and can be promoted to own; active becomes superseded when the file is edited, unreachable when its path is gone and active again when it returns, and forgotten after forget.](idiolect-design-images/10-manifest.png)
+![Life of a text in the manifest: found by inventory as undecided; own and approved becomes active; assisted or exclude is recorded and can be promoted to own; active and superseded switch when the file is edited or reverted; active and unreachable switch when the path goes and comes back; active becomes forgotten after forget and can be re-owned; unreachable can also be forgotten.](idiolect-design-images/10-manifest.png)
 
-*Lifecycle of a text in the manifest. `recorded` stands for an `assisted` or `exclude` entry, which keeps its hash and decision but no cached text. `holdout` is a separate flag on any entry.*
+*Lifecycle of a text in the manifest. `recorded` stands for an entry that is only `assisted` or `exclude`, which keeps its hash and decisions but no cached text. `holdout` is a separate flag on any entry. `rollback` can restore any earlier state (spec §8).*
 
 ### Other store files
 
 Every store file has a schema in `schemas/` (JSON Schema for YAML and JSON files, a heading contract for Markdown pages):
 
-- `rulings.yaml`, `vocabulary.yaml`, `rejected.yaml`: lists of entries with `id` and `text`; vocabulary entries may be `private: true`; rejections add `slot` and `normalised`.
+- `rulings.yaml`, `vocabulary.yaml`, `rejected.yaml`: lists of entries with `id` and `text`; vocabulary entries may be `private: true`; rejections add `slot`, `normalised` and the id they reject; promoted rulings name the lesson they came from.
+- `.state/pending/plan.json`: the proposal, one approvable item per lesson, text, decision or deletion, and once approval starts a commit journal, so an interrupted commit resumes instead of leaving a half-written store (spec §9).
+- Fingerprint metric definitions and per-language word lists: `references/fingerprint.md` and `references/lang/<lang>/`.
 - Fingerprint JSON: metrics with value, overshoot and shortfall thresholds (ratios to the writer's value) and a primary flag; counts; confidence with count and stability parts; seed.
-- Slot page headings, matching the qualitative pass: Confidence (a copy) · Stance · Openings · Structure · Endings · Sentences · Tone · Recurring devices · Seen once.
+- Slot page headings, matching the qualitative pass: Confidence (a copy) · Stance · Openings · Structure · Endings · Sentences · Tone · Recurring devices · Seen once. Every lesson starts with a stable id (`l-003`, edit lessons `d-002`) that survives relearns, so promotions and rejections keep pointing at it (spec §14).
 - Privacy record: every item that can be exported (examples, edit pairs, lesson evidence quotes, vocabulary) records `redacted: true` or `private: true` and the redaction version; rulings and fingerprints record `personal_data: none`.
 - `changelog.md`: one entry per approved change, rollback or prune, with date, slot and summary.
 - `eval/results.md`: one row per test run with date, profile, slot, snapshot, blind picks (where judged) and per-metric drift.
@@ -578,7 +581,7 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Phase | Delivers | Done when |
 | --- | --- | --- |
 | 0. Groundwork | Schemas for every store file and the check report; ownership precedence, hash normalisation, manifest status values, pending-area, lock and deletion rules; edge-case decisions; fixture authors (public-domain and synthetic, recognition-checked) and scripted edit pairs; throwaway metric script; global metric list with thresholds and stability tolerance; `evals/eval-protocol.md` | All of these are written down and reviewed |
-| 1. Engine | Router `SKILL.md`, `check_env`, store discovery, lock with heartbeat, progress, inventory, ledger and manifest, pending area with resume/discard, markdown/pdf/docx adapters, language identification and segments, measurement with pooled slots and confidence on the global metric list, `status`, tests | `learn dry-run=true` on the fixture folder gives a correct inventory, and the tests pass |
+| 1. Engine | Router `SKILL.md`, `check_env`, store discovery, lock with heartbeat, progress, inventory, ledger and manifest, pending area with resume/discard, markdown/pdf/docx adapters, language identification and segments, measurement with pooled slots and confidence on the global metric list, `status`, tests | `learn dry-run=true` on `tests/inventory-fixture/` reproduces `expected-inventory.json`, and the tests pass |
 | 2. Learning | Full `learn` with type assignment, `since=`, contrast pass, per-slot primary metrics, qualitative pass on samples, observed lessons, vocabulary, redaction with privacy records, examples, rejections, diff and approval, snapshots, `rollback`, `forget`, `prune` | Each fixture author has an approved profile; the corpus rebuilds identically twice; a rejected lesson stays gone after relearn; rollback restores a profile without touching another; a forgotten text's cache is gone |
 | 3. Writing | `write`, `rewrite` with `depth`, `report` and `explain`; `check` with the report and caricature guard; resolution order; `interactive=false` and `needs_input`; evaluation harness; trigger tests. **Entry condition:** the `my-writing-style` question is decided (it is: runs alongside; see Triggering) | Idiolect meets both bars of the protocol |
 | 4. Validation | `test` with holdout flagging and topic-only briefs | A learned text flagged as holdout triggers a relearn first; over three runs, per-metric drift shrinks within tolerance when fixture texts are added and relearned |
@@ -616,6 +619,11 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Caricature guard | Imitation overdoes habits |
 | `check` fails on 4+ of 14 flagged metrics, not on one | Measured in phase 0 (reproducible in `spike.py`): single flags hit 85% of genuine passages; four flags fail 17% of genuine passages and 80% of AI rewrites. Replaces an earlier 5+ figure that came from an unreproducible run |
 | Stability downgrade needs 4+ unstable metrics | With "any metric", 75% of genuine 8-text corpora were downgraded; with 4, 10% are, while 60% of two-author mixes still are |
+| Ownership recorded per profile in the manifest | One text can be the house style's own and only assisted for a writer; a single value contradicted per-profile rules |
+| An abandoned lock (heartbeat over one hour) is taken over, with resume or discard for a leftover pending area | Otherwise a crash during approval would lock the store for good |
+| Commit through a journal in the pending plan | An interrupted commit resumes from its first unfinished step instead of leaving a half-written store |
+| Lessons carry stable ids (`l-`, `d-`) | Promotions and rejections must still point at the same lesson after a relearn |
+| YAML read as 1.2 core, dates as strings | `lang: no` (Norwegian) must not become false |
 | Brief writer may read the held-out passage; generators never do | A brief needs the topic; copied phrasing is blocked by an overlap check |
 | Evaluation bar met separately on synthetic and real fixture authors | The model recognises real authors' styles at low confidence, which can flatter results |
 | Redaction recorded per item | Export must be able to enforce it |

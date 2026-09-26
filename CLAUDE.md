@@ -14,6 +14,8 @@ anything; it is the single source of truth for behaviour, file formats and the b
 | Fixture authors and scripted edit pairs | `evals/fixtures/`, `evals/edit-pairs/` |
 | Metric experiment and the chosen global metric list | `evals/spike/` |
 | Evaluation protocol | `evals/eval-protocol.md` |
+| Metric definitions and English word lists | `idiolect/references/fingerprint.md`, `idiolect/references/lang/en/` |
+| Inventory fixture with its expected report (phase 1's exit test) | `tests/inventory-fixture/` |
 
 Phase 1 does not start until all of these exist and have been reviewed.
 
@@ -22,7 +24,8 @@ Phase 1 does not start until all of these exist and have been reviewed.
 - **The design wins.** If code and `docs/design.md` disagree, either the code is wrong or the design
   needs a decision-log entry first. Never let them drift silently.
 - **No real people in the package.** Nothing under `idiolect/` may contain a real person's name,
-  text, employer or phrasing. Real texts live only in `evals/fixtures/` and are public domain.
+  text, employer or phrasing. Real texts live only in `evals/fixtures/` and are public domain. The
+  repository URL in schema `$id` values names the repository, not a writer, and is allowed.
 - **Generic core.** The skill holds no writer data. Examples use the fictional writer Sam, the
   company Acme and the house style `house`.
 - **Schemas are versioned.** Any change to a store file format bumps `schema_version` and ships with
