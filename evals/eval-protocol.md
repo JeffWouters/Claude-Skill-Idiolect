@@ -23,7 +23,7 @@ run, because agents inherit enabled skills.
 | --- | --- |
 | Authors | All fixture authors in `evals/fixtures/` (currently 4 public-domain, 2 synthetic) |
 | Holdout | Per author, whole essays set aside before learning with a fixed seed (`evals/holdouts.json`) and excluded by the folder rules, so they never enter the store. Synthetic authors: 5 of 12 essays. Public-domain authors: 3 essays |
-| Test passages | 300–500-word passages cut at paragraph boundaries from holdout essays by `evals/harness.py passages` (fixed seed); **at least 10 per author**, so at least 20 for the synthetic group and 40 for the public-domain group per run |
+| Test passages | 300–500-word passages cut at paragraph boundaries from holdout essays by `evals/harness.py passages` (fixed seed); **10 per author, or as many as the holdout essays give** (non-overlapping, never padded): run 1 has 10 for every author except Alice Meynell, whose short holdout essays give 7, so 20 synthetic and 37 public-domain briefs per run |
 | Profiles | Built by `learn` on the remaining essays of each author, approved without edits (`evals/store/`) |
 
 ## Roles
