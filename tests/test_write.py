@@ -7,6 +7,7 @@ import pytest
 
 import check
 import kit
+import measure
 import resolve
 from common import check_schema
 from store import Store
@@ -47,11 +48,73 @@ def test_kit_contents():
     k = kit.build(Store(STORE), "synthetic-noor", {"type": "essay"}, "repainting a garden bench", 3)
     assert k["slot"] == "en.essay" and k["lessons"] and len(k["examples"]) == 3
     assert k["targets"][0]["primary"]
-    md = kit.markdown(k)
-    # examples lead; every lesson carries how many texts show it (decision log, run 1)
-    assert md.index("## Example passages") < md.index("## Habits the writer usually shows")
     assert all(x["texts"] and x["of"] and x["texts"] <= x["of"] <= k["counts"]["texts"] for x in k["lessons"])
-    assert "seen in " in md and "## Observed lessons" not in md
+    md = kit.markdown(k)
+    # examples lead, then targets; lessons follow as background, usual habits only (decision log, run 4)
+    assert md.index("## Example passages") < md.index("## Measurable targets") < md.index("## Background")
+    defaults = [x for x in k["lessons"] if x["default"]]
+    optional = [x for x in k["lessons"] if not x["default"]]
+    assert all(x["text"] in md for x in defaults) and "seen in " in md
+    assert not any(x["text"] in md for x in optional if not any(x["text"] in d["text"] for d in defaults))
+    assert "Favoured phrases" not in md and "## Observed lessons" not in md
+
+
+def test_kit_notes_levels():
+    k = kit.build(Store(STORE), "synthetic-noor", {"type": "essay"}, "repainting a garden bench", 3)
+    full, none = kit.markdown(k, "full"), kit.markdown(k, "none")
+    assert all(x["text"] in full for x in k["lessons"]) and "Habits the writer sometimes shows" in full
+    assert "## Background" not in none and not any(x["text"] in none for x in k["lessons"])
+    assert "## Measurable targets" in none and "## Example passages" in none
+
+
+def test_targets_blend_the_slot_with_the_chosen_examples():
+    s = Store(STORE)
+    k = kit.build(s, "robert-cortes-holliday", {"type": "essay"}, "a bookshop clerk and a famous customer", 3)
+    ex = measure.metrics("\n\n".join(e["text"] for e in k["examples"]), "en")
+    w = k["blend"]["weight"]
+    assert k["blend"]["words"] > 0 and abs(w - k["blend"]["words"] / (k["blend"]["words"] + kit.BLEND_WORDS)) < 1e-3
+    for t in k["targets"]:
+        if t["metric"] in ex:
+            assert abs(t["value"] - (w * ex[t["metric"]] + (1 - w) * t["slot_value"])) < 1e-3
+    # check measures against the same targets when given the same brief
+    text = (FIX / "robert-cortes-holliday" / HOLD["robert-cortes-holliday"][0]).read_text()
+    r = check.check(s, text, "robert-cortes-holliday", {"type": "essay"}, "a bookshop clerk and a famous customer")
+    assert r["targets"]["examples"] == k["blend"]["examples"]
+    by = {t["metric"]: t["value"] for t in k["targets"]}
+    assert all(abs(m["writer"] - by[m["name"]]) < 1e-3 for m in r["metrics"])
+    check_schema("check-report", r)
+
+
+def test_blend_without_examples_is_the_slot():
+    fp = {"semicolons_per_1k": {"value": 4.0}}
+    assert kit.blend(fp, [], "en") == ({"semicolons_per_1k": 4.0}, 0, 0.0)
+
+
+def test_a_metric_inside_the_slot_band_is_not_flagged(monkeypatch):
+    """Flagged only outside the band around both the target for the piece and the slot's value."""
+    s = Store(STORE)
+    text = (FIX / "robert-cortes-holliday" / HOLD["robert-cortes-holliday"][0]).read_text()
+    monkeypatch.setattr(kit, "blend", lambda fp, ex, lang: ({m: v["value"] for m, v in fp.items()}, 0, 0.0))
+    slot_only = check.check(s, text, "robert-cortes-holliday", {"type": "essay"})
+    far = {m: v * 10 + 5 for m, v in measure.metrics(text, "en").items()}
+    monkeypatch.setattr(kit, "blend", lambda fp, ex, lang: (far, 900, 0.75))
+    r = check.check(s, text, "robert-cortes-holliday", {"type": "essay"})
+    # every target is far off, so only the slot band can clear a metric
+    # (the direction follows the target for the piece, which the kit told the writer to aim at)
+    assert [m["flag"] == "ok" for m in r["metrics"]] == [m["flag"] == "ok" for m in slot_only["metrics"]]
+    assert all(m["writer"] != m["slot"] for m in r["metrics"])
+
+
+def test_placeholders_are_not_measured():
+    s = Store(STORE)
+    text = (FIX / "synthetic-noor" / HOLD["synthetic-noor"][0]).read_text()
+    paras = text.split("\n\n")
+    marked = "\n\n".join(paras[:6] + ["[example needed: a real incident: what went wrong]"] + paras[6:])
+    marked = marked.replace(paras[8], paras[8] + " [number needed: how many]", 1)
+    a = check.check(s, text, "synthetic-noor", {"type": "essay"}, "the kitchen tap")
+    b = check.check(s, marked, "synthetic-noor", {"type": "essay"}, "the kitchen tap")
+    assert [m["draft"] for m in a["metrics"]] == [m["draft"] for m in b["metrics"]]
+    assert check.strip_placeholders("A [example needed: x] b.\n\n[number needed: n]\n\nC.") == "A b.\n\nplaceholder\n\nC."
 
 
 @pytest.mark.parametrize("author", sorted(HOLD))

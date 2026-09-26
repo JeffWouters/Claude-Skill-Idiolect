@@ -1,12 +1,17 @@
 """The writing kit: everything `write` and `rewrite` load, and nothing more (design: Write and rewrite,
 step by step). Never the corpus, never the whole example bank.
 
-    python3 kit.py --store S [--profile P] [--lang L] [--type T] [--brief FILE] [--examples 3] [--json]
+    python3 kit.py --store S [--profile P] [--lang L] [--type T] [--brief FILE] [--examples 3]
+                   [--notes brief|full|none] [--json]
 
-Prints a Markdown kit (or JSON with --json): profile and slot used (and why), confidence, rulings, the
-example passages best matching the brief (first: they show the voice), then lessons with how many of
-the slot's texts show each, edit lessons, favoured phrases with their rate, forms, the never-list and
-what to aim for in measurable terms.
+Prints a Markdown kit (or JSON with --json): profile and slot used (and why), confidence, the example
+passages best matching the brief (first: they show the voice), rulings, edit lessons, the measurable
+targets for this piece, the never-list and forms, then the observed lessons as background.
+
+--notes brief (default): background shows only habits seen in at least half the texts.
+--notes full: every lesson, split into usual and optional habits, and the favoured phrases.
+--notes none: no observed lessons and no favoured phrases.
+The JSON always holds everything.
 """
 import argparse
 import json
@@ -18,14 +23,17 @@ from collections import Counter
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
+import measure  # noqa: E402
 import pages  # noqa: E402
 import resolve  # noqa: E402
-from common import StoreError, read_store_file, words  # noqa: E402
+from common import StoreError, count_words, read_store_file, words  # noqa: E402
 from stage import stopwords  # noqa: E402
 from store import Store  # noqa: E402
 
 RULINGS_CAP = 30
 VOCAB_CAP = 40
+BLEND_WORDS = 300           # design: targets follow the piece; tuned on evaluation runs 1-3
+NOTES = ("brief", "full", "none")
 
 DESCRIBE = {
     "sentence_length_mean": ("average sentence length", "{:.0f} words"),
@@ -60,6 +68,25 @@ def pick_examples(examples, brief, lang, n=3):
         score = sum(math.log(1 + len(docs) / df[w]) for w in q if w in d)
         scored.append((-score, e["id"], e))
     return [e for _, _, e in sorted(scored)[:n]]
+
+
+def blend(fp_metrics, example_texts, lang):
+    """Targets for this piece (design: Write and rewrite, step 2): each metric's slot value blended with
+    its value on the chosen example passages, weight words / (words + BLEND_WORDS). Returns
+    ({metric: value}, words, weight); without examples the slot values, 0, 0.0."""
+    joined = "\n\n".join(t for t in example_texts if t and t.strip())
+    n = count_words("\n\n".join(measure.prepare(joined))) if joined else 0
+    if not n:
+        return {m: v["value"] for m, v in fp_metrics.items()}, 0, 0.0
+    w = n / (n + BLEND_WORDS)
+    ex = measure.metrics(joined, lang)
+    return ({m: round(w * ex[m] + (1 - w) * v["value"], 6) if m in ex else v["value"]
+             for m, v in fp_metrics.items()}, n, round(w, 4))
+
+
+def slot_examples(store, prof, slot):
+    exf = store.root / "profiles" / prof / f"{slot}.examples.md"
+    return pages.parse_examples(exf.read_text(encoding="utf-8"))[1] if exf.exists() else []
 
 
 EVIDENCE = re.compile(r"^(\d+)(?: of (\d+))? (?:text|paragraph)s?\b")
@@ -121,22 +148,23 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
     kit["phrases"] = phrases
     kit["forms"] = [v for v in vocab if v["kind"] != "phrase"][:VOCAB_CAP - len(phrases)]
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
+    kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
+    local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
+    kit["blend"] = {"examples": [e["id"] for e in kit["examples"]], "words": n_words, "weight": weight}
     targets = []
     for m, v in fp["metrics"].items():
         name, fmt = DESCRIBE.get(m, (m, "{:.2f}"))
-        targets.append({"metric": m, "primary": v["primary"], "describe": name, "value": v["value"],
-                        "shown": fmt.format(v["value"])})
+        targets.append({"metric": m, "primary": v["primary"], "describe": name, "value": local[m],
+                        "slot_value": v["value"], "shown": fmt.format(local[m])})
     targets.sort(key=lambda t: (not t["primary"], t["metric"]))
     kit["targets"] = targets
-    exf = base / f"{slot}.examples.md"
-    examples = pages.parse_examples(exf.read_text(encoding="utf-8"))[1] if exf.exists() else []
-    kit["examples"] = pick_examples(examples, brief, lang, n_examples)
     return kit
 
 
-def markdown(kit):
-    """Examples first, then the habits as notes on them with how often the writer shows each
-    (design: Write and rewrite, step by step; decision log, run 1)."""
+def markdown(kit, notes="brief"):
+    """Examples first, then what binds (rulings, edit lessons), the targets for this piece, the
+    never-list and forms; the observed lessons last, as background (design: Write and rewrite, step 2;
+    decision log, run 4)."""
     L = [f"# Writing kit: {kit['profile']} / {kit['slot']}", ""]
     c = kit["confidence"]
     L.append(f"Confidence {c['level']} (count {c['count_level']}, stability {c['stability_level']}); "
@@ -145,44 +173,53 @@ def markdown(kit):
         L.append(f"- **Warning:** {w}")
     if kit["examples"]:
         L += ["", "## Example passages: this is the voice",
-              "Match how these read: sentence movement, tone, how often each device appears. They are style "
-              "references only; never reuse their content, facts, names or phrasing."]
+              "Match how these read: sentence movement, tone, and how sparingly each device appears. They are "
+              "style references only; never reuse their content, facts, names or phrasing."]
         for e in kit["examples"]:
             L += ["", f"### {e['id']}", "", e["text"]]
     if kit["rulings"]:
         L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
                                                 for r in kit["rulings"]]
-    L += ["", "## How to use the notes below",
+    if kit["edit_lessons"]:
+        L += ["", "## Edit lessons (from the writer's own corrections)"] + [
+            f"- {x['text']}" for x in kit["edit_lessons"]]
+    if kit["targets"]:
+        L += ["", "## Measurable targets for this piece (the check compares against these)",
+              "Set from the writer's texts and the example passages above. Primary metrics first: they "
+              "separate this writer most from neutral text."]
+        for t in kit["targets"]:
+            L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}")
+    if kit["never"]:
+        L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
+    if kit["forms"]:
+        L += ["", "## Forms (when you use one of these words, write it exactly so; never required)"]
+        L += [f"- {v['text']}" + (f" ({v['note']})" if v.get("note") else "") for v in kit["forms"]]
+    if notes == "none" or not kit["lessons"] and not (notes == "full" and kit["phrases"]):
+        return "\n".join(L) + "\n"
+    defaults = [x for x in kit["lessons"] if x["default"]]
+    optional = [x for x in kit["lessons"] if not x["default"]]
+    if notes == "brief":
+        if defaults:
+            L += ["", "## Background: what most of the writer's texts show",
+                  "These describe what the example passages already show. They are not a checklist: never add a "
+                  "habit because it is listed here, and never use one more densely than the examples do."]
+            L += [f"- {x['text']} _({seen(x)})_" for x in defaults]
+        return "\n".join(L) + "\n"
+    L += ["", "## Background: the writer's habits",
           f"They describe what the writer's {kit['counts']['texts']} texts show, and how often. **Habits are "
           "sampled, not stacked.** A habit seen in at least half the texts is the writer's default; one seen in "
           "fewer is optional and usually left out. No single text of the writer uses every habit, so no piece "
           "should. Never use a device more densely than the examples do."]
-    if kit["edit_lessons"]:
-        L += ["", "## Edit lessons (from the writer's own corrections; outrank the notes below)"] + [
-            f"- {x['text']}" for x in kit["edit_lessons"]]
-    if kit["lessons"]:
-        defaults = [x for x in kit["lessons"] if x["default"]]
-        optional = [x for x in kit["lessons"] if not x["default"]]
-        if defaults:
-            L += ["", "## Habits the writer usually shows"]
-            L += [f"- [{x['id']}] ({x['section']}) {x['text']} _({seen(x)})_" for x in defaults]
-        if optional:
-            L += ["", "## Habits the writer sometimes shows (optional; usually leave out)"]
-            L += [f"- [{x['id']}] ({x['section']}) {x['text']} _({seen(x)})_" for x in optional]
+    if defaults:
+        L += ["", "### Habits the writer usually shows"]
+        L += [f"- [{x['id']}] ({x['section']}) {x['text']} _({seen(x)})_" for x in defaults]
+    if optional:
+        L += ["", "### Habits the writer sometimes shows (optional; usually leave out)"]
+        L += [f"- [{x['id']}] ({x['section']}) {x['text']} _({seen(x)})_" for x in optional]
     if kit["phrases"]:
-        L += ["", "## Favoured phrases (never required; at most at the writer's rate)"]
+        L += ["", "### Favoured phrases (never required; at most at the writer's rate)"]
         L += [f"- \"{v['text']}\": {phrase_rate_text(v)}" + (f"; {v['note']}" if v.get("note") else "")
               for v in kit["phrases"]]
-    if kit["forms"]:
-        L += ["", "## Forms (when you use one of these words, write it exactly so; never required)"]
-        L += [f"- {v['text']}" + (f" ({v['note']})" if v.get("note") else "") for v in kit["forms"]]
-    if kit["never"]:
-        L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
-    if kit["targets"]:
-        L += ["", "## Measurable targets (the check compares against these)",
-              "Primary metrics first: they separate this writer most from neutral text."]
-    for t in kit["targets"]:
-        L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}")
     return "\n".join(L) + "\n"
 
 
@@ -195,6 +232,8 @@ def main(argv=None):
     ap.add_argument("--facet", action="append", default=[])
     ap.add_argument("--brief")
     ap.add_argument("--examples", type=int, default=3)
+    ap.add_argument("--notes", choices=NOTES, default="brief",
+                    help="how much of the observed lessons the Markdown kit shows (default brief)")
     ap.add_argument("--omit", action="append", default=[], choices=["targets"],
                     help="leave a section out of the Markdown kit (targets: the measurable targets)")
     ap.add_argument("--json", action="store_true")
@@ -214,7 +253,7 @@ def main(argv=None):
         return 2
     if "targets" in a.omit:
         kit["targets"] = []
-    print(json.dumps(kit, indent=2, ensure_ascii=False) if a.json else markdown(kit))
+    print(json.dumps(kit, indent=2, ensure_ascii=False) if a.json else markdown(kit, a.notes))
     return 0
 
 

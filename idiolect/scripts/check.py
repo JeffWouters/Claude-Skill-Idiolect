@@ -1,8 +1,11 @@
 """check: compare a text with the writer's fingerprint (spec §17). Read-only; takes no lock.
 
-    python3 check.py --store S --file DRAFT [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
+    python3 check.py --store S --file DRAFT [--brief FILE] [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
 
-Flags overshoot and shortfall per metric (the caricature guard: too much of a habit is flagged too),
+Measures against the targets for this piece: the slot's fingerprint blended with the example passages
+the brief selects, exactly as kit.py does with the same brief (without --brief, the text itself picks
+them). Flags overshoot and shortfall per metric only when the text is outside the band around both the
+target and the slot's value (the caricature guard: too much of a habit is flagged too),
 fails the draft when the fail count is reached, lists lines that use a never-list phrase, and names
 bunched habits: a paragraph using a countable habit far above the writer's rate. Prints
 the check report (check-report.schema.json) with --json, otherwise a readable summary.
@@ -17,10 +20,28 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import detect  # noqa: E402
+import kit as kitmod  # noqa: E402
 import measure  # noqa: E402
 import resolve  # noqa: E402
 from common import StoreError, check_schema, count_words, read_store_file, words  # noqa: E402
 from kit import DESCRIBE  # noqa: E402
+
+# write.md's placeholders ([example needed: ...], [number needed: ...]) are not the writer's prose
+PLACEHOLDER = re.compile(r"\[[^\[\]\n]{0,120}?\bneeded\b[^\[\]\n]{0,120}?\]", re.I)
+
+
+def strip_placeholders(text):
+    """The text without placeholders. A paragraph that was only a placeholder keeps its place as a
+    one-word line, which measurement skips like a heading, so bunched paragraphs keep their numbers."""
+    parts = re.split(r"(\n\s*\n)", text)
+    out = []
+    for part in parts:
+        if not part.strip() or not PLACEHOLDER.search(part):
+            out.append(part)
+            continue
+        left = re.sub(r"[ \t]{2,}", " ", PLACEHOLDER.sub("", part))
+        out.append(left if left.strip(" \t\n.,;:") else "placeholder")
+    return "".join(out)
 from store import Store  # noqa: E402
 
 MIN_WORDS = 150
@@ -47,7 +68,7 @@ def is_bunch(count, lam):
     return count >= BUNCH_MIN_COUNT and poisson_tail(count, lam) < BUNCH_P
 
 
-def bunched(text, lang, fp_metrics, phrases=()):
+def bunched(text, lang, fp_metrics, phrases=(), targets=None):
     """Blocks (numbered from 1 as they appear, headings included) that use a countable habit far above the writer's rate, and the favoured
     phrases together overused in the whole text (paragraph 0). phrases: vocabulary entries of kind
     phrase; those without a measured rate are skipped."""
@@ -65,7 +86,7 @@ def bunched(text, lang, fp_metrics, phrases=()):
             if m not in vals or m not in fp_metrics:
                 continue
             count = round(vals[m] * nw / 1000)
-            lam = fp_metrics[m]["value"] * nw / 1000
+            lam = (targets or {}).get(m, fp_metrics[m]["value"]) * nw / 1000
             if is_bunch(count, lam):
                 out.append({"paragraph": i, "habit": m, "count": count, "expected": round(lam, 2)})
         if rated:
@@ -97,7 +118,7 @@ def flag_metric(name, draft, writer, fp_metric):
     return "ok", ratio
 
 
-def check(store, text, profile=None, facets=None):
+def check(store, text, profile=None, facets=None, brief=None):
     report = {"schema_version": 1}
     try:
         prof, slot, _ = resolve.resolve(store, profile, facets)
@@ -112,14 +133,21 @@ def check(store, text, profile=None, facets=None):
             return check_schema("check-report", {**report, "status": "error", "profile": prof, "slot": slot,
                                                  "message": f"the text is in '{found}', the slot is '{lang}'; "
                                                             f"a voice is never carried across languages"})
-    vals = measure.metrics(text, lang)
+    measured = strip_placeholders(text)
+    n = count_words(measured)
+    picks = kitmod.pick_examples(kitmod.slot_examples(store, prof, slot), text if brief is None else brief, lang)
+    targets, t_words, t_weight = kitmod.blend(fp["metrics"], [e["text"] for e in picks], lang)
+    vals = measure.metrics(measured, lang)
     rows, flagged = [], 0
     for m, v in fp["metrics"].items():
         if m not in vals:
             continue
-        flag, ratio = flag_metric(m, vals[m], v["value"], v)
+        flag, ratio = flag_metric(m, vals[m], targets[m], v)
+        if flag != "ok" and flag_metric(m, vals[m], v["value"], v)[0] == "ok":
+            flag = "ok"             # inside the slot's own band: the writer's texts vary this much
         flagged += flag != "ok"
-        rows.append({"name": m, "draft": round(vals[m], 4), "writer": round(v["value"], 4),
+        rows.append({"name": m, "draft": round(vals[m], 4), "writer": round(targets[m], 4),
+                     "slot": round(v["value"], 4),
                      "ratio": round(ratio, 3) if ratio is not None else None, "flag": flag, "primary": v["primary"]})
     threshold = measure.fail_count(len(rows))
     never_f = store.root / "profiles" / prof / f"{slot}.never.md"
@@ -133,14 +161,15 @@ def check(store, text, profile=None, facets=None):
                     lines.append({"line": i, "text": line.strip()[:200], "lesson": f"never: {mk}",
                                   "reason": f"uses \"{mk}\", which this writer never does"})
     phrases = [v for v in resolve.merged(store, prof, "vocabulary") if v["kind"] == "phrase"]
-    bunches = bunched(text, lang, fp["metrics"], phrases)
+    bunches = bunched(measured, lang, fp["metrics"], phrases, targets)
     conf = fp["confidence"]["level"]
     if flagged >= threshold and n >= MIN_WORDS:
         status = "fail"
     else:
         status = "low_confidence" if conf == "low" else "pass"
     report.update({"status": status, "profile": prof, "slot": slot, "confidence": conf, "flagged": flagged,
-                   "fail_threshold": threshold, "metrics": rows})
+                   "fail_threshold": threshold, "metrics": rows,
+                   "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight}})
     if lines:
         report["flagged_lines"] = lines
     if bunches:
@@ -182,6 +211,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store")
     ap.add_argument("--file", required=True)
+    ap.add_argument("--brief", help="the brief (write) or source text (rewrite) given to kit.py")
     ap.add_argument("--profile")
     ap.add_argument("--lang")
     ap.add_argument("--type")
@@ -196,7 +226,8 @@ def main(argv=None):
         if not a.store:
             raise StoreError("no store given (discover one first, see SKILL.md)")
         store = Store(a.store)
-        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets)
+        brief = pathlib.Path(a.brief).read_text(encoding="utf-8") if a.brief else None
+        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets, brief)
     except StoreError as e:
         r = {"schema_version": 1, "status": "no_store" if ("idiolect.yaml" in str(e) or "no store" in str(e)) else "error",
              "message": str(e)}

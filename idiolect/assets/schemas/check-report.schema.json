@@ -67,7 +67,12 @@
             "type": "number"
           },
           "writer": {
-            "type": "number"
+            "type": "number",
+            "description": "The target for this piece: the slot's value blended with the example passages the brief selects (design: Write and rewrite, step 2)."
+          },
+          "slot": {
+            "type": "number",
+            "description": "The slot's own value. A metric is flagged only when the draft is outside the band around both."
           },
           "ratio": {
             "type": [
@@ -89,6 +94,34 @@
         },
         "additionalProperties": false
       }
+    },
+    "targets": {
+      "type": "object",
+      "description": "How the targets for this piece were made.",
+      "required": [
+        "examples",
+        "words",
+        "weight"
+      ],
+      "properties": {
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "words": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Share of the examples in the blend: words / (words + 300)."
+        }
+      },
+      "additionalProperties": false
     },
     "bunched": {
       "type": "array",

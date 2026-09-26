@@ -443,9 +443,21 @@ Entries that do not feed the profile are never touched by its rollback.
 1. `check` uses the **applicable global metrics**: the 14 in `global-metrics.json`, minus those whose
    word list is missing for the text's language (`references/fingerprint.md`), so 11 to 14. Primary
    metrics from the contrast pass steer drafting and order the hints; they do not shorten the list.
-   For each metric: if the writer's value is below the metric's `floor`, flag when the draft exceeds
-   it by more than 2 × `floor` (`ratio` is then null in the report); otherwise flag when
-   `draft / writer` is above `overshoot` or, for non-sparse metrics, below `shortfall`.
+   For each metric and a reference value: if the reference is below the metric's `floor`, the draft
+   is outside its band when it exceeds it by more than 2 × `floor` (`ratio` is then null in the
+   report); otherwise when `draft / reference` is above `overshoot` or, for non-sparse metrics, below
+   `shortfall`. The metric is flagged only when the draft is outside the band around **both** the
+   target for the piece and the slot's own value; the direction reported is the one relative to the
+   target.
+   - **Target for the piece:** `kit.blend`: the example passages `kit.pick_examples` chooses for the
+     brief (with no brief given to `check`, for the checked text), joined, measured, and blended with
+     the slot's value by `w = words / (words + 300)`, words counted without headings. No examples:
+     the slot's value. `writer` in the report is the target, `slot` the slot's value, and `targets`
+     records the example ids, their words and `w`.
+   - **Placeholders** (`[…needed…]`, up to 120 characters on each side, one line) are removed before
+     measuring; a paragraph that held only placeholders becomes a one-word line, which is skipped
+     like a heading, so paragraph numbers in `bunched` stay as the reader sees them.
+   - **Bunched habits** use the target for the piece as the expected rate.
 2. The **fail count** is `min(n, max(min_count, ceil(p × n / 100)))` in integer arithmetic, where n is
    the number of applicable metrics and p = `round(fail_fraction × 100)` (28): 4 for 11 to 14
    metrics. `status` is `fail` when the number of flagged metrics is at least the fail count;
