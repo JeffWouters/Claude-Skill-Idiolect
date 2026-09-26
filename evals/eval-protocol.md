@@ -21,10 +21,10 @@ run, because agents inherit enabled skills.
 
 | Item | Rule |
 | --- | --- |
-| Authors | All fixture authors in `evals/fixtures/` (currently 4 public-domain, 2 synthetic) |
+| Authors | All fixture authors in `evals/fixtures/` (from run 2: 3 public-domain, 2 synthetic), each screened per passage before use (`evals/fixtures/README.md`) |
 | Holdout | Per author, whole essays set aside before learning with a fixed seed (`evals/holdouts.json`) and excluded by the folder rules, so they never enter the store. Synthetic authors: 5 of 12 essays. Public-domain authors: 3 essays |
-| Test passages | 300–500-word passages cut at paragraph boundaries from holdout essays by `evals/harness.py passages` (fixed seed); **10 per author, or as many as the holdout essays give** (non-overlapping, never padded): run 1 has 10 for every author except Alice Meynell, whose short holdout essays give 7, so 20 synthetic and 37 public-domain briefs per run |
-| Profiles | Built by `learn` on the remaining essays of each author, approved without edits (`evals/store/`) |
+| Test passages | 300–500-word passages cut at paragraph boundaries from holdout essays by `evals/harness.py passages` (fixed seed); **10 per author, or as many as the holdout essays give** (non-overlapping, never padded). Run 1 had 10 for every author except Alice Meynell, whose short holdout essays gave 7 |
+| Profiles | Built by `learn` on the remaining essays of each author (`evals/store/`), approved without edits except proposals that are content rather than style (for example vocabulary that quotes another writer), which are rejected and listed in the profile's changelog |
 
 ## Roles
 
@@ -32,8 +32,8 @@ run, because agents inherit enabled skills.
    subject and up to three points, in its own words, plus the target length. A script rejects the
    brief if it shares any run of four or more words with the passage (ignoring stop words), and it is
    rewritten.
-2. **Generators** (three fresh agents per brief, none of which ever sees a test passage, a holdout
-   essay or its path):
+2. **Generators** (one fresh agent per author and kind, writing that author's briefs in turn; none
+   ever sees a test passage, a holdout essay or its path):
    - **Plain**: the brief only. "Write this."
    - **Few-shot**: the brief plus the same three example passages Idiolect's `write` would load for
      this brief (chosen by the same script from the author's example bank, which holds learned texts
@@ -43,13 +43,16 @@ run, because agents inherit enabled skills.
      about N words from this brief. Do not add facts, names or anecdotes that are not in the brief;
      leave a placeholder instead."), and target the passage's length ±15%. A draft outside that range
      is regenerated once; if it is still outside, it is kept and its length reported.
-   - **Isolation.** Generators run in a scratch folder outside the repository. The Idiolect
-     generator gets a copy of the store with only `idiolect.yaml` and `profiles/` (no corpus, no
-     sources); the few-shot generator gets only its three passages. Each is told to read nothing
-     else, and its transcript is kept in the run folder so a leak can be checked afterwards.
+   - **Isolation.** Generators run in a scratch folder outside the repository, and authors are
+     anonymised there (w1, w2, ...). The Idiolect generator gets a copy of the store with only
+     `idiolect.yaml` and `profiles/` (no corpus, no sources); the few-shot generator gets only its
+     three passages. Each generator has **its own working folder** for anything it saves (run 1's
+     generators shared one and overwrote each other's files). Each is told to read nothing else,
+     and keeps a log of every file it opened, stored in the run folder so a leak can be checked.
 3. **Shuffler** (script). Labels the three drafts A, B, C at random and stores the key in
    `evals/runs/<run-id>/key.json`, which no judge sees.
-4. **Judge** (fresh agent, following `evals/judge.md`: skill-creator's blind-comparator rules with a
+4. **Judge** (a fresh agent per packet, following `evals/judge.md`; packets carry anonymous ids and
+   runs of spaces are collapsed, so neither a name nor typography identifies a draft: skill-creator's blind-comparator rules with a
    style rubric instead of a task rubric). Sees the test passage and drafts A, B, C. Ranks all three
    (no ties) by how closely they read as written by the passage's author, with one line per draft on
    why. It is told to ignore content and judge voice.
