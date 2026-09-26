@@ -1,6 +1,12 @@
 {
  "summary": {
   "run": "20260926T144759Z",
+  "arms": [
+   "plain",
+   "fewshot",
+   "idiolect"
+  ],
+  "recognition_checks": "not run",
   "authors": {
    "katharine-fullerton-gerould": {
     "briefs": 10,
@@ -107,11 +113,11 @@
      "fewshot": 3.7,
      "idiolect": 0.83
     },
-    "pass": false,
     "all_briefs": {
      "vs_plain": 30,
      "vs_fewshot": 17
-    }
+    },
+    "pass": false
    },
    "synthetic": {
     "briefs": 20,
@@ -126,12 +132,91 @@
      "fewshot": 2.4,
      "idiolect": 0.95
     },
-    "pass": false,
     "all_briefs": {
      "vs_plain": 20,
      "vs_fewshot": 11
+    },
+    "pass": false
+   }
+  },
+  "pairs": {
+   "idiolect vs plain": {
+    "real": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 3,
+     "briefs": 30
+    },
+    "synthetic": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 2,
+     "briefs": 20
+    },
+    "all": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 5,
+     "briefs": 50
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 1.0,
+     "robert-cortes-holliday": 1.0,
+     "samuel-mcchord-crothers": 1.0,
+     "synthetic-idris": 1.0,
+     "synthetic-noor": 1.0
+    }
+   },
+   "idiolect vs fewshot": {
+    "real": {
+     "rate": 0.567,
+     "ci95": [
+      0.5,
+      0.6
+     ],
+     "clusters": 3,
+     "briefs": 30
+    },
+    "synthetic": {
+     "rate": 0.55,
+     "ci95": [
+      0.5,
+      0.6
+     ],
+     "clusters": 2,
+     "briefs": 20
+    },
+    "all": {
+     "rate": 0.56,
+     "ci95": [
+      0.52,
+      0.6
+     ],
+     "clusters": 5,
+     "briefs": 50
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 0.6,
+     "robert-cortes-holliday": 0.5,
+     "samuel-mcchord-crothers": 0.6,
+     "synthetic-idris": 0.6,
+     "synthetic-noor": 0.5
     }
    }
+  },
+  "first_place_by_label": {
+   "A": 14,
+   "B": 11,
+   "C": 25
   }
  },
  "rows": [
@@ -146,11 +231,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -169,11 +255,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -192,11 +279,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 5,
@@ -215,11 +303,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -238,11 +327,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -261,11 +351,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -284,11 +375,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -307,11 +399,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -330,11 +423,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -353,11 +447,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "katharine-fullerton-gerould",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 3,
@@ -376,11 +471,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -399,11 +495,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -422,11 +519,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -445,11 +543,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -468,11 +567,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -491,11 +591,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -514,11 +615,12 @@
     "plain",
     "fewshot"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -537,11 +639,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 1,
@@ -560,11 +663,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 3,
@@ -583,11 +687,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "robert-cortes-holliday",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 1,
@@ -606,11 +711,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -629,11 +735,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 1,
@@ -652,11 +759,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -675,11 +783,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 4,
@@ -698,11 +807,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 3,
@@ -721,11 +831,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 3,
@@ -744,11 +855,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -767,11 +879,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -790,11 +903,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 1,
@@ -813,11 +927,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 2,
@@ -836,11 +951,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 7,
@@ -859,11 +975,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 9,
@@ -882,11 +999,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 9,
@@ -905,11 +1023,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 9,
@@ -928,11 +1047,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 8,
@@ -951,11 +1071,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 8,
@@ -974,11 +1095,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -997,11 +1119,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 7,
@@ -1020,11 +1143,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 7,
@@ -1043,11 +1167,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 10,
@@ -1066,11 +1191,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -1089,11 +1215,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 8,
@@ -1112,11 +1239,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 7,
@@ -1135,11 +1263,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 7,
@@ -1158,11 +1287,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 9,
@@ -1181,11 +1311,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 8,
@@ -1204,11 +1335,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -1227,11 +1359,12 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -1250,11 +1383,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 6,
@@ -1273,11 +1407,12 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
    "recognition": {
-    "confidence": "none"
+    "confidence": "not run"
    },
    "flags": {
     "plain": 8,

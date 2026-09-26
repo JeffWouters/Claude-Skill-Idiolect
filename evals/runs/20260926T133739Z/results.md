@@ -3,7 +3,7 @@
 Counted briefs exclude those whose passage a separate agent recognised with medium or high confidence.
 The last column (all briefs, recognised included) is reported for information and decides nothing.
 
-| Author | Briefs | Excluded (recognised) | vs plain | vs few-shot | Mean flags: plain / few-shot / Idiolect | All briefs: vs plain, vs few-shot |
+| Author | Briefs | Excluded (recognised) | vs plain | vs few-shot | Mean flags: plain / fewshot / idiolect | All briefs: vs plain, vs few-shot |
 | --- | --- | --- | --- | --- | --- | --- |
 | alexander-smith | 10 | 9 | 0/1 (0%) | 0/1 (0%) | 7.0 / 6.0 / 1.0 | 9/10, 4/10 |
 | alice-meynell | 7 | 7 | 0/0 (n/a) | 0/0 (n/a) | 0.0 / 0.0 / 0.0 | 7/7, 0/7 |
@@ -16,3 +16,12 @@ The last column (all briefs, recognised included) is reported for information an
 | --- | --- | --- | --- | --- |
 | real | 10 | 80% | 40% | no |
 | synthetic | 20 | 100% | 60% | no |
+
+Pairwise win rates with 95% intervals from resampling generator agents (one agent writes several drafts, so the agent, not the brief, is the unit):
+
+| Comparison | All | real | synthetic | By author |
+| --- | --- | --- | --- | --- |
+| idiolect vs plain | 93% (75%-100%, 5 agents) | 80% (0%-100%, 3 agents) | 100% (100%-100%, 2 agents) | alexander-smith 0%, alice-meynell n/a, arthur-christopher-benson 100%, samuel-mcchord-crothers 88%, synthetic-idris 100%, synthetic-noor 100% |
+| idiolect vs fewshot | 53% (35%-78%, 5 agents) | 40% (0%-100%, 3 agents) | 60% (40%-80%, 2 agents) | alexander-smith 0%, alice-meynell n/a, arthur-christopher-benson 100%, samuel-mcchord-crothers 38%, synthetic-idris 40%, synthetic-noor 80% |
+
+First place by label: {'A': 16, 'B': 17, 'C': 24}

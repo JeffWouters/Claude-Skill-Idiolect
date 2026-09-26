@@ -1,6 +1,12 @@
 {
  "summary": {
   "run": "20260926T133739Z",
+  "arms": [
+   "plain",
+   "fewshot",
+   "idiolect"
+  ],
+  "recognition_checks": "run",
   "authors": {
    "alexander-smith": {
     "briefs": 10,
@@ -125,11 +131,11 @@
      "fewshot": 3.6,
      "idiolect": 0.7
     },
-    "pass": false,
     "all_briefs": {
      "vs_plain": 33,
      "vs_fewshot": 12
-    }
+    },
+    "pass": false
    },
    "synthetic": {
     "briefs": 20,
@@ -144,12 +150,93 @@
      "fewshot": 2.6,
      "idiolect": 1.0
     },
-    "pass": false,
     "all_briefs": {
      "vs_plain": 20,
      "vs_fewshot": 12
+    },
+    "pass": false
+   }
+  },
+  "pairs": {
+   "idiolect vs plain": {
+    "real": {
+     "rate": 0.8,
+     "ci95": [
+      0.0,
+      1.0
+     ],
+     "clusters": 3,
+     "briefs": 10
+    },
+    "synthetic": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 2,
+     "briefs": 20
+    },
+    "all": {
+     "rate": 0.933,
+     "ci95": [
+      0.75,
+      1.0
+     ],
+     "clusters": 5,
+     "briefs": 30
+    },
+    "by_author": {
+     "alexander-smith": 0.0,
+     "alice-meynell": null,
+     "arthur-christopher-benson": 1.0,
+     "samuel-mcchord-crothers": 0.875,
+     "synthetic-idris": 1.0,
+     "synthetic-noor": 1.0
+    }
+   },
+   "idiolect vs fewshot": {
+    "real": {
+     "rate": 0.4,
+     "ci95": [
+      0.0,
+      1.0
+     ],
+     "clusters": 3,
+     "briefs": 10
+    },
+    "synthetic": {
+     "rate": 0.6,
+     "ci95": [
+      0.4,
+      0.8
+     ],
+     "clusters": 2,
+     "briefs": 20
+    },
+    "all": {
+     "rate": 0.533,
+     "ci95": [
+      0.348,
+      0.781
+     ],
+     "clusters": 5,
+     "briefs": 30
+    },
+    "by_author": {
+     "alexander-smith": 0.0,
+     "alice-meynell": null,
+     "arthur-christopher-benson": 1.0,
+     "samuel-mcchord-crothers": 0.375,
+     "synthetic-idris": 0.4,
+     "synthetic-noor": 0.8
     }
    }
+  },
+  "first_place_by_label": {
+   "A": 16,
+   "B": 17,
+   "C": 24
   }
  },
  "rows": [
@@ -164,6 +251,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -189,6 +277,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -214,6 +303,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -239,6 +329,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -264,6 +355,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -289,6 +381,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -314,6 +407,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -339,6 +433,7 @@
     "plain",
     "idiolect"
    ],
+   "agent": "alexander-smith",
    "win_plain": false,
    "win_fewshot": false,
    "recognised": false,
@@ -364,6 +459,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -389,6 +485,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "alexander-smith",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -414,6 +511,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -439,6 +537,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -464,6 +563,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -489,6 +589,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -514,6 +615,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -539,6 +641,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -564,6 +667,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "alice-meynell",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -589,6 +693,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -614,6 +719,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -639,6 +745,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -664,6 +771,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -689,6 +797,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -714,6 +823,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -739,6 +849,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -764,6 +875,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": true,
@@ -789,6 +901,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -814,6 +927,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "arthur-christopher-benson",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": true,
@@ -839,6 +953,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -864,6 +979,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -889,6 +1005,7 @@
     "plain",
     "idiolect"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": false,
    "win_fewshot": false,
    "recognised": true,
@@ -914,6 +1031,7 @@
     "plain",
     "idiolect"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": false,
    "win_fewshot": false,
    "recognised": true,
@@ -939,6 +1057,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -964,6 +1083,7 @@
     "plain",
     "idiolect"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": false,
    "win_fewshot": false,
    "recognised": false,
@@ -989,6 +1109,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1014,6 +1135,7 @@
     "plain",
     "fewshot"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1039,6 +1161,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1064,6 +1187,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "samuel-mcchord-crothers",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1089,6 +1213,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1114,6 +1239,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1139,6 +1265,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1164,6 +1291,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1189,6 +1317,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1214,6 +1343,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1239,6 +1369,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1264,6 +1395,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1289,6 +1421,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1314,6 +1447,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-idris",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1339,6 +1473,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1364,6 +1499,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1389,6 +1525,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1414,6 +1551,7 @@
     "idiolect",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": false,
    "recognised": false,
@@ -1439,6 +1577,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1464,6 +1603,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1489,6 +1629,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1514,6 +1655,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1539,6 +1681,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
@@ -1564,6 +1707,7 @@
     "fewshot",
     "plain"
    ],
+   "agent": "synthetic-noor",
    "win_plain": true,
    "win_fewshot": true,
    "recognised": false,
