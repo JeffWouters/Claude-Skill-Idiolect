@@ -1,0 +1,11 @@
+Going to Philadelphia from New York is, first of all, a rest. I say that as someone whose ordinary day begins in a crowded subway car, pressed between strangers, holding on and hoping. The trip down was the opposite of that. There was a seat, there was a window, there was time to read or simply look out and think about nothing. By the time I arrived I already felt kindly disposed toward the place, which may explain why I noticed so much about it.
+
+The first oddity was the way rooms are advertised. [example needed] It is a small thing, but it is the small things that tell you you are no longer at home. Then there were the funeral homes. In New York you expect an undertaker to occupy a shopfront or a purpose-built establishment. Here, a good many of them seemed to be in houses, ordinary residential houses on ordinary streets, with nothing but a discreet sign to separate them from the neighbours. I found myself looking twice at every front door.
+
+The fare system on the city's transport was another puzzle. [example needed] I worked it out in the end, though not quickly. And I have never seen a city with so many kinds of street lamp. Every few blocks the design seemed to change, as if each neighbourhood had been allowed to choose its own and none had wanted to copy another.
+
+Philadelphia also abounds in financial firms. Banks, trust companies, brokers and the like seem to be everywhere, and they give certain streets a solemn, prosperous air. Next to them, and all around them, the buildings are a mixture of styles that would never be allowed to stand side by side if anyone had planned it. Old and new, plain and ornate, share the same block without apology. I found I liked this more than I expected. It felt honest, like a city that had grown rather than been designed.
+
+What stayed with me most, though, were the porches and the yards. So many houses have porches, real ones, meant for sitting on. And in the yards I saw old-fashioned ornaments of a kind I thought had disappeared long ago. [example needed] They were not ironic. Nobody had put them there as a joke. They were simply part of the place, like the lamps and the fares and the funeral homes in houses.
+
+I came back to New York and my crowded subway car, and for a day or two I missed all of it.

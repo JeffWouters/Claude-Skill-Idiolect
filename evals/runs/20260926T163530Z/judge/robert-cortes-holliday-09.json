@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "D": "Closest movement: short blunt sentences against longer ones, rhetorical questions answered flatly, parenthetical asides and a first-person shrug, just as in the passage's question-and-aside rhythm.",
+  "C": "Chatty first-person stance, a parenthetical and a flat closing shrug match well, but tics like 'Very well.' and 'Just so.' lean slightly mannered, and it lacks the passage's run of questions.",
+  "B": "Right period register and wry stance, but long polysyndetic sentences and polished similes give a smoother essayist's movement; no questions or parentheses, which the passage leans on heavily.",
+  "A": "Modern, neutral explanatory prose with balanced, even sentences and no asides, questions or personal voice; reads nothing like the author's conversational period style."
+ }
+}

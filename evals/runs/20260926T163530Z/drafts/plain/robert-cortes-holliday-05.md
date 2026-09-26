@@ -1,0 +1,9 @@
+I had made up my mind that I would see him. He was the most talked-about English author to cross the ocean that season, and the lecture agency that had brought him over seemed the obvious door to knock on. So I knocked. I telephoned and was told, very kindly, that my request would be passed along. I telephoned again and was told that someone would surely call me back. Next time a different voice assured me that the matter was in hand. By the end of the week I had collected a small library of promises and not one of them had turned into a time, a place or a handshake.
+
+There is a particular kind of politeness that works like a revolving door. You push, you move, and you end up exactly where you started. I decided to stop pushing on the agency and go round to the hotel instead.
+
+After [example needed] of waiting in the lobby I caught the manager, a neat, pleasant man who was plainly used to people like me. He did not pretend not to know why I was there. He listened to my whole speech without interrupting, which I took at first as a good sign, and then he explained, gently and with what sounded like real regret, that it could not be done.
+
+His client, he said, was very busy. There were lectures, dinners, trains, interviews already agreed to months ago. And his client was tired, more tired than the audiences could guess from the platform. Every half hour given away was a half hour taken from rest, and he had made it his job to guard those half hours. He said all this without a trace of rudeness. He was not refusing me so much as protecting someone else.
+
+I thanked him, and I meant it. I had not got my appointment, but I understood at last why the promises had never come to anything. The door had been closed from the start, and the man holding it closed was only doing his work well.

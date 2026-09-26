@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "D",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "B": "Short plain sentences in first-person present, easy slides between 'I' and 'you', clipped links like 'Then the tyre.' and 'So I use a bowl' match the passage's rhythm and calm stance; 'Nothing, nothing, nothing' leans slightly thick.",
+  "D": "Clipped fragments and short declaratives catch the rhythm, but it mostly gives orders ('Be patient. Do not skip that.') where the passage narrates what 'I' do, and it stacks fragments more heavily than the author does.",
+  "C": "Short, plain sentences with the right 'Then the tyre.' pivot, but the past-tense narration and even, fragment-poor lines lose the passage's present-tense immediacy and its terse beats.",
+  "A": "Long, clause-heavy sentences with subordinate 'which' and 'because' chains, a reflective aside ('something steadying') and a manual-style imperative tone are far from the author's clipped, spare movement."
+ }
+}

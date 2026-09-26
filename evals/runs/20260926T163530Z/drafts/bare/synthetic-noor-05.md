@@ -1,0 +1,7 @@
+The heap has two bays. One fills, the other rots. [detail needed: how the bays are built, and from what]. The heap came down to me through the family. [example needed: whose heap it was first, and how it passed on]. It takes whatever the house and garden throw out over the year. Kitchen waste in every season. Garden waste as the year turns. [detail needed: what goes in, season by season]. It all goes on top, layer after layer. By the time a bay is full it holds a whole year of the house.
+
+Turning needs the right weather. Not wet. Wet compost is heavy, and it sticks to the fork. Not frozen either. A frozen heap will not move. I wait for a dry, mild day. [detail needed: the usual month for turning].
+
+Then I open up the full bay. And there are the layers. The year is laid down in bands. [detail needed: what each layer looks like]. The oldest is at the bottom. The newest is on top, and it is still mostly what it was. You can read the seasons in it.
+
+The fork is old. [detail needed: where the fork came from and how old it is]. It is the one I use. I start at the top of the full bay. The least-rotted material comes off first, and it goes into the bottom of the empty bay. That way it sits longest. Then the next layer goes in on top of it. Then the next. It is slow work. Forkful after forkful, bay to bay. But the heap comes out mixed and loose and full of air. So the empty bay is full again. And the full one is empty, ready to start the next year.

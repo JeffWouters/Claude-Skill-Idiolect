@@ -1,0 +1,9 @@
+Let me try to put his complaint as he would put it himself, because I think it deserves a fair hearing before anyone answers it.
+
+The country, he says, has had a run of prosperity such as few nations have ever known. Work was plentiful, fortunes were made, and the men who built the great industries were given room to build them. One would expect a people so rewarded to be content. Instead, he finds them restless. They listen to agitators who tell them they have been wronged. They take up one reform after another, each promising to put things right, and each, as he sees it, putting some new obstacle in the way of the very men whose energy produced the good times in the first place. The leaders of industry, who used to be trusted to get on with their work, now spend their days answering to inquiries and regulations.
+
+Nor is the trouble confined to business. The courts, he says, have begun to unsettle what everyone thought was settled. Professors who have never run a factory propose to revise the tariff. Officials, full of zeal and short of experience, go looking for wrongs to punish. New questions keep arriving that do not fit the old divisions, so that a man no longer knows what his party stands for, or whether he still belongs to it. The loyalties that once held political life steady are coming loose.
+
+What he fears is where all this leads. First, he says, business will stop. Men will not risk their capital when they cannot tell what the rules will be next year. Then, while we argue among ourselves, our foreign rivals will go on working, and they will pass us. And at the end of it, when the confusion has gone on long enough, the people will tire of it and turn to some strong man in uniform who promises order and asks only for obedience in return.
+
+That is his case. [example needed] It is worth taking seriously before it is answered.

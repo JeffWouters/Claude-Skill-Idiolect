@@ -1,0 +1,9 @@
+The other day I went with a friend of mine to the criminal courts, where he had been summoned to serve upon a jury.  To be summoned is one thing; to serve is quite another, as we presently learned.
+
+The first candidate called was a stout, pleasant man with a watch-chain, as respectable-looking a man as you could readily imagine.  Had he, the district attorney inquired, any prejudice against the defendant?  He had not.  Had he read of the case in the newspapers?  He had not.  Did he read, as a rule, the accounts of crimes in the newspapers?  Well, now and then.  Now and then, it appeared, meant pretty regularly.  Was he related to any member of the police?  He had, he said, a brother-in-law on the force.  How long had his brother-in-law been on the force?  Some years.  Were they on good terms?  Very good terms.  The stout man was thanked, and excused, and went out looking somewhat hurt, as if he had been told that his face did not suit.
+
+Then my friend was called.  The lawyer for the defence, a lean man with a remarkable voice, asked him his occupation.  My friend said that he was a writer.  "A writer!" exclaimed the lawyer, and turned half round to the room, as though he wished everybody to have the benefit of it.  "A writer.  And what, may I ask, do you write?"  The inflection he gave to the word was not flattering.  One gathered that writers, in his experience, were a class of person to be looked into.
+
+My friend replied, very modestly, that he wrote comic pieces.
+
+The effect was remarkable.  The lawyer stopped where he stood.  The defendant, who until then had sat looking at nothing in particular, looked up quickly at my friend, and then at his lawyer, and then at my friend again, with an expression of the most lively alarm.  The two of them conferred in a whisper.  My friend was excused.  I do not know that I have ever seen a man so anxious not to be written about.

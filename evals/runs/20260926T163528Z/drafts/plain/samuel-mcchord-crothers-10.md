@@ -1,0 +1,9 @@
+He was an optimist, and he never let anyone forget it. I remember how he talked about the farmers out in Kansas, the ones who wrote letters to the papers and stood up at meetings to complain about their mortgages and their crops and the price they got for them. He had no patience for any of it. To him they were simply men who had failed to see the bright side.
+
+What puzzled him, or what he pretended puzzled him, was that they would not take comfort in the good fortune around them. The country was doing well, he said. Other men were getting rich. Towns were rising, railroads were running, money was moving. Why should a farmer sit on his porch and grumble about his own bad year when the nation as a whole was prospering? He seemed honestly to believe that another man's prosperity ought to be consolation enough, and he mocked the farmers for being too small-minded to accept it.
+
+His view of opportunity was just as simple. It belonged to whoever grabbed it first. There was no use asking whether the arrangement was fair, because fairness had nothing to do with it. The land, the contracts, the good positions were all out there, and the quick man took them while the slow man stood about talking. If you came late, that was your affair. He said this without any cruelty that I could hear. He said it the way a man states the weather.
+
+And he believed, above all, that everything would keep growing. Cities would grow. Debts would grow. Prices would grow. He would add, with a kind of cheerful shrug, that corruption would grow too, and so would the slums. None of this troubled him, because none of it could be helped. It was all part of the same great movement, the expansion of the country, and to object to one piece of it was to object to the whole. You might as well complain about the tide.
+
+I think of him now whenever I hear someone say that progress is inevitable. He had that same easy certainty, and it left no room at all for the man on the losing end.

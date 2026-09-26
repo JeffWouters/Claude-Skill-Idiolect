@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "D",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "C": "Long, clause-rich sentences joined by 'since' and semicolons, first-person hedging ('I suspect', 'it seems to me'), a mid-argument rhetorical question and a dash closely match the passage's reflective, confiding movement.",
+  "D": "Similar long periodic sentences, dash and semicolon use and measured hedging, but it lacks the passage's rhetorical questions and stacks hedges ('my impression', 'perhaps', 'I suspect', 'I would not want to argue') a little more thickly.",
+  "A": "Shares the essayistic register, semicolons and 'It may be' hedging, but its sentences are shorter and more even, it shifts to a second-person 'You might', and it ends on a neat antithetical epigram the author does not use.",
+  "B": "Short declarative sentences, plain modern register, no semicolons or questions, and an imperative, advice-giving close; its stance and rhythm are far from the author's contemplative voice."
+ }
+}

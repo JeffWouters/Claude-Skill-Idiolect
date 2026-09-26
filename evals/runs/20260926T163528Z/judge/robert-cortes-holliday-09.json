@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "D",
+  "B"
+ ],
+ "reasons": {
+  "A": "Closest to the passage's clipped, jolting movement: runs of very short sentences ('It grew. It put out branches.', 'Just so.'), a chatty buttonholing stance, a dash and parenthesis, and a closing question, without overdoing it.",
+  "C": "Some short punchy sentences and a wry, confiding tone, but mostly long, balanced, periodic sentences with formal diction ('uncommonly', 'nothing whatever') far from the passage's fragments.",
+  "D": "Has contractions and a closing question, but the sentences are the most elaborate and literary of the set, with semicolons and ornate phrasing ('virtuous and vacant') that smooth away the passage's abrupt, fragmentary energy.",
+  "B": "Smooth, even, modern first-person memoir prose with measured, reflective stance; no fragments, exclamations or jolts, so least like the author's excitable telegraphic rhythm."
+ }
+}

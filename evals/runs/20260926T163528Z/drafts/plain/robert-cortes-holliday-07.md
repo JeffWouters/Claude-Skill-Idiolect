@@ -1,0 +1,9 @@
+Philadelphia keeps some of its best things off the main streets. The broad avenues are there for anyone to see, but the character of the city lives in the small streets that run between them, the ones a visitor can walk past a dozen times without noticing.
+
+Camac Street is the best known of these, and it has earned its reputation. It is an artists' lane, restored with real taste, which is rarer than it sounds; restoration so often means a coat of paint and a brass plaque. Here the work has been done with some respect for what was there. The clubs that have settled along it give the street a life of its own, and it manages to feel lived in rather than preserved.
+
+South Carlisle Street is another matter. Even people who have spent their whole lives in Philadelphia cannot find it, and most of them, asked for directions, will tell you with some confidence that it does not exist. It does. It lies [location needed: where South Carlisle Street is], and once you know where to look it is easy enough to reach, though the knowing is the hard part.
+
+What you find when you get there is a street so narrow that it seems less like a thoroughfare than a gap the builders forgot to close. The houses face one another at a distance you could almost reach across. Because there is so little of it, the eye has nothing to do but look closely, and what it sees is Philadelphia in miniature: the classic doorways, the old brick, the shutters folded back against the walls, the knockers waiting on the doors. These are the things the city is known for, and on a wider street they would be lost among traffic and signs. Here they are the whole view.
+
+It is worth the trouble of finding. A street that even the natives cannot place has a way of feeling like a private discovery, and South Carlisle Street, narrow and quiet and unmistakably Philadelphian, rewards the person who takes the trouble to look it up.

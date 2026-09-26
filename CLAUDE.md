@@ -8,10 +8,10 @@ anything; it is the single source of truth for behaviour, file formats and the b
 **Phases 1 (engine) and 2 (learning) are done.** Scripts in `idiolect/scripts/`, model procedures in
 `idiolect/references/modes/`, tests in `tests/`, the learned evaluation store in `evals/store/`
 (holdouts in `evals/holdouts.json`). **Phase 3 (writing) is built but not done:** write, rewrite,
-check, the kit and the evaluation harness exist; three evaluation runs (`evals/runs/`) missed the
-few-shot bar, and diagnostic run 4 (four arms) passed it for the synthetic group only. The design
-decision that follows is the writer's; see the latest run's `notes.md` and the open question in
-`docs/design.md`.
+check, the kit and the evaluation harness exist. After the writer's decision on run 4 (lessons as
+background, targets that follow the piece), confirming runs 5 and 6 met the few-shot bar for the
+synthetic group in both runs and missed it for the real authors in both. The next design decision is
+the writer's; see `evals/runs/20260926T163530Z/notes.md` and the open question in `docs/design.md`.
 Run `python3 -m pytest tests -q` before every commit.
 
 Phase 0 deliverables, still the reference:

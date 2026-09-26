@@ -1,0 +1,9 @@
+But on the shore side of the San Francisco water front, my fancy was much taken by the salt sea savor of the signs of the houses of entertainment--signs reminiscent of the jovial days of briny romance, echoed in the chantey in "Treasure Island," which has as its refrain:
+
+Yo, ho, ho, and a bottle of rum.
+
+I passed, among others, the Marine Café, the Navy Café, the Admiral Café, the Harbor Bar, and the Ferry Café.
+
+I did not turn up Market Street, but went on around the nose of the peninsula, which is the foundation of San Francisco. I passed a three-masted ship, the Lizzie Vance, lying by her wharf, with men aloft in her rigging. Then I clambered up endless relays of rickety wooden stairs mounting Telegraph Hill. On either side of the ladder-like steps, ramshackle cabins bedecked with lines of fluttering "wash." Like the celebrated editor of Puck, H. C. Bunner, I might say that in my travels I've missed many a cathedral but I never missed a slum.
+
+I went along through the Latin Quarter, slid down the steep slope of Kearny Street, and found myself wandering into that quaint little park, Portsmouth Square, where R. L. S. in his most stressful days lounged in the sun and listened to the tales of the vagabonds of the Seven Seas. Somewhat bigger than tiny Gramercy Park, hardly as large as little Madison Square, this park. In the center of the bit of rolling lawn, before a towering screen of rustling trees, the graceful little stone ship, buoyant on its curling stone wave, rides atop its tall stone pedestal graved "To Remember Robert Louis Stevenson," and on the face of which is cut that most fragrant of creeds, which (as everyone knows) begins: "To be honest, to be kind, to earn a little and to spend a little less, to make upon the whole a family happier for his presence" ...

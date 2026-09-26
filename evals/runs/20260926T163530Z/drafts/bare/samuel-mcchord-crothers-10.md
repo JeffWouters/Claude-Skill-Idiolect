@@ -1,0 +1,9 @@
+My friend the conservative is troubled, and I think it only fair to state his complaint as he would state it himself, without the little ironies with which I am tempted to season it. He believes that the nation is going wrong, and he can tell you, with considerable precision, when the wrong turning was taken.
+
+We had, he says, a season of prosperity such as no people had ever enjoyed. Everything was running at full speed, and the men who managed our great enterprises were building faster than anybody could count. And what did the citizens do with their good fortune? They listened to agitators. They tried reforms. They set about hampering the very captains of industry to whom they owed their comfortable dinners, as if a man who had been well fed should conceive a grudge against the cook.
+
+Nor is this the whole of it. The courts, which ought to be the steadiest things in the land, have taken to discovering new meanings in old statutes. College professors are revising the tariff in their studies; they have never had to live under the rates they propose. Zealous officials go about examining the books of honest corporations. Every year brings some new issue which nobody had heard of the year before, and the old parties, which used to know their own minds, no longer know whom they may count upon. A man of settled loyalty can hardly tell, on election day, where he belongs.
+
+What will come of all this? My friend has no doubt. Business will be paralyzed, since capital is timid and will not venture where the rules are rewritten every season. Our foreign rivals, who have been wise enough to leave their great men alone, will overtake us in the markets of the world. And at the end, perhaps, when the people are weary of confusion, some military strongman will arise to restore the order that they had not the sense to keep.
+
+That, fairly put, is his case.

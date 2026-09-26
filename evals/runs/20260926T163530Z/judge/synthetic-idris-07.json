@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "B",
+  "D"
+ ],
+ "reasons": {
+  "A": "Closest sentence movement: long, clause-rich sentences with semicolon series and a mid-sentence dash, lightly hedged ('it seems to me', 'I suspect', 'perhaps') in two dense paragraphs, reflective and gentle in tone like the passage.",
+  "C": "Opens with a question and uses long, semicolon-joined sentences with the author's tentative first person, but stacks hedges ('I suspect... I suspect', 'It seems to me', 'I think', 'Perhaps') more thickly than the passage and ends on a neat chiasmus that feels contrived.",
+  "B": "Measured, long-ish sentences with semicolons and a dash, but its stance is more advisory and assertive than confiding, with fewer first-person hedges and a brisk practical close ('begin tomorrow') the author would not reach for.",
+  "D": "Short declarative and imperative sentences, a colloquial hook ('we should rewrite this'), many small paragraphs and a plain, instructive tone; far from the author's long, hedged, reflective periods."
+ }
+}

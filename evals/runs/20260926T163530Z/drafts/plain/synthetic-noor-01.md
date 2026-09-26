@@ -1,0 +1,7 @@
+Once the dough has proved, doubled and soft under its cloth, I tip it onto a floured board and knock it back. Shaping is the part I slow down for. I fold the edges into the middle, turn it over and tuck it tight until the surface pulls smooth, then lower it into the tin. The tin was inherited from [whose tin, example needed], blackened at the corners and slightly out of true, and every loaf I make takes its shape from those dents. It gets a second, shorter rise while the oven heats.
+
+The bake takes [time needed]. To test doneness I turn the loaf out and knock on the base with a knuckle; a hollow sound means it is done, a dull thud means it goes back in without the tin for a few more minutes. From first mixing to cooling on the rack the whole thing takes [total time needed], most of it waiting, and the flour, yeast and salt come to about [cost needed] a loaf.
+
+I have not always been so careful. One week I put a loaf in, went off to [example needed], and came back to smoke and a crust like charcoal. The tin survived; the bread did not. That was not the reason I stopped using the kneading machine, though. I gave the machine up because [reason needed], and because kneading by hand turned out to be the ten minutes of the process I would miss most.
+
+A loaf lasts us the week, and it changes as it goes. The first days it is sliced thick for [example needed]. By midweek it is better toasted. What is left at the end becomes [example needed], so almost nothing is thrown away, and by the time the last crust is gone it is time to start the next one.

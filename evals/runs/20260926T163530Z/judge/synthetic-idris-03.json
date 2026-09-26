@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "D",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, balanced sentences joined by semicolons and subordinate clauses, a consistent 'we', gentle hedging and one dash, much like the passage's reflective, forgiving movement.",
+  "D": "Right register and hedges ('it seems to me', 'perhaps', 'I suspect'), but the enumerated 'first consequence / second' scaffolding and a few blunt short sentences make it more expository than the passage.",
+  "B": "Opens with a question and hedges in a similar way, but drifts into a direct 'you' address and a plainer, more advisory rhythm that the passage never uses.",
+  "C": "Short declarative sentences, imperatives and punchy aphoristic lines make it a confident how-to voice, far from the passage's long, hedged, meditative sentences."
+ }
+}

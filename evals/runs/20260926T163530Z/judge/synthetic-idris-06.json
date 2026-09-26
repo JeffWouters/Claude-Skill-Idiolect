@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "D": "Closest movement and stance: opens on a rhetorical question, long hedged sentences with 'It may be that' and 'It seems to me', one dash used for a turn, and a measured, lightly first-person close.",
+  "C": "Long, carefully balanced sentences with semicolons, a mid-paragraph rhetorical question and hedging all fit, but 'one feels' and the stacked dashes and questions lean slightly towards imitation.",
+  "B": "Right register and hedged first-person stance ('I think', 'it seems to me') in long clause-rich sentences, but the rhythm is flatter and it has none of the author's questions to move the argument along.",
+  "A": "Short, plain declarative sentences, direct second person and a practical how-to ending; the rhythm, hedging and period feel are far from the author's."
+ }
+}

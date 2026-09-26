@@ -1,0 +1,9 @@
+It is almost impossible to say anything true about Americans in general. They come from too many places, live in too many different ways, and disagree with one another about too much. Any sentence that begins "Americans are" will be contradicted by the first dozen Americans you meet. Serious observers know this and are careful.
+
+Caricature, however, is not careful, and that is what makes it useful. When a nation is drawn in cartoons and comic sketches, the artist has to choose one figure to stand for the whole, and the figure chosen tells you something about how people want to see themselves. In America's case that figure has come out of the backwoods. He is the frontiersman: rough in his manners, loud in his talk, quick with a joke and quicker with a slap on the back. He is not polished and he does not want to be. Americans of every origin, whatever their own background, seem to have taken him up as their shared emblem.
+
+What is striking is how differently he is received by people who ought to judge him the same way. A refined American poet, [name needed], a man of cultivated taste who would never have behaved like the frontiersman himself, could still look at this crude and familiar type with real admiration. He saw in him something honest and vigorous, an energy that belonged to the country. The coarseness did not put him off, because it was his own country's coarseness and he recognised it.
+
+A visiting English novelist, [name needed], looked at the same boastful patriots and was repelled. Where the poet saw vigour, the novelist saw vulgarity. The bragging, the familiarity, the refusal to keep a proper distance all struck him as intolerable. [example needed]
+
+The difference, I think, is less about the frontiersman than about who is looking. To an American he is family. To a stranger he is simply loud.

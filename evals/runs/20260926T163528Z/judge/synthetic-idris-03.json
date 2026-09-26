@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "C",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "D": "Long, hedged, clause-rich sentences carrying rhetorical questions, 'it may be that' and 'I suspect', with a wry closing turn. This is the closest match to the passage's musing, lightly ironic movement.",
+  "C": "Long flowing sentences, tentative first-person hedging and a measured, earnest register all match. It uses no questions and its sentence lengths vary less than the author's.",
+  "A": "The diction and hedging ('it seems to me', 'I suspect') fit, and it ends on a question. It often breaks into short declaratives ('Both parties are playing roles.') that the author's longer rhythm avoids.",
+  "B": "Plain, brisk declaratives with little hedging, the lightly imperative 'Look more closely' and a flatter, more expository stance. This is the furthest from the author's reflective, suspended sentences."
+ }
+}

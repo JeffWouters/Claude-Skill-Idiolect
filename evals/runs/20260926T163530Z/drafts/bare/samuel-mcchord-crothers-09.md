@@ -1,0 +1,9 @@
+You will forgive a plain man who deals in land for offering counsel to a novelist. I have read your book, and I read it, I must confess, with the eye of my trade. What I saw was a great deal of careful construction on a lot that nobody wants.
+
+In my business we learn early, or we learn expensively, that land has no value in itself. A lot is worth precisely what people will pay to occupy it, and they will pay only where they already desire to be, so that the most beautiful acre in the county may be worth less than a narrow frontage beside the railway station. The building, too, must suit its site. A handsome warehouse in a quiet residential street is not an investment; it is a monument to the owner's want of judgment. I know this because I have erected such monuments myself, and the education cost me more than I care to reckon. [example needed: a real venture that failed]
+
+Your novel appears to me to be costly work on poor ground. You have spent labor enough on it to raise a city block. The walls are straight and the joints are true. But what have you built upon? Your characters are true to life, and that, so far as I can discover after a diligent inspection of the premises, is the whole of what can be said in their favor, since they are the sort of people one encounters every day and does not ask to encounter again.
+
+It is here that you forget the reader, who is your only purchaser. His time is short, and he knows it. Out of all the people who might claim his evenings, he selects those who are worth knowing. Besides, reality is not scarce. The newspapers deliver it to his door each morning, and the historians have accumulated more of it than any reasonable man could consume in a lifetime of industrious reading. Why should he come to you for what is already on his doorstep?
+
+My advice, then, is what I should give any builder. Before you lay another foundation, go out and look at the ground. Ask whether anybody wants to live there.

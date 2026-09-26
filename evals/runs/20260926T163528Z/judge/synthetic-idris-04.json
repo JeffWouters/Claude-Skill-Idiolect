@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "D",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "A": "Short, clipped sentences, imperatives and a brisk self-help tone; nothing of the passage's long, balanced periods or reflective hedging.",
+  "B": "Closest sentence movement: long, evenly flowing sentences joined by semicolons and qualifying clauses, first-person plural with a quiet 'it seems to me' hedge, few short sentences, measured earnest tone.",
+  "C": "Formal register and semicolons fit, and it opens on a question, but the impersonal 'one' replaces the passage's 'we/us', the stacked 'X; Y; Z' fragments and closing aphorism read as slightly overworked imitation.",
+  "D": "Good stance match ('we', 'I think', 'I suspect', a closing question) and long periods, but interleaves short rhetorical sentences and anaphoric pairs ('Nothing... Everything...', 'Sometimes... Sometimes... Most often') the author does not use."
+ }
+}

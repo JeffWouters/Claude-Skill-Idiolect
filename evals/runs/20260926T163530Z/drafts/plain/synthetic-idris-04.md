@@ -1,0 +1,9 @@
+Sooner or later a colleague asks for something you cannot give. Help with their project, a review by Friday, a seat on a working group. The easy response is a vague yes, or a maybe that slowly turns into silence. The respectful response is a clear no, delivered well.
+
+Good refusals share a few habits. First, they come promptly. A quick answer lets the other person find help elsewhere while there is still time; a no that arrives after a week of waiting costs them that week. Second, they name the real competing priority. "I'm busy" tells your colleague nothing. "I'm committed to the release this month and can't take on anything that competes with it" tells them what they are up against and that the refusal is not about them. Third, a good refusal offers something smaller: a half-hour conversation instead of a full review, or a referral to someone better placed to help. [example needed]
+
+Underneath all of this is an uncomfortable admission. Declining means admitting that your time is limited, and many of us would rather overcommit than say so. But the arithmetic is clear. A little disappointment now is far better than a broken commitment later. The colleague who hears no today can plan around it. The one who hears yes and then gets nothing is left worse off than if you had never agreed.
+
+There is a longer-term benefit too. People who say no honestly give their yes more weight. When you only agree to what you can actually deliver, your agreement becomes something others can rely on. Colleagues learn that a yes from you means the work will get done, and that a no is a straight answer rather than a brush-off.
+
+That reliability strengthens relationships instead of straining them. A respectful refusal treats the other person as someone who deserves the truth about your time, and most people, once the moment passes, are grateful for it.

@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "D",
+  "B"
+ ],
+ "reasons": {
+  "A": "Long hedged sentences, semicolon balancing and an opening question fit the author well, but a third paragraph and a slightly stacked set of hedges ('perhaps' twice, 'it seems to me') loosen the match.",
+  "B": "Short, plain declarative sentences, many paragraphs, a conversational 'you' and almost no hedging or subordination; far from the author's long, qualified, periodic movement.",
+  "C": "Closest in movement: two long paragraphs of extended, clause-laden sentences joined by semicolons, one dash, a single well-placed rhetorical question and measured 'I suspect'/'perhaps' hedging, with no caricature.",
+  "D": "Right register and semicolon habits, but the run of rhetorical questions and punchier aphoristic turns ('The ticket survives; the context... does not') push past the passage's restraint towards imitation."
+ }
+}

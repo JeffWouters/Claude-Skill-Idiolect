@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "D",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Short declarative first-person present-tense sentences with clipped fragments and a plain, unhedged stance closest to the passage; only 'Not roughly level. Properly level.' leans slightly towards caricature.",
+  "D": "Mostly short first-person sentences in the right register, but intensifiers ('every single one', 'exactly', 'gradually') and explanatory asides make it chattier and more expository than the author.",
+  "B": "Good clipped rhythm and fragment endings ('A creak. Then a crack.'), but it slides into a second-person imperative manual voice ('Hit it.') and a dry irony ('rather longer') the passage lacks.",
+  "C": "Long comma- and clause-linked sentences, a colon and an explanatory essayist tone; furthest from the author's short, stark sentence movement."
+ }
+}

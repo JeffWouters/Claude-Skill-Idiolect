@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C",
+  "D"
+ ],
+ "reasons": {
+  "B": "Short plain sentences and clipped fragments, with first-person 'I' narration of the routine mixed with 'you' the way the passage does it, and a matter-of-fact stance; the reflective closing line is the only step outside the voice.",
+  "A": "Rhythm and diction are close, with terse fragments and plain words, but it leans on second-person instructions more than the passage's first-person account, and 'This sounds wrong. It is not.' is a bit staged.",
+  "C": "The terse movement is right, but it piles on emphatic fragments ('Always.', 'More lines.') and ends with a crafted flourish ('made my peace with that corner'), which is more insistent and literary than the passage's dry plainness.",
+  "D": "Long, smoothly joined sentences, colons and an explanatory magazine register ('one of those household methods'); nothing like the passage's clipped, first-person cadence."
+ }
+}

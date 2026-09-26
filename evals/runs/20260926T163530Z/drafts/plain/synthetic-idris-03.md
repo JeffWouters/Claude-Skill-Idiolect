@@ -1,0 +1,9 @@
+Most job interviews rest on a polite fiction: that an hour of conversation tells you whether someone will do the job well. It does not. An hour reveals very little, and a more candid approach would start by admitting that out loud.
+
+Once you accept the limit, the format changes. Instead of brain-teasers and trick questions, give candidates realistic tasks that look like the work they would actually do. A puzzle about ping-pong balls tests how someone handles puzzles about ping-pong balls. A small, real problem from the team's own week tells you far more, and it tells the candidate something useful about the job too.
+
+It also helps to be honest about what the interview really is. Both sides are performing. The candidate presents the most capable, confident version of themselves. The interviewer presents the company as organised, friendly and exciting. Each is judging an act put on by the other. That is not a scandal. Shared nerves make it understandable: the candidate wants the job, and the interviewer wants to make the right call and not look foolish doing it. Everyone in the room is a little anxious, and anxious people perform.
+
+A candid interview makes room for that by inviting the other side's hard questions. Welcome tough questions from candidates rather than treating them as a sign of attitude. Someone who asks why the last person left, or what goes wrong on the team, is doing their own due diligence, and they are giving you a better conversation than a rehearsed pitch ever could. [example needed]
+
+Finally, judge the interview by how people leave it. The best interview leaves candidates feeling they were treated generously, whatever the result. They were given a fair task, straight answers and a real chance to show their work. Most of them will not get the job. All of them will remember how they were treated.

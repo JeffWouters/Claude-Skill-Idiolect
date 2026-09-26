@@ -1,0 +1,9 @@
+Most advice about saying no is really advice about confidence. Be clear, be firm, don't over-explain, don't apologise. That works well enough for the requests you never wanted in the first place: the meeting with no purpose, the task that belongs to someone else, the favour from someone who asks too often. In those cases the difficulty is nerve, and nerve can be practised.
+
+The harder case gets far less attention. It is the request that is perfectly sensible, from a colleague you respect, for help you would genuinely like to give, arriving at a moment when you simply do not have the time. Confidence is not the problem here. You are not unsure whether you are allowed to refuse; you are unsure whether you want to, because part of you would rather say yes.
+
+Picture it. Late in the day, a trusted peer asks whether you could review their design before tomorrow. The design matters, their judgement is good, and your opinion would be useful. But the evening is already committed, and you knew that before they asked. Nothing about the request is unreasonable. That is exactly what makes it hard to decline.
+
+So most people agree anyway. It feels generous, and in the moment it costs nothing but a small rearrangement. The cost comes later. The evening you had promised elsewhere gets squeezed, or the review gets done tired and half-attentive, which helps nobody. Often the person who pays is you: the sleep you lose, the work you postpone, the quiet resentment that builds when helpfulness keeps overriding your own plans. A rushed review can even be worse for the colleague than an honest delay.
+
+Refusing well in this situation is less about firmness and more about honesty. Say that you would like to help, that you cannot do it tonight, and what you could offer instead, if anything. [example needed] A respected colleague is usually the person most likely to understand, precisely because they would not want you to pretend.

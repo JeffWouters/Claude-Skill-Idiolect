@@ -1,0 +1,9 @@
+There was a time when a decent person could feel reasonably sure of being decent. He paid his debts, was kind to his family, did his work honestly and went to bed with a quiet mind. That time seems to be over. The public conscience has woken up, and one of its first acts has been to wake up everybody else.
+
+The comfortable, well-intentioned citizen now learns, often over breakfast, that he is harming society. The things he buys, the way he invests his savings, the house he lives in, the vote he casts or fails to cast: each turns out to have consequences he never considered, and most of them are bad. He did not mean any harm. He simply did not know. But not knowing is no longer an excuse, and the discovery sits heavily on precisely the people most anxious to do right.
+
+The careless are untroubled; it is the conscientious who suffer. They have become a nation of apologisers. They apologise for their comfort, for their ignorance, for having attended to one obligation while another went unmet. The trouble is that the duties have multiplied faster than anyone can rank them. Should one's first care be for one's own household, one's neighbours, the distant stranger, the generations not yet born? Every claim is urgent and every claim is just, and the conscientious person, trying to honour them all, ends by feeling guilty about each.
+
+Worse, the old private virtues no longer count for much on their own. Gentleness, patience, personal honesty are now weighed by their public usefulness, and found wanting if they do not visibly improve society. I think of a clergyman I know, [name needed], as a case in point. [example needed: what he does, and how his private goodness is judged against its public result.]
+
+It is a strange reward for goodness. The awakened conscience asks a great deal of those who are willing to listen, and very little of those who are not.

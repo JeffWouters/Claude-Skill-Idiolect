@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "reasons": {
+  "A": "Sustained long, clause-laden sentences with semicolon balancing and measured hedges ('arguably', 'it would be unfair') closest to the passage's formal, deliberative movement and two-to-three long-paragraph build.",
+  "B": "Long stacked sentences, semicolons and a rhetorical question fit the author, but opening on the question and closing with a detached one-line paragraph make the structure more rhetorical than the passage.",
+  "C": "Dashes and earnest hedging suit the author, but more short declarative sentences ('The warning is sound.') and four tidy paragraphs break the passage's long unbroken rhythm.",
+  "D": "Short punchy sentences, second-person 'you', many one-idea paragraphs and a leadership-advice close read as plain modern blog prose, far from the author's formal, hedged periodic style."
+ }
+}

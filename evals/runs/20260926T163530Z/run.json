@@ -1,0 +1,306 @@
+{
+ "run": "20260926T163530Z",
+ "seed": 20261006,
+ "arms": [
+  "plain",
+  "fewshot",
+  "idiolect",
+  "bare"
+ ],
+ "avoid": [
+  "20260926T133739Z",
+  "20260926T144759Z",
+  "20260926T144808Z",
+  "20260926T154434Z",
+  "20260926T163528Z"
+ ],
+ "source": "later",
+ "fresh_only": true,
+ "caps": {
+  "katharine-fullerton-gerould": 4,
+  "synthetic-idris": 8,
+  "synthetic-noor": 8
+ },
+ "passages": [
+  {
+   "id": "katharine-fullerton-gerould-01",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 317,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-02",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 389,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-03",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 496,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-01",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/01-the-hotel-guest.md",
+   "words": 303,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-02",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/02-a-humorist-misfits-at-a-murder-trial.md",
+   "words": 309,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-03",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/03-queer-thing-bout-undertakers-shops.md",
+   "words": 340,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-04",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/04-the-hair-cut-that-went-to-my-head.md",
+   "words": 308,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-05",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/05-seeing-mr-chesterton.md",
+   "words": 306,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-06",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/06-when-is-a-great-city-a-small-village.md",
+   "words": 398,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-07",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/07-the-unusualness-of-parisian-philadelphia.md",
+   "words": 425,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-08",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/08-our-last-social-engagement-as-a-fine-art.md",
+   "words": 307,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-09",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/09-writing-in-rooms.md",
+   "words": 333,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-10",
+   "author": "robert-cortes-holliday",
+   "essay": "holdouts-later/robert-cortes-holliday/10-taking-the-air-in-san-francisco.md",
+   "words": 331,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-01",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/01-humanly-speaking.md",
+   "words": 384,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-02",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/02-in-the-hands-of-a-receiver.md",
+   "words": 315,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-03",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/03-the-contemporaneousness-of-rome.md",
+   "words": 330,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-04",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/04-the-american-temperament.md",
+   "words": 349,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-05",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/05-the-unaccustomed-ears-of-europe.md",
+   "words": 393,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-06",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/06-the-toryism-of-travelers.md",
+   "words": 320,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-07",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/07-the-obviousness-of-dickens.md",
+   "words": 325,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-08",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/08-the-spoiled-children-of-civilization.md",
+   "words": 348,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-09",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/09-on-realism-as-an-investment.md",
+   "words": 326,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-10",
+   "author": "samuel-mcchord-crothers",
+   "essay": "holdouts-later/samuel-mcchord-crothers/10-to-a-citizen-of-the-old-school.md",
+   "words": 321,
+   "group": "real"
+  },
+  {
+   "id": "synthetic-idris-01",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/13-what-the-one-to-one-is-for.md",
+   "words": 331,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-02",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/14-what-a-handover-is-for.md",
+   "words": 339,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-03",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/15-the-interview-as-theatre.md",
+   "words": 304,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-04",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/16-on-reasonable-refusals.md",
+   "words": 311,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-05",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/17-what-the-backlog-is-for.md",
+   "words": 329,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-06",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/18-what-a-name-is-for.md",
+   "words": 358,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-07",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/19-the-seduction-of-the-rewrite.md",
+   "words": 307,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-08",
+   "author": "synthetic-idris",
+   "essay": "holdouts-later/synthetic-idris/20-on-distant-colleagues.md",
+   "words": 349,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-01",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/13-the-saturday-loaf.md",
+   "words": 301,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-02",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/14-patching-the-back-tyre.md",
+   "words": 329,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-03",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/15-marmalade-in-january.md",
+   "words": 318,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-04",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/16-splitting-the-firewood.md",
+   "words": 308,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-05",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/17-turning-the-compost-heap.md",
+   "words": 322,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-06",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/18-clearing-the-front-path.md",
+   "words": 327,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-07",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/19-regrouting-the-bath-tiles.md",
+   "words": 330,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-08",
+   "author": "synthetic-noor",
+   "essay": "holdouts-later/synthetic-noor/20-washing-the-windows.md",
+   "words": 311,
+   "group": "synthetic"
+  }
+ ],
+ "reused": {
+  "katharine-fullerton-gerould": 0,
+  "robert-cortes-holliday": 0,
+  "samuel-mcchord-crothers": 0,
+  "synthetic-idris": 0,
+  "synthetic-noor": 0
+ }
+}

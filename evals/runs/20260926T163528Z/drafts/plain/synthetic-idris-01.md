@@ -1,0 +1,9 @@
+Most advice about one-on-one meetings says the same thing: let the report set the agenda. It is good advice. When the other person decides what gets discussed, the meeting stops being a status check dressed up as a conversation, and the manager learns what actually occupies the report's mind rather than what the manager assumed it would be.
+
+But handing over the agenda does not hand over the power. The manager still writes the review, still shapes the next assignment, still has a say in pay and promotion. The report knows this, and so every sentence they choose to say is filtered through it. A report can lead the meeting and still be careful, still leave out the doubt or the complaint that would be most useful to hear. The imbalance is built into the relationship, and no seating arrangement or agenda template removes it.
+
+The better move is to stop pretending it isn't there. A manager who says plainly that the difference in position exists, that it makes honesty harder, and that they would rather hear the awkward thing than not, has at least put the problem on the table. Naming it does not dissolve it, but it gives both people permission to talk about it instead of working around it in silence.
+
+The rest is behaviour, and it has to be consistent. When a report corrects you, welcome it, and let them see that nothing bad followed. When a question produces a long pause, sit in it rather than filling it with your own answer. Come back to something they said weeks ago, so they know it was heard and not just noted. And admit when you are unsure, because a manager who never doubts gives nobody else room to doubt either.
+
+None of this works quickly. Trust in a one-on-one builds slowly, one meeting at a time, and it is spent much faster than it is earned. The gap will always be there; what changes is whether both people can see it.

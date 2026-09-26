@@ -1,0 +1,9 @@
+I should like to state the case of my conservative friend as fairly as I can, for he is an honest man and his anxiety is real. It runs somewhat in this fashion.
+
+Here was a nation that had come through a period of great prosperity. Its fields were fruitful, its mills were busy, and its people were better fed than any people had a right to expect. One would have supposed that citizens so favored would be content to let well enough alone. Instead of which they have taken to following agitators. Every man with a grievance and a loud voice finds a crowd. They try reforms as a restless invalid tries remedies, one after another, and they seem to take a special pleasure in hampering the very men who led the country's industry to its present height. The captains are told how to steer by the passengers.
+
+Nor is this all. The courts, which he had been taught to regard as the solid ground under his feet, no longer feel so solid. College professors, who ought to be content with their proper business, have taken to revising the tariff. Officials who once understood the public service to be a comfortable place have become alarmingly zealous. New issues come up faster than a man can make up his mind about the old ones. He hardly knows what party he belongs to, and he suspects that the party does not know either. Party loyalty, once a thing a man inherited along with his father's opinions, has become a matter of choice.
+
+And where will it end? He sees it very clearly. Business will be paralyzed, for no man will venture his capital where the rules change with every session. While we are experimenting, our foreign rivals will be at work, and they will pass us. And at last, when the people are weary of their own confusion, some strong man on horseback will ride in to restore order, and we shall have paid for our liberty with the loss of it.
+
+That is his complaint, put as nearly as I can in his own spirit.

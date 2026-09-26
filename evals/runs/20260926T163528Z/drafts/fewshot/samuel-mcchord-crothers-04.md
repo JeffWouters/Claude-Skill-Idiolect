@@ -1,0 +1,9 @@
+It is a hazardous thing to generalize about Americans. They have come from everywhere, and they have brought with them the habits and prejudices of everywhere. Any statement that is true of one of them is sure to be untrue of his neighbor. The prudent observer, having met a dozen of them, will be careful to say that he has met a dozen Americans, and not that he has met America.
+
+And yet there is a way of getting at the matter. When a people is too various to be described, we may look at the pictures it draws of itself. The national caricature is not a portrait of any one, but it is a portrait of what every one is willing to be taken for. And the figure that appears most often in our caricatures is not the merchant or the scholar or the man of the town. It is the backwoodsman. He is lank and weather-beaten, he has come out of the clearing, and he has brought the manners of the clearing with him. It matters not whether our fathers came over in the first ships or the last. We have all adopted him.
+
+He is not a refined person. He is familiar on first acquaintance. He slaps you on the back and tells you what a great country this is. There is no knowing what he may say next, but you may be sure he will say it loudly.
+
+What is curious is the different ways in which he has been received. [name needed], one of the most delicately cultivated of our poets, could look upon this rough fellow with real admiration. He saw, under the crudeness, something that he recognized and was not ashamed of. But when [name needed], the English novelist, came among us, he met the same type and found him altogether repellent. These boastful patriots were more than he could bear.
+
+I do not think either of them was mistaken. It is only that the poet was looking at a relative, and the novelist at a stranger.

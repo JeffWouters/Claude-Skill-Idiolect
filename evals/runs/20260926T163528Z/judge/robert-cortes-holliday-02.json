@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "A",
+  "C",
+  "B"
+ ],
+ "reasons": {
+  "D": "Closest satiric play: mixes clipped short sentences with long mock-solemn ones, mock-precise wry asides ('if you please', 'read to from a ledger') and a first-person comic detachment like the passage's.",
+  "A": "Chatty first-person rhythm with short punchy lines and a colloquial edge ('so they have got him'), but gentler and more genteel, missing the passage's slangy bite and parenthetical asides.",
+  "C": "Comic similes and detached narrator fit, but sentences run long and polished, with a smoother literary register than the passage's loose, jerky movement.",
+  "B": "Earnest and reflective, with plain, even sentences and a moral close; little of the passage's irony, slang or comic exaggeration."
+ }
+}

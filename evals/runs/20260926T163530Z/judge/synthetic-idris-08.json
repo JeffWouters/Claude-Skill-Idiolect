@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "D",
+  "B"
+ ],
+ "reasons": {
+  "A": "Opens on a question and moves in long, evenly balanced sentences joined by semicolons and 'since'; its hedges ('I suspect', 'perhaps', 'It seems to me') and direct address to 'you' match the passage's measured, confiding stance without laying it on.",
+  "C": "Long, periodic sentences and semicolon joins come close to the passage's rhythm, but it never asks a question and stacks its qualifiers ('perhaps', 'I think', 'rather more') a little more heavily than the author does.",
+  "D": "Gets the register and the long sentences, but it opens flat, starts a sentence with 'But', and runs a 'Consider...' move, a rhetorical question and a dash one after another, which reads more like assembled habits than the author's voice.",
+  "B": "Short declarative sentences, clipped fragments, lists of questions and a plain, brisk advisory tone. This is a modern business-blog voice, far from the author's long, hedged, periodic prose."
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "B",
+  "D"
+ ],
+ "reasons": {
+  "C": "Closest movement and stance: opens on a reflective question, long semicolon-chained sentences, 'it seems to me', and a closing 'Perhaps...not X but Y' turn like the passage; the brief second-person aside is the one slip.",
+  "A": "Long, clause-heavy sentences with semicolon series and measured hedging ('arguably', 'curiously') fit well, but the closing rhetorical question plus 'I suspect' ends more chattily than the passage's quiet summation.",
+  "B": "Right register and hedges, but the sentences are shorter and more segmented (separate 'It comes... It names... And...' sentences), with less of the passage's long, balanced periodic flow.",
+  "D": "Plain, punchy, second-person advice-column voice with short sentences, enumerated 'First/Second/Third', contractions and quoted dialogue; nothing like the passage's reflective, long-sentenced 'we'."
+ }
+}

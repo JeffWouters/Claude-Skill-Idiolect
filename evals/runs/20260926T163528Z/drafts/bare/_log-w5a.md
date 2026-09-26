@@ -1,0 +1,11 @@
+Files opened (w5a, bare arm):
+- /tmp/claude-0/eval-20260926T163528Z/prompts/gen-bare-w5a.txt
+- /tmp/claude-0/eval-20260926T163528Z/idiolect-bare/SKILL.md
+- /tmp/claude-0/eval-20260926T163528Z/idiolect-bare/references/modes/write.md
+- /tmp/claude-0/eval-20260926T163528Z/briefs/w5-01.md
+- /tmp/claude-0/eval-20260926T163528Z/briefs/w5-02.md
+- /tmp/claude-0/eval-20260926T163528Z/briefs/w5-03.md
+- /tmp/claude-0/eval-20260926T163528Z/briefs/w5-04.md
+- /tmp/claude-0/eval-20260926T163528Z/briefs/w5-05.md .. w5-09.md (printed by accident by a shell glob `w5-0*.md` in the first command; not used)
+- Script output only: scripts/check_env.py, scripts/kit.py (kits saved in work/bare-w5a/kit-01..04.md), scripts/check.py (reports in work/bare-w5a/r01..04.json)
+- Own working files in /tmp/claude-0/eval-20260926T163528Z/work/bare-w5a/ (drafts d01..04.md, chk.sh)

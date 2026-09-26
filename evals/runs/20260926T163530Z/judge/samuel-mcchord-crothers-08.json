@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "D",
+  "C"
+ ],
+ "reasons": {
+  "A": "Short declarative sentences in runs, a flat first-person rejection and brisk aphoristic turns match the passage's assertive, plain-spoken movement most closely.",
+  "B": "It has the same dry wit (the 'under new management' line echoes 'kings out of a job') and a crisp close, but its sentences are longer and more urbane, and it hedges more ('I doubt whether') than the author does.",
+  "D": "The stance is right and it says 'I do not believe it' outright, but the prose is measured and explanatory, with longer clauses and less of the author's punch and wit.",
+  "C": "Long sentences built on colons and semicolons and an argued, literary register sit furthest from the author, and the 'They brood. They wait. They regret.' triplet plus the one-line coda overdo the rhetoric."
+ }
+}

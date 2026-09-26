@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "D": "Long, clause-laden sentences joined by semicolons and trailing qualifications, no dashes, measured hedges ('It seems to me', 'I suspect') used sparingly and a quiet reflective close; it moves most like the passage.",
+  "A": "Similar long, hedged sentences, a semicolon and a rhetorical question, but the 'The first... The second' enumeration is more schematic than the passage's flowing 'It might mean... It might also mean', and the hedges pile up a little thickly.",
+  "B": "Measured, earnest tone and some long sentences, but the em-dash asides the passage never uses, the short blunt sentences ('An asynchronous message has none of them.') and the four tidy paragraphs pull it away from the author's rhythm.",
+  "C": "Short declarative sentences, imperatives addressed to 'you', listicle structure (First, Second, Third, Finally) and a modern advice-column register; nothing like the passage's long, hedged, reflective periods."
+ }
+}

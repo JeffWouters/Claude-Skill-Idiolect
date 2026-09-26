@@ -1,0 +1,236 @@
+{
+ "katharine-fullerton-gerould-01": {
+  "plain": 1,
+  "fewshot": 3,
+  "idiolect": 0,
+  "bare": 1
+ },
+ "katharine-fullerton-gerould-02": {
+  "plain": 4,
+  "fewshot": 0,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "katharine-fullerton-gerould-03": {
+  "plain": 5,
+  "fewshot": 1,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "robert-cortes-holliday-01": {
+  "plain": 3,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 2
+ },
+ "robert-cortes-holliday-02": {
+  "plain": 3,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-03": {
+  "plain": 2,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-04": {
+  "plain": 3,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-05": {
+  "plain": 3,
+  "fewshot": 7,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-06": {
+  "plain": 2,
+  "fewshot": 3,
+  "idiolect": 2,
+  "bare": 2
+ },
+ "robert-cortes-holliday-07": {
+  "plain": 4,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-08": {
+  "plain": 3,
+  "fewshot": 7,
+  "idiolect": 1,
+  "bare": 2
+ },
+ "robert-cortes-holliday-09": {
+  "plain": 4,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "robert-cortes-holliday-10": {
+  "plain": 4,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "samuel-mcchord-crothers-01": {
+  "plain": 7,
+  "fewshot": 3,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-02": {
+  "plain": 2,
+  "fewshot": 2,
+  "idiolect": 0,
+  "bare": 1
+ },
+ "samuel-mcchord-crothers-03": {
+  "plain": 2,
+  "fewshot": 1,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-04": {
+  "plain": 4,
+  "fewshot": 4,
+  "idiolect": 0,
+  "bare": 1
+ },
+ "samuel-mcchord-crothers-05": {
+  "plain": 2,
+  "fewshot": 0,
+  "idiolect": 1,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-06": {
+  "plain": 1,
+  "fewshot": 1,
+  "idiolect": 2,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-07": {
+  "plain": 3,
+  "fewshot": 4,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-08": {
+  "plain": 1,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-09": {
+  "plain": 1,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 0
+ },
+ "samuel-mcchord-crothers-10": {
+  "plain": 2,
+  "fewshot": 2,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-01": {
+  "plain": 7,
+  "fewshot": 2,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-02": {
+  "plain": 8,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 0
+ },
+ "synthetic-idris-03": {
+  "plain": 8,
+  "fewshot": 0,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-04": {
+  "plain": 5,
+  "fewshot": 3,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-05": {
+  "plain": 6,
+  "fewshot": 2,
+  "idiolect": 0,
+  "bare": 1
+ },
+ "synthetic-idris-06": {
+  "plain": 9,
+  "fewshot": 2,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-07": {
+  "plain": 7,
+  "fewshot": 0,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-idris-08": {
+  "plain": 8,
+  "fewshot": 5,
+  "idiolect": 0,
+  "bare": 0
+ },
+ "synthetic-noor-01": {
+  "plain": 7,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-02": {
+  "plain": 8,
+  "fewshot": 1,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-03": {
+  "plain": 8,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-04": {
+  "plain": 7,
+  "fewshot": 1,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-05": {
+  "plain": 7,
+  "fewshot": 2,
+  "idiolect": 2,
+  "bare": 1
+ },
+ "synthetic-noor-06": {
+  "plain": 8,
+  "fewshot": 2,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-07": {
+  "plain": 9,
+  "fewshot": 1,
+  "idiolect": 1,
+  "bare": 1
+ },
+ "synthetic-noor-08": {
+  "plain": 8,
+  "fewshot": 3,
+  "idiolect": 1,
+  "bare": 1
+ }
+}

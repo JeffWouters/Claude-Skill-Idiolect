@@ -1,0 +1,9 @@
+Has Mr. Cole, or anyone "near and dear" to him, recently met with any "accident" at the hands of robbers? No. He will not, then, have a revengeful feeling toward any person charged with crime? Not at all. Would he give the same weight to the "story" of a "self-confessed thief and murderer" that he would to the testimony of a "man of probity"? Probably not. Now, doubtless, Mr. Cole is a reader of newspapers. He has, of course, seen this "literature" (with a sneer), this "newspaper hysteria" about a "c-r-i-m-e wave" (tongue in cheek). Well, can Mr. Cole go into the jury box and look at this case detached from the "atmosphere" now "being created by the newspapers"? Finally, is Mr. Cole acquainted with anyone connected with the police department?
+
+Mr. Cole, for some reason, strikes out.
+
+Third man accepted. He comes around from behind it to enter the jury box. At the gateway, while defendant stands and faces him, some more rigmarole-mumble-jumble business.
+
+Suddenly my friend is called. His business? asks district attorney. A writer, he replies. Defendant and his attorney exchange strange glances. Undoubtedly there is something low and suspicious about a fellow with such a business. Attorney for the defense comes forward hurriedly. Soon takes my friend in hand. He at once adopts the sarcastic. My friend's work must require unusual "observation." He must be "gifted" with "great powers of de-duct-shun" (said out of one corner of his mouth). Of course, he has too a "fine imagination." By the way, what is the nature of his writing? Has he written any novels?
+
+No, my friend says, he is a humorous writer. "A what?" exclaims the lawyer, his mouth remaining open. Then, "Like Don Markee?" "Somewhat," says my friend. Lawyer visibly pales. Withdrawing toward counsel table, looks back at the accused, who vigorously shakes his head.

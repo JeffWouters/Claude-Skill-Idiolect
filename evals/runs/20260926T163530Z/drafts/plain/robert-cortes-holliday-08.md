@@ -1,0 +1,7 @@
+When I mentioned that I had been invited to tour a large funeral home, my friends thought it was the funniest thing they had heard all week. [example needed] The jokes went on for some time, and afterwards it struck me as odd. We will joke about death readily enough. We make light of it at parties and in conversation. Yet the people whose job it is to deal with death, the undertakers, make us uneasy, even afraid. We would rather not think about them, and we certainly would rather not live next to one.
+
+That last point came up early in my visit. My host, who was courteous and entirely unembarrassed about his trade, explained that it is a common belief that a funeral home lowers the value of the property around it. People assume that no one wants to buy a house next to such a place, and so they oppose them when one is planned for their street. He said that this belief is often simply wrong. [example needed] He did not seem bitter about it, only a little weary, as though he had explained it many times before and expected to explain it many times again.
+
+He was wearier still on another subject: puns. Visitors, he told me, cannot resist them. [example needed] They think they are the first to say it. They are not. Funeral directors, he said, have heard every one of these countless times, and they dislike them, not because they lack a sense of humour but because the jokes are so tired.
+
+I made a point of not making any. It was harder than I expected.

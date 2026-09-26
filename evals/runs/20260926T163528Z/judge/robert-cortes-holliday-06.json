@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "D",
+  "B"
+ ],
+ "reasons": {
+  "A": "Present-tense running commentary with abrupt short sentences and turns ('This is efficiency.', 'No, it is stuck fast', 'And then there are the overshoes.') best matches the passage's jumpy, conversational, on-the-spot movement.",
+  "C": "Has period diction and some short punchy lines and a first-person aside, but leans on longer, polished periodic sentences and a semicolon-balanced wit that is smoother than the passage's choppy reportage.",
+  "D": "Period feel and 'this reminded me' fit, but sentences are consistently long, ornate and balanced, with an urbane essayist irony thicker than the passage's plain, bouncy notes.",
+  "B": "Modern, even, flowing past-tense prose with long explanatory sentences and a reflective, analytic stance; little of the passage's fragments, exclamation, or period chattiness."
+ }
+}

@@ -1,0 +1,9 @@
+The trouble with the conscientious person of to-day is not that he has lost his sense of duty, but that he has found too many duties. They did not come upon him one at a time, as duties used to do. They have all come at once. He is in the position of a man whose debts, contracted at various times and in various places, have all fallen due on the same morning. He does not doubt that he owes them. What troubles him is that he cannot see how to pay.
+
+It is commonly said that the cost of living has gone up. I should not care to dispute it. But I am persuaded that the cost of right living has gone up a good deal faster. A man may still manage to provide himself with food and shelter and decent clothing. It is when he tries to provide himself with a good conscience that he finds the prices beyond him. The ethical necessities have become more expensive than the material ones, and there is no bargain counter where they can be had at a reduction.
+
+There was a time when it was not so hard to be a good citizen. If a man obeyed the law and minded his own business, he was thought to have done very well. His neighbors respected him. He paid his taxes and went to bed with an easy mind.
+
+Ah, but minding one's own business is no longer accounted a virtue. It is the very thing that is held against us. For now our business is everybody's business, and everybody's business is ours. The critics are abroad, and they are not interested in what we have done. They want to know what we have left undone. Whatever we have neglected, and there is always something, is laid at our door. We are blamed not for our sins but for our omissions, and the list of omissions has no end.
+
+I would not be too hard on the critics. They are, for the most part, right. Only I would have them remember that a man who is asked to pay all his debts at once may be forgiven if he pays some of them late.

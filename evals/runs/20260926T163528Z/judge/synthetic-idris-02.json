@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "reasons": {
+  "A": "Consistently long sentences that trail on through 'which' and 'since' clauses, with measured hedges ('it would be foolish to argue', 'It seems to me', 'rather difficult') and a semicolon concession, closest to the passage's even, reflective movement.",
+  "B": "Hedged and reflective with a question opener and 'It may be that'/'Perhaps', but sentence length swings more, with terse assertions ('Understanding, however, is relational rather than textual.') the author doesn't use, and a closing aphorism that is neater than the passage's.",
+  "C": "Has the rhetorical question and 'I would suggest', but the numbered 'first/second/third/finally' scaffolding and sentences opening with 'But' and 'And' make it more of an argued checklist than the author's meandering musing.",
+  "D": "Short, plain sentences, imperatives ('Use the remaining time', 'keep the departing engineer reachable') and many small paragraphs; direct advisory tone with little hedging, far from the author's long, qualified prose."
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "D": "Long, clause-laden sentences joined by semicolons, steady first-person hedging ('seems to me', 'perhaps', 'rather') and a measured, conceding stance closest to the passage's rhythm and tone.",
+  "A": "Similar long periodic sentences and hedges ('It may be', 'It seems to me', 'I suspect'), but the run of prescriptive 'They should...' sentences is more directive than the author's tentative voice.",
+  "B": "Formal register and semicolons fit, but the four-part 'it means...' chain and assertive close ('Better, surely') read more rhetorical and emphatic than the author's quiet hedging.",
+  "C": "Short declarative sentences, second-person imperatives, a contraction and punchy one-line turns; plain and direct where the author is long, hedged and formal."
+ }
+}

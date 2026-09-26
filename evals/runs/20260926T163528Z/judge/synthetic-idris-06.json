@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "D",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "C": "Long, clause-laden sentences joined by semicolons and 'since/because', first-person hedges ('It seems to me', 'I suspect', 'perhaps'), 'we might ask' cadence and no dashes all match the passage's measured, tentative movement.",
+  "D": "Close in sentence length, hedging and a question opening, but the dash-bracketed list and the detached one-line aphoristic closing paragraph are foreign to the passage and lean towards a flourish it never makes.",
+  "A": "Right register and long periodic sentences, but repeated dashes, less first-person hedging and a more expository, assured stance put it a step further from the author's tentative voice.",
+  "B": "Short declarative sentences, rhetorical question lists, imperatives ('So ask', 'Then check') and small paragraphs give a brisk how-to voice quite unlike the passage's long, hedged reflection."
+ }
+}

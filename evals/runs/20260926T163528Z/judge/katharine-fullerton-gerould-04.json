@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "D": "Closest match: long sentences balanced by semicolons and a dash, assertive ironic paradox ('heroic on Monday and shabby on Tuesday, and both from the purest motives'), epigrammatic turns and a crisp worldly close, as in the passage.",
+  "A": "Similar period register and semicolon-joined balance with some irony ('I fancy', 'Granted: it is'), but more hedged and even-tempered, with fewer of the passage's sharp paradoxical turns.",
+  "B": "Right era and some wit, but chattier and more clubbable ('the other fellow', 'earns its keep'), with shorter conversational sentences and a parenthetical aside that the passage's argumentative stance lacks.",
+  "C": "Plain modern expository prose: evenly paced declaratives, explanatory rather than ironic, little semicolon balance and no epigram; furthest from the author's voice."
+ }
+}

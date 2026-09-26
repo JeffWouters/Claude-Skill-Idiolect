@@ -1,0 +1,45 @@
+# Judge packet robert-cortes-holliday-05
+
+## The passage (by the author)
+
+In due course of time thought I'd better look up Mr. Widdecombe again—his memorandum might have got mislaid. Telephoned lecture bureau. Satisfied young lady of honorable intentions. Explained matters all over again to owner of agreeable masculine voice. Received assurance that Mr. Widdecombe would be reminded at once of pressing state of affairs. Disturbed by uneventful flight of time, called in at lecture bureau once more. Learned that Mr. Widdecombe had not yet turned up. They, however, would try to get him on the wire at the Biltmore for me. Yes, he was there, but the fourth floor desk of the hotel said he had just gone into Mr. Chesterton's room, and so (as, apparently, everyone ought to know) could not be communicated with just now. He would call up shortly. Lecture people suggested that I go round to the hotel. If Mr. Widdecombe called in the meantime they'd tell him I was on my way over.
+
+Thought I recognized the gentleman stepping out of the elevator at the fourth floor. I did not know whether or not it was at all what you did to lay hold of an Englishman in so abrupt a fashion, but concluded this would have to be done. Mr. Widdecombe was all courtesy. The point, however, was that "Mr. Chesterton had had an hour of it this morning. Had had an hour of it." This afternoon he was getting off some work for London. Then tomorrow, of course, would be his lecture. My matter did seem to be urgent. But what could "we" do? Mr. Chesterton was a "beautiful man." He had been so hospitable to the gentlemen of the press. But if we should go in to him now he would say, "Dear me! Dear me!" I readily saw, of course, that this would be an awful thing, still....
+
+## Draft A
+
+I wished to see the great English author. Who did not? He was lecturing about the country, and I had a notion, a modest notion, that he might spare me a quarter of an hour. So I called up the lecture agency. A young woman with a bright voice said that she would "take it up" with the manager. I called up the lecture agency again. Another young woman said that the manager would certainly "get in touch" with me. Nobody got in touch with me. I called up the lecture agency a third time, and a fourth, and I lost count. It is a wonderful thing, a lecture agency. It is made entirely of promises, as a cloud is made entirely of water, and you can put your hand through it just as easily.
+
+At length I gave up the telephone and went to the hotel. I did not see the great English author. I saw his manager. He was coming across the lobby, and I caught him, so to speak, on the wing.
+
+He was very nice about it. He was, I should say, one of the most polite men I have ever been refused by. He took me by the arm, as though we were old friends. He quite understood. Everybody wished to see his client. That was just the trouble. His client was busy—oh, frightfully busy. And he was tired. He was, if I would believe it, very tired indeed. The manager said this in a low voice, as one speaks of an invalid in the next room. He could not think of disturbing him. I would see how it was.
+
+I saw how it was. The manager stood between me and the elevator as a hen stands between a hawk and her chicks, pleasantly, but not to be got round. "Thank you so much," he said. And he went up in the elevator, and I went out through the revolving door.
+
+## Draft B
+
+It is, I suppose, a simple enough matter to meet a famous English author when he is visiting this country. You have only to telephone the lecture agency which has charge of him. I telephoned the lecture agency. A very agreeable young woman there assured me that she would speak to the manager, that the manager would certainly communicate with me, and that there was every reason to expect an appointment within a day or so. I telephoned again the next day, and the day after that. Each time the promise was renewed, warmly, as it were; and each time nothing whatever came of it. The author, it seemed, was perpetually just about to be free. But it is the nature of the chase that the quarry must at last be run down somewhere.
+
+I caught the manager, finally, at the hotel. He was a neat, soft-spoken person (as managers of celebrities generally are), and he received me with the utmost politeness. He was sorry. He was very sorry indeed. He quite understood my interest; he did not doubt that his client would have been delighted. But his client, you see, was dreadfully busy with [example needed: the author's engagements], and there was a great deal more of that sort of thing still to come before the tour was over. And, what was more to the point, the poor man was tired—exhausted, so to speak, by the hospitality of a continent. He was not, the manager gave me to understand, to be disturbed.
+
+I have since thought a good deal about that manager. He had, I think, the air of a man guarding something valuable and a little fragile, like a butler with the family silver. There was nothing in the least discourteous about him; he was simply a wall, an exceedingly well-mannered wall. I don't know that I blame him. If I had a famous author in my keeping I dare say I should lock him up too. Still, I came away with the distinct impression that I had been very gently and very skilfully shown the door.
+
+## Draft C
+
+I had made up my mind that I would see him. He was the most talked-about English author to cross the ocean that season, and the lecture agency that had brought him over seemed the obvious door to knock on. So I knocked. I telephoned and was told, very kindly, that my request would be passed along. I telephoned again and was told that someone would surely call me back. Next time a different voice assured me that the matter was in hand. By the end of the week I had collected a small library of promises and not one of them had turned into a time, a place or a handshake.
+
+There is a particular kind of politeness that works like a revolving door. You push, you move, and you end up exactly where you started. I decided to stop pushing on the agency and go round to the hotel instead.
+
+After [example needed] of waiting in the lobby I caught the manager, a neat, pleasant man who was plainly used to people like me. He did not pretend not to know why I was there. He listened to my whole speech without interrupting, which I took at first as a good sign, and then he explained, gently and with what sounded like real regret, that it could not be done.
+
+His client, he said, was very busy. There were lectures, dinners, trains, interviews already agreed to months ago. And his client was tired, more tired than the audiences could guess from the platform. Every half hour given away was a half hour taken from rest, and he had made it his job to guard those half hours. He said all this without a trace of rudeness. He was not refusing me so much as protecting someone else.
+
+I thanked him, and I meant it. I had not got my appointment, but I understood at last why the promises had never come to anything. The door had been closed from the start, and the man holding it closed was only doing his work well.
+
+## Draft D
+
+It is, I have discovered, a simple matter to admire a distinguished visiting English author, and an exceedingly difficult matter to see him. I telephoned the lecture agency which had charge of him. A young woman with a cheerful voice said that she would mention it to the manager, and that I should hear. I did not hear. I telephoned again, and she was confident it could be arranged; I telephoned a third time, and a fourth, and each time the young woman was more confident than before. Everybody was most encouraging—it was only a question of a day or two—but at the end of a week I had accumulated a considerable collection of promises and nothing whatever else.
+
+At length it occurred to me to go round to the hotel and wait. I sat in the lobby for [time needed: how long] among the palms and the travelling salesmen, and presently I captured the manager. He was an agreeable man, carefully dressed, with an air of having been captured before. He was not in the least annoyed. He was, indeed, extremely polite. He quite understood; he appreciated my interest; he knew that his client would appreciate it too. But the fact was, you see, that his client was very busy. There were the lectures, and the dinners, and the luncheons, and the admirers who came up from the country to shake hands and would not be denied. And his client was tired—dreadfully tired. A man could endure only so much of America at a time.
+
+I said that I would occupy but a few minutes. He smiled at that, as though he had heard of those few minutes before. He was sorry. He was certain I would understand. He guarded that celebrated man, it seemed to me, as a faithful dog guards a doorstep, without malice and without the smallest intention of letting anybody by. And I went out through the revolving door into the street, having seen, at any rate, the man who had seen the author.

@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "B",
+  "D"
+ ],
+ "reasons": {
+  "C": "Closest sentence movement: short declaratives and verbless fragments in a flat, plain, first-person manner, concrete and unhedged, no colons; only slightly heavier on fragment runs than the passage.",
+  "A": "Short sentences and fragments fit, but it drifts into instructional explanation with commas and subordinate clauses ('If you leave old grout...', 'which is another reason') more than the author does.",
+  "B": "Short sentences, but it leans on stock phrasing and small flourishes ('the hard way', 'It always is', 'Every time') and a neat rounded ending, which the author's dry, unadorned stance avoids.",
+  "D": "Long, comma-chained and colon-led sentences, explanatory essay register and a moralising close; the opposite of the author's clipped rhythm and plain diction."
+ }
+}

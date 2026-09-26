@@ -1,0 +1,9 @@
+When an engineer hands in their notice, the team usually responds the same way. A handover gets scheduled. The leaver books a few meetings with whoever inherits their work, walks through the systems they looked after, and writes a document that tries to capture everything they know. Everyone treats this as the moment when knowledge moves from one head to another.
+
+In practice, very little moves. The recipient sits through the sessions, nods, and takes notes, but they cannot yet know what to ask. The questions that matter only appear months later, when something breaks at an awkward hour or a decision comes up that nobody remembers making. By then the person who could have answered is gone. The handover meeting happens at exactly the point when the new owner is least equipped to use it.
+
+The written notes have a different problem. Most of what a departing engineer knows is not the kind of thing you can write down. It is tacit judgement: which alert can be ignored and which one means trouble, which part of the code is fragile, why a strange-looking workaround exists, who to call when a supplier goes quiet. [example needed] The documentation captures the procedures and misses the instincts, and the instincts are what mattered most.
+
+None of this means the handover is pointless. It may simply be doing a different job from the one we assign it. A handover is also a farewell ritual. It is the moment when a team acknowledges that someone spent years looking after something, and that their care is being passed on rather than just dropped. The leaver gets to say what they built and what they worry about. The recipient gets to show they take it seriously.
+
+Seen that way, the process deserves more respect, not less. Give it proper time instead of squeezing it into the final afternoon. Let the leaver tell the stories as well as the steps. And be honest that the notes will not be enough, so that nobody is surprised when the real questions arrive later.

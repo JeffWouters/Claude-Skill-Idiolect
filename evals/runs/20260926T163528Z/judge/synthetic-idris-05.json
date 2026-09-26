@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "D": "Long, clause-laden sentences with semicolons and a dash, a mid-piece rhetorical question, measured first-person hedging and a balanced antithetical close: the closest match in movement and tone.",
+  "B": "Sustained long sentences and the same reflective, lightly hedged stance with a semicolon; lacks the author's rhetorical question, dashes and antithetical close, so it falls slightly short of D.",
+  "C": "Right register and sentence length, but it stacks hedges ('perhaps' three times, 'it seems to me', 'I suspect', 'arguably') more thickly than the passage does, and its one-line closing paragraph is not the author's shape.",
+  "A": "Short declarative sentences, list-like structure, a contraction and a crisp advisory tone: nothing like the author's long, reflective, qualified periods."
+ }
+}

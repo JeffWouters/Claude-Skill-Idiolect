@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "D": "Jovial, garrulous first-person American travel voice with cumulative clauses, a dash, an exclamation and whimsical asides closest to the passage's relish; only the present-tense 'you' stretches drift from it.",
+  "C": "First-person past-tense walking narration ('I stopped', 'I descended') and a parenthesis echo the passage's movement, but its stiff Latinate diction ('commenced', 'endeavouring') and British spellings pile on period flavour and read as imitation.",
+  "B": "Measured, reflective English-essayist tone with hedges ('I think', 'I fancy') and semicolons; mostly present-tense second person, lacking the passage's brisk, list-laden, allusive first-person bustle.",
+  "A": "Impersonal present-tense guidebook voice addressed to 'you', with plain modern diction and no first-person narrator, allusions or period flourish; furthest from the passage."
+ }
+}
