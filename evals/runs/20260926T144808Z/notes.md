@@ -51,15 +51,39 @@ Two patterns account for most of the losses.
 ## What this says about the design
 
 The few-shot baseline is not "Claude plus any three passages". It uses Idiolect's own approved,
-redacted example bank and Idiolect's own script to pick the three passages for the brief. So the
-comparison is really **Idiolect's examples alone** against **Idiolect's examples plus lessons,
-targets and the check-and-revise loop**. Over three runs the additions have not helped: they pull
-drafts towards a caricature of the strongest habits or towards the writer's average, and the
-revision loop optimises for metrics the judges do not reward. The part of Idiolect that works is the
-learned example bank and the passage picker.
+redacted example bank and Idiolect's own script to pick the passages; with banks of 4 to 6 examples,
+that is most of the bank. So the comparison is **Idiolect's examples alone** against **Idiolect's
+examples plus lessons, forms, targets, the check-and-revise loop and a longer procedure**.
+
+What the data supports: **no evidence that the additions help** (46 of 100 against few-shot, 95%
+interval roughly 36 to 56%, wider once the caveats below are counted). What it does not support: that
+they add *nothing*, or which part hurts. The effect varies by author (pooled over runs 2 and 3:
+Crothers and synthetic-idris 12 of 20, Gerould 10 of 20, Holliday and synthetic-noor 6 of 20), and no
+arm isolates the lessons, the targets or the revise loop. One measured sign for Holliday: his profile
+targets 7.3 semicolons per 1,000 words, his held-out passages have 3.6, and Idiolect drafts land at
+7.1 to 7.8 against few-shot's 3.5 to 4.4, which fits "the targets pull drafts towards the corpus
+average".
 
 That is a design question for the writer (design: "Missing the few-shot bar means the machinery adds
 nothing, and the design changes"); it is set out in the report, not decided here.
+
+## Caveats found in the independent review
+
+- **Runs 2 and 3 are not independent samples.** 38 of their 50 passages are identical: the holdout
+  essays of the synthetic authors and Holliday give only 10 or 11 passages, and `cut()` ignores its
+  seed. Run 3 is closer to a regeneration of run 2 than a new run, and the pooled binomial treats
+  100 briefs as independent when there are 62 distinct passages.
+- **Generator batches matter more than passages.** On the 38 shared passages the Idiolect-vs-few-shot
+  outcome agreed between runs only 22 times; synthetic-noor went from 5 of 10 to 1 of 10 and Holliday
+  from 5 of 10 to 1 of 10 on the same passages. One agent writes all ten briefs per author and kind,
+  so per-author rates are single draws and the p-values are too optimistic.
+- **Typography differs by arm.** Passages use "—" or "--"; few-shot drafts copy them, Idiolect drafts
+  for Idris and Holliday use none. Part of that is voice (Idiolect drops the device), part a
+  typographic tell the judge packets do not normalise.
+- **Position bias in run 2:** the later label won the Idiolect-vs-few-shot pair 33 of 50 times
+  (p = 0.03); not in runs 1 and 3. Labels are random, so this adds noise, not direction.
+- **The spot-check is not done**, so no run counts yet; `results.md` shows "0 excluded" where
+  recognition checks were simply not run.
 
 ## Process
 
