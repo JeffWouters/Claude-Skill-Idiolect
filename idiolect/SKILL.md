@@ -7,8 +7,7 @@ compatibility: Local route only in this version (Claude Code, or any session wit
 # Idiolect
 
 An empty engine: it learns how a writer writes from texts they choose, keeps everything it learns in
-a **store** outside this skill, and (in later versions) writes, rewrites and checks text in that
-voice. This skill holds the method only, never anything about a particular writer.
+a **store** outside this skill, and writes, rewrites and checks text in that voice. This skill holds the method only, never anything about a particular writer.
 
 ## What this version can do
 
@@ -16,9 +15,10 @@ voice. This skill holds the method only, never anything about a particular write
 | --- | --- | --- |
 | `learn` (and `dry-run=true`) | **Available** | `references/modes/learn.md` |
 | `forget`, `rollback`, `prune` | **Available** | `references/modes/maintain.md` |
+| `write`, `rewrite`, `check` | **Available** | `references/modes/write.md` |
 | `status` | **Available** | below |
 | `learn-edit`, `interview` | Not built yet (phase 5) | |
-| `write`, `rewrite`, `check`, `test`, `export` | Not built yet (phases 3, 4, 6) | |
+| `test`, `export` | Not built yet (phases 4, 6) | |
 
 For a mode that is not built yet, say so plainly and offer what is available. Never imitate a mode
 by hand. Load a mode's procedure file before running it.
@@ -37,6 +37,8 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 | `lang`, `type`, other facets | e.g. `lang=en type=essay` | detected |
 | `dry-run` | `true` | — |
 | `interactive` | `true`, `false` | `true`; with `false` never ask, return the question instead |
+| `depth` | `voice`, `edit`, `full` (rewrite) | `voice` |
+| `report`, `explain` | `true`: return the check report; annotate choices with lesson ids | — |
 | `since` | a year: writing from then on counts more (saved in the profile) | — |
 | `exclude`, `recursive` | globs to skip; `false` = only the folder's own files (saved in the rule) | — |
 | `to`, `keep` | rollback's snapshot; prune's number of snapshots to keep | latest; 10 |
@@ -90,7 +92,9 @@ the next learning run will first offer to resume or discard it (only resume if a
 - **Style, not content.** Lessons describe how the writer writes, never what they wrote about.
 - **Consent.** A profile of a real person other than the user needs that person's recorded consent;
   refuse impersonation meant to deceive.
-- **Never invent facts** about the writer or their texts; report what the scripts return.
+- **Never invent facts** about the writer or their texts; report what the scripts return. In drafts,
+  leave a placeholder such as `[example needed: a real incident]` instead of inventing one.
+- **No translation in a voice.** A rewrite never changes language.
 
 ## Read next
 
