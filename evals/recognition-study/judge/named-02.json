@@ -1,0 +1,9 @@
+{
+  "ranking": ["C", "A", "B", "D"],
+  "reasons": {
+    "C": "Closest to Holliday's genial, lightly ironic essayist voice: varied sentences that pile up verbs ('darted and backed and snorted'), wry asides ('quite rightly', 'as it were'), and an ending that turns to a bubbling urge to cheer, much like 'one wants to hop and shout'.",
+    "A": "Has the right period register and long accumulating sentences with hedged asides ('apparently', 'one felt'), but it is more measured and reportorial and lacks Holliday's exclamatory gusto and direct nudges to the reader.",
+    "B": "Has the right whimsy and lightness ('like a boy let out of school'), but the runs of clipped, repeated sentences ('stood still' four times, 'a great mess... a glorious mess') are a mannered rhythm that is not his; his fragments are exuberant, not staccato.",
+    "D": "Modern, plain, explanatory prose ('a problem to be solved', 'without much coordination') with no period flavour, no playful address and no exclamatory swing; the furthest from him."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "ranking": ["D", "A", "B", "C"],
+  "reasons": {
+    "D": "Closest to the passage's assertive, epigrammatic wit (\"heroic on Monday and shabby on Tuesday, and both from the purest motives\"); varied lengths, semicolon joins, a single dash, and a short worldly closing turn match the author's confident, slightly ironic stance.",
+    "A": "Right period diction and semicolon-balanced sentences, but more hedged and genteel (\"I venture to say\", \"I fancy\", \"it must be admitted\") than the passage's crisper assertions; less epigrammatic bite.",
+    "B": "Chatty, clubbable register (\"the other fellow\", \"earns its keep\", parenthetical aside) and many short conversational sentences; lighter and cosier than the author's pointed, aphoristic manner.",
+    "C": "Plain modern expository prose with even sentence lengths, list-like clauses and a summarising close; lacks the irony, wit and period flavour of the passage."
+  }
+}

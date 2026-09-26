@@ -1,0 +1,9 @@
+{
+  "ranking": ["D", "B", "A", "C"],
+  "reasons": {
+    "D": "Longest, most periodic sentences with semicolon-linked clauses, a first-person arguing stance that concedes and then asserts ('I should be sorry to seem ungenerous'), and full paragraphs that build steadily, closest to Gerould's measured, tart essay movement.",
+    "B": "Has Gerould's confiding, ironic, opinionated voice ('queer thing', 'pray', 'without so much as a funeral'), but the one-line paragraph and clipped fragments ('Not the market.') make it choppier and more mannered than her sustained argument.",
+    "A": "Balanced period diction and a sound argument, but it leans on neat antitheses and epigrams ('opening the door and lowering the ceiling') more than on her looser, qualifying clause chains, and its stance is cooler and less personal.",
+    "C": "Modern, plain expository prose with short declarative sentences, contemporary diction ('the lesser half', 'mix of courses') and almost no first-person presence or irony, the furthest from her voice."
+  }
+}

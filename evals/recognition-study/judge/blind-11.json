@@ -1,0 +1,9 @@
+{
+  "ranking": ["B", "C", "A", "D"],
+  "reasons": {
+    "B": "Closest movement: runs of short declaratives with dry, understated irony ('I was mistaken.', 'One does not argue with a superlative') and a turn to aphorism, matching the passage's genial, assured essayist stance.",
+    "C": "Right period diction and genial irony ('to my untutored eye'), but sentences run longer and more periodic than the passage's clipped declaratives, and the rhetorical question shifts the rhythm.",
+    "A": "Plain period register with some short sentences, but flatter and more expository; it lacks the passage's playful self-irony and aphoristic turns.",
+    "D": "Modern voice: anaphoric 'We do not merely... we have' parallels, 'lands on something true', and a sentimental coda about hope, none of which fit the passage's dry, old-fashioned wit."
+  }
+}

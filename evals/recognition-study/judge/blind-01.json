@@ -1,0 +1,9 @@
+{
+  "ranking": ["A", "C", "D", "B"],
+  "reasons": {
+    "A": "Long clause-rich sentences cut by short dry ones, understated irony ('They call it something longer'), 'I suppose' hedging and period diction track the passage's wry, casuistical movement most closely without overdoing it.",
+    "C": "Right period register, paragraph mass and semicolon habit, but the stance is more earnest and self-assertive ('I shall', 'I would go further') than the passage's light ironic detachment.",
+    "D": "Catches the irony, but the jokey opening, 'you will say' asides and many short paragraphs pile the mannerisms on more thickly than the passage does; it reads as imitation.",
+    "B": "Plain modern expository voice with short, evenly paced sentences and no period feel, irony or first-person fancy; furthest from the author."
+  }
+}

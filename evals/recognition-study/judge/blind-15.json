@@ -1,0 +1,9 @@
+{
+  "ranking": ["B", "C", "D", "A"],
+  "reasons": {
+    "B": "Long, semicolon-jointed paragraphs and blunt, unhedged verdicts ('snobbery turned inside out, and quite as tiresome') match the passage's asserting, faintly contemptuous period voice without overdoing it.",
+    "C": "Good period diction and semicolon series ('so has philosophy; so, most of all, has fiction') close to the passage, but the stacked exclamations and parenthetical aside push towards caricature.",
+    "D": "Right era and dashes, but the wry, gentle turns ('and then one sits down', repeated rhetorical questions) are more genial and whimsical than the passage's flat, sharp assertion.",
+    "A": "Plain modern register, short even sentences, no semicolons or dashes and a measured, hedged tone; reads as a present-day summary, not the author."
+  }
+}

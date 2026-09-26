@@ -1,0 +1,9 @@
+{
+  "ranking": ["C", "A", "D", "B"],
+  "reasons": {
+    "C": "Long, varied periodic sentences in few dense paragraphs, a confident first-person essayist stance with dry Gerould-like irony ('holding one's tongue as by wagging it') and a paradoxical closing turn that matches the passage's 'lies and lies' ending.",
+    "A": "Right period register and paragraph mass with sly asides ('They call it something longer'), but the clipped closing aphorisms ('Honesty is not a rule. It is a discipline') are more modern and less layered than Gerould's clause-building.",
+    "D": "Period diction and irony are present, but the many short paragraphs, the quip-led opening and the stacked mannerisms ('I should be a monster', 'frankly', 'misty matter') read as imitation laid on thicker than the passage.",
+    "B": "Plain contemporary expository voice: short even sentences, topic-sentence paragraphs, no irony or allusive wit, modern diction ('the trouble begins', 'on a gentler scale'); least like the author."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "ranking": ["C", "B", "D", "A"],
+  "reasons": {
+    "C": "Short, chatty sentences with a talking-to-you manner ('Now, I do neither', 'you will have observed'), quick asides and a light, amused turn come closest to the passage's loose, gossipy movement.",
+    "B": "Good-natured and whimsical like the author, with a colloquial 'Not at all.', but its long, polished, semicolon-built sentences and one unbroken paragraph are more literary than the passage's jumpy talk.",
+    "D": "Plain and confiding, with simple first-person sentences, but flat and modern; it has none of the author's exclamations, parentheses or offhand slang, and its reflective close is too earnest.",
+    "A": "Measured, formal essayist register ('one is attended by strangers', balanced clauses) with a neat epigrammatic close; the furthest from the author's breezy, rambling, exclamatory voice."
+  }
+}

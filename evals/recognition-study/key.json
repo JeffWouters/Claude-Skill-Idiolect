@@ -1,0 +1,110 @@
+{
+ "p01": {
+  "run": "20260926T163530Z",
+  "id": "katharine-fullerton-gerould-02",
+  "orig_conf": "low",
+  "orig_name": "Katharine Fullerton Gerould (essay on lying, possibly from Modes and Morals, 1920)",
+  "aid": "w4-02"
+ },
+ "p02": {
+  "run": "20260926T163530Z",
+  "id": "robert-cortes-holliday-06",
+  "orig_conf": "low",
+  "orig_name": "Robert Cortes Holliday (guess)",
+  "aid": "w3-06"
+ },
+ "p03": {
+  "run": "20260926T163528Z",
+  "id": "synthetic-noor-03",
+  "orig_conf": "n/a",
+  "orig_name": null
+ },
+ "p04": {
+  "run": "20260926T163528Z",
+  "id": "samuel-mcchord-crothers-05",
+  "orig_conf": "low",
+  "orig_name": "Samuel McChord Crothers (essay, possibly from 'Humanly Speaking', 1912)",
+  "aid": "w4-05"
+ },
+ "p05": {
+  "run": "20260926T163530Z",
+  "id": "synthetic-noor-04",
+  "orig_conf": "n/a",
+  "orig_name": null
+ },
+ "p06": {
+  "run": "20260926T163528Z",
+  "id": "robert-cortes-holliday-07",
+  "orig_conf": "low",
+  "orig_name": "Robert Shackleton, The Book of Philadelphia (1918)",
+  "aid": "w5-07"
+ },
+ "p07": {
+  "run": "20260926T163528Z",
+  "id": "robert-cortes-holliday-04",
+  "orig_conf": "low",
+  "orig_name": null,
+  "aid": "w5-04"
+ },
+ "p08": {
+  "run": "20260926T163528Z",
+  "id": "robert-cortes-holliday-01",
+  "orig_conf": "none",
+  "orig_name": null,
+  "aid": "w5-01"
+ },
+ "p09": {
+  "run": "20260926T163530Z",
+  "id": "synthetic-idris-06",
+  "orig_conf": "n/a",
+  "orig_name": null
+ },
+ "p10": {
+  "run": "20260926T163528Z",
+  "id": "synthetic-idris-02",
+  "orig_conf": "n/a",
+  "orig_name": null
+ },
+ "p11": {
+  "run": "20260926T163530Z",
+  "id": "samuel-mcchord-crothers-04",
+  "orig_conf": "medium",
+  "orig_name": "Samuel McChord Crothers, \"The American Temperament\" (essay, c. 1911-12, collected in Humanly Speaking)",
+  "aid": "w5-04"
+ },
+ "p12": {
+  "run": "20260926T163528Z",
+  "id": "katharine-fullerton-gerould-04",
+  "orig_conf": "low",
+  "orig_name": "Katharine Fullerton Gerould (essay on honor and the gentleman's code, c. 1910s-1920)",
+  "aid": "w3-04"
+ },
+ "p13": {
+  "run": "20260926T163530Z",
+  "id": "samuel-mcchord-crothers-07",
+  "orig_conf": "medium",
+  "orig_name": "Samuel McChord Crothers, \"The Obviousness of Dickens\" (in The Pardoner's Wallet, 1905)",
+  "aid": "w5-07"
+ },
+ "p14": {
+  "run": "20260926T163528Z",
+  "id": "katharine-fullerton-gerould-03",
+  "orig_conf": "low",
+  "orig_name": "Katharine Fullerton Gerould, \"The Extirpation of Culture\" (Atlantic Monthly, 1915)",
+  "aid": "w3-03"
+ },
+ "p15": {
+  "run": "20260926T163530Z",
+  "id": "katharine-fullerton-gerould-03",
+  "orig_conf": "medium",
+  "orig_name": "Katharine Fullerton Gerould, \"The Extirpation of Culture\" (Atlantic Monthly, 1915; collected in Modes and Morals)",
+  "aid": "w4-03"
+ },
+ "p16": {
+  "run": "20260926T163528Z",
+  "id": "samuel-mcchord-crothers-06",
+  "orig_conf": "low",
+  "orig_name": "Samuel McChord Crothers (a genial essay on visiting Llanthony and Landor)",
+  "aid": "w4-06"
+ }
+}

@@ -1,0 +1,9 @@
+{
+  "ranking": ["C", "B", "A", "D"],
+  "reasons": {
+    "C": "Closest to Holliday's chatty, choppy movement: short, uneven sentences, conversational turns like 'Now, I do neither' and 'Just how he got there does not concern us', and a whimsical, confiding irony without overdoing it.",
+    "B": "Has the genial, whimsical tone and some colloquial turns ('He'd', 'Not at all.'), but its long, balanced periodic sentences read more like a polished Edwardian essayist than Holliday's jumpy, offhand talk.",
+    "A": "Measured and orderly, with even sentence lengths and a cool, reflective stance; it lacks Holliday's breezy asides, exclamatory looseness and comic quickness.",
+    "D": "Plain modern prose with a quiet, sincere reflective tone ('I have thought about that often'); no period colloquialism or playful digression, so it reads least like him."
+  }
+}

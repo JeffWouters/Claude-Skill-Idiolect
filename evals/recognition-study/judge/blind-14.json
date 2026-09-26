@@ -1,0 +1,9 @@
+{
+  "ranking": ["D", "A", "B", "C"],
+  "reasons": {
+    "A": "Right period register and first-person assertion with concessions ('Granted;', 'I fancy'), but its neat antitheses and closing aphorisms are more epigrammatic than the passage's discursive run.",
+    "B": "Catches the ironic, confiding edge, but 'Now, I know', 'Well,', 'who, pray' and one-line punch paragraphs pile on mannerism and break up the author's long, steady paragraphs.",
+    "C": "Modern, impersonal expository prose with no 'I', no irony and plain analytic diction ('the picture looks healthy', 'half the story'); furthest from the author's voice.",
+    "D": "Long, loosely built paragraphs of assertive first-person argument with concessive turns ('I do not say... But I do say', 'of course'), a dry ironic close and period diction held at about the passage's own density."
+  }
+}

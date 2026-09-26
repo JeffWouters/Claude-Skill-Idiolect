@@ -1,0 +1,9 @@
+{
+  "ranking": ["D", "A", "B", "C"],
+  "reasons": {
+    "D": "Longest, most digressive sentences with hedging asides ('I believe', 'as it were', 'to-day') and a confiding first-person relish closest to the passage's leisurely, period chatter, though its wit is drier than the passage's open delight.",
+    "A": "Period diction and reader-address asides ('you understand', 'to be sure', 'I confess') and accumulating lists echo the passage, but its many short declaratives chop up the passage's long winding rhythm.",
+    "B": "Medium-long, evenly paced sentences with mild hedges ('I think', 'I suspect') keep some of the confiding warmth, but the register is plainer and more modern and lacks the passage's effusive, parenthetical texture.",
+    "C": "Clipped sentence runs and deadpan irony ('At another there is a man with a beard') give a cool, arch stance far from the passage's gushing, run-on enthusiasm, and they overplay a wry-essayist manner."
+  }
+}
