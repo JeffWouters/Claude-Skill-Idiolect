@@ -19,9 +19,15 @@ def main():
     another author's holdouts. Retired authors drop out."""
     path = ROOT / "evals" / "holdouts.json"
     old = json.loads(path.read_text())["authors"] if path.exists() else {}
-    out = {"seed": SEED, "authors": {}}
+    out = {"seed": SEED,
+           "how": ("authors present since phase 2 were drawn in one pass with random.Random(seed) over the "
+                   "six original authors in name order; authors added later use random.Random('<seed>/<author>')"),
+           "authors": {}}
     for d in sorted(p for p in FIX.iterdir() if p.is_dir()):
         if d.name in old:
+            missing = [f for f in old[d.name] if not (d / f).exists()]
+            if missing:
+                raise SystemExit(f"{d.name}: holdout files no longer exist: {', '.join(missing)}")
             out["authors"][d.name] = old[d.name]
             continue
         files = sorted(f.name for f in d.glob("[0-9]*.md"))

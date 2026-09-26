@@ -51,7 +51,7 @@ BOOKS = {
         (3134, "Backlog Studies", 1873,
          ["FIRST STUDY", "SECOND STUDY", "THIRD STUDY", "FOURTH STUDY", "FIFTH STUDY", "SIXTH STUDY",
           "SEVENTH STUDY", "EIGHTH STUDY", "NINTH STUDY", "TENTH STUDY", "ELEVENTH STUDY"])]},
-    "robert-cortes-holliday": {"name": "Robert Cortes Holliday", "died": 1947, "books": [
+    "robert-cortes-holliday": {"name": "Robert Cortes Holliday", "died": 1947, "clean": 2, "books": [
         (13708, "Walking-Stick Papers", 1918,
          ["ON CARRYING A CANE", "THE FISH REPORTER", "ON GOING A JOURNEY", "GOING TO ART EXHIBITIONS",
           "A ROUNDABOUT PAPER", "THAT REVIEWER \"CUSS\"", "LITERARY LEVITIES IN LONDOW|LITERARY LEVITIES IN LONDON", "HENRY JAMES, HIMSELF",
@@ -60,7 +60,7 @@ BOOKS = {
           "HUNTING LODGINGS", "MY FRIEND, THE POLICEMAN", "HELP WANTED--MALE, FEMALE", "HUMAN MUNICIPAL DOCUMENTS",
           "AS TO PEOPLE", "HUMOURS OP THE BOOK SHOP|HUMOURS OF THE BOOK SHOP", "THE DECEASED", "A TOWN CONSTITUTIONAL",
           "READING AFTER THIRTY", "ON WEARING A HAT"])]},
-    "katharine-fullerton-gerould": {"name": "Katharine Fullerton Gerould", "died": 1944, "books": [
+    "katharine-fullerton-gerould": {"name": "Katharine Fullerton Gerould", "died": 1944, "clean": 2, "books": [
         (78310, "Modes and Morals", 1920,
          ["THE NEW SIMPLICITY", "DRESS AND THE WOMAN", "CAVIARE ON PRINCIPLE", "THE EXTIRPATION OF CULTURE",
           "FASHIONS IN MEN", "THE NEWEST WOMAN", "TABU AND TEMPERAMENT", "THE BOUNDARIES OF TRUTH",
@@ -84,13 +84,19 @@ def is_heading_line(lines, i, title):
     return lines[i].strip() == title and (i == 0 or not lines[i - 1].strip())
 
 
-def clean(text):
+def clean(text, version=1):
+    """version 1 built the original authors; version 2 (authors marked "clean": 2) also handles italics
+    across a line break, small caps and part markers. Rebuilding an author with its own version gives
+    the same texts and hashes."""
     text = re.sub(r"\[Illustration[^\]]*\]", "", text)
     text = re.sub(r"\[(\d+|[A-Z])\]", "", text)                 # footnote markers
     text = re.sub(r"(?m)^\s*\[?Footnote.*$", "", text)
-    text = re.sub(r"_([^_\n]+(?:\n[^_\n]+)?)_", r"\1", text)    # PG italics, also across one line break
-    text = re.sub(r"\+([^+\n]+)\+", r"\1", text)                 # PG small caps
-    text = re.sub(r"(?m)^\s*(?:PROLOGUE|EPILOGUE|[IVXL]{1,6})\s*$", "", text)   # part and chapter markers
+    if version >= 2:
+        text = re.sub(r"_([^_\n]+(?:\n[^_\n]+)?)_", r"\1", text)    # PG italics, also across one line break
+        text = re.sub(r"\+([^+\n]+)\+", r"\1", text)                 # PG small caps
+        text = re.sub(r"(?m)^\s*(?:PROLOGUE|EPILOGUE|[IVXL]{1,6})\s*$", "", text)   # part and chapter markers
+    else:
+        text = re.sub(r"_([^_\n]+)_", r"\1", text)                    # PG italics
     text = re.sub(r"(?im)^\s*end of (the )?project gutenberg.*$", "", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     paras = [re.sub(r"\s*\n\s*", " ", p).strip() for p in text.split("\n\n")]
@@ -126,7 +132,7 @@ def main(src, only=None):
                 end = pos[k + 1][0] if k + 1 < len(pos) else len(lines)
                 if title in NOT_ESSAYS:
                     continue
-                text = clean("\n".join(lines[i + 1:end]))
+                text = clean("\n".join(lines[i + 1:end]), meta.get("clean", 1))
                 words = len(text.split())
                 if words < MIN_WORDS:
                     continue
