@@ -17,11 +17,17 @@ Claude Code or Cowork, where separate agents can be started. Every generating an
 is a **fresh agent**. The tester switches off every other voice or writing-style skill for the whole
 run, because agents inherit enabled skills.
 
+**Context.** Agents also inherit the session's memory of the person running it. In the recognition
+study two agents answered "Jeff (JeffOps)" for synthetic passages: the tester's own profile had
+reached them. Recognition, judging and screening agents are therefore run with memory switched off
+where the surface allows it, and every prompt tells the agent to use no memory or notes about the
+person it works for. A run that cannot switch memory off says so in its notes.
+
 ## Materials
 
 | Item | Rule |
 | --- | --- |
-| Authors | All fixture authors in `evals/fixtures/` (from run 2: 3 public-domain, 2 synthetic), each screened per passage before use (`evals/fixtures/README.md`) |
+| Authors | All fixture authors in `evals/fixtures/` (from run 2: 3 public-domain, 2 synthetic), each screened per passage before use (`evals/fixtures/README.md`; from run 7 by forced choice, "Recognition (runs 7 on)") |
 | Holdout | Per author, whole essays set aside before learning with a fixed seed (`evals/holdouts.json`) and excluded by the folder rules, so they never enter the store. Synthetic authors: 5 of 12 essays. Public-domain authors: 3 essays |
 | Test passages | 300–500-word passages cut at paragraph boundaries from holdout essays by `evals/harness.py new` (fixed seed; the seed also moves where the first passage of each essay starts, and passages used by earlier runs named with `--avoid` are taken last); **10 per author, or as many as the holdout essays give** (non-overlapping, never padded). Run 1 had 10 for every author except Alice Meynell, whose short holdout essays gave 7 |
 | Profiles | Built by `learn` on the remaining essays of each author (`evals/store/`), approved without edits except proposals that are content rather than style (for example vocabulary that quotes another writer), which are rejected and listed in the profile's changelog |
@@ -56,9 +62,13 @@ run, because agents inherit enabled skills.
    style rubric instead of a task rubric). Sees the test passage and drafts A, B, C. Ranks all three
    (no ties) by how closely they read as written by the passage's author, with one line per draft on
    why. It is told to ignore content and judge voice.
-5. **Recognition check** (a separate fresh agent per passage, which sees the passage only): "Do you
-   recognise the author of this passage? Name and confidence (none, low, medium, high)." Its answer
-   is saved in the run folder; it never sees drafts, and the judge never sees its answer.
+5. **Recognition check** (a separate fresh agent per passage, which sees the passage only). From run 7:
+   **forced choice**. The agent gets ten writers (the true author and nine distractors, or ten
+   distractors for a synthetic passage) and "none of these", and gives a probability to each; the
+   probability on the true author is the passage's **familiarity** (details under "Recognition (runs 7
+   on)"). Runs 1 to 6 asked "Do you recognise the author of this passage? Name and confidence (none,
+   low, medium, high)." Either way the answer is saved in the run folder; the agent never sees drafts,
+   and the judge never sees its answer.
 6. **Spot-checker** (a person). Reviews a random 10% of judgments, at least one per author, and marks
    each agree or disagree. More than 20% disagreement invalidates the run.
 
@@ -66,12 +76,27 @@ run, because agents inherit enabled skills.
 
 - **Win against plain**: Idiolect ranked above the plain draft for that brief. Same for few-shot.
 - **Win rate**: wins divided by briefs, computed per author and per group.
-- **Groups**: synthetic authors and public-domain authors are scored **separately**. The model has a
-  sense of the real authors' styles (phase 0 recognition check), which could flatter every draft that
-  sees examples; the synthetic authors cannot be known from training but are more regular than real
-  prose. Only passing in both groups counts.
-- **Recognition**: a brief whose judge names the author with medium or higher confidence is reported
-  but excluded from the win rates.
+- **Groups**: scored **separately**, and only passing in both counts.
+  - The **known-author group** (the public-domain authors, `real` in the data). The model knows these
+    writers: in the recognition study a forced-choice agent put the true author first for all twelve
+    real passages tried, most of them passages from books it had never been shown. So this group tests
+    Idiolect on writers the model already has a picture of, and its result is read beside familiarity
+    and the sensitivity test.
+  - The **unknown-author tests**: the synthetic authors (`synthetic` in the data), whom no model can
+    know from training, and, after phase 3, the writer's own profile. These are the tests of learning a
+    voice the model does not already hold. Synthetic authors are more regular than real prose, so they
+    cannot stand in for the known-author group either.
+- **Recognition**, runs 7 on: **no brief is excluded.** Every brief counts towards the bar, and the
+  results show win rates by familiarity (under 30%, 30 to 59%, 60% or more) beside it. Runs 1 to 6
+  excluded briefs recognised at medium or high confidence, and keep that.
+- **Sensitivity test**, runs 7 on: a seeded sample of 12 known-author packets is judged again by
+  fresh judges, once blind and once told the author's name. If naming the author moves Idiolect's wins
+  over few-shot by at least max(3, a quarter of the sample), the known-author result of that run is
+  marked **unreliable**: the judges are then reading the author's reputation more than the passage.
+  An unreliable run cannot count as a known-author pass.
+- **Detector check**, runs 7 on: the positive control must get at least 60% on its author, and the
+  synthetic passages (the negative controls) must average at least 80% on "none". If either fails,
+  the familiarity figures of that run are not trusted and the run says so.
 - **Metric drift**: every draft is also run through `check` against the author's fingerprint; flag
   counts are reported next to the blind picks. They inform, they do not decide.
 
@@ -84,7 +109,9 @@ For each group, over all its briefs, **in each of the two runs**:
 | vs plain | 70% |
 | vs few-shot | 60% |
 
-And no single author below 50% against few-shot. In addition, pooled over the two runs, each
+And no single author below 50% against few-shot. "All its briefs" means all: from run 7 no brief is
+left out for recognition, and a known-author result the sensitivity test marks unreliable does not
+count as a pass. In addition, pooled over the two runs, each
 comparison must beat chance: a one-sided exact binomial test against 50% gives p < 0.05 (for 40
 briefs that means at least 26 wins; for 80, at least 48). A passage that appears in more than one run counts once in the pool. The binomial check guards against a small
 group passing by luck; the per-run bar guards against one lucky run.
@@ -96,8 +123,10 @@ If the few-shot bar is missed, the design changes before more is built (phase 3 
 - A run lives in `evals/runs/<run-id>/` (`run-id` = UTC timestamp `YYYYMMDDTHHMMSSZ`): passages,
   briefs, drafts, generator transcripts, `key.json`, judgments, recognition answers, spot-checks, and
   `results.md`. `evals/harness.py` prepares, shuffles and scores; agents do the rest.
-- `results.md` has one row per author (briefs, excluded for recognition, win rate vs plain, vs
-  few-shot, mean flags per draft type) and one row per group with pass or fail.
+- `results.md` has one row per author (briefs, mean familiarity (runs 1 to 6: excluded for
+  recognition), win rate vs plain, vs few-shot, mean flags per draft type), one row per group with
+  pass or fail, and from run 7 the win rates by familiarity, the detector check and the sensitivity
+  test.
 - No single "voice score" is produced.
 
 ## Run 4: a diagnostic run (after the review of runs 1 to 3)
@@ -150,6 +179,36 @@ and targets follow the piece. Runs 5 and 6 test that design and count towards th
   briefs per generator agent, agent-resampled intervals, a recognition check on every real-author
   passage, and a spot-check for a person.
 
+## Recognition (runs 7 on)
+
+Decided after the recognition study (`evals/recognition-study/`, design: decision log). The confidence
+label of runs 1 to 6 did not measure familiarity: agents named the right author at "low" confidence
+59 times, and forced choice put the true author first for every real passage tried.
+
+- **Forced choice.** `harness.py recognition --run R --scratch DIR` writes one prompt
+  (`evals/prompts/recognition.txt`) per passage: ten writers in alphabetical order and "none", each
+  given a probability, adding up to 100. The candidates are the true author plus nine distractors
+  drawn by seed from `evals/recognition-candidates.json` (essayists of the same period and kind, so
+  the true author does not stand out); a synthetic passage gets ten distractors. One fresh agent per
+  prompt, which reads the passage only. Answers go back with `import-judge`, which rejects an answer
+  that does not name exactly the candidates or does not add up to 100 (within 5).
+- **Controls, every run.** A **positive control**: a passage by a well-known writer (Charles Lamb,
+  the opening of "Dream-Children", `evals/recognition-controls/`), asked the same way under the same
+  kind of shuffled id, so the agent cannot tell it from a test passage. **Negative controls**: the
+  synthetic passages, whose right answer is "none". Both are checked by the detector check.
+- **Sensitivity test.** After `export-judge`, `harness.py sensitivity --run R --scratch DIR [--n 12]`
+  writes a blind and an author-named prompt (`sens-blind.txt`, `sens-named.txt`) for a seeded sample
+  of known-author packets; one fresh judge per prompt. `score` reports the wins over few-shot of the
+  original, blind and named judgments, their agreement with the original, and the flag.
+- **Name redaction is not a fix.** In the study, removing names and dates from passages changed
+  nothing: the model knows these writers by their prose. Passages are not redacted for judging.
+- **Screening a new author.** `harness.py screen --scratch DIR --name "<author>" --files <at least
+  four ~300-word passages, names and dates removed>` writes forced-choice prompts for the passages and
+  the positive control; after the agents answer, `harness.py screen --scratch DIR` reports the
+  probability on the true author per passage. The author is usable when the mean is **under 30%** and
+  the positive control works. Obscure non-literary writers (diarists, local journalists, letter
+  writers, trade writers) are a better pool than the essay canon, which the model has read.
+
 ## Repeatability
 
 Fixed seeds for holdout selection, passage cuts and label shuffling (`evals/runs/<run-id>/seed`).
@@ -159,5 +218,7 @@ Generators and judges are model calls and vary; a phase is only marked done on a
 ## A writer's own profile (after phase 3)
 
 The same protocol with three changes: the writer picks the holdout texts (at least 5), the writer is
-the judge (drafts labelled A/B/C, key hidden), and there are no groups. Results go in the store's
+the judge (drafts labelled A/B/C, key hidden), and there are no groups. This is an unknown-author
+test. If agents judge instead of the writer, they run with memory off (see "Context"), because an
+agent that has the writer's profile in memory is not blind to who wrote the passage. Results go in the store's
 `eval/results.md`.

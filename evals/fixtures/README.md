@@ -27,6 +27,13 @@ recognise the author, with a name and a confidence. An author is kept when at mo
 is recognised at medium confidence or higher. The passages and answers are in
 `evals/fixtures-screening/` (`answers.json`).
 
+**From run 7 new candidates are screened by forced choice instead** (`evals/eval-protocol.md`,
+"Recognition (runs 7 on)"; `harness.py screen`): at least four passages with names and dates removed,
+ten candidate writers and "none" per passage, kept when the mean probability on the true author is
+under 30%. The recognition study (`evals/recognition-study/`) showed the confidence label above let
+through authors the model knows: forced choice puts the true author first for Holliday, Gerould and
+Crothers alike. The three are kept as the known-author group, not as unknown authors.
+
 | Candidate | Passages | Named correctly | Medium or higher | Decision |
 | --- | --- | --- | --- | --- |
 | Robert Cortes Holliday, *Walking-Stick Papers* | 8 | 6 (all low) | 0 | Used |

@@ -12,6 +12,8 @@ check, the kit and the evaluation harness exist. After the writer's decision on 
 background, targets that follow the piece), confirming runs 5 and 6 met the few-shot bar for the
 synthetic group in both runs and missed it for the real authors in both. The next design decision is
 the writer's; see `evals/runs/20260926T163530Z/notes.md` and the open question in `docs/design.md`.
+From run 7 recognition is forced choice with controls and a sensitivity test, and the real authors
+are the known-author group (`evals/recognition-study/`, `evals/eval-protocol.md`).
 Run `python3 -m pytest tests -q` before every commit.
 
 Phase 0 deliverables, still the reference:
