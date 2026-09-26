@@ -1,0 +1,5 @@
+flowchart LR
+    A["1 acme<br/>en.post.linkedin"] -->|not found| B["2 acme<br/>en.post._"]
+    B -->|not found| C["3 acme<br/>en._._"]
+    C -->|not found| D["4 parent sam<br/>same steps"]
+    D -->|not found| E(["Ask, or<br/>status: no_slot"])

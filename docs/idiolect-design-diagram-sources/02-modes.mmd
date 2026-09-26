@@ -1,0 +1,14 @@
+flowchart TB
+    subgraph LEARN["Change what is learned: diff, approval, snapshot"]
+        direction LR
+        L1["learn"] ~~~ L2["learn-edit"] ~~~ L3["interview"] ~~~ L4["forget"]
+    end
+    subgraph KEEP["Maintain the store: diff and approval"]
+        direction LR
+        K1["rollback"] ~~~ K2["prune"]
+    end
+    subgraph USE["Use what is learned: never changes lessons"]
+        direction LR
+        U1["write"] ~~~ U2["rewrite"] ~~~ U3["check"] ~~~ U4["test"] ~~~ U5["export"] ~~~ U6["status"]
+    end
+    LEARN ~~~ KEEP ~~~ USE

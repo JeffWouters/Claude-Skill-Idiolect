@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Packaged skill (built from idiolect/, delivered, not versioned)
+*.skill
+
+# Local stores and scratch
+.state/
+scratch/
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant PS as Publishing skill
+    participant I as Idiolect
+    PS->>I: rewrite draft interactive=false report=true channel=newsletter
+    I->>I: resolve slot, rewrite, check
+    alt pass or low_confidence
+        I-->>PS: text + report (status pass)
+        PS->>PS: publish
+    else fail, no_slot, no_store, needs_input, error
+        I-->>PS: report with status and reason
+        PS->>PS: stop and tell the writer
+    end

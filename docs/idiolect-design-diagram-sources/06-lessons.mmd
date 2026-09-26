@@ -1,0 +1,5 @@
+flowchart TB
+    RU["1 Rulings<br/>stated by the writer"] -->|outranks| ED["2 Edit lessons<br/>from stored edit pairs"]
+    ED -->|outranks| OB["3 Observed lessons<br/>from the corpus"]
+    SO["Seen once"] -->|confirmed by a second text or pair| OB
+    RJ["Rejections"] -.->|block matching proposals| OB

@@ -1,0 +1,8 @@
+flowchart LR
+    SRC[("Writer's sources<br/>read, never modified")] --> ENG["Idiolect engine<br/>scripts + model<br/>holds no writer data"]
+    ENG -->|proposes| PE["Store: pending area"]
+    PE -->|diff| WR{"Writer approves?"}
+    WR -->|yes| CM[("Store: ledger, corpus,<br/>profiles, snapshots")]
+    WR -.->|no| X["Pending cleared"]
+    CM -->|resolved slot only| ENG
+    ENG -->|draft + check report| OUT(["Writer"])

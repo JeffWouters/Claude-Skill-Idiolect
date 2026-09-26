@@ -1,0 +1,12 @@
+flowchart TB
+    subgraph LOCAL["Local route (v1)"]
+        direction LR
+        LF[("Writer's files + store")] <--> LS["Scripts and model<br/>on the same machine"]
+    end
+    subgraph BRIDGE["Bridged route (later)"]
+        direction LR
+        BF[("Writer's files + store")] -->|"hash + inventory<br/>via machine shell"| BS["Changed files only<br/>max 50 per call"]
+        BS --> BC["Cloud workspace<br/>extract + measure"]
+        BC -->|"results in<br/>bounded batches"| BF
+    end
+    LOCAL ~~~ BRIDGE

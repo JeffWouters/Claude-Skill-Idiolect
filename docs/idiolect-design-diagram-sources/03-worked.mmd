@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor Sam
+    participant I as Idiolect
+    participant P as Pending area
+    participant S as Store
+    Sam->>I: learn ~/Writing/Published dry-run=true
+    I-->>Sam: inventory: 17 usable, 3 skipped (nothing written)
+    Sam->>I: learn ~/Writing/Published
+    I->>S: create store marker + profile sam (housekeeping)
+    I-->>Sam: "Are these yours?"
+    Sam->>I: all mine except two guest posts
+    I->>P: ledger, corpus, fingerprint, lessons, examples
+    I-->>Sam: one diff with every redaction visible
+    Sam->>I: reject 1, promote 1 to ruling, approve rest
+    I->>S: snapshot, then commit pending
+    Sam->>I: rewrite draft.md
+    I->>S: load slot sam / en.essay only
+    I-->>Sam: rewrite + check (overshoot fixed) + placeholder

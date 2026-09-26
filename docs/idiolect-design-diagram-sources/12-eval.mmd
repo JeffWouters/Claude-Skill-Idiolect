@@ -1,0 +1,8 @@
+flowchart LR
+    B["Topic-only brief"] --> D1["Plain draft"]
+    B --> D2["Few-shot draft<br/>same 3 examples"]
+    B --> D3["Idiolect draft"]
+    D1 & D2 & D3 --> SH["Shuffle, hide labels"]
+    H["Held-out text by the author"] --> J{"Judge picks closest"}
+    SH --> J
+    J --> BAR["Bar over 10+ briefs:<br/>70% vs plain, 60% vs few-shot"]

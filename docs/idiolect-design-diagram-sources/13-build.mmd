@@ -1,0 +1,14 @@
+flowchart TB
+    subgraph R1[" "]
+        direction LR
+        P0["0 Groundwork<br/>schemas, rules,<br/>fixtures, protocol"] --> P1["1 Engine<br/>inventory, ledger,<br/>measure"] --> P2["2 Learning<br/>lessons, approval,<br/>rollback"] --> P3["3 Writing<br/>write, rewrite,<br/>check, eval"]
+    end
+    subgraph R2[" "]
+        direction LR
+        P4["4 Validation<br/>test"] --> P5["5 Feedback<br/>learn-edit, interview,<br/>facets"] --> P6["6 Reach<br/>bridge, export,<br/>adapters"]
+        YOU(["Writer's own<br/>first learn"])
+    end
+    P3 --> P4
+    P3 -.->|after phase 3| YOU
+    style R1 fill:transparent,stroke:transparent
+    style R2 fill:transparent,stroke:transparent

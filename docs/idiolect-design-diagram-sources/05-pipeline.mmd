@@ -1,0 +1,27 @@
+flowchart TB
+    T(["learn target"]) --> S1["1 Lock + inventory"]
+    S1 -->|dry-run| R(["report, nothing written"])
+    S1 --> S2["2 Ownership"]
+    S2 --> S3["3 Extraction"]
+    S3 --> S4["4 Language + type"]
+    S4 --> S5["5 Measurement"]
+    S5 --> S6["6 Contrast"]
+    S6 --> S7["7 Confidence"]
+    S7 --> S8["8 Qualitative pass"]
+    S8 --> S9["9 Vocabulary, examples, filter, diff"]
+    S9 --> A{"Writer approves?"}
+    A -->|yes| S10["10 Snapshot + commit + changelog"]
+    A -->|no| X["Clear pending area"]
+    S2 -.-> PA[("Pending area")]
+    S3 -.-> PA
+    S9 -.-> PA
+    PA -.-> S10
+
+    classDef script fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef model fill:#fce7f3,stroke:#db2777,color:#831843
+    classDef mixed fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
+    classDef writer fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class S1,S3,S5,S7,S10 script
+    class S8 model
+    class S4,S6,S9 mixed
+    class S2,A writer
