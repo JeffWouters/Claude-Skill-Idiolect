@@ -55,7 +55,8 @@ class Run:
     def __init__(self, store_root):
         self.store = Store(store_root)
         self.pending = stage.Pending(self.store)
-        if not self.pending.exists() or self.pending.plan["mode"] != "learn":
+        # an interview is a learn run whose texts are the writer's answers (spec §21)
+        if not self.pending.exists() or self.pending.plan["mode"] not in ("learn", "interview"):
             raise StoreError("no learn run is waiting; start one with `learn.py start`")
         stage.ensure_owner(self.store, self.pending)   # refreshes the heartbeat (spec §10.2)
         self.state_path = self.pending.work("state.json")
