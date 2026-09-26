@@ -665,6 +665,15 @@ def diff(store, pending):
     lines = [f"Proposal from {plan['mode']} (run {plan['run_id']}): {len(plan['items'])} items"]
     if pending.atomic():
         lines.append("This proposal is approved or rejected as a whole.")
+    import resolve
+    for prof in plan.get("profiles") or []:
+        try:
+            foreign = resolve.foreign_rulings(store, prof)
+        except StoreError:
+            continue
+        for r in foreign:
+            lines.append(f"Note: {prof} inherits ruling {r['profile']}:{r['id']} \"{r['text']}\" "
+                         f"from {r['profile']}, which is not the writer's own profile.")
     for where in sorted(groups, key=lambda w: (w != "store", w)):
         lines.append(f"\n{where}")
         followers = 0

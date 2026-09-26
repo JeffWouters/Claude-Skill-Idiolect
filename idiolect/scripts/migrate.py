@@ -1,6 +1,7 @@
 """Upgrade store files to this engine's schema versions (design: Schemas and migrations).
 
     python3 migrate.py --store S [--dry-run]
+    python3 migrate.py --store S --add-facet NAME [--dry-run]      append a facet (spec §12.7)
 
 One version step at a time, under the lock (mode migrate). Every file it changes is copied first to
 .state/migrations/<timestamp>/<same path>, so an upgrade can be undone by hand, and each affected
@@ -15,6 +16,7 @@ Steps so far:
 import argparse
 import json
 import pathlib
+import re
 import shutil
 import sys
 
@@ -118,13 +120,130 @@ def migrate(store_root, dry_run=False, now=None):
         lock.release(str(store.root))
 
 
+# ---------- adding a facet (spec §12.7) ----------
+
+FACET_NAME = re.compile(r"^[a-z][a-z0-9_]{0,29}$")
+SLOT_SUFFIXES = (".examples.md", ".never.md", ".edits.md", ".md", ".json")
+SLOT_LINE = re.compile(r"(?m)^slot: (\S+)$")
+
+
+def _slot_of(name):
+    """(slot, suffix) for a slot file name such as en.essay.examples.md, else None."""
+    for suf in SLOT_SUFFIXES:
+        if name.endswith(suf):
+            slot = name[: -len(suf)]
+            if re.match(r"^[a-z]{2,3}(-[a-z0-9]{2,8})?(\.(_|[a-z0-9][a-z0-9-]{0,39}))+$", slot):
+                return slot, suf
+    return None
+
+
+def _profile_dir_changes(d, add, name, is_snapshot):
+    """{path: new text or None (removed)} for one profile folder or one snapshot of it."""
+    out = {}
+    for f in sorted(d.iterdir()):
+        if f.is_dir():
+            continue
+        if f.name in ("rulings.yaml", "rejected.yaml"):
+            data = load_yaml_text(f.read_text(encoding="utf-8")) or {}
+            for e in data.get("entries", []):
+                if e.get("slot"):
+                    e["slot"] = add(e["slot"])
+            out[f] = dump_yaml(data)
+            continue
+        if f.name == "manifest-entries.json" and is_snapshot:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            for e in data.get("texts", {}).values():
+                e["facets"][name] = "_"
+            out[f] = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+            continue
+        hit = _slot_of(f.name)
+        if not hit or f.name == "changelog.md":
+            continue
+        slot, suf = hit
+        text = f.read_text(encoding="utf-8")
+        if suf == ".json":
+            data = json.loads(text)
+            data["slot"] = add(data["slot"])
+            new = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+        else:
+            new = SLOT_LINE.sub(lambda m: "slot: " + add(m.group(1)), text, count=1)
+        out[f] = None
+        out[f.with_name(add(slot) + suf)] = new
+    for pf in sorted(d.glob("edits/p-*/pair.yaml")):
+        data = load_yaml_text(pf.read_text(encoding="utf-8")) or {}
+        data["slot"] = add(data["slot"])
+        out[pf] = dump_yaml(data)
+    return out
+
+
+def add_facet(store_root, name, dry_run=False, now=None):
+    store = Store(store_root)
+    if not FACET_NAME.match(name or ""):
+        raise StoreError(f"a facet name is lower case letters, digits and _: {name!r}")
+    if name in store.facets:
+        raise StoreError(f"{name} is already a facet")
+    add = lambda slot: slot + "._"  # noqa: E731
+    changes = {}
+    cfg = dict(store.config)
+    cfg["facets"] = list(store.facets) + [name]
+    check_schema("idiolect", cfg, "idiolect.yaml")
+    changes[store.root / "idiolect.yaml"] = dump_yaml(cfg)
+    mp = store.root / "corpus" / "manifest.json"
+    if mp.exists():
+        man = json.loads(mp.read_text(encoding="utf-8"))
+        for e in man["texts"].values():
+            e["facets"][name] = "_"
+        check_schema("manifest", man, "manifest")
+        changes[mp] = json.dumps(man, indent=2, ensure_ascii=False) + "\n"
+    root = store.root / "profiles"
+    dirs = []
+    for pd in sorted(p for p in root.iterdir() if p.is_dir()) if root.exists() else []:
+        dirs.append((pd, False))
+        dirs += [(sd, True) for sd in sorted((pd / "snapshots").iterdir()) if sd.is_dir()] if (pd / "snapshots").exists() else []
+    for d, snap in dirs:
+        changes.update(_profile_dir_changes(d, add, name, snap))
+    rel = sorted(str(f.relative_to(store.root)) for f in changes)
+    if dry_run:
+        return {"facet": name, "would_change": rel}
+    now = now or utcnow()
+    stamp = iso(now).replace(":", "").replace("-", "")
+    got = lock.acquire(str(store.root), "migrate")
+    try:
+        if got["pending"]:
+            raise StoreError("a run is waiting in .state/pending/; resume or discard it before migrating")
+        backup = store.root / ".state" / "migrations" / stamp
+        for f in changes:
+            if f.exists():
+                dest = backup / f.relative_to(store.root)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(f, dest)
+        for f, content in changes.items():          # new files first, then the old names go
+            if content is not None:
+                atomic_write(f, content)
+        for f, content in changes.items():
+            if content is None and f.exists():
+                f.unlink()
+        for pd, snap in dirs:
+            if snap:
+                continue
+            cl = pd / "changelog.md"
+            existing = cl.read_text(encoding="utf-8") if cl.exists() else ""
+            atomic_write(cl, pages.changelog_append(
+                existing, pd.name, iso(now), "migrate", stamp, [],
+                f"new facet {name}: every slot key gains ._ (snapshots too); originals in .state/migrations/{stamp}/", None))
+        return {"facet": name, "changed": rel, "backup": str(backup.relative_to(store.root))}
+    finally:
+        lock.release(str(store.root))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store", required=True)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--add-facet")
     a = ap.parse_args(argv)
     try:
-        out = migrate(a.store, a.dry_run)
+        out = add_facet(a.store, a.add_facet, a.dry_run) if a.add_facet else migrate(a.store, a.dry_run)
     except StoreError as e:
         print(json.dumps({"status": "error", "message": str(e)}))
         return 2

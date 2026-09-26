@@ -89,6 +89,9 @@ the next learning run will first offer to resume or discard it (only resume if a
   approval. Only the writer approves.
 - `scripts/measure.py --file <text> --lang en` gives the metrics of one text.
 - `scripts/holdout.py`: the `test` mode's steps (`references/modes/test.md`).
+- `scripts/migrate.py --store S --add-facet NAME [--dry-run]`: a new facet such as `channel`, when the
+  writer wants slots split further. Show the dry run first; every existing slot key gains `._`, and
+  existing texts stay under `_` for it until a learn gives them a value.
 - `scripts/lock.py` and `scripts/pending.py` inspect the lock and the pending area.
 
 ## Guardrails (always)

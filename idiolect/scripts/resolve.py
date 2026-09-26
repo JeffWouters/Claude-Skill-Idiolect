@@ -59,6 +59,20 @@ def resolve(store, profile=None, facets=None):
     raise NoSlot(f"no slot for {profile} {key}; tried {', '.join(tried)}")
 
 
+def foreign_rulings(store, profile):
+    """Rulings `profile` inherits from a profile whose consent is not `self`: not the writer's own
+    profile, so they are marked in status and every diff (spec §12.6)."""
+    out = []
+    for prof in chain(store, profile)[1:]:
+        d = store.root / "profiles" / prof
+        if read_store_file(d / "profile.yaml", "profile").get("consent") == "self":
+            continue
+        if (d / "rulings.yaml").exists():
+            out += [{"profile": prof, "id": r["id"], "text": r["text"]}
+                    for r in read_store_file(d / "rulings.yaml", "rulings")["entries"]]
+    return out
+
+
 def merged(store, profile, field):
     """Rulings or vocabulary merged down the chain: a child's entry overrides a parent's by `overrides`
     (or by the same text for vocabulary). Returns entries with their profile."""

@@ -49,10 +49,14 @@ def status(store, only=None):
         rej = read_store_file(d / "rejected.yaml", "rejected")["entries"] if (d / "rejected.yaml").exists() else []
         chain = _chain(store, name)
         inherited = []
+        import resolve
+        foreign = {(r["profile"], r["id"]) for r in resolve.foreign_rulings(store, name)}
         for parent in chain[1:]:
             rp = store.root / "profiles" / parent / "rulings.yaml"
             if rp.exists():
-                inherited += [f"{parent}:{r['id']} {r['text']}" for r in read_store_file(rp, "rulings")["entries"]]
+                inherited += [f"{parent}:{r['id']} {r['text']}"
+                              + (" [from a profile that is not the writer's own]" if (parent, r["id"]) in foreign else "")
+                              for r in read_store_file(rp, "rulings")["entries"]]
         own = sum(1 for e in texts.values() if e["profiles"].get(name, {}).get("ownership") == "own"
                   and e["status"] == "active")
         out["profiles"].append({"name": name, "subject": prof["subject"], "consent": prof["consent"],
