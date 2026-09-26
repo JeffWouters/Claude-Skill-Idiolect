@@ -1,0 +1,21 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/03-the-7-42-train.md
+changes:
+  - kind: cut-hedge
+    draft: "Arguably, the walk to the station is 14 minutes."
+    final: "The walk to the station is 14 minutes."
+  - kind: split-sentence
+    draft: "I have timed it, and with a heavy bag it is 16."
+    final: "I have timed it. With a heavy bag it is 16."
+  - kind: split-sentence
+    draft: "So I leave the house at 7.25, and that gives me three minutes of slack."
+    final: "So I leave the house at 7.25. That gives me three minutes of slack."
+  - kind: cut-hedge
+    draft: "Perhaps the platform has a shape I know by heart."
+    final: "The platform has a shape I know by heart."
+  - kind: cut-hedge
+    draft: "It seems that there is a crowd of regulars."
+    final: "There is a crowd of regulars."
+  - kind: numerals
+    draft: "twelve"
+    final: "12"

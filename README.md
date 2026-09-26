@@ -54,4 +54,4 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 
 ## Licence
 
-Not yet chosen.
+MIT, see [LICENSE](LICENSE).

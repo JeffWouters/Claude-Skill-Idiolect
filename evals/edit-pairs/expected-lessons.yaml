@@ -1,0 +1,6 @@
+# The right answer for learn-edit over all six pairs.
+edit_lessons:
+  - cut-hedge        # in all 6 pairs
+  - split-sentence   # in pairs 1-5
+seen_once:
+  - numerals         # pair 3 only

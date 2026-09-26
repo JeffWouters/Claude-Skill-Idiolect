@@ -1,0 +1,15 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/04-tomatoes-in-a-cold-year.md
+changes:
+  - kind: cut-hedge
+    draft: "Perhaps this was a bad year for tomatoes."
+    final: "This was a bad year for tomatoes."
+  - kind: cut-hedge
+    draft: "It seems that they came up in six days."
+    final: "They came up in six days."
+  - kind: split-sentence
+    draft: "You know the smell, and sharp and green."
+    final: "You know the smell. Sharp and green."
+  - kind: split-sentence
+    draft: "Then May was colder, and most nights were 6 or 7 degrees."
+    final: "Then May was colder. Most nights were 6 or 7 degrees."

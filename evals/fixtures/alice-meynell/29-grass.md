@@ -1,0 +1,30 @@
+---
+author: Alice Meynell
+author_died: 1922
+book: "The Colour of Life"
+first_published: 1896
+title: "Grass"
+source: https://www.gutenberg.org/ebooks/1205
+licence: public domain (US and EU)
+words: 916
+---
+
+Now and then, at regular intervals of the summer, the Suburb springs for a time from its mediocrity; but an inattentive eye might not see why, or might not seize the cause of the bloom and of the new look of humility and dignity that makes the Road, the Rise, and the Villas seem suddenly gentle, gay and rather shy.
+
+It is no change in the gardens.  These are, as usual, full, abundant, fragrant, and quite uninteresting, keeping the traditional secret by which the suburban rose, magnolia, clematis, and all other flowers grow dull--not in colour, but in spirit--between the yellow brick house-front and the iron railings.  Nor is there anything altered for the better in the houses themselves.
+
+Nevertheless, the little, common, prosperous road, has bloomed, you cannot tell how.  It is unexpectedly liberal, fresh, and innocent.  The soft garden-winds that rustle its shrubs are, for the moment, genuine.
+
+Another day and all is undone.  The Rise is its daily self again--a road of flowers and foliage that is less pleasant than a fairly well-built street.  And if you happen to find the men at work on the re-transformation, you become aware of the accident that made all this difference.  It lay in the little border of wayside grass which a row of public servants--men with spades and a cart--are in the act of tidying up.  Their way of tidying it up is to lay its little corpse all along the suburban roadside, and then to carry it away to some parochial dust-heap.
+
+But for the vigilance of Vestries, grass would reconcile everything.  When the first heat of the summer was over, a few nights of rain altered all the colour of the world.  It had been the brown and russet of drought--very beautiful in landscape, but lifeless; it became a translucent, profound, and eager green.  The citizen does not spend attention on it.
+
+Why, then, is his vestry so alert, so apprehensive, so swift; in perception so instant, in execution so prompt, so silent in action, so punctual in destruction?  The vestry keeps, as it were, a tryst with the grass.  The "sunny spots of greenery" are given just time enough to grow and be conspicuous, and the barrow is there, true to time, and the spade. (To call that spade a spade hardly seems enough.)
+
+For the gracious grass of the summer has not been content within enclosures.  It has--or would have--cheered up and sweetened everything. Over asphalte it could not prevail, and it has prettily yielded to asphalte, taking leave to live and let live.  It has taken the little strip of ground next to the asphalte, between this and the kerb, and again the refuse of ground between the kerb and the roadway.  The man of business walking to the station with a bag could have his asphalte all unbroken, and the butcher's boy in his cart was not annoyed.  The grass seemed to respect everybody's views, and to take only what nobody wanted. But these gay and lowly ways will not escape a vestry.
+
+There is no wall so impregnable or so vulgar, but a summer's grass will attempt it.  It will try to persuade the yellow brick, to win the purple slate, to reconcile stucco.  Outside the authority of the suburbs it has put a luminous touch everywhere.  The thatch of cottages has given it an opportunity.  It has perched and alighted in showers and flocks.  It has crept and crawled, and stolen its hour.  It has made haste between the ruts of cart wheels, so they were not too frequent.  It has been stealthy in a good cause, and bold out of reach.  It has been the most defiant runaway, and the meekest lingerer.  It has been universal, ready and potential in every place, so that the happy country--village and field alike--has been all grass, with mere exceptions.
+
+And all this the grass does in spite of the ill-treatment it suffers at the hands, and mowing-machines, and vestries of man.  His ideal of grass is growth that shall never be allowed to come to its flower and completion.  He proves this in his lawns.  Not only does he cut the coming grass-flower off by the stalk, but he does not allow the mere leaf--the blade--to perfect itself.  He will not have it a "blade" at all; he cuts its top away as never sword or sabre was shaped.  All the beauty of a blade of grass is that the organic shape has the intention of ending in a point.  Surely no one at all aware of the beauty of lines ought to be ignorant of the significance and grace of manifest intention, which rules a living line from its beginning, even though the intention be towards a point while the first spring of the line is towards an opening curve.  But man does not care for intention; he mows it.  Nor does he care for attitude; he rolls it.  In a word, he proves to the grass, as plainly as deeds can do so, that it is not to his mind.  The rolling, especially, seems to be a violent way of showing that the universal grass interrupted by the life of the Englishman is not as he would have it.  Besides, when he wishes to deride a city, he calls it grass-grown.
+
+But his suburbs shall not, if he can help it, be grass-grown.  They shall not be like a mere Pisa.  Highgate shall not so, nor Peckham.

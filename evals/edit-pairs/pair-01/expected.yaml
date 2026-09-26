@@ -1,0 +1,12 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/01-the-kitchen-tap.md
+changes:
+  - kind: cut-hedge
+    draft: "It seems that the kitchen tap started to drip in March."
+    final: "The kitchen tap started to drip in March."
+  - kind: split-sentence
+    draft: "At first I did nothing, and a drip is easy to live with."
+    final: "At first I did nothing. A drip is easy to live with."
+  - kind: split-sentence
+    draft: "But then I put a jug under it, and by morning the jug held 600 millilitres."
+    final: "But then I put a jug under it. By morning the jug held 600 millilitres."

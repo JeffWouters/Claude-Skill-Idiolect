@@ -1,0 +1,12 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/06-the-ladder-next-door.md
+changes:
+  - kind: cut-hedge
+    draft: "In some ways, my neighbour Joss owns a ladder."
+    final: "My neighbour Joss owns a ladder."
+  - kind: cut-hedge
+    draft: "Arguably, it is a good ladder."
+    final: "It is a good ladder."
+  - kind: cut-hedge
+    draft: "Perhaps the first time I asked for it was for the gutter."
+    final: "The first time I asked for it was for the gutter."

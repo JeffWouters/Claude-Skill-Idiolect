@@ -1,0 +1,18 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/05-the-shed-bench.md
+changes:
+  - kind: cut-hedge
+    draft: "It seems that my shed is two metres by three."
+    final: "My shed is two metres by three."
+  - kind: split-sentence
+    draft: "It has one window, one door and one bench, and the bench is the reason for the shed."
+    final: "It has one window, one door and one bench. The bench is the reason for the shed."
+  - kind: split-sentence
+    draft: "Then I planed the tops, and that took most of a weekend."
+    final: "Then I planed the tops. That took most of a weekend."
+  - kind: cut-hedge
+    draft: "In some ways, the legs are four lengths of fence post."
+    final: "The legs are four lengths of fence post."
+  - kind: cut-hedge
+    draft: "Arguably, mine does not move."
+    final: "Mine does not move."

@@ -1,0 +1,126 @@
+---
+author: Samuel McChord Crothers
+author_died: 1927
+book: "The Pardoner's Wallet"
+first_published: 1905
+title: "A Saint Recanonized"
+source: https://www.gutenberg.org/ebooks/73172
+licence: public domain (US and EU)
+words: 4376
+---
+
+All the world loves a lover,” but all the world does not love a saint. Our hearts do not leap up when we behold a halo on the title-page, and so the lives of the heroes of the Church are frequently neglected. When the saint has been duly canonized, that is generally the end of him in popular esteem. But sometimes the ecclesiastical and secular judgments coincide and the saint is invested with human interest.
+
+So it has been with St. Francis of Assisi,--given the highest honors in his church, he has captivated the imagination of the world. Protestants vie with Catholics in doing him honor. At no time has his name been more familiar or his legend more often repeated than in our own day. He has been recanonized.
+
+This renewal of interest in the Franciscan legend is all the more interesting because it carries us into a region so remote from that in which we habitually dwell.
+
+“Now it came to pass that as Francis, the servant of the Lord, was singing the praises of the Lord with joy and gladness, certain robbers fell upon him and fiercely questioned him who he was. And he answered, ‘I am the herald of the King of Heaven.’ And the robbers fell upon him with blows and cast him into a ditch, saying, ‘Lie there, thou herald of nothing!’ When they had departed Francis arose and went through the forest, singing with a loud voice the praises of the Creator.”
+
+These words take us into another world than ours. To enter that world we must not only lay aside our easily besetting sins, but our easily besetting virtues as well. We must cast aside all the prudential virtues, we must rid our minds of all prejudice in favor of scientific charity and rationalistic schemes of philanthropy, and we must disclaim personal responsibility for the progress of modern civilization. With such impedimenta the pilgrim of thought might possibly get as far back as the sixteenth century, but it would be impossible for him to penetrate into the thirteenth. He who would do so must first drink deep of Lethe. He must put out of mind those persons and events which have been the distinctive influences of the modern world. He must forget Luther, and wash his soul clean of every trace of Calvin; every echo of the raillery of Voltaire must have died away, and his mind must have been kept unspotted from the world of Newton and of Darwin.
+
+Above all, if he would enter into the social dreams of the thirteenth century, he must forget that he ever heard of such a science as political economy. He must renounce the old Adam and all his works,--I mean Adam Smith.
+
+But on the other side of Lethe there are pure fountains, and dark forests where robbers lurk, and where saints are singing the high praises of God, and beyond are the “regions dim of rapture” where they are lost from the eyes of their disciples.
+
+And it may not be in vain to turn aside from the consideration of the engrossing questions of our day, to enter into that dim world and look out upon it through the eyes of its truest saints. They were eyes blind to many things we see clearly, but they saw some things which we do not always see; at any rate they were eyes--
+
+Beyond my knowing of them beautiful, Beyond all knowing of them wonderful, Beautiful in the light of holiness.
+
+So Francis of Assisi has an especial interest for every student of Christianity and for every student of ethics. For the student of Christianity he stands as a man who, while neither a theologian nor a reformer, and having no place among the intellectual leaders of mankind, has an undisputed spiritual leadership. His place is that of the little child whom Jesus placed in the midst and of whom he said, “Of such is the kingdom of Heaven.”
+
+For the student of ethics St. Francis is of interest because, while he had an invincible ignorance of scientific ethics, yet the real emphasis of his life and teaching was on the finest kind of ethical idealism. We are reminded of Shakespeare’s lines:--
+
+Love is too young to know what conscience is, Yet who knows not that conscience is born of love.
+
+There are some characters, and St. Francis is among them, who belong so completely to their own age that we cannot take them out of their environment. The beauty of their lives is like that of some shy wild flower which will not bear transplanting. If we would enjoy it we must go where it grows. To appreciate these characters we need not critical knowledge, but imaginative sympathy.
+
+There is an old Irish legend of a young hero who sailed to a far country and married a beautiful princess. Living there he enjoyed perpetual youth, and three centuries passed away as if they had been but three years. Then came a longing to return to his own native land. After much entreating his fair wife allowed him to return on one condition, and that was that he should not dismount from the white steed she gave him. The prince came back, but riding in youthful strength and beauty through the familiar land, at last he forgot the condition. Dismounting, his feet touched the ground, and the enchantment vanished. Suddenly he realized the passage of time. His friends, the heroes of his youth, were dead and forgotten. He was very old; his strength had withered away. The joyous paganism in which he had been bred had been driven away. He saw processions of monks and nuns, and heard the sound of church bells, and saw over all the shadow of the cross. He belonged to the old order that had passed away, now the destinies of the land were in the hands of new men.
+
+Something of this same caution must be used by those who would see the St. Francis whom the people long ago loved and worshiped. He is the embodiment of mediæval goodness. Let us beware of disenchanting literalism, lest suddenly the radiant youth disappear and we see only the relic of an age that has passed away.
+
+Let us not look back at St. Francis. Let us stand at the beginning of the thirteenth century and look forward. Let us share the dream of the youth who went through the forest singing the praise of God.
+
+The transformation of worldly ambition into spiritual was never more vividly told than in the legend of St. Francis, by the Three Companions. We see Francis the gay son of Peter Bernardone, merchant of Assisi, transformed into a knight of Lady Poverty.
+
+“Then a few years later a certain noble of the city of Assisi provided himself with warlike gear to go into Apulia to increase his profit of money and renown. Upon hearing this, Francis did aspire to go with him and to be made a knight by a certain count, Gentile by name; wherefore he made ready stuffs as costly as he could, poorer in riches than his fellow citizen, but more profuse in largesse. One night when he had given all his thoughts to bringing this to pass, and was fevered with the desire for making the journey, he was visited by the Lord, who draweth him as one eager for glory to the pinnacle of glory by a vision and uplifteth him. For while sleeping that night one appeared unto him, calling him by name, and leading him into the palace of a fair bride, very pleasant and full of knightly armor, to wit, glittering shields and other apparel hanging on the wall as it were waiting for knights to accoutre them therewithal. And while he, rejoicing greatly, marveled silently within himself what this might be, he asked whose were these arms flashing with such splendor and this so pleasant palace? And the answer was made him that the palace and all things therein were his own and his knights’. And thus awakening with joyous heart he rose early.... And so much gayer than his wont did he seem that many wondered thereat, and asked whence had he such joy, unto whom he would reply, “I know that I shall be a great prince.”
+
+It was not the sense of sin that proved the beginning of a new life to this light-hearted Italian. It was rather the sense of a higher chivalry. Another vision came to him. A voice asked, “‘Which can do the better for thee, the lord or the servant?’
+
+“And when he answered, ‘The lord,’ that other said again unto him, ‘Wherefore then dost thou leave the lord for the servant, and a rich lord for a poor?’... Then waking he began earnestly to ponder this vision. And just as in the first vision he had been, as it were, quite carried out of himself for his great joy, coveting worldly good fortune, so in this vision he withdrew within himself entirely, wondering at its might, and meditating so earnestly that he could sleep no more that night.”
+
+At last the new vision took form in an enthusiastic way of life. In the church Francis heard the words of the gospels, “Take no gold nor silver nor money in your purses, nor two coats, nor shoes, nor staff.”
+
+No further did he need to listen. Throwing away his purse, and putting on the garb of a peasant, he devoted himself henceforth not simply to the service of the poor, but to the worship of Poverty. Dante in memorable words described this lover-like devotion.
+
+For he in youth his father’s wrath incurred For certain Dame, to whom as unto death The gate of pleasure no one doth unlock;
+
+*       *       *       *       *
+
+Then day by day more fervently he loved her. She reft of her first husband, scorned, obscure, One thousand and one hundred years and more, Waited without a suitor till he came.
+
+*       *       *       *       *
+
+So that when Mary still remained below She mounted up with Christ upon the cross! But that too darkly I may not proceed, Francis and Poverty for these two lovers Take thou henceforward in my speech diffuse. Their concord and their joyous semblances The love, the wonder, and the sweet regard, They made to be the cause of holy thoughts.
+
+Francis and Poverty--these lovers seem strange indeed to twentieth-century eyes. An age when philanthropy strives for the abolition of poverty and invites enlightened self-interest to its aid cannot readily understand one who welcomed poverty as a blessed condition. “No man,” said a disciple of St. Francis, “was ever so covetous of wealth as he of poverty.”
+
+We hear St. Francis discoursing with brother Leo concerning perfect bliss. It lies not in knowledge or power or even in the ability to convert the infidels to the Holy Faith. “When we shall come to St. Mary of the Angels dripping with rain and tormented with cold and hunger, and we shall knock at the door, and the porter shall say, ‘Who are ye?’ and we shall answer, ‘We are your brethren,’ and he shall say, ‘You lie, you are two knaves that go about deceiving the people and stealing from the poor’--if, when he leaves us in the cold and wet we shall patiently endure, and say within ourselves, ‘Perhaps the porter reads us aright,’ then, O brother Leo, thou mayest say, ‘Herein lies perfect bliss.’”
+
+We hear the passionate prayer, “O Lord Jesus, point out to me the ways of poverty which were so dear to thee. O Jesus, who chosest to be poor, the favor I ask of thee is to give me the privilege of poverty and to be enriched by thy blessing.”
+
+This was not the temper of ordinary asceticism. St. Francis was in temper more an Epicurean than a Stoic. He was a lover of pleasure and was not content with any kind of pleasure short of what he conceived to be the highest. The ascetic was interested primarily in the salvation of his own soul. Wealth and comfort were the temptations of the devil to cheat him of his future reward. The hermit accepted poverty as the hard road to Heaven; to St. Francis it was Heaven itself.
+
+“Property is robbery,” he would have said, but not in the sense in which a modern communist would use the words. It is the robbery not of one’s neighbor but of one’s self. We take for granted that wealth is a good thing and poverty an evil. No, St. Francis would say, there is no good thing but what is good for the soul. It is good to be humble, sympathetic, and thankful. It is good to be conscious of God’s presence everywhere and to be close to the lowliest of his creatures. The means of this grace are nearer to the peasant than to the prince. There are some things that wealth buys. The rich man has his comforts, his sheltered home, his group of friends and dependents, his servants and his wide estates; his is the meekness that inherits the earth.
+
+St. Francis found joy in the sacrifices and austerities which to others were so painful. The predominant note is that of gladness. In the midst of his penances he is light-hearted. He interpreted more literally than we do the words, “Take no thought for the morrow.” Some things are possible in Umbria and Galilee that seem wildly impracticable under the fickle skies of New England. The sober prose of religion may be translated into all languages and verified by all human experience, but there is an idyllic poetry of religion that belongs only to the climate where that poetry had birth. “The Little Flowers of St. Francis” grew out of the same kindly soil and under the same friendly skies that nourished the lilies that Jesus loved.
+
+St. Francis always wore his halo with an easy grace. In spite of his scourgings and fastings he was blithe and debonair. He was saint-errant, as full of romance as any knight-errant of them all. He was a lover of spiritual adventure, and delighted to attempt the impossible.
+
+To St. Francis voluntary poverty meant spiritual freedom. The preacher was no longer dependent on powerful patrons or rich parishioners or even on the fickle multitudes. The missionary did not need a missionary board. He did not have to wait for a church building to be erected and a pulpit to be prepared. Even a hermitage was a superfluity. “The true hermit,” said St. Francis, “carries his cell about with him.” And so he and his disciples preached and asked no man’s leave. Through all the byways of Italy they wandered, proclaiming that God was in the fields as well as in the churches. Entering a village Brother Francis would say, “Love God and repent, good people. Love God and do penance.” And Brother Egidio would say, “Yes, good people, do as Brother Francis says, for he says what is right.”
+
+And if there were no people to preach to there were always our sisters, the birds, and now and then there was a wicked wolf who would yield to moral suasion. We smile at this way of preaching to every creature, but it is as we smile at the idiosyncrasies of one we love.
+
+Many a preacher who has confined his preaching to human kind has put less good sense into his sermons and shown less insight into the causes of sin than did Francis in his discourse to the wolf of Gubbio. The inhabitants who had suffered from his depredations hated him for his wolfish iniquities. The saint saw that the cause of the evil was economic rather than moral. He was a right-minded wolf; the trouble was that he was hungry. St. Francis entered into a covenant of peace with him.
+
+“‘Brother Wolf, inasmuch as it pleases you to make and keep this peace, I promise you that so long as you shall live you shall not suffer hunger, forasmuch as I am aware that hunger has caused your every crime. But since I have got for you this grace, I require, Brother Wolf, your promise never again to do harm to any human being, neither to any beast. Do you promise?’ And St. Francis stretching forth his hand, the wolf uplifted his right paw and gave him the pledge of faith as best he could.”
+
+It was in the same spirit that St. Francis went forth on his mission to the Sultan. The Crusaders had gone forth to destroy the infidels. Francis, in the simplicity of his heart, thought the better way would be to convert them. Neither way proved to be altogether effective, but certainly the latter plan was the more Christian.
+
+In the history of preaching there have been many vicissitudes. Sometimes the preacher has been a philosopher, sometimes an advocate, sometimes he has adopted the tone of a man of business. In the preaching of St. Francis we are taken back to the time of the wandering minstrels.
+
+“So great was the sweetness and consolation of his spirit that he called for Brother Pacificus whom the world entitled the King of Verse and Courteous Doctor of Song, and desired to send him with the other friars to go together through the world, preaching and singing the “Praises of the Lord.” And he desired that he among them who was the best preacher should first preach to the people, and when the sermon was ended all the others should sing together the “Praises of the Lord,” as the Lord’s minstrels; and at the end he desired the preacher should say to the people, ‘We are the Lord’s minstrels, and the reward we ask of you is that you turn to true repentance.’”
+
+No wonder that the people loved Brother Francis when he brought religion to them in such a fashion, and that there would gather around him
+
+A crowd of shepherds with as sunburnt looks As may be read of in Arcadian books.
+
+With all his saintly austerities St. Francis was always a gentleman. Even the most admiring biographers cannot hide his humanness. The Lives of the Saints do not contain many such incidents as that in the chapter in “The Mirror of Perfection” entitled “How he comforted a Sick Friar by eating Grapes with Him.” It was a little thing to do, but I am sure that St. Dominic would never have thought of it. The friar had been overdoing the mortification of the flesh, and had fallen ill. “Blessed Francis said to himself: ‘If that friar would eat ripe grapes in the morning I believe he would be cured!’ And as he thought so he did. Rising early in the morning, he called the friar secretly, and took him to a vineyard near the place, and choosing a vine that had good grapes fit for eating, he sat down by the vine with the friar and began to eat grapes, that the friar should not be ashamed of eating alone.... And all the days of his life this friar remembered the pity and compassion shown him by the blessed Father, and would relate what had happened to the other friars.”
+
+It was an age of miracles, but St. Francis never allowed them to clutter up his little world. They must keep their place. When Brother Peter died in great sanctity, he was immediately worshiped as a saint. Great crowds came to his tomb, and many miracles were wrought. This was well, but there must be a measure in all things. So one day St. Francis went to the door of the tomb, and his most persuasive voice said, “Brother Peter, in your lifetime you gave perfect obedience. Know that your brethren are disturbed by the crowds that come to your tomb. I command you, by holy obedience, that you work no more miracles.” And from that day Brother Peter abstained from any interference with the order of nature.
+
+A true son of the Church, yet because of the unworldliness of his nature Francis from the first transcended the sphere of ecclesiasticism, and lived in the freedom of the spirit. In an age when ritualism was triumphant he chose an unsacerdotal ministry. At a time when the highest piety was supposed to manifest itself in the building and adornment of churches, he insisted on the higher grace of charity. When a case of need was presented to him, he said: “Sell the ornaments on the altar of the Blessed Virgin. Be assured that she would be more pleased to have her altar without adornment than to see the gospel of her Son any longer set at naught.”
+
+Pope Innocent had many who came with ambitious plans. There were always monks who desired to be abbots, and priests who desired to be bishops. But one day Brother Francis came desiring that he and certain poor brethren might be allowed to live according to the rule of the gospel. They were not content to be poor after the conventional fashion of the great monastic institutions, where corporate wealth was married to individual poverty. Their poverty should be real. Almost everything had been organized around a treasury. They would like to organize brotherly kindness, patience, humility, and love according to their own laws.
+
+And the request was made so simply that Pope Innocent could do nothing but grant it, though it made his own ambitions stand out in startling contrast.
+
+*       *       *       *       *
+
+The life of St. Francis was very mediæval, which was but another way of saying that its idealism was not balanced by the scientific temper. Men in those days delighted in paradoxes, and were contented with no half measures. His experience was different from ours. He did not confront the poverty of the slums of our great cities. It was the poverty of Umbria. It was a poverty that was acquainted with hunger and which wore coarse garments, but it had the freedom of the fields and the open roads. We have problems to solve with which he was unacquainted.
+
+Yet there is something in his daring paradox which attracts us. Beneath all its extravagance there is a vitality in the joyous worship of My Lady Poverty. For what is worship? It is, literally, worth-ship. It is the recognition of intrinsic values. It is just here that the modern man is beginning to be distrustful of himself. He has been marvelously successful in obtaining his desires, but has he desired the best things? In the height of his achievement he cannot help asking, “After all, is it worth what it has cost?”
+
+Things turn out differently from what had been expected. A life devoted to personal gain is likely to be disappointing. A whole community which has no other means of estimating worth than the increase in wealth is still more disappointing. It has no proper means of government. A plutocracy is but another name for moral anarchy. Special interests become intolerably domineering and override the common good. In a society where everything is measured by money, where is the limitation to despotism? What is to prevent the rich man from buying up his neighbors and using all their talents to serve his own narrow purposes? He is able to pay for the best food and drink and shelter. Why may he not bend to his will the best human ability?
+
+The answer comes from the iconoclasts, who strike boldly at the idols of the market-place. They have something that is not for sale, and they can afford to laugh at the highest bidders. They are not asking favors. They are likely to be inexperienced in the ways of the world, but the world fears them as it fears all forces which it cannot understand. They cannot be cajoled or threatened, for they have learned that it is possible to be happy and poor.
+
+My Lady Poverty has still her worshipers. She has long been honored by the devotion of true artists. The man of science gravely acknowledges her, and confesses without shame that he is too busy to make money. There are statesmen who are the despair of the party managers because when the question comes, “What can we do for you?” they answer “Nothing.” Every now and then there occurs that disconcerting phenomenon which we call genius. It upsets all calculations and refuses to respond to the law of supply and demand. The second best may be bought, but the very best is given away. Now and then, too, out of our conventional gentilities there comes an ideal gentleman. He would adorn the most exclusive circles, were it not that he has a passion for the best society, and he has learned that the best society is never exclusive. He takes the part of the uttermost man, and finds his joy in the companionship of those who are aspiring and struggling. And there is the increasing number of the nature-lovers who enter into the religious feelings which St. Francis voiced in “The Song of the Creatures.” They love one who could worship out of doors, and speak familiarly of Master Sun and Brother Wind and Sister Water. As they sit around their campfires they join heartily in the praise of Brother Fire. “He is jocund, robust, and strong and bright.”
+
+They love to read again the story of how St. Francis and Brother Masseo stopped at noon under a tree where there was a broad smooth stone to serve as a table for their simple meal. Close by was a spring of cold water.
+
+“What a treasure we have here!” cried Francis in delight.
+
+“Father,” answered Brother Masseo, “how can you talk so when we have no tablecloth or knife or cup!”
+
+Brother Masseo voices the opinion of the majority, but there are increasing numbers of true Franciscans. St. Francis is the patron saint of those who believe in Nature as well as in Grace. In spite of all his austerities he is endeared to us because he represented the bohemianism of piety.

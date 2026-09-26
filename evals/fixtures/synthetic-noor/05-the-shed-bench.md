@@ -1,0 +1,40 @@
+---
+author: Noor Vale
+synthetic: true
+title: "The Shed Bench"
+licence: CC0, synthetic test data
+---
+
+My shed is two metres by three. It has one window, one door and one bench. The bench is the reason for the shed.
+
+I built it four years ago from scaffold boards. Three boards, each 22 centimetres wide and 38 millimetres thick. They were grey and split at the ends when I got them. A builder down the road was throwing them out. I asked. He said take them. So I did, two trips with a borrowed barrow.
+
+I cut the split ends off first. 15 centimetres from each end. Then I planed the tops. That took most of a weekend. Old scaffold boards are full of grit and paint and the odd nail. I found two nails with a magnet before I started. I missed a third. It took a chip out of the plane iron. So now I sweep a magnet over any old wood. Every time.
+
+The legs are four lengths of fence post. The frame is screwed and glued. No clever joints. I am not a joiner. I just wanted it to stand still when I hit it.
+
+And it does. That is the whole test of a bench. You put a piece of wood on it and hit it with a mallet. If the bench moves, it is not a bench. It is a table.
+
+Mine does not move. It weighs about 60 kilos. I had to get my neighbour to help me carry it in.
+
+The height matters more than anything. Mine is 88 centimetres. I found that by standing up straight with my arms down. Then I measured from the floor to my palm. That is the right height for planing. Low enough to lean into the work. High enough to saw without a bent back.
+
+So what do I do out there.
+
+Mostly small jobs. A drawer that sticks. A chair leg that came loose. A new handle for a spade. Last month I made a box for the kitchen knives. Before that, a step for the back door, because the old one rotted through.
+
+I have a vice on the front left corner. An old cast iron one, blue paint worn to the metal on the jaws. It came from a car boot sale for eight euros. I lined the jaws with thin strips of wood so they do not mark the work.
+
+Above the bench there is a board full of nails. Each tool hangs on its own nail. I drew round each one with a marker. So when a tool is missing, its outline is there. A black saw shape on the board, and no saw. You notice at once.
+
+On the right there is a shelf of jars. Screws by size. Nails by size. Washers. Hinges. Odd bits that I will need one day. Or that I tell myself I will need.
+
+The light in the shed is poor. One bulb and one window facing north. North light is soft and even. Good for seeing marks. Bad in winter, when it goes at four. So I put up a strip light over the bench. It hums a bit. I have got used to it.
+
+In summer I work with the door open. The garden sounds come in. Blackbirds. A mower two gardens down. In winter I shut the door and wear a hat. There is no heat. My breath shows when it is below five degrees.
+
+The bench has marks all over it now. Saw cuts at the front edge. A burn from a hot glue gun. A ring from a paint tin. A deep dent where I dropped a hammer. I used to think about planing it flat again. I will not. The marks are a sort of record. Each one is a job.
+
+I go out there most evenings for half an hour. Even with no job. I sharpen something. I sweep. I sort a jar.
+
+Tonight I swept the floor and hung the saw back on its nail. Then I switched off the strip light. Sawdust on the bench top, pale in the last grey light from the window.

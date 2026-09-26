@@ -1,0 +1,18 @@
+# What the writer changed, draft -> final. Used as the expected answer in tests.
+source: synthetic-noor/02-lentil-soup-on-a-tuesday.md
+changes:
+  - kind: split-sentence
+    draft: "I make lentil soup on Tuesdays, and not every Tuesday."
+    final: "I make lentil soup on Tuesdays. Not every Tuesday."
+  - kind: cut-hedge
+    draft: "In some ways, it started in a cold week, three winters ago."
+    final: "It started in a cold week, three winters ago."
+  - kind: split-sentence
+    draft: "And it was good, and better than it had any right to be."
+    final: "And it was good. Better than it had any right to be."
+  - kind: cut-hedge
+    draft: "Arguably, now it is a habit."
+    final: "Now it is a habit."
+  - kind: cut-hedge
+    draft: "Perhaps here is how it goes."
+    final: "Here is how it goes."

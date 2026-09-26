@@ -1,0 +1,44 @@
+---
+author: Alice Meynell
+author_died: 1922
+book: "The Colour of Life"
+first_published: 1896
+title: "Cloud"
+source: https://www.gutenberg.org/ebooks/1205
+licence: public domain (US and EU)
+words: 1580
+---
+
+During a part of the year London does not see the clouds.  Not to see the clear sky might seem her chief loss, but that is shared by the rest of England, and is, besides, but a slight privation.  Not to see the clear sky is, elsewhere, to see the cloud.  But not so in London.  You may go for a week or two at a time, even though you hold your head up as you walk, and even though you have windows that really open, and yet you shall see no cloud, or but a single edge, the fragment of a form.
+
+Guillotine windows never wholly open, but are filled with a doubled glass towards the sky when you open them towards the street.  They are, therefore, a sure sign that for all the years when no other windows were used in London, nobody there cared much for the sky, or even knew so much as whether there were a sky.
+
+But the privation of cloud is indeed a graver loss than the world knows. Terrestrial scenery is much, but it is not all.  Men go in search of it; but the celestial scenery journeys to them.  It goes its way round the world.  It has no nation, it costs no weariness, it knows no bonds.  The terrestrial scenery--the tourist's--is a prisoner compared with this.  The tourist's scenery moves indeed, but only like Wordsworth's maiden, with earth's diurnal course; it is made as fast as its own graves.  And for its changes it depends upon the mobility of the skies.  The mere green flushing of its own sap makes only the least of its varieties; for the greater it must wait upon the visits of the light.  Spring and autumn are inconsiderable events in a landscape compared with the shadows of a cloud.
+
+The cloud controls the light, and the mountains on earth appear or fade according to its passage; they wear so simply, from head to foot, the luminous grey or the emphatic purple, as the cloud permits, that their own local colour and their own local season are lost and cease, effaced before the all-important mood of the cloud.
+
+The sea has no mood except that of the sky and of its winds.  It is the cloud that, holding the sun's rays in a sheaf as a giant holds a handful of spears, strikes the horizon, touches the extreme edge with a delicate revelation of light, or suddenly puts it out and makes the foreground shine.
+
+Every one knows the manifest work of the cloud when it descends and partakes in the landscape obviously, lies half-way across the mountain slope, stoops to rain heavily upon the lake, and blots out part of the view by the rough method of standing in front of it.  But its greatest things are done from its own place, aloft.  Thence does it distribute the sun.
+
+Thence does it lock away between the hills and valleys more mysteries than a poet conceals, but, like him, not by interception.  Thence it writes out and cancels all the tracery of Monte Rosa, or lets the pencils of the sun renew them.  Thence, hiding nothing, and yet making dark, it sheds deep colour upon the forest land of Sussex, so that, seen from the hills, all the country is divided between grave blue and graver sunlight.
+
+And all this is but its influence, its secondary work upon the world.  Its own beauty is unaltered when it has no earthly beauty to improve.  It is always great: above the street, above the suburbs, above the gas-works and the stucco, above the faces of painted white houses--the painted surfaces that have been devised as the only things able to vulgarise light, as they catch it and reflect it grotesquely from their importunate gloss.  This is to be well seen on a sunny evening in Regent Street.
+
+Even here the cloud is not so victorious as when it towers above some little landscape of rather paltry interest--a conventional river heavy with water, gardens with their little evergreens, walks, and shrubberies; and thick trees impervious to the light, touched, as the novelists always have it, with "autumn tints."  High over these rises, in the enormous scale of the scenery of clouds, what no man expected--an heroic sky.  Few of the things that were ever done upon earth are great enough to be done under such a heaven.  It was surely designed for other days.  It is for an epic world.  Your eyes sweep a thousand miles of cloud.  What are the distances of earth to these, and what are the distances of the clear and cloudless sky?  The very horizons of the landscape are near, for the round world dips so soon; and the distances of the mere clear sky are unmeasured--you rest upon nothing until you come to a star, and the star itself is immeasurable.
+
+But in the sky of "sunny Alps" of clouds the sight goes farther, with conscious flight, than it could ever have journeyed otherwise.  Man would not have known distance veritably without the clouds.  There are mountains indeed, precipices and deeps, to which those of the earth are pigmy.  Yet the sky-heights, being so far off, are not overpowering by disproportion, like some futile building fatuously made too big for the human measure.  The cloud in its majestic place composes with a little Perugino tree.  For you stand or stray in the futile building, while the cloud is no mansion for man, and out of reach of his limitations.
+
+The cloud, moreover, controls the sun, not merely by keeping the custody of his rays, but by becoming the counsellor of his temper.  The cloud veils an angry sun, or, more terribly, lets fly an angry ray, suddenly bright upon tree and tower, with iron-grey storm for a background.  Or when anger had but threatened, the cloud reveals him, gentle beyond hope. It makes peace, constantly, just before sunset.
+
+It is in the confidence of the winds, and wears their colours.  There is a heavenly game, on south-west wind days, when the clouds are bowled by a breeze from behind the evening.  They are round and brilliant, and come leaping up from the horizon for hours.  This is a frolic and haphazard sky.
+
+All unlike this is the sky that has a centre, and stands composed about it.  As the clouds marshalled the earthly mountains, so the clouds in turn are now ranged.  The tops of all the celestial Andes aloft are swept at once by a single ray, warmed with a single colour.  Promontory after league-long promontory of a stiller Mediterranean in the sky is called out of mist and grey by the same finger.  The cloudland is very great, but a sunbeam makes all its nations and continents sudden with light.
+
+All this is for the untravelled.  All the winds bring him this scenery. It is only in London, for part of the autumn and part of the winter, that the unnatural smoke-fog comes between.  And for many and many a day no London eye can see the horizon, or the first threat of the cloud like a man's hand.  There never was a great painter who had not exquisite horizons, and if Corot and Crome were right, the Londoner loses a great thing.
+
+He loses the coming of the cloud, and when it is high in air he loses its shape.  A cloud-lover is not content to see a snowy and rosy head piling into the top of the heavens; he wants to see the base and the altitude. The perspective of a cloud is a great part of its design--whether it lies so that you can look along the immense horizontal distances of its floor, or whether it rears so upright a pillar that you look up its mountain steeps in the sky as you look at the rising heights of a mountain that stands, with you, on the earth.
+
+The cloud has a name suggesting darkness; nevertheless, it is not merely the guardian of the sun's rays and their director.  It is the sun's treasurer; it holds the light that the world has lost.  We talk of sunshine and moonshine, but not of cloud-shine, which is yet one of the illuminations of our skies.  A shining cloud is one of the most majestic of all secondary lights.  If the reflecting moon is the bride, this is the friend of the bridegroom.
+
+Needless to say, the cloud of a thunderous summer is the most beautiful of all.  It has spaces of a grey for which there is no name, and no other cloud looks over at a vanishing sun from such heights of blue air.  The shower-cloud, too, with its thin edges, comes across the sky with so influential a flight that no ship going out to sea can be better worth watching.  The dullest thing perhaps in the London streets is that people take their rain there without knowing anything of the cloud that drops it.  It is merely rain, and means wetness.  The shower-cloud there has limits of time, but no limits of form, and no history whatever.  It has not come from the clear edge of the plain to the south, and will not shoulder anon the hill to the north.  The rain, for this city, hardly comes or goes; it does but begin and stop.  No one looks after it on the path of its retreat.
