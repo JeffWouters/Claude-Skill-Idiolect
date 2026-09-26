@@ -55,6 +55,7 @@ VALID = [
     ("manifest-entries", STORE / "profiles" / "sam" / "snapshots" / "2026-10-02T214100Z" / "manifest-entries.json"),
     ("lock", STORE / ".state" / "lock"),
     ("progress", STORE / ".state" / "progress.json"),
+    ("bridge", STORE / ".state" / "bridge.json"),
     ("pending", STORE / ".state" / "pending" / "plan.json"),
     ("check-report", ROOT / "tests" / "reports" / "pass.json"),
     ("global-metrics", ROOT / "idiolect" / "assets" / "global-metrics.json"),
