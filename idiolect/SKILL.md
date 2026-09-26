@@ -1,6 +1,6 @@
 ---
 name: idiolect
-description: Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as "rewrite this in my voice" or "tighten this" without those.
+description: Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, asks to test their profile against a held-out text of their own, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as "rewrite this in my voice" or "tighten this" without those.
 compatibility: Local route only in this version (Claude Code, or any session with a shell on the machine that holds the files). Needs Python 3.10+ with PyYAML, jsonschema, markdown-it-py, pdfminer.six and lingua-language-detector; scripts/check_env.py names anything missing.
 ---
 
@@ -16,9 +16,10 @@ a **store** outside this skill, and writes, rewrites and checks text in that voi
 | `learn` (and `dry-run=true`) | **Available** | `references/modes/learn.md` |
 | `forget`, `rollback`, `prune` | **Available** | `references/modes/maintain.md` |
 | `write`, `rewrite`, `check` | **Available** | `references/modes/write.md` |
+| `test` (holdout, drift, optional blind judging) | **Available** | `references/modes/test.md` |
 | `status` | **Available** | below |
 | `learn-edit`, `interview` | Not built yet (phase 5) | |
-| `test`, `export` | Not built yet (phases 4, 6) | |
+| `export` | Not built yet (phase 6) | |
 
 For a mode that is not built yet, say so plainly and offer what is available. Never imitate a mode
 by hand. Load a mode's procedure file before running it.
@@ -39,6 +40,7 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 | `interactive` | `true`, `false` | `true`; with `false` never ask, return the question instead |
 | `depth` | `voice`, `edit`, `full` (rewrite) | `voice` |
 | `report`, `explain` | `true`: return the check report; annotate choices with lesson ids | — |
+| `judge` | `true` (test): also a plain and a few-shot draft, ranked blind by the writer | — |
 | `since` | a year: writing from then on counts more (saved in the profile) | — |
 | `exclude`, `recursive` | globs to skip; `false` = only the folder's own files (saved in the rule) | — |
 | `to`, `keep` | rollback's snapshot; prune's number of snapshots to keep | latest; 10 |
@@ -85,6 +87,7 @@ the next learning run will first offer to resume or discard it (only resume if a
 - `scripts/stage.py --store S diff | decide | commit | resume | discard`: the proposal waiting for
   approval. Only the writer approves.
 - `scripts/measure.py --file <text> --lang en` gives the metrics of one text.
+- `scripts/holdout.py`: the `test` mode's steps (`references/modes/test.md`).
 - `scripts/lock.py` and `scripts/pending.py` inspect the lock and the pending area.
 
 ## Guardrails (always)

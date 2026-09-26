@@ -116,4 +116,8 @@ schema_version: 1
 | --- | --- | --- | --- | --- | --- | --- |
 ```
 
-One row per `test` run. `Blind picks` is `—` when no judge was used.
+One row per `test` run. `Holdout` is the first 12 characters of the held-out text's key. `Blind picks` is
+the writer's ranking of the arms, best first (`idiolect > fewshot > plain`), or `—` when no judge was
+used. `Drift` gives the profile's and the draft's drift against the held-out text (mean |ln ratio|, and
+how many metrics fall outside the slot's band), then the ratio of each primary metric, `!` marking one
+outside the band (spec §19).
