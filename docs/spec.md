@@ -159,7 +159,7 @@ Inside a block, line breaks become single spaces.
    of the pages (headers, footers) are removed; lines that are only a page number are always removed. A page with no text layer is flagged, never OCR'd
    in v1.
 4. **Mail** (phase 5, `.eml`; `.msg` when the optional `extract-msg` package is installed, else the
-   file is `skipped: needs extract-msg`): the `text/plain` part, or the `text/html` part as plain text
+   file is `skipped: not prose` with a note naming the package): the `text/plain` part, or the `text/html` part as plain text
    when there is none; the subject is not included; the `Date` header is the document date. Removed:
    quoted replies (lines starting `>`; from an "On … wrote:" line, a `-----Original Message-----` line
    or an Outlook `From:`/`Sent:` header block to the end) and signatures (from a line `-- `, or from a

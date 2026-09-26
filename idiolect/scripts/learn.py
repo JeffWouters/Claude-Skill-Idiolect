@@ -9,6 +9,7 @@ done by Claude following references/modes/learn.md, and their results come back 
     learn.py --store S answer --file answers.yaml    folder rules, per-file answers, new profiles
     learn.py --store S types                         texts whose type only the model can tell
     learn.py --store S set-types --file types.yaml   {key or path: type}
+    learn.py --store S mail-names --file names.yaml  names to redact in this run's mail texts
     learn.py --store S stage-texts                   corpus texts, ledger entries, status changes
     learn.py --store S measure                       fingerprints of affected slots
     learn.py --store S contrast-sample --profile P --slot K
@@ -165,7 +166,8 @@ def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=No
         for r in rows:
             t = parts.get(r["key"])
             info = {"path": path, "result": r["result"], "words": r["words"], "lang": r["lang"],
-                    "type": r["type"], "date": (ex.date if ex else None), "tags": ftags, "note": r.get("note")}
+                    "type": r["type"], "date": (ex.date if ex else None), "tags": ftags, "note": r.get("note"),
+                    "origin": (ex.meta.get("origin") if ex else None) or "file"}
             texts_dir = pending.work("texts", r["key"].replace("#", "-") + ".txt")
             if t is not None and r["result"] in LEARNABLE:
                 texts_dir.write_text(t.text, encoding="utf-8")
@@ -352,6 +354,20 @@ def set_types(store_root, file):
 
 # ---------- stage texts ----------
 
+def mail_names(store_root, file):
+    """Names of people and organisations to redact in this run's mail texts (spec §15.2); run before
+    stage-texts. An empty list records that the model looked and found none."""
+    run = Run(store_root)
+    names = load_yaml_text(pathlib.Path(file).read_text(encoding="utf-8")) or []
+    for n in names:
+        if not isinstance(n, dict) or not n.get("name"):
+            raise StoreError("each entry is {name: ..., placeholder: [person]|[client]|[employer]|[organisation]}")
+    run.state["mail_names"] = names
+    run.save()
+    mails = [i["path"] for i in run.state["texts"].values() if i.get("origin") == "mail"]
+    return {"names": len(names), "mail_texts": len(mails), "next": "learn.py stage-texts"}
+
+
 def stage_texts(store_root):
     run = Run(store_root)
     q = questions(run)
@@ -461,7 +477,8 @@ def stage_texts(store_root):
             facets[f] = (st["command"] or {}).get(f) or "_"
         profiles = {p: {"ownership": o, "decided": today, "decided_by": by} for p, (o, by) in decided.items()}
         owned = any(o == "own" for o, _ in decided.values())
-        create = {"path": info["path"], "date": _date(info["date"]), "origin": "file", "profiles": profiles,
+        origin = info.get("origin") or "file"
+        create = {"path": info["path"], "date": _date(info["date"]), "origin": origin, "profiles": profiles,
                   "facets": facets, "words": info["words"], "holdout": False, "status": "active",
                   "cached": owned}
         patches = [{"key": key, "create": create, "cache": owned}]
@@ -480,7 +497,14 @@ def stage_texts(store_root):
             summ += "; supersedes the earlier version"
         payload = {"manifest": patches, "record_needs": record_needs}
         if owned:
-            payload["corpus"] = {key: run.text(key)}
+            text = run.text(key)
+            if origin == "mail":
+                # other people's details in mail are redacted in the corpus too (spec §6.4, §15.3)
+                names = st.get("mail_names")
+                text, _ = redactmod.redact(text, names)
+                create["redaction"] = {"redacted": True, "version": redactmod.VERSION, "reviewed": names is not None}
+                summ += "; redacted" + ("" if names is not None else " (script pass only: give names with learn.py mail-names)")
+            payload["corpus"] = {key: text}
             pending.add("corpus-text", "add", f"corpus/{key.replace('#', '-')}.txt", summ, payload,
                         profile=sorted(decided)[0], ref=key)
         else:
@@ -1119,6 +1143,8 @@ def main(argv=None):
             out = types(s)
         elif act == "set-types":
             out = set_types(s, a.file)
+        elif act == "mail-names":
+            out = mail_names(s, a.file)
         elif act == "stage-texts":
             out = stage_texts(s)
         elif act == "measure":

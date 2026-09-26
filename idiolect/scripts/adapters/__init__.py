@@ -31,7 +31,13 @@ def extract(path):
     if ext == ".pdf":
         from . import pdf
         return pdf.extract(path)
+    if ext == ".eml":
+        from . import mailfile
+        return mailfile.extract_eml(path)
+    if ext == ".msg":
+        from . import mailfile
+        return mailfile.extract_msg(path)       # None without the optional extract-msg package
     return None
 
 
-HANDLED = (".md", ".markdown", ".docx", ".pdf")
+HANDLED = (".md", ".markdown", ".docx", ".pdf", ".eml", ".msg")

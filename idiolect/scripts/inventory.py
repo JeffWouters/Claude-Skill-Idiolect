@@ -155,8 +155,11 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
         if ex is None:
             if tags and not in_scope(relpath):
                 continue
-            rows.append({"path": relpath, "key": None, "result": "skipped: not prose",
-                         "words": None, "lang": None, "type": None})
+            row = {"path": relpath, "key": None, "result": "skipped: not prose",
+                   "words": None, "lang": None, "type": None}
+            if f.suffix.lower() == ".msg":
+                row["note"] = "needs the optional extract-msg package (pip install extract-msg)"
+            rows.append(row)
             continue
         ftags = ex.meta.get("tags") or []
         ftags = [ftags] if isinstance(ftags, str) else [str(t).lstrip("#") for t in ftags]

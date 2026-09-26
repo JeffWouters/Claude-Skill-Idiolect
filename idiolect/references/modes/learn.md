@@ -64,6 +64,14 @@ whole file or by `key` (as listed) for a segment, and run `learn.py set-types --
 
 ## 4. Stage texts and measure (script)
 
+**Mail first.** If the run has mail texts (`.eml`, `.msg`), read them and list the names of people
+and organisations other than the writer's own (`- {name: Jane Doe, placeholder: "[person]"}`, or
+`[client]`, `[employer]`, `[organisation]`; an empty list if there are none), then run
+`learn.py --store S mail-names --file names.yaml`. Mail is kept in the corpus redacted. Say that
+mails under about 150 words are skipped as too short, like any text, and that quoted replies and
+signatures are left out. A `.msg` file needs the optional `extract-msg` package; without it the
+inventory says so.
+
 ```
 python3 scripts/learn.py --store S stage-texts
 python3 scripts/learn.py --store S measure
