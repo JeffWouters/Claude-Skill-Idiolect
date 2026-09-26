@@ -10,6 +10,11 @@
     "schema_version": {
       "$ref": "common.schema.json#/$defs/schemaVersion"
     },
+    "last_id": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Highest id number ever used in this file; ids are never reused (spec §14.2)."
+    },
     "entries": {
       "type": "array",
       "items": {

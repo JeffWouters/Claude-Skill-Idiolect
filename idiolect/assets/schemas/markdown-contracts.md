@@ -15,6 +15,7 @@ slot: en.essay
 pooled: false
 built: 2026-10-02T21:40:00Z
 personal_data: none
+last_id: 12
 ---
 ## Confidence
 ## Stance
@@ -27,6 +28,8 @@ personal_data: none
 ## Seen once
 ```
 
+- `last_id` is the highest lesson number ever used in this file, so ids are never reused (spec §14.2).
+  The same field is in the frontmatter of the edit-lessons page and the examples page.
 - `## Confidence` is one line copied from the fingerprint, e.g. `medium (count: high, stability: medium)`.
   The fingerprint JSON is the source; the page is never edited to change it.
 - Every lesson under the other headings is one list item that starts with its id and ends in its

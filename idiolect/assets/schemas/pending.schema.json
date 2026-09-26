@@ -59,6 +59,8 @@
             "enum": [
               "corpus-text",
               "ownership",
+              "rule",
+              "profile",
               "status",
               "lesson",
               "edit-lesson",
@@ -66,10 +68,12 @@
               "vocabulary",
               "example",
               "fingerprint",
+              "never-list",
               "slot-page",
               "rejection",
               "holdout",
               "deletion",
+              "restore",
               "snapshot-prune"
             ]
           },

@@ -10,6 +10,11 @@
     "schema_version": {
       "$ref": "common.schema.json#/$defs/schemaVersion"
     },
+    "last_id": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Highest id number ever used in this file; ids are never reused (spec §14.2)."
+    },
     "entries": {
       "type": "array",
       "items": {
@@ -27,7 +32,15 @@
             "$ref": "common.schema.json#/$defs/id"
           },
           "slot": {
-            "$ref": "common.schema.json#/$defs/slotKey"
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/slotKey"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null for vocabulary, which is per profile."
           },
           "kind": {
             "enum": [

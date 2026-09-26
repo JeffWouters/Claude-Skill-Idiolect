@@ -195,52 +195,88 @@ def generalisations(key):
     return out
 
 
-def profile_texts(store, profile):
-    """(key, slot, text) for every text that feeds `profile` as own, active, cached, not holdout."""
+def profile_texts(entries, get_text, facet_names, profile):
+    """(key, slot, text, date) for every text that feeds `profile` as own, active, cached, not holdout."""
     out = []
-    for key, e in sorted(store.manifest["texts"].items()):
+    for key, e in sorted(entries.items()):
         rec = e["profiles"].get(profile)
         if not rec or rec["ownership"] != "own" or e["status"] != "active" or e.get("holdout") \
                 or not e.get("cached"):
             continue
-        out.append((key, slot_key(store.facets, e["facets"]), store.corpus_text(key)))
+        out.append((key, slot_key(facet_names, e["facets"]), get_text(key), e.get("date")))
+    return out
+
+
+def weighted(texts, since):
+    """since=<year>: texts dated in or after that year count twice in the measurement."""
+    if not since:
+        return texts
+    out = []
+    for key, text, date in texts:
+        out.append((key, text, date))
+        if date and str(date)[:4].isdigit() and int(str(date)[:4]) >= int(since):
+            out.append((key + "+", text, date))
+    return out
+
+
+def slot_texts(entries, get_text, facet_names, profile):
+    """{slot: {"pooled": bool, "texts": [(key, text, date)]}} including pooled generalisations."""
+    slots = {}
+    for key, slot, text, date in profile_texts(entries, get_text, facet_names, profile):
+        slots.setdefault(slot, {"pooled": False, "texts": []})["texts"].append((key, text, date))
+    for slot in [s for s, v in slots.items() if not v["pooled"]]:
+        for g in generalisations(slot):
+            slots.setdefault(g, {"pooled": True, "texts": []})["texts"].extend(slots[slot]["texts"])
+    for v in slots.values():
+        v["texts"] = sorted(set(v["texts"]), key=lambda t: t[0])
+    return slots
+
+
+def build_fingerprint(profile, slot, pooled, texts, since=None, primary=(), metric_list="global",
+                      contrast=None, built=None):
+    lang = slot.split(".")[0]
+    seed = slot_seed(profile, slot)
+    plain = [(k, t) for k, t, _ in texts]
+    conf, unstable, n_words = confidence(plain, lang, seed)
+    wt = weighted(texts, since)
+    vals = metrics("\n\n".join(t for _, t, _ in wt), lang)
+    fp = {"schema_version": 1, "profile": profile, "slot": slot, "pooled": pooled,
+          "metrics": {m: {"value": v, "overshoot": METRICS[m]["overshoot"],
+                          "shortfall": METRICS[m]["shortfall"], "primary": m in primary}
+                      for m, v in vals.items()},
+          "counts": {"texts": len(texts), "words": n_words},
+          "confidence": conf, "seed": seed, "metric_list": metric_list,
+          "built": built or iso(utcnow()), "personal_data": "none"}
+    if contrast:
+        fp["contrast"] = contrast
+    check_schema("fingerprint", fp, f"fingerprint {profile}/{slot}")
+    return fp, unstable
+
+
+def fingerprints_view(entries, get_text, facet_names, profile, only=None, since=None, keep=None):
+    """Fingerprints for every slot of `profile` given a manifest view. `keep` maps slot -> existing
+    fingerprint, whose primary flags and contrast block are carried over."""
+    out = []
+    built = iso(utcnow())
+    for slot, v in sorted(slot_texts(entries, get_text, facet_names, profile).items()):
+        if only and slot not in only:
+            continue
+        old = (keep or {}).get(slot) or {}
+        primary = [m for m, x in (old.get("metrics") or {}).items() if x.get("primary")]
+        fp, unstable = build_fingerprint(profile, slot, v["pooled"], v["texts"], since, primary,
+                                         old.get("metric_list", "global"), old.get("contrast"), built)
+        out.append({"fingerprint": fp, "unstable": unstable})
     return out
 
 
 def fingerprints(store, profile, only=None):
-    texts = profile_texts(store, profile)
-    slots = {}
-    for key, slot, text in texts:
-        slots.setdefault(slot, {"pooled": False, "texts": []})["texts"].append((key, text))
-    exact = list(slots)
-    for slot in exact:
-        for g in generalisations(slot):
-            s = slots.setdefault(g, {"pooled": True, "texts": []})
-            s["texts"].extend(slots[slot]["texts"] if not slots[slot]["pooled"] else [])
-    for s in slots.values():
-        s["texts"] = sorted(set(s["texts"]))
-    out = []
-    now = iso(utcnow())
-    for slot in sorted(slots):
-        if only and slot != only:
-            continue
-        s = slots[slot]
-        if not s["texts"]:
-            continue
-        lang = slot.split(".")[0]
-        seed = slot_seed(profile, slot)
-        conf, unstable, n_words = confidence(s["texts"], lang, seed)
-        vals = metrics("\n\n".join(t for _, t in s["texts"]), lang)
-        fp = {"schema_version": 1, "profile": profile, "slot": slot, "pooled": s["pooled"],
-              "metrics": {m: {"value": v, "overshoot": METRICS[m]["overshoot"],
-                              "shortfall": METRICS[m]["shortfall"], "primary": False}
-                          for m, v in vals.items()},
-              "counts": {"texts": len(s["texts"]), "words": n_words},
-              "confidence": conf, "seed": seed, "metric_list": "global",
-              "built": now, "personal_data": "none"}
-        check_schema("fingerprint", fp, f"fingerprint {profile}/{slot}")
-        out.append({"fingerprint": fp, "unstable": unstable})
-    return out
+    since = None
+    py = store.root / "profiles" / profile / "profile.yaml"
+    if py.exists():
+        from common import read_store_file
+        since = read_store_file(py, "profile").get("since")
+    return fingerprints_view(store.manifest["texts"], store.corpus_text, store.facets, profile,
+                             [only] if only else None, since)
 
 
 def main(argv=None):

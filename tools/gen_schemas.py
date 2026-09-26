@@ -226,6 +226,8 @@ def entry_list(title, item_props, required, extra=None):
         "required": ["schema_version", "entries"],
         "properties": {
             "schema_version": ref("schemaVersion"),
+            "last_id": {"type": "integer", "minimum": 0,
+                        "description": "Highest id number ever used in this file; ids are never reused (spec §14.2)."},
             "entries": {"type": "array", "items": {
                 "type": "object", "required": required,
                 "properties": item_props, "additionalProperties": False}}
@@ -261,7 +263,7 @@ vocabulary = entry_list("vocabulary.schema.json", {
 
 rejected = entry_list("rejected.schema.json", {
     "id": ref("id"),
-    "slot": ref("slotKey"),
+    "slot": {"oneOf": [ref("slotKey"), {"type": "null"}], "description": "null for vocabulary, which is per profile."},
     "kind": {"enum": ["observed", "edit", "vocabulary", "example"]},
     "text": {"type": "string", "minLength": 1},
     "normalised": {"type": "string", "minLength": 1,
@@ -415,9 +417,9 @@ pending = {
             "type": "object", "required": ["id", "kind", "op", "path", "summary", "decision"],
             "properties": {
                 "id": {"type": "string", "pattern": "^i-[0-9]{3,6}$"},
-                "kind": {"enum": ["corpus-text", "ownership", "status", "lesson", "edit-lesson", "ruling",
-                                  "vocabulary", "example", "fingerprint", "slot-page", "rejection",
-                                  "holdout", "deletion", "snapshot-prune"]},
+                "kind": {"enum": ["corpus-text", "ownership", "rule", "profile", "status", "lesson", "edit-lesson",
+                                  "ruling", "vocabulary", "example", "fingerprint", "never-list", "slot-page",
+                                  "rejection", "holdout", "deletion", "restore", "snapshot-prune"]},
                 "op": {"enum": ["add", "modify", "remove"]},
                 "profile": ref("profileName"),
                 "slot": ref("slotKey"),

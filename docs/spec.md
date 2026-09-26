@@ -241,7 +241,8 @@ Entries that do not feed the profile are never touched by its rollback.
    1. The engine regenerates each affected staged file from the **approved** items only. Staged files
       are never patched by hand.
    2. It writes the **journal**: the `commit` block of `plan.json`, listing every step in order, each
-      with state `todo`: first a `snapshot` step per affected profile (§11), then corpus texts, the
+      with state `todo`: first a `snapshot` step per affected profile (§11; not for `prune`, whose purpose is
+      removing snapshots), then corpus texts, the
       manifest, profile files, deletions and finally the `changelog` entry.
    3. It applies the journal in order, marking each step `done` after it. Every write is atomic
       (§1.4), so repeating a step is harmless; a snapshot step that finds its folder complete is done.
