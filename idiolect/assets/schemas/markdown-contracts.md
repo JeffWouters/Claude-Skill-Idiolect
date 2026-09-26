@@ -53,8 +53,9 @@ personal_data: none
 ## Seen once
 ```
 
-Each item starts with its id and ends in its evidence:
-`- [d-002] Cuts hedges before a claim. _(3 pairs: p-001, p-004, p-007)_`.
+Each item starts with its id and ends in its evidence, which names the kind of change first (spec §20):
+`- [d-002] Cuts hedges before a claim. _(cut-hedge; 3 pairs: p-001, p-004, p-007)_`.
+The kind is what ties the lesson to its pairs across relearns.
 
 ## Examples — `profiles/<profile>/<slot>.examples.md`
 

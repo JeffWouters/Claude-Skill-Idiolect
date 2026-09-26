@@ -158,8 +158,14 @@ Inside a block, line breaks become single spaces.
    joined without the hyphen. In a document of three or more pages, lines repeated on at least half
    of the pages (headers, footers) are removed; lines that are only a page number are always removed. A page with no text layer is flagged, never OCR'd
    in v1.
-4. **Mail** (phase 5): quoted replies (lines starting `>`, "On … wrote:" blocks) and signatures (from
-   a line `-- ` or a detected sign-off block to the end) are removed.
+4. **Mail** (phase 5, `.eml`; `.msg` when the optional `extract-msg` package is installed, else the
+   file is `skipped: needs extract-msg`): the `text/plain` part, or the `text/html` part as plain text
+   when there is none; the subject is not included; the `Date` header is the document date. Removed:
+   quoted replies (lines starting `>`; from an "On … wrote:" line, a `-----Original Message-----` line
+   or an Outlook `From:`/`Sent:` header block to the end) and signatures (from a line `-- `, or from a
+   sign-off line of at most four words ending in a comma, such as "Best," or "Kind regards,", in the
+   last eight lines, to the end). The entry's `origin` is `mail`; its cached text is redacted (§15)
+   and carries a `redaction` record.
 5. **Headings in measurement.** Headings stay in the cached text and the hash, but are not measured:
    see `references/fingerprint.md`.
 
@@ -354,6 +360,17 @@ Entries that do not feed the profile are never touched by its rollback.
 
 5. Rulings and vocabulary are merged across the whole chain (child entries override parent entries
    with the same id via `overrides`), whichever slot is returned.
+6. A profile whose `consent` is not `self` is not the writer's own. Rulings inherited from such a
+   profile are marked in `status` and listed at the top of every diff that touches a profile inheriting
+   them.
+7. **Adding a facet** (`migrate.py --add-facet <name>`, lock mode `migrate`, refused while a pending
+   area waits): the name is appended to `facets` in `idiolect.yaml` (`lang` and `type` stay first and
+   second; an existing name is refused). Every slot key gets `._` appended: slot files are renamed
+   (`<slot>.json`, `.md`, `.examples.md`, `.never.md`, `.edits.md`) and the `slot` inside them, in
+   `rulings.yaml`, `rejected.yaml` and edit pairs is rewritten; every manifest entry gets the facet
+   with `_`. Snapshots are upgraded the same way, so a rollback restores files this store can read.
+   Every changed file is copied first to `.state/migrations/<timestamp>/`, and each profile's changelog
+   gets one entry. Existing texts stay under `_` for the new facet until a learn gives them a value.
 
 ## 13. Confidence
 
@@ -510,4 +527,44 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    `assets/schemas/markdown-contracts.md`): date, profile, slot, the profile's latest snapshot, the
    held-out text's key, blind picks (`—` without a judge), and drift: profile and draft summaries and
    the ratio of each primary metric.
+
+## 20. learn-edit
+
+1. **Start** (`learn_edit.py start --draft D --final F [--profile P] [--type T]`, lock mode
+   `learn-edit`): neither version enters the corpus. The slot comes from the final version: `lang` by
+   §4.4, `type` from `--type` or the final version's frontmatter (without either: `needs_input`),
+   further facets from the command or `_`.
+2. **Changes.** Both versions are split into paragraphs and sentences (§17's sentence rule), and the
+   two sentence lists aligned (`difflib.SequenceMatcher`, whitespace collapsed). Every non-equal run is
+   one change `c-NNN` with the sentences before and after (empty for an insertion or a cut). No change:
+   refused. The diff is taken before redaction, so an edit to a name is still seen.
+3. **Redaction** (§15) of every `before` and `after`: the script pass, and the model's names with
+   `--names`. The pair is stored as `profiles/<P>/edits/p-NNN/pair.yaml` (schema `edit-pair`) with its
+   changes and redaction record; the draft and final texts themselves are not kept.
+4. **Kinds** (`learn_edit.py kinds --file kinds.yaml`): the model names the kind of each change, a slug
+   such as `cut-hedge` or `split-sentence` (`other` for a change with no pattern), and describes each
+   kind that has no edit lesson yet in one sentence ("Cuts hedges before a claim.").
+5. **Edit lessons**, rebuilt for the slot from every stored pair plus this one: a kind other than
+   `other` found in two or more pairs is an edit lesson, in one pair "Seen once". A kind keeps the id of
+   the existing lesson whose evidence names it; a new kind gets the next `d-` id (§14.2) and its
+   description. Evidence: `<kind>; N pairs: p-001, p-004`. A description whose normalised form matches a
+   rejection (kind `edit`, this slot or a parent's) is not proposed. Lessons already on the page are
+   never removed.
+6. **Items**: one `edit-pair` item and one `edit-lesson` item per lesson that is new or changed; each
+   edit lesson requires the pair, so rejecting the pair rejects them. Commit writes the pair and
+   `<slot>.edits.md`.
+7. A `learn` never rebuilds `edits/` or `<slot>.edits.md`; edit lessons survive every relearn.
+   `rollback` restores them with the rest of the profile.
+
+## 21. Interview
+
+1. **Start** (`interview.py start --profile P --lang L --type T`, lock mode `interview`): a learn run
+   with no inventory, for the slot `L.T` (further facets `_`).
+2. The model asks open questions one at a time that make the writer write in that kind of text
+   (an opinion, an explanation, a story from their work), never about the writer's private life.
+3. **Answers** (`interview.py add --file answer.md`): each answer of at least 150 words becomes a text:
+   `origin: interview`, `path: null`, dated today, the slot's facets, `own` for P decided by the writer,
+   cached. A shorter answer is refused (too little to measure); two short answers may be joined by the
+   writer into one. Dictated answers are taken as transcribed.
+4. Then the learn pipeline from measurement on (§9, learn.md steps 5 to 10), with the same approval.
 
