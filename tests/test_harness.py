@@ -68,7 +68,7 @@ def test_later_runs_use_only_fresh_paragraphs_and_the_caps(tmp_path, monkeypatch
     """Runs 5 and 6: the later holdout source, no paragraph of an avoided run's passage, per-author caps."""
     import json
     monkeypatch.setattr(harness, "RUNS", tmp_path)
-    old = sorted(p.name for p in (ROOT / "evals" / "runs").iterdir() if (p / "passages").exists())
+    old = ["20260926T133739Z", "20260926T144759Z", "20260926T144808Z", "20260926T154434Z"]
     for r in old:                                  # the real runs 1 to 4, as the runs to avoid
         (tmp_path / r / "passages").mkdir(parents=True)
         for f in (ROOT / "evals" / "runs" / r / "passages").glob("*.md"):
