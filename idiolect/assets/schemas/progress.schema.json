@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/progress.schema.json",
+  "title": ".state/progress.json — resumable batch progress",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "mode",
+    "target",
+    "batch_size",
+    "batches_done",
+    "done",
+    "started",
+    "updated"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z$"
+    },
+    "mode": {
+      "enum": [
+        "learn",
+        "interview"
+      ]
+    },
+    "target": {
+      "type": "string"
+    },
+    "batch_size": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+    },
+    "batches_done": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "done": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/relPath"
+      },
+      "description": "Source paths already through steps 1-4."
+    },
+    "started": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "updated": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    }
+  },
+  "additionalProperties": false
+}

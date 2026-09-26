@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/rejected.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "slot",
+          "kind",
+          "text",
+          "normalised",
+          "rejected"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "slot": {
+            "$ref": "common.schema.json#/$defs/slotKey"
+          },
+          "kind": {
+            "enum": [
+              "observed",
+              "edit",
+              "vocabulary",
+              "example"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "normalised": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Lower-case, punctuation removed, stop words from references/lang/<lang>/stopwords.txt removed, single spaces."
+          },
+          "rejected": {
+            "$ref": "common.schema.json#/$defs/date"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "title": "profiles/<name>/rejected.yaml"
+}

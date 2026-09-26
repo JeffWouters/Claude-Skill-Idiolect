@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/edit-pair.schema.json",
+  "title": "profiles/<name>/edits/<id>/pair.yaml — one stored edit pair",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "slot",
+    "date",
+    "redaction",
+    "changes"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "slot": {
+      "$ref": "common.schema.json#/$defs/slotKey"
+    },
+    "date": {
+      "$ref": "common.schema.json#/$defs/date"
+    },
+    "redaction": {
+      "$ref": "common.schema.json#/$defs/redaction"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "before",
+          "after"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^c-[0-9]{3,6}$"
+          },
+          "before": {
+            "type": "string"
+          },
+          "after": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "description": "Model-assigned category, e.g. cut-hedge, split-paragraph."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

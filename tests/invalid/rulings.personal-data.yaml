@@ -1,0 +1,3 @@
+schema_version: 1
+entries:
+  - {id: r-001, text: Always mention Jane at Contoso., origin: stated, created: "2026-10-02", personal_data: yes}

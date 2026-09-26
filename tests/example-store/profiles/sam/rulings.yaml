@@ -1,0 +1,8 @@
+schema_version: 1
+entries:
+  - id: r-001
+    text: Never use semicolons.
+    slot: null
+    origin: promoted
+    created: "2026-10-02"
+    personal_data: none

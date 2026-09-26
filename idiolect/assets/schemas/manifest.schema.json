@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/manifest.schema.json",
+  "title": "corpus/manifest.json — per-text ledger entries and corpus index",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "texts"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "texts": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "common.schema.json#/$defs/textKey"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "origin",
+          "ownership",
+          "profiles",
+          "facets",
+          "holdout",
+          "decided",
+          "status"
+        ],
+        "properties": {
+          "path": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/relPath"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null for interview answers and connector sources."
+          },
+          "date": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "origin": {
+            "enum": [
+              "file",
+              "interview",
+              "mail",
+              "web"
+            ]
+          },
+          "ownership": {
+            "$ref": "common.schema.json#/$defs/ownership"
+          },
+          "profiles": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "common.schema.json#/$defs/profileName"
+            }
+          },
+          "facets": {
+            "allOf": [
+              {
+                "$ref": "common.schema.json#/$defs/facetValues"
+              },
+              {
+                "required": [
+                  "lang",
+                  "type"
+                ]
+              }
+            ]
+          },
+          "words": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "holdout": {
+            "type": "boolean"
+          },
+          "decided": {
+            "$ref": "common.schema.json#/$defs/date"
+          },
+          "decided_by": {
+            "enum": [
+              "file",
+              "folder-rule",
+              "tag-rule",
+              "writer"
+            ],
+            "description": "Which ledger layer decided ownership: per-file answer beats folder or tag rule."
+          },
+          "status": {
+            "enum": [
+              "active",
+              "superseded",
+              "unreachable",
+              "forgotten"
+            ]
+          },
+          "superseded_by": {
+            "$ref": "common.schema.json#/$defs/textKey"
+          },
+          "cached": {
+            "type": "boolean",
+            "description": "true only for own texts; assisted and exclude keep hash and decision, no text."
+          },
+          "redaction": {
+            "$ref": "common.schema.json#/$defs/redaction"
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ownership": {
+                  "const": "own"
+                },
+                "status": {
+                  "const": "active"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "cached": {
+                  "const": true
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "ownership": {
+                  "enum": [
+                    "assisted",
+                    "exclude"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "cached": {
+                  "const": false
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "superseded"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "superseded_by"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "origin": {
+                  "const": "mail"
+                },
+                "ownership": {
+                  "const": "own"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "redaction"
+              ],
+              "description": "Other people's details in mail are redacted in the corpus too."
+            }
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1, "profile": "sam", "slot": "en.essay", "pooled": false,
+  "metrics": {
+    "sentence_length_sd": {"value": 11.8, "overshoot": 1.6, "shortfall": 0.6, "primary": true},
+    "rhetorical_questions_per_1k": {"value": 1.4, "overshoot": 2.0, "shortfall": 0.3, "primary": true},
+    "conjunction_openers_share": {"value": 0.19, "overshoot": 1.5, "shortfall": 0.5, "primary": false}
+  },
+  "counts": {"texts": 17, "words": 31200},
+  "confidence": {"level": "medium", "count_level": "high", "stability_level": "medium", "splits": 5},
+  "seed": 20261002, "metric_list": "contrast",
+  "contrast": {"sample_texts": ["76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa"], "corpus_words_at_sample": 31200, "fresh_context": true},
+  "built": "2026-10-02T21:40:00Z", "personal_data": "none"
+}

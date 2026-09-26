@@ -1,0 +1,6 @@
+schema_version: 1
+subject: Sam, the user
+consent: self
+extends: null
+since: null
+description: Sam's own voice

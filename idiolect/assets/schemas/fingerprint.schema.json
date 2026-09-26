@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/fingerprint.schema.json",
+  "title": "profiles/<name>/<slot>.json — slot fingerprint",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile",
+    "slot",
+    "pooled",
+    "metrics",
+    "counts",
+    "confidence",
+    "seed",
+    "metric_list",
+    "built",
+    "personal_data"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "slot": {
+      "$ref": "common.schema.json#/$defs/slotKey"
+    },
+    "pooled": {
+      "type": "boolean"
+    },
+    "metrics": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]{0,59}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "value",
+          "overshoot",
+          "shortfall",
+          "primary"
+        ],
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "overshoot": {
+            "type": "number",
+            "exclusiveMinimum": 1,
+            "description": "Flag when draft/writer ratio exceeds this, e.g. 2.0."
+          },
+          "shortfall": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "exclusiveMaximum": 1,
+            "description": "Flag when draft/writer ratio falls below this, e.g. 0.5."
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "texts",
+        "words"
+      ],
+      "properties": {
+        "texts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "words": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": "object",
+      "required": [
+        "level",
+        "count_level",
+        "stability_level"
+      ],
+      "properties": {
+        "level": {
+          "$ref": "common.schema.json#/$defs/confidenceLevel"
+        },
+        "count_level": {
+          "$ref": "common.schema.json#/$defs/confidenceLevel"
+        },
+        "stability_level": {
+          "$ref": "common.schema.json#/$defs/confidenceLevel"
+        },
+        "splits": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "metric_list": {
+      "enum": [
+        "global",
+        "contrast"
+      ],
+      "description": "global = phase-0 list; contrast = narrowed by this slot's contrast pass."
+    },
+    "contrast": {
+      "type": "object",
+      "properties": {
+        "sample_texts": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/textKey"
+          }
+        },
+        "corpus_words_at_sample": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fresh_context": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "built": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "personal_data": {
+      "const": "none"
+    }
+  },
+  "additionalProperties": false
+}

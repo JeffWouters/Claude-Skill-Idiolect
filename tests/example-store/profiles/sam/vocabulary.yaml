@@ -1,0 +1,4 @@
+schema_version: 1
+entries:
+  - {id: v-001, text: slow tools, kind: coinage, note: Sam's term for deliberately limited software, private: false, created: "2026-10-02"}
+  - {id: v-002, text: "[client]", kind: keep, private: true, created: "2026-10-02"}

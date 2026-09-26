@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/sources.schema.json",
+  "title": "sources.yaml — folder, file and tag rules of the ledger",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "title": "path rule (folder or single file)",
+            "required": [
+              "path",
+              "profile",
+              "ownership"
+            ],
+            "properties": {
+              "path": {
+                "$ref": "common.schema.json#/$defs/relPath"
+              },
+              "recursive": {
+                "type": "boolean",
+                "default": true
+              },
+              "profile": {
+                "$ref": "common.schema.json#/$defs/profileName"
+              },
+              "ownership": {
+                "$ref": "common.schema.json#/$defs/ownership"
+              },
+              "facets": {
+                "$ref": "common.schema.json#/$defs/facetValues"
+              },
+              "exclude": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/glob"
+                }
+              },
+              "decided": {
+                "$ref": "common.schema.json#/$defs/date"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "title": "tag rule",
+            "required": [
+              "tag",
+              "profile",
+              "ownership"
+            ],
+            "properties": {
+              "tag": {
+                "type": "string",
+                "pattern": "^[^\\s#][^\\s]*$",
+                "description": "Frontmatter tags: value or inline #tag, without the #."
+              },
+              "profile": {
+                "$ref": "common.schema.json#/$defs/profileName"
+              },
+              "ownership": {
+                "$ref": "common.schema.json#/$defs/ownership"
+              },
+              "facets": {
+                "$ref": "common.schema.json#/$defs/facetValues"
+              },
+              "exclude": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/glob"
+                }
+              },
+              "decided": {
+                "$ref": "common.schema.json#/$defs/date"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/glob"
+      }
+    }
+  },
+  "additionalProperties": false
+}

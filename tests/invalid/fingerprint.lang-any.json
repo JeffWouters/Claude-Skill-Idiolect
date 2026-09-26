@@ -1,0 +1,4 @@
+{"schema_version": 1, "profile": "sam", "slot": "_.essay", "pooled": true,
+ "metrics": {"x": {"value": 1, "overshoot": 2, "shortfall": 0.5, "primary": true}},
+ "counts": {"texts": 1, "words": 10}, "confidence": {"level": "low", "count_level": "low", "stability_level": "low"},
+ "seed": 1, "metric_list": "global", "built": "2026-10-02T21:40:00Z", "personal_data": "none"}

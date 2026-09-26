@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/profile.schema.json",
+  "title": "profiles/<name>/profile.yaml",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "subject",
+    "consent"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Whose voice this is."
+    },
+    "consent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "'self' for the user's own voice; otherwise a record of the subject's consent, or 'public-domain fixture, evaluation only'."
+    },
+    "extends": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/profileName"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "since": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2200
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Writing from this year onward is weighted more."
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

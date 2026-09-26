@@ -1,0 +1,2 @@
+{"schema_version": 1, "texts": {"c14b910378020399b3acb1a97bed77d1895ec066eea482b17639810b5df65efd": {"path": "../secret/x.md", "origin": "file", "ownership": "own", "profiles": ["sam"],
+ "facets": {"lang": "en", "type": "essay"}, "holdout": false, "decided": "2026-10-02", "status": "active", "cached": true}}}

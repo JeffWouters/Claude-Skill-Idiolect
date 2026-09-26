@@ -1,0 +1,8 @@
+schema_version: 1
+id: p-001
+slot: en.essay
+date: "2026-10-09"
+redaction: {redacted: true, version: "1.0", reviewed: true}
+changes:
+  - {id: c-001, before: "It is perhaps worth noting that", after: "", kind: cut-hedge}
+  - {id: c-002, before: "and then, after that, we", after: "then we", kind: tighten}

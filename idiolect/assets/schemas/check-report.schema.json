@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/check-report.schema.json",
+  "title": "Output of check (and of write/rewrite with report=true)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "low_confidence",
+        "no_slot",
+        "no_store",
+        "needs_input",
+        "error"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string",
+      "description": "Present when status is needs_input."
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "slot": {
+      "$ref": "common.schema.json#/$defs/slotKey"
+    },
+    "confidence": {
+      "$ref": "common.schema.json#/$defs/confidenceLevel"
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "draft",
+          "writer",
+          "ratio",
+          "flag"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "number"
+          },
+          "writer": {
+            "type": "number"
+          },
+          "ratio": {
+            "type": "number"
+          },
+          "flag": {
+            "enum": [
+              "ok",
+              "overshoot",
+              "shortfall"
+            ]
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "flagged_lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "line",
+          "text",
+          "reason"
+        ],
+        "properties": {
+          "line": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "text": {
+            "type": "string"
+          },
+          "lesson": {
+            "type": "string",
+            "description": "Id or slug of the lesson, ruling or never-list marker broken."
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "needs_input"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "question"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "low_confidence"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "profile",
+          "slot",
+          "confidence",
+          "metrics"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "no_slot",
+              "no_store",
+              "error"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "message"
+        ]
+      }
+    }
+  ]
+}

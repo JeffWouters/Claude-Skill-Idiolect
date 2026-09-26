@@ -1,0 +1,2 @@
+{"schema_version": 1, "texts": {"2b413714040f79bfb001d8ef52f25e0a0e3644a8d4d274a1b41af2dc98cba09d": {"path": "Published/x.md", "origin": "file", "ownership": "own", "profiles": ["sam"],
+ "facets": {"lang": "en", "type": "essay"}, "holdout": false, "decided": "2026-10-02", "status": "superseded", "cached": true}}}

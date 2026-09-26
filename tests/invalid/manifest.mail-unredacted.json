@@ -1,0 +1,2 @@
+{"schema_version": 1, "texts": {"a983f58ef9ef755c4e5e3755f10cf3e08d9b189b388bcb59d29b56d35d7d6b9d": {"path": "Mail/x.eml", "origin": "mail", "ownership": "own", "profiles": ["sam"],
+ "facets": {"lang": "nl", "type": "email"}, "holdout": false, "decided": "2026-10-02", "status": "active", "cached": true}}}

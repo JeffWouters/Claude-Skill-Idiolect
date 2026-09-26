@@ -1,0 +1,5 @@
+schema_version: 1
+sources_root: C:/Users/sam/Writing
+facets: [lang, type]
+types: [essay]
+default_profile: sam

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/lock.schema.json",
+  "title": ".state/lock — held by any store-writing mode",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mode",
+    "started",
+    "heartbeat"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "mode": {
+      "enum": [
+        "learn",
+        "learn-edit",
+        "interview",
+        "forget",
+        "rollback",
+        "prune",
+        "test"
+      ]
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "started": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "heartbeat": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "pending": {
+      "type": "boolean",
+      "description": "A pending area exists; the lock is not stale while true."
+    }
+  },
+  "additionalProperties": false
+}

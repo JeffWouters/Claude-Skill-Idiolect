@@ -1,0 +1,4 @@
+schema_version: 1
+subject: Acme Ltd company voice
+consent: authorised by the writer on 2026-10-02
+extends: sam

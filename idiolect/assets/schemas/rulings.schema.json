@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/rulings.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "origin",
+          "created",
+          "personal_data"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "slot": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/slotKey"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = applies to every slot."
+          },
+          "overrides": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/id"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Id of a parent profile's ruling this replaces."
+          },
+          "origin": {
+            "enum": [
+              "stated",
+              "promoted"
+            ]
+          },
+          "created": {
+            "$ref": "common.schema.json#/$defs/date"
+          },
+          "personal_data": {
+            "const": "none"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "title": "profiles/<name>/rulings.yaml"
+}

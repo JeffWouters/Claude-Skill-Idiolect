@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/pending.schema.json",
+  "title": ".state/pending/plan.json — what a run proposes, awaiting approval",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "mode",
+    "created",
+    "changes"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z$"
+    },
+    "mode": {
+      "enum": [
+        "learn",
+        "learn-edit",
+        "interview",
+        "forget",
+        "rollback",
+        "prune",
+        "test"
+      ]
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/profileName"
+      }
+    },
+    "created": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "op",
+          "path"
+        ],
+        "properties": {
+          "op": {
+            "enum": [
+              "add",
+              "modify",
+              "remove"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "description": "Store-relative path; the proposed file lives at .state/pending/<path>."
+          },
+          "summary": {
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "default": "pending"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

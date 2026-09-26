@@ -1,0 +1,17 @@
+schema_version: 1
+sources:
+  - path: Published
+    profile: sam
+    ownership: own
+    recursive: true
+    decided: "2026-10-02"
+  - path: Mail
+    profile: sam
+    ownership: own
+    facets: { lang: nl, type: email }
+    exclude: ["*Accepted*", "*Declined*"]
+  - tag: essay-final
+    profile: sam
+    ownership: own
+exclude:
+  - "**/_archive/**"
