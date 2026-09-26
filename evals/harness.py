@@ -13,6 +13,7 @@ drafts, judgments and recognition answers into the run folder.
     python3 evals/harness.py import-judge --run R --scratch DIR   verdicts and recognition back, real ids
     python3 evals/harness.py score    --run R          results.md and results.json
     python3 evals/harness.py pool     --runs R1,R2     the pooled binomial check over runs
+    python3 evals/harness.py spotcheck --run R         a seeded 10% of judgments for a person to mark
 
 Run layout: passages/<id>.md, briefs/<id>.md, drafts/{plain,fewshot,idiolect}/<id>.md,
 judge/<id>.md (packet) and judge/<id>.json (verdict), recognition/<id>.json, key.json, results.md.
@@ -177,6 +178,8 @@ def prepare(run, scratch):
     (scratch / "fewshot").mkdir()
     for k in KINDS:
         (scratch / "out" / k).mkdir(parents=True)
+        for w in alias.values():
+            (scratch / "work" / f"{k}-{w}").mkdir(parents=True)     # each generator's own folder
     anon = {}
     for p in m["passages"]:
         aid = f"{alias[p['author']]}-{p['id'].rsplit('-', 1)[1]}"
@@ -292,6 +295,36 @@ def import_judge(run, scratch):
     print(json.dumps(dict(n)))
 
 
+def spotcheck(run, share=0.10):
+    """A seeded 10% of judgments (at least one per author) laid out for a person to mark agree or
+    disagree (eval-protocol.md, role 6): packet, the judge's ranking and reasons, the key hidden."""
+    d = run_dir(run)
+    m = meta(d)
+    rng = random.Random(m["seed"] + 3)
+    by = collections.defaultdict(list)
+    for p in m["passages"]:
+        if (d / "judge" / f"{p['id']}.json").exists():
+            by[p["author"]].append(p["id"])
+    n = max(len(by), math.ceil(share * sum(len(v) for v in by.values())))
+    pick = [rng.choice(sorted(v)) for _, v in sorted(by.items())]
+    rest = sorted(i for v in by.values() for i in v if i not in pick)
+    rng.shuffle(rest)
+    pick += rest[: n - len(pick)]
+    L = [f"# Spot-check, run {run}", "",
+         f"{len(pick)} of {sum(len(v) for v in by.values())} judgments, chosen by seed, at least one per author. "
+         "For each: read the passage and drafts A, B, C, then the judge's ranking. Mark **agree** if the "
+         "draft ranked first is, in your view, the one that reads most like the passage's author "
+         "(voice, not content), otherwise **disagree**. More than 20% disagreement invalidates the run.", ""]
+    for pid in sorted(pick):
+        v = json.loads((d / "judge" / f"{pid}.json").read_text())
+        L += ["---", "", f"## {pid}", "", "Your mark: agree / disagree", "",
+              f"**Judge's ranking:** {', '.join(v['ranking'])}", ""]
+        L += [f"- {lab}: {v.get('reasons', {}).get(lab, '')}" for lab in v["ranking"]]
+        L += ["", (d / "judge" / f"{pid}.md").read_text(encoding="utf-8").replace("# Judge packet", "### Packet"), ""]
+    (d / "spotcheck.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    print(f"{len(pick)} judgments in {d / 'spotcheck.md'}")
+
+
 def strip_notes(text):
     """Only the draft goes to the judge: drop an appended report, explain notes or a title line."""
     text = re.split(r"\n(?:---\n|#+ (?:Check|Report|Notes|Explain)|\{\n)", text)[0]
@@ -387,7 +420,7 @@ def pool(runs):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("action", choices=["new", "overlap", "prepare", "collect", "lengths", "shuffle",
-                                       "export-judge", "import-judge", "score", "pool"])
+                                       "export-judge", "import-judge", "score", "pool", "spotcheck"])
     ap.add_argument("--run")
     ap.add_argument("--runs")
     ap.add_argument("--scratch")
@@ -409,6 +442,8 @@ def main():
         export_judge(a.run, a.scratch)
     elif a.action == "import-judge":
         import_judge(a.run, a.scratch)
+    elif a.action == "spotcheck":
+        spotcheck(a.run)
     elif a.action == "score":
         score(a.run)
     else:
