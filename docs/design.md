@@ -42,7 +42,8 @@ Updated 26 September 2026 · JeffOps · diagrams as JeffOps cards in `idiolect-d
 | Edit lesson | A pattern from stored edit pairs supported by at least two pairs; rebuilt from the edit store, never lost; id `d-002` |
 | Seen once | A pattern with one supporting text or pair, kept until a second confirms it |
 | Ruling | A rule the writer states directly, with an id. Never changed by learning |
-| Vocabulary | Terms, spellings and coinages kept exactly, each with an id |
+| Vocabulary | Forms (terms, spellings and coinages, written exactly this way whenever they are used) and favoured phrases (with a measured rate, never required), each with an id |
+| Bunched habit | A countable habit (hedges, semicolons, dashes, colons, contractions, favoured phrases) used in one paragraph far above the writer's rate; flagged by `check` |
 | Rejection | A proposal the writer turned down; never proposed again unless the writer removes it |
 | Example bank | Redacted real passages per slot, used as style references, never as content |
 | Redaction | Replacing names, addresses and organisation details with placeholders such as `[client]`; recorded per item |
@@ -127,7 +128,7 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 | `forget` | A source, optionally a profile and a new ownership | Removes a text from one profile or all of them, or reclassifies it (`ownership=own` also brings back a forgotten text); the cached text is deleted once no profile owns it; examples taken from it are removed and affected slots re-measured (lessons refresh at the next learn) | After approval, as a whole |
 | `write` | A brief | Drafts from the resolved slot | Nothing |
 | `rewrite` | A text | Rewrites within `depth` | Nothing |
-| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot per metric, and fails the draft when 4 or more of the 14 metrics are flagged (a fixed share of the list) | Nothing |
+| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot per metric, and fails the draft when 4 or more of the 14 metrics are flagged (a fixed share of the list); also flags bunched habits per paragraph | Nothing |
 | `test` | A holdout text, plus a topic-only brief | Flags the text as holdout through an approved diff; if it was already learned, affected slots are relearned first. Then generates from the brief in a context that never sees the text, and records per-metric drift | Holdout flag after approval; a row in `eval/results.md` |
 | `status` | Optionally a profile | Active store, slots, counts, confidence, rejections, inherited rulings, unreachable sources | Nothing |
 | `rollback` | A profile, optionally `to=` | Restores a snapshot of the profile after showing the diff; takes a snapshot first; removes slot files created after the restored snapshot; restores only this profile's ownership records, statuses and holdout flags, re-extracting a text whose cache was deleted when its file still matches. A text another profile also uses keeps its status | After approval, as a whole |
@@ -141,9 +142,9 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 ### Write and rewrite, step by step
 
 1. Find the store; resolve profile and slot with the resolution order under Facets. Say which slot and profile were used.
-2. Load only: the slot page and edit lessons, fingerprint, never-list, the merged rulings and vocabulary (capped in size), and the top three example passages for the topic, chosen by a script. Never the corpus, never the whole example bank.
-3. Draft. On a rewrite, respect `depth`: `voice` never adds, drops or reorders sections; structural ideas are listed separately. A rewrite into another language is refused.
-4. Run `check` and fix drift in both directions.
+2. Load only: the slot page and edit lessons, fingerprint, never-list, the merged rulings and vocabulary (capped in size), and the top three example passages for the topic, chosen by a script. Never the corpus, never the whole example bank. The kit puts the **example passages first**: they show the voice. The lessons follow as notes on what the examples show, each with **how many of the slot's texts show it** ("seen in 3 of 7 texts"), then favoured phrases with their rate, forms, the never-list and the measurable targets. Rulings are always shown.
+3. Draft. On a rewrite, respect `depth`: `voice` never adds, drops or reorders sections; structural ideas are listed separately. A rewrite into another language is refused. **Habits are sampled, not stacked:** a lesson seen in at least half of the slot's texts is the writer's default; one seen in fewer is optional and usually left out; no piece uses every lesson; a favoured phrase appears at most about as often as its rate allows, and never as a requirement.
+4. Run `check` and fix drift in both directions, and any bunched habit it names.
 5. Return the text, with the report or `explain` notes when asked. When confidence is low, say so. Where a fact or example is missing, leave a placeholder.
 
 ## Worked example
@@ -236,7 +237,7 @@ An adapter turns one kind of source into clean text plus metadata (date, path, d
 | Observed lesson | The corpus | `<slot>.md` | Rebuilt from the corpus |
 | Edit lesson | Stored edit pairs | `<slot>.edits.md`, evidence in `edits/` | Rebuilt from `edits/`; never lost |
 | Ruling | The writer | `rulings.yaml` | Never touched |
-| Vocabulary | Proposed by learn, approved by the writer | `vocabulary.yaml` | Kept; new entries proposed |
+| Vocabulary | Proposed by learn, approved by the writer | `vocabulary.yaml` | Kept; new entries proposed; favoured phrases' rates re-measured |
 | Rejection | The writer declining a proposal | `rejected.yaml` | Filters every later proposal |
 
 - **Two before it counts.** An observed lesson needs two supporting texts; an edit lesson needs two stored pairs. Anything with one stays under "Seen once". This is about single lessons; confidence is about the whole slot.
@@ -245,7 +246,7 @@ An adapter turns one kind of source into clean text plus metadata (date, path, d
 - **Stable ids.** Every lesson carries an id: `l-` for observed lessons, `d-` for edit lessons. A relearned lesson whose normalised form matches an existing one keeps its id, so rulings promoted from it and rejections of it keep pointing at the same lesson. Ids are never reused.
 - **Rejections.** Each entry holds the slot, the lesson text, the id it rejects and a normalised form (lower-case, punctuation and stop words removed) for exact matching. The model flags probable rewordings for the writer rather than dropping them. `status` lists rejections; deleting an entry lifts it.
 - **Promotion and retirement.** A lesson the writer calls "always" or "never" becomes a ruling, which records the lesson it came from. An observed lesson that no longer holds drops out, visibly in the diff.
-- **Vocabulary is binding** in write and rewrite.
+- **Forms are binding, favoured phrases are not.** A form (`term`, `spelling`, `coinage`) fixes how a word is written whenever it is used; it never requires using it. A favoured phrase (`phrase`) records how often the writer uses it (per 1,000 words, and in how many texts), measured by script; write uses it at most at that rate.
 
 ![Lesson precedence: rulings outrank edit lessons, which outrank observed lessons from the corpus; a pattern seen once becomes a lesson when a second text or pair confirms it; rejections block matching proposals.](idiolect-design-images/06-lessons.png)
 
@@ -429,7 +430,7 @@ exclude:
 
 Every store file has a schema in `schemas/` (JSON Schema for YAML and JSON files, a heading contract for Markdown pages):
 
-- `rulings.yaml`, `vocabulary.yaml`, `rejected.yaml`: lists of entries with `id` and `text`; vocabulary entries may be `private: true`; rejections add `slot`, `normalised` and the id they reject; promoted rulings name the lesson they came from.
+- `rulings.yaml`, `vocabulary.yaml`, `rejected.yaml`: lists of entries with `id` and `text`; vocabulary entries have a `kind` (`term`, `spelling`, `coinage` or `phrase`; schema version 2, see Schemas and migrations), phrases a measured `rate`, and may be `private: true`; rejections add `slot`, `normalised` and the id they reject; promoted rulings name the lesson they came from.
 - `.state/pending/plan.json`: the proposal, one approvable item per lesson, text, decision or deletion, and once approval starts a commit journal, so an interrupted commit resumes instead of leaving a half-written store (spec §9).
 - `snapshots/<timestamp>/manifest-entries.json`: the manifest entries that fed the profile at snapshot time, with their own schema.
 - Fingerprint JSON: metrics with value, overshoot and shortfall thresholds (ratios to the writer's value) and a primary flag; counts; confidence with count and stability parts; seed.
@@ -465,7 +466,7 @@ Part of the engine; they apply to every profile and route.
 - **Say how sure it is.** A `low` slot is flagged in every draft.
 - **Approval before anything is learned.** Corpus, ledger and lessons change only through an approved diff; every approved change can be rolled back.
 - **Deleting is rare and asked for.** Only `forget`, `rollback` and `prune` delete, each after an approved diff and with delete permission where the environment requires it.
-- **No caricature.** `check` flags overshoot as well as shortfall, per metric; sparse metrics (colons, dashes, contractions and the like) flag overshoot only, since leaving one out says nothing.
+- **No caricature.** `check` flags overshoot as well as shortfall, per metric; sparse metrics (colons, dashes, contractions and the like) flag overshoot only, since leaving one out says nothing. Because over-application is local, `check` also flags **bunched habits**: in any paragraph of 40 words or more, a countable habit (hedges, semicolons, dashes, colons, contractions, and the writer's favoured phrases together) used at least 3 times where the writer's rate makes that count unlikely (Poisson tail below 1%); and over the whole text, the favoured phrases together used at least twice where their rates make that unlikely (same test). A bunch is a revision trigger in write, not a fail by itself.
 - **Depth is a promise.** `depth=voice` changes sentences only.
 - **Privacy.** Every exportable item carries a privacy record. In mail texts, other people's details are redacted in the corpus too. The corpus never leaves the store, and `export` refuses any item without a privacy record. The engine warns when the store sits in a cloud-synced folder, and, on the bridged route, before copying source text to the cloud workspace.
 - **Other people's words stay theirs.** Quotes and forwarded text are stripped before learning and left untouched when rewriting.
@@ -516,7 +517,7 @@ Evaluation material (fixtures, briefs, `eval-protocol.md`, scripted edit pairs) 
 
 Written down in `evals/eval-protocol.md` before any evaluation runs, and run in Claude Code or Cowork, where separate agents are available.
 
-- **Fixture authors.** Lesser-known public-domain authors, supplemented by synthetic authors (distinct invented writing personas, labelled as synthetic). Before use, the judge is asked whether it recognises the author from a held-out text; a recognised author is replaced. Living writers are not used, because that would need their consent.
+- **Fixture authors.** Lesser-known public-domain authors, supplemented by synthetic authors (distinct invented writing personas, labelled as synthetic). Before use, each candidate is **screened per passage**: separate fresh agents each see one ~300-word passage (at least four per author) and are asked whether they recognise the author. An author recognised at medium confidence or higher in more than one passage in four is not used. During a run, every passage gets its own recognition check and recognised briefs are excluded from the score. Living writers are not used, because that would need their consent.
 - **Two baselines per brief:** a plain draft, and a few-shot draft given the same three example passages but no profile.
 - **Briefs.** A separate brief-writer agent reads the held-out passage and writes a topic-only brief of at most 60 words in its own words; a script rejects any brief sharing a run of four or more words with the passage, ignoring stop words. The generating runs never have the held-out text or its path in context. Full procedure in `evals/eval-protocol.md`, including a person spot-checking 10% of judgments and a pass having to hold over two separate runs.
 - **Judge.** For fixtures, a separate agent using skill-creator's comparator sees a held-out text by the author and the shuffled drafts, and picks the closest; a person spot-checks its picks. For a writer's own profile, the writer judges, with drafts labelled A/B/C and a hidden key.
@@ -550,6 +551,9 @@ General requests such as "rewrite this in my voice" or "tighten this" are left t
 ### Schemas and migrations
 
 Every store file has a schema and `schema_version`. A format change ships with a migration.
+
+- `scripts/migrate.py --store S` upgrades every store file whose `schema_version` is older than the engine's, one version step at a time, under the lock. It copies each file it changes to `.state/migrations/<timestamp>/` first, so an upgrade can be undone by hand, and records the upgrade in each affected profile's changelog. Scripts that meet an older file stop with a message naming `migrate.py`; they never upgrade silently.
+- Versions so far: every file is at version 1 except `vocabulary.yaml`, at version 2. The step from 1 to 2 renames `kind: keep` to `kind: phrase` and measures each phrase's rate on the profile's own cached texts.
 
 ### Scripts and model
 
@@ -670,6 +674,11 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Non-goals (authorship detection, voice score, blending, auto-relearn, story bank, translation, concurrent learns, imitation without consent) | Each adds risk or false precision without improving the writing |
 | Name: Idiolect | The linguistic term for one person's language; distinct triggers |
 | Runs alongside my-writing-style, with narrow triggers | The existing skill keeps handling general voice requests; Idiolect triggers only on learning, profiles, checks and explicit use, so the two never compete |
+| Kit shows how many texts show each lesson; habits are sampled, not stacked | Run 1 (`evals/runs/20260926T133739Z`): the kit dropped the counts, so every lesson read as a rule for every piece and drafts used all of them at once. Judges preferred few-shot in 33 of 57 briefs and called the Idiolect drafts a thicker imitation than the author |
+| Example passages lead the kit; lessons are notes on them | The few-shot baseline, with the same passages and nothing else, read more like the author than drafts built from a list of habits |
+| Vocabulary split into forms (binding) and favoured phrases (measured rate, never required); vocabulary schema v2 with `migrate.py` | Habit phrases filed as vocabulary under "use exactly as written" were put into every draft. A form fixes spelling; a phrase is a habit with a rate |
+| `check` flags bunched habits per paragraph (3 or more uses, Poisson tail below 1%) and overused favoured phrases over the whole text (2 or more, same test) | Over-application is local: whole-draft averages passed every Idiolect draft in run 1 while judges called them caricatures. On run 1's material the paragraph test flags 2 of 57 genuine passages and no draft; the phrase test flags 1 of 47 genuine passages and 6 of 47 Idiolect drafts, which used favoured phrases at a median 3.6 times the writer's rate. The measurable guard catches a minority; the kit's framing is the main fix |
+| Fixture authors screened per passage; kept only when at most one passage in four is recognised at medium or higher | A single-passage check per author missed that 27 of 37 real-author passages in run 1 were recognised. Alexander Smith, Alice Meynell and A. C. Benson were retired; Robert Cortes Holliday and Katharine Fullerton Gerould were added |
 
 ## Open questions
 
