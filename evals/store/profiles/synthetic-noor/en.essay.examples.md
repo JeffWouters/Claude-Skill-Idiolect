@@ -4,36 +4,28 @@ profile: synthetic-noor
 slot: en.essay
 last_id: 4
 examples:
-- profile: synthetic-noor
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: cf522b12da7f3f023cbed3fe6039ddcc83dbf939596a59746d0f8684f8e4350a
   habit: short-sentence process with a lesson learned
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-noor
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: aaed112c5fdf1cd15faf61b363014673c718a8e321722969d3050cb66c600853
   habit: second-person instructions with numbers and a rule of thumb
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-noor
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 437d17afc9fbc5e422716cf39fd1dc22c45c3ef5b8e794d8be2362776741fec8
   habit: parallel short sentences and understated self-assessment
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-noor
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: e12d84260dc2affc2928c9d6c9620ef373efe401a89db0661782aebfb3459f74
   habit: verbless fragments listing concrete detail
   redaction:

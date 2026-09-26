@@ -4,45 +4,35 @@ profile: arthur-christopher-benson
 slot: en.essay
 last_id: 5
 examples:
-- profile: arthur-christopher-benson
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: 557aa83b4e4b29e00b981a03573bd099ec6ef48ea64ae20b2fc4d81c3b3428fd
   habit: extended homely metaphor for a mind
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: arthur-christopher-benson
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: 45912c17786fdb6d22ae25a2643cc666678b8de387ff3125bf737a69ca4a766d
   habit: rhetorical question then hedged verdict
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: arthur-christopher-benson
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 772c20a41b176720705acb13ab4ffec4a04c397165c41ccbd659f7f5604dfd28
   habit: confessional anecdote opening with exclamation
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: arthur-christopher-benson
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: 0ddf4820d0d96c83d46378ba5915fb60baa979a8e48b2c1087e20941445f3f49
   habit: triad of foreign adjectives closing a point
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: arthur-christopher-benson
-  slot: en.essay
-  id: e-005
+- id: e-005
   source: 1459a962cbd29605c595317b1b5a3ef8903d33c1f3a0f5a95a9de85c12a3506a
   habit: first-person statement of intent with qualifying simile
   redaction:

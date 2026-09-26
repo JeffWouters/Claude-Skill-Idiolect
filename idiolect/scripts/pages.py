@@ -93,7 +93,8 @@ def parse_examples(text):
 
 def render_examples(meta, examples):
     meta = dict(meta)
-    meta["examples"] = [{k: v for k, v in e.items() if k != "text"} for e in sorted(examples, key=lambda e: e["id"])]
+    keep = ("id", "source", "habit", "redaction")      # markdown-contracts.md
+    meta["examples"] = [{k: e[k] for k in keep if k in e} for e in sorted(examples, key=lambda e: e["id"])]
     sections = [(e["id"], [e["text"]]) for e in sorted(examples, key=lambda e: e["id"])]
     if not sections:
         return join_page(meta, [])

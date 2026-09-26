@@ -4,45 +4,35 @@ profile: alice-meynell
 slot: en.essay
 last_id: 5
 examples:
-- profile: alice-meynell
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: 8af11e353ff7b5a83bd9b2326d6ed9bccb11fd715c0f09334c3395e698a32674
   habit: 'Anaphora: a run of sentences opening "It has"'
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alice-meynell
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: 79a7baf745248631f53c67b507c226363988a240e8e1ebeca5210dee788dcc34
   habit: Short declaratives and rhetorical questions after long periodic sentences
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alice-meynell
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 47f343b306dcb95a45c365bc3e56989430d5544012c6b96453c093da7991a465
   habit: Turns a concrete observance into a lesson for writers
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alice-meynell
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: 9349320fb27e7147d5f1c8f8387fe01548eddc87577fc2b9cfa363b6bdb747dc
   habit: Clustered rhetorical questions and dash self-correction
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alice-meynell
-  slot: en.essay
-  id: e-005
+- id: e-005
   source: 7b3495c2b5b19c72528b15f647bb6ca24157671b81204e22f4ed98626e4ea255
   habit: Dry irony closed by a short, flat sentence
   redaction:

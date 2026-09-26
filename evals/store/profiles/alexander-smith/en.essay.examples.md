@@ -4,45 +4,35 @@ profile: alexander-smith
 slot: en.essay
 last_id: 5
 examples:
-- profile: alexander-smith
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: 278c4df7b4897cf47a3e6a34195008a2ad15191f94f81ac97a2bfcb0e212c6b7
   habit: opening simile and personified Death
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alexander-smith
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: 38ba13c8c622a6a83a5066b8e962dbd9df9d32bbfd245bbe53a361bc6aeed8d8
   habit: balanced antithesis, the one and the other
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alexander-smith
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 1a93b04c773db4f3ce2f35c8bdc050a46b2ff2e18961a295c86c1ac4a6b8f9d0
   habit: short declaratives then an extended simile
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alexander-smith
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: 5eff8d33f5ccfc86957c1de5aa0b94ec3f248ba381a6a25f77221638a0224ae3
   habit: first-person memory with a closing simile
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: alexander-smith
-  slot: en.essay
-  id: e-005
+- id: e-005
   source: 8f7aa5215e29051d7237aaa7c898ea7b0527848bdc80d49f2e9e07a832ab1d29
   habit: personal stance ending on an exclamation
   redaction:

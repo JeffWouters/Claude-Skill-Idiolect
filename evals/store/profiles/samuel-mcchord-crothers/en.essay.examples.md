@@ -4,45 +4,35 @@ profile: samuel-mcchord-crothers
 slot: en.essay
 last_id: 5
 examples:
-- profile: samuel-mcchord-crothers
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: ad73563fdec9c8848c49b94cc267bb906dd046eb19c60de71dea7566df5e47d2
   habit: Extended personification of an abstraction
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: samuel-mcchord-crothers
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: 38e6518e3ad7d537bcd6e9a5fb8455cad6da87afcc80081277390c0235e8bcf1
   habit: Ironic reasoning capped by a dry twist
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: samuel-mcchord-crothers
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 26feb7c027067febbe7ef8cecae8231c8a53bad57785002eb0037fd8b466fea9
   habit: Balanced antithesis closing a paragraph
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: samuel-mcchord-crothers
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: 0b24937477a8135e68c13f1dfb2d9f3ae7a5225f94b4060ec628b1e809ef3c61
   habit: Genial first-person grant of indulgence
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: samuel-mcchord-crothers
-  slot: en.essay
-  id: e-005
+- id: e-005
   source: 9df2994c14437fcc1d0842a18a0959f889008061f6377a490ce76fb05494d380
   habit: Personal anecdote told with deadpan humour
   redaction:

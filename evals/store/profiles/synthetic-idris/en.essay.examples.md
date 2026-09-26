@@ -4,45 +4,35 @@ profile: synthetic-idris
 slot: en.essay
 last_id: 5
 examples:
-- profile: synthetic-idris
-  slot: en.essay
-  id: e-001
+- id: e-001
   source: 51075e5731e8fd83b9142659f047131b56118f6ef8d32c322bc5cf859c2709f3
   habit: Opens with a concrete scene before the thesis
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-idris
-  slot: en.essay
-  id: e-002
+- id: e-002
   source: a9b86329305e9b67b61c8bedabb347d4d461fb98522978cbc26e14653f1bc325
   habit: Hedged reflection ending on a rhetorical question
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-idris
-  slot: en.essay
-  id: e-003
+- id: e-003
   source: 7853556eef3bded7a8138fd6abf796784e8ddc44c442b57722519128d8820cff
   habit: Turns to recommendation with anaphoric 'it means'
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-idris
-  slot: en.essay
-  id: e-004
+- id: e-004
   source: 2b03ab98c8eef992e2dec3dd8932f772ba8e8e370af044b082a01e46fe39080c
   habit: Widening ending that closes on 'Perhaps'
   redaction:
     redacted: true
     version: '1.0'
     reviewed: true
-- profile: synthetic-idris
-  slot: en.essay
-  id: e-005
+- id: e-005
   source: f498516a41b8a9fcb92c812f00bd3996d87d076f108588ccb6bef833b27549d3
   habit: Question-led paragraph with parenthetical 'I suspect'
   redaction:
