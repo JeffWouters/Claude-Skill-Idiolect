@@ -62,3 +62,39 @@ def test_cluster_interval_uses_agents():
     rows = [{"rank": ["idiolect", "fewshot"], "agent": "a"}] * 4 + [{"rank": ["fewshot", "idiolect"], "agent": "b"}] * 4
     ci = harness.cluster_ci(rows, "idiolect", "fewshot", lambda r: r["agent"])
     assert ci["rate"] == 0.5 and ci["clusters"] == 2 and ci["ci95"] == [0.0, 1.0]
+
+
+def test_later_runs_use_only_fresh_paragraphs_and_the_caps(tmp_path, monkeypatch):
+    """Runs 5 and 6: the later holdout source, no paragraph of an avoided run's passage, per-author caps."""
+    import json
+    monkeypatch.setattr(harness, "RUNS", tmp_path)
+    old = sorted(p.name for p in (ROOT / "evals" / "runs").iterdir() if (p / "passages").exists())
+    for r in old:                                  # the real runs 1 to 4, as the runs to avoid
+        (tmp_path / r / "passages").mkdir(parents=True)
+        for f in (ROOT / "evals" / "runs" / r / "passages").glob("*.md"):
+            (tmp_path / r / "passages" / f.name).write_text(f.read_text())
+    caps = {"katharine-fullerton-gerould": 4, "synthetic-idris": 8, "synthetic-noor": 8}
+    arms = ("plain", "fewshot", "idiolect", "bare")
+
+    def count(run):
+        m = json.loads((tmp_path / run / "run.json").read_text())
+        c = {}
+        for p in m["passages"]:
+            c[p["author"]] = c.get(p["author"], 0) + 1
+        keys = set().union(*(harness.para_keys((tmp_path / run / "passages" / f"{p['id']}.md").read_text())
+                             for p in m["passages"]))
+        return m, c, keys
+
+    used = set()
+    for r in old:
+        for f in (tmp_path / r / "passages").glob("*.md"):
+            used |= harness.para_keys(f.read_text())
+    harness.new_run(5, "r5", 10, arms, old, "later", True, caps)
+    m5, c5, k5 = count("r5")
+    assert c5 == {"katharine-fullerton-gerould": 4, "robert-cortes-holliday": 10, "samuel-mcchord-crothers": 10,
+                  "synthetic-idris": 8, "synthetic-noor": 8}
+    assert not k5 & used and not any(m5["reused"].values())
+    harness.new_run(6, "r6", 10, arms, old + ["r5"], "later", True, caps)
+    m6, c6, k6 = count("r6")
+    assert c6["katharine-fullerton-gerould"] >= 3 and all(c6[a] == c5[a] for a in c5 if a != "katharine-fullerton-gerould")
+    assert not k6 & k5 and not k6 & used

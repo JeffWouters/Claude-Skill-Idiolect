@@ -121,6 +121,35 @@ they were not the two independent runs the bar needs. Run 4 is one diagnostic ru
 - 8 briefs per author (40 in all). The synthetic authors' and Holliday's holdout essays give only 10
   or 11 passages, so some of run 4's passages repeat earlier runs; `run.json` records how many.
 
+## Runs 5 and 6: confirming runs (after the decision on run 4)
+
+The design changed after run 4 (design: decision log): observed lessons are background in the kit,
+and targets follow the piece. Runs 5 and 6 test that design and count towards the bar.
+
+- **Fresh text only.** Every passage is cut from held-out text no earlier run used, checked per
+  paragraph (`new --source later --fresh-only --avoid <runs 1 to 4, and run 5 for run 6>`). The
+  `later` source (`evals/holdouts.json`, folder `evals/holdouts-later/`):
+  - Holliday: *Turns about Town* (1921); Crothers: *Humanly Speaking* (1912). Other essay books by
+    the same authors, never learned, so passages test the voice beyond the book it was learned from.
+  - Gerould has no other essay book on Project Gutenberg; the unused paragraphs of her three held-out
+    essays give 7 fresh passages in all: 4 in run 5 and 3 in run 6.
+  - Noor and Idris: 12 new essays each, never learned, written by fresh agents that saw only a style
+    specification (`SPEC.md` in their folder). The original specs were not kept, so the
+    specifications were reconstructed from the 12 fixture essays by a separate agent. `check` reads
+    them as the authors' own: none fails against its author (0 to 3 flags, against 0 to 3 for the
+    original holdouts), and against the other synthetic author they get 9 to 10 flags. They are still
+    model-written from a written description, which may favour whichever arm writes most like such a
+    description; this is recorded as a caveat, not corrected for.
+- **Passages per author**: 10 for Holliday and Crothers, 8 for each synthetic author, 4 and 3 for
+  Gerould (`--per-author 10 --cap katharine-fullerton-gerould=4 --cap synthetic-idris=8 --cap
+  synthetic-noor=8`).
+- **Arms**: plain, few-shot, Idiolect (the new default kit) and **bare**: the same procedure with
+  `kit.py --notes none`, no observed lessons (`evals/ablation/write-bare.md`). Idiolect against bare
+  shows whether the background notes still help or hurt.
+- Everything else as in run 4: four drafts per packet, balanced labels, normalised typography, four
+  briefs per generator agent, agent-resampled intervals, a recognition check on every real-author
+  passage, and a spot-check for a person.
+
 ## Repeatability
 
 Fixed seeds for holdout selection, passage cuts and label shuffling (`evals/runs/<run-id>/seed`).

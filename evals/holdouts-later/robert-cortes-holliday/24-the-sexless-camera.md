@@ -1,0 +1,26 @@
+---
+author: Robert Cortes Holliday
+author_died: 1947
+book: "Turns about Town"
+first_published: 1921
+title: "The Sexless Camera"
+source: https://www.gutenberg.org/ebooks/36085
+licence: public domain (US and EU)
+words: 827
+---
+
+There is no nicer point, perhaps, in the study of photography as the one true, detached observer of mankind than here: It sees, what man has not seen--as his own representations show, his paintings, his drawings, his sculptures--the feminine underpinning with a quite passive, sexless eye.
+
+In this interesting matter there are two human conceptions. There is the chorus girl style of leg, the expression of piquancy, which does not perhaps appeal to the noblest emotions, but the fascination of which has always haunted man whenever he has delineated anything in a stocking. Then there is the chaste, nude feminine limb of the painter and the sculptor. Both photography shows to be idealization.
+
+When the camera reproduces the chorus girl herself, suddenly strangely plain and painted, there is to the observing and reflective instead of sauciness the hollowness of sauciness. There can be few things more awful than those silent photographs of some gay chorus, reproducing, as they do, the spectacle with solemn critical aloofness from the spirit. It is as though the dawn of Judgment Day had suddenly broken upon the unspeakably wretched and tawdry scene. There is something, it would seem, indescribably tender, affectionate, in the irony of the gods which arranges that men should display in theatre lobbies, as an inducement to buy tickets of admission within, these death's heads of frivolity. As if the Comic Spirit itself were touched by the charm of the naiveté of man.
+
+But, indeed, twinkling in the sympathetic light upon the Broadway stage, the professional chorus girl leg, well selected no doubt to begin with, and shaped with all the science of art, has beguiled even the reflective. A light intoxicant, it swirls in the veins like champagne for the careless moment it makes. It is pleasant because it is false.
+
+The real leg, remarks the camera, is the amateur leg; it is depressing, but terribly convincing. As it stands in the raw light of the cheap photographer (and this too, too human document, the likeness of the poor girl who has performed somewhere in curiously home-made looking "tights," and been photographed thus afterward, is one of the stock exhibits of that most realistic of historians, the cheap photographer) the amateur leg decidedly lacks dash. The knee joint somehow seems to work somewhat the wrong way. Sometimes, in circumference, this limb is immense, sometimes the reverse. But the terribleness of it always is that it is so human. That is, it is the leg of an animal. Subconsciously it suggests surgery.
+
+Conspicuous among the postures assumed for its iconoclastic purpose by the genius of photography is that of "art." That fetish of the great body of the unenlightened, the dim feeling that to the enlightened bodily nakedness in pictorial representation is something very fine, is played upon. The "art photograph" is an ironic tour de force. If specimens of this have ever fallen in the way of your observation, then you have reflected upon the strange discrepancy between the female nude as presented in painting and sculpture and in photographs. (Oh, souls of Fragonard, Boucher, Watteau, what romantic rogues you were!) You will have perceived, with some grim humor, that until the invention of photography, nobody, apparently, had ever seen a nude female figure.
+
+Now there is Edgar Degas,--and it is a curious reflection that in comparison with the work of this pessimist genius who has deliberately brought cynicism to bear upon the female nude, photographs purporting (over their sneer) to be reflections of beauty, give by far the most distressing impression. In the painful realization that they have a kind of truth beyond human art these abominable humbugs are a kind of art. What (you exclaimed) was Schopenhauer's remark about the clouded intellect of man which could give the name of the "fair sex" to "that under-sized, narrow-shouldered, broad-hipped, knock-kneed race"?
+
+It may be a long "drive," but it strikes you as a thoughtful observer that there is some biological analogy between "art photographs" and the photographs, to be seen in travel books, of native African women. What a philosopher the camera is! The French savant was very probably contemplating the photograph of some member of a savage tribe when he wrote, in "The Garden of Epicurus" (addressing modern ladies): "But never think too highly of yourselves, my sisters; you were not, at your first appearance in the world, perfect and fully armed. Your grandmothers in the days of the mammoth and the giant bear did not wield the same dominion over the prehistoric hunters and cave-men which you possess over us. You were useful then, and necessary, but you were not invincible. To tell the truth, in those far-off ages, and for long afterwards, you lacked charm. In those days you were like men, and men were like brutes. To make of you the fearful and wonderful thing you are today--veils: the Empire, crinoline, décolleté, tube, pannier." And, the sexless camera explains, the poetry of man.

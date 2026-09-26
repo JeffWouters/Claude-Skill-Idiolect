@@ -2,9 +2,11 @@
 """Split public-domain essay collections from Project Gutenberg into fixture texts.
 
     python3 tools/build_fixtures.py <folder with pgNNNN.txt files> [author,author]
+    python3 tools/build_fixtures.py --later <folder with pgNNNN.txt files> [author,author]
 
 Writes evals/fixtures/<author>/<nn>-<slug>.md, one essay per file, with frontmatter
-naming the source. Only authors who died before 1956 (public domain in the US and
+naming the source. With --later, writes the LATER books to evals/holdouts-later/<author>/:
+held-out text from other books by the same author, never learned (evaluation runs 5 and 6). Only authors who died before 1956 (public domain in the US and
 the EU) and books first published before 1929 are used.
 """
 import re
@@ -68,9 +70,32 @@ BOOKS = {
           "THE REMARKABLE RIGHTNESS OF RUDYARD KIPLING", "FOOTNOTES:"])]},
 }
 
+# Other essay books by fixture authors, held out for the confirming runs (design: decision log). Never
+# learned: they live outside evals/fixtures/, which is the learning source.
+LATER = {
+    "robert-cortes-holliday": {"name": "Robert Cortes Holliday", "died": 1947, "clean": 3, "books": [
+        (36085, "Turns about Town", 1921,
+         ["THE HOTEL GUEST", "A HUMORIST MISFITS AT A MURDER TRIAL", "QUEER THING, 'BOUT UNDERTAKERS' SHOPS",
+          "THE HAIR CUT THAT WENT TO MY HEAD", "SEEING MR. CHESTERTON", "WHEN IS A GREAT CITY A SMALL VILLAGE?",
+          "THE UNUSUALNESS OF PARISIAN PHILADELPHIA", "OUR LAST SOCIAL ENGAGEMENT AS A FINE ART", "WRITING IN ROOMS",
+          "TAKING THE AIR IN SAN FRANCISCO", "BIDDING MR. CHESTERTON GOOD-BYE", "NO SYSTEM AT ALL TO THE HUMAN SYSTEM",
+          "SEEING THE \"SITUATIONS WANTED\" SCENE", "LITERARY LIVES", "SO VERY THEATRICAL",
+          "OUR STEEPLEJACK OF THE SEVEN ARTS", "FORMER TENANT OF HIS ROOM", "ONLY SHE WAS THERE",
+          "A HUMORIST'S NOTE-BOOK", "INCLUDING STUDIES OF TRAFFIC \"COPS\"", "THREE WORDS ABOUT LITERATURE",
+          "RECOLLECTIONS OF LANDLADIES", "AN IDIOSYNCRASY", "THE SEXLESS CAMERA", "I KNOW AN EDITOR",
+          "A DIP INTO THE UNDERWORLD", "NOSING 'ROUND WASHINGTON", "FAME: A STORY OF AMERICAN LITERATURE"])]},
+    "samuel-mcchord-crothers": {"name": "Samuel McChord Crothers", "died": 1927, "clean": 3, "books": [
+        (15866, "Humanly Speaking", 1912,
+         ["HUMANLY SPEAKING", "IN THE HANDS OF A RECEIVER", "THE CONTEMPORANEOUSNESS OF ROME",
+          "THE AMERICAN TEMPERAMENT", "THE UNACCUSTOMED EARS OF EUROPE", "THE TORYISM OF TRAVELERS",
+          "THE OBVIOUSNESS OF DICKENS", "THE SPOILED CHILDREN OF CIVILIZATION", "ON REALISM AS AN INVESTMENT",
+          "TO A CITIZEN OF THE OLD SCHOOL", "THE END"])]},
+}
+LATER_OUT = ROOT / "evals" / "holdouts-later"
+
 MIN_WORDS = 400
 # Section markers that end the previous essay but are not essays themselves.
-NOT_ESSAYS = {"FOOTNOTES:"}
+NOT_ESSAYS = {"FOOTNOTES:", "THE END", "FAME: A STORY OF AMERICAN LITERATURE"}
 
 
 def body_of(raw):
@@ -91,6 +116,8 @@ def clean(text, version=1):
     text = re.sub(r"\[Illustration[^\]]*\]", "", text)
     text = re.sub(r"\[(\d+|[A-Z])\]", "", text)                 # footnote markers
     text = re.sub(r"(?m)^\s*\[?Footnote.*$", "", text)
+    if version >= 3:
+        text = re.sub(r"(?m)^\s*CHAPTER [IVXL]+\s*$", "", text)       # chapter labels above titles
     if version >= 2:
         text = re.sub(r"_([^_\n]+(?:\n[^_\n]+)?)_", r"\1", text)    # PG italics, also across one line break
         text = re.sub(r"\+([^+\n]+)\+", r"\1", text)                 # PG small caps
@@ -108,14 +135,15 @@ def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:50] or "untitled"
 
 
-def main(src, only=None):
+def main(src, only=None, later=False):
     src = pathlib.Path(src)
     total = 0
-    for author, meta in BOOKS.items():
+    out_root = LATER_OUT if later else OUT
+    for author, meta in (LATER if later else BOOKS).items():
         if only and author not in only:
             continue
         n = 0
-        (OUT / author).mkdir(parents=True, exist_ok=True)
+        (out_root / author).mkdir(parents=True, exist_ok=True)
         for pg, book, year, titles in meta["books"]:
             lines = body_of((src / f"pg{pg}.txt").read_text(encoding="utf-8")).split("\n")
             # take the LAST standalone occurrence of each title (the first ones are title page / contents)
@@ -141,11 +169,12 @@ def main(src, only=None):
                 fm = (f"---\nauthor: {meta['name']}\nauthor_died: {meta['died']}\nbook: \"{book}\"\n"
                       f"first_published: {year}\ntitle: \"{name}\"\nsource: https://www.gutenberg.org/ebooks/{pg}\n"
                       f"licence: public domain (US and EU)\nwords: {words}\n---\n\n")
-                (OUT / author / f"{n:02d}-{slug(name)}.md").write_text(fm + text + "\n", encoding="utf-8")
+                (out_root / author / f"{n:02d}-{slug(name)}.md").write_text(fm + text + "\n", encoding="utf-8")
         print(f"{author}: {n} essays")
         total += n
     print(f"total {total}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], set(sys.argv[2].split(",")) if len(sys.argv) > 2 else None)
+    args = [a for a in sys.argv[1:] if a != "--later"]
+    main(args[0], set(args[1].split(",")) if len(args) > 1 else None, later="--later" in sys.argv[1:])

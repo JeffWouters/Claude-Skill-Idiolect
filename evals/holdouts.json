@@ -31,5 +31,84 @@
       "10-bleeding-the-radiators.md",
       "11-darning-a-sock.md"
     ]
+  },
+  "later": {
+    "how": "held-out text for the confirming runs 5 and 6 (design: decision log), paths relative to evals/: Holliday's Turns about Town and Crothers's Humanly Speaking (other books, never learned), new synthetic essays written from a reconstructed style spec (never learned), and Gerould's original holdout essays, whose paragraphs not yet used in a passage are the only fresh Gerould text left",
+    "authors": {
+      "katharine-fullerton-gerould": [
+        "fixtures/katharine-fullerton-gerould/03-caviare-on-principle.md",
+        "fixtures/katharine-fullerton-gerould/04-the-extirpation-of-culture.md",
+        "fixtures/katharine-fullerton-gerould/08-the-boundaries-of-truth.md"
+      ],
+      "robert-cortes-holliday": [
+        "holdouts-later/robert-cortes-holliday/01-the-hotel-guest.md",
+        "holdouts-later/robert-cortes-holliday/02-a-humorist-misfits-at-a-murder-trial.md",
+        "holdouts-later/robert-cortes-holliday/03-queer-thing-bout-undertakers-shops.md",
+        "holdouts-later/robert-cortes-holliday/04-the-hair-cut-that-went-to-my-head.md",
+        "holdouts-later/robert-cortes-holliday/05-seeing-mr-chesterton.md",
+        "holdouts-later/robert-cortes-holliday/06-when-is-a-great-city-a-small-village.md",
+        "holdouts-later/robert-cortes-holliday/07-the-unusualness-of-parisian-philadelphia.md",
+        "holdouts-later/robert-cortes-holliday/08-our-last-social-engagement-as-a-fine-art.md",
+        "holdouts-later/robert-cortes-holliday/09-writing-in-rooms.md",
+        "holdouts-later/robert-cortes-holliday/10-taking-the-air-in-san-francisco.md",
+        "holdouts-later/robert-cortes-holliday/11-bidding-mr-chesterton-good-bye.md",
+        "holdouts-later/robert-cortes-holliday/12-no-system-at-all-to-the-human-system.md",
+        "holdouts-later/robert-cortes-holliday/13-seeing-the-situations-wanted-scene.md",
+        "holdouts-later/robert-cortes-holliday/14-literary-lives.md",
+        "holdouts-later/robert-cortes-holliday/15-so-very-theatrical.md",
+        "holdouts-later/robert-cortes-holliday/16-our-steeplejack-of-the-seven-arts.md",
+        "holdouts-later/robert-cortes-holliday/17-former-tenant-of-his-room.md",
+        "holdouts-later/robert-cortes-holliday/18-only-she-was-there.md",
+        "holdouts-later/robert-cortes-holliday/19-a-humorist-s-note-book.md",
+        "holdouts-later/robert-cortes-holliday/20-including-studies-of-traffic-cops.md",
+        "holdouts-later/robert-cortes-holliday/21-three-words-about-literature.md",
+        "holdouts-later/robert-cortes-holliday/22-recollections-of-landladies.md",
+        "holdouts-later/robert-cortes-holliday/23-an-idiosyncrasy.md",
+        "holdouts-later/robert-cortes-holliday/24-the-sexless-camera.md",
+        "holdouts-later/robert-cortes-holliday/25-i-know-an-editor.md",
+        "holdouts-later/robert-cortes-holliday/26-a-dip-into-the-underworld.md",
+        "holdouts-later/robert-cortes-holliday/27-nosing-round-washington.md"
+      ],
+      "samuel-mcchord-crothers": [
+        "holdouts-later/samuel-mcchord-crothers/01-humanly-speaking.md",
+        "holdouts-later/samuel-mcchord-crothers/02-in-the-hands-of-a-receiver.md",
+        "holdouts-later/samuel-mcchord-crothers/03-the-contemporaneousness-of-rome.md",
+        "holdouts-later/samuel-mcchord-crothers/04-the-american-temperament.md",
+        "holdouts-later/samuel-mcchord-crothers/05-the-unaccustomed-ears-of-europe.md",
+        "holdouts-later/samuel-mcchord-crothers/06-the-toryism-of-travelers.md",
+        "holdouts-later/samuel-mcchord-crothers/07-the-obviousness-of-dickens.md",
+        "holdouts-later/samuel-mcchord-crothers/08-the-spoiled-children-of-civilization.md",
+        "holdouts-later/samuel-mcchord-crothers/09-on-realism-as-an-investment.md",
+        "holdouts-later/samuel-mcchord-crothers/10-to-a-citizen-of-the-old-school.md"
+      ],
+      "synthetic-idris": [
+        "holdouts-later/synthetic-idris/13-what-the-one-to-one-is-for.md",
+        "holdouts-later/synthetic-idris/14-what-a-handover-is-for.md",
+        "holdouts-later/synthetic-idris/15-the-interview-as-theatre.md",
+        "holdouts-later/synthetic-idris/16-on-reasonable-refusals.md",
+        "holdouts-later/synthetic-idris/17-what-the-backlog-is-for.md",
+        "holdouts-later/synthetic-idris/18-what-a-name-is-for.md",
+        "holdouts-later/synthetic-idris/19-the-seduction-of-the-rewrite.md",
+        "holdouts-later/synthetic-idris/20-on-distant-colleagues.md",
+        "holdouts-later/synthetic-idris/21-what-a-demo-is-for.md",
+        "holdouts-later/synthetic-idris/22-what-praise-is-for.md",
+        "holdouts-later/synthetic-idris/23-the-uses-of-a-ladder.md",
+        "holdouts-later/synthetic-idris/24-the-diagram-as-portrait.md"
+      ],
+      "synthetic-noor": [
+        "holdouts-later/synthetic-noor/13-the-saturday-loaf.md",
+        "holdouts-later/synthetic-noor/14-patching-the-back-tyre.md",
+        "holdouts-later/synthetic-noor/15-marmalade-in-january.md",
+        "holdouts-later/synthetic-noor/16-splitting-the-firewood.md",
+        "holdouts-later/synthetic-noor/17-turning-the-compost-heap.md",
+        "holdouts-later/synthetic-noor/18-clearing-the-front-path.md",
+        "holdouts-later/synthetic-noor/19-regrouting-the-bath-tiles.md",
+        "holdouts-later/synthetic-noor/20-washing-the-windows.md",
+        "holdouts-later/synthetic-noor/21-broad-beans-in-november.md",
+        "holdouts-later/synthetic-noor/22-winding-the-mantel-clock.md",
+        "holdouts-later/synthetic-noor/23-rehanging-the-back-door.md",
+        "holdouts-later/synthetic-noor/24-saving-the-bean-seed.md"
+      ]
+    }
   }
 }

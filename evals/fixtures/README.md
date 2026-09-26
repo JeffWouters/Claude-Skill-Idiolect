@@ -41,6 +41,15 @@ The model names even obscure essayists correctly at low confidence, often from w
 about. So the real-author group is never free of the model's prior knowledge; every run therefore
 checks each passage again and leaves recognised briefs out of the score.
 
+## Held-out text for the confirming runs
+
+`evals/holdouts-later/` holds text that is never learned, for evaluation runs 5 and 6
+(`evals/eval-protocol.md`): Holliday's *Turns about Town* (Gutenberg 36085) and Crothers's *Humanly
+Speaking* (Gutenberg 15866), built with `python3 tools/build_fixtures.py --later <folder>`, and 12 new
+essays each for the synthetic authors, written by fresh agents from a style specification
+reconstructed from the fixture essays (`SPEC.md`). It sits outside `evals/fixtures/`, the learning
+source, so a relearn never picks it up.
+
 ## Retired
 
 Moved to `evals/_to_delete/`, not deleted.

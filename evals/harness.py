@@ -3,7 +3,8 @@
 drafts, judgments and recognition answers into the run folder.
 
     python3 evals/harness.py new [--seed N] [--per-author 10] [--arms plain,fewshot,idiolect,lite]
-                                 [--avoid R1,R2]      create evals/runs/<run-id>/ with passages
+                                 [--avoid R1,R2] [--source later] [--fresh-only] [--cap author=N]
+                                                       create evals/runs/<run-id>/ with passages
     python3 evals/harness.py overlap  --run R          check briefs against passages (4-word runs)
     python3 evals/harness.py prepare  --run R --scratch DIR [--per-agent 4]
                                                        few-shot packets, an isolated store + skill copies,
@@ -20,8 +21,15 @@ drafts, judgments and recognition answers into the run folder.
 Run layout: passages/<id>.md, briefs/<id>.md, drafts/<arm>/<id>.md, judge/<id>.md (packet) and
 judge/<id>.json (verdict), recognition/<id>.json, key.json, flags.json, results.md.
 
-Arms: plain, fewshot, idiolect (the full write procedure) and, from run 4, lite (the kit without the
-measurable targets and without the check-and-revise loop; evals/ablation/write-lite.md).
+Arms: plain, fewshot, idiolect (the full write procedure) and the ablations: lite (run 4: the kit
+without the measurable targets and without the check-and-revise loop; evals/ablation/write-lite.md) and
+bare (runs 5 and 6: the full procedure with the kit's --notes none, no observed lessons;
+evals/ablation/write-bare.md).
+
+Holdout sources (evals/holdouts.json): "authors" (essays set aside from the fixture books, runs 1 to 4)
+or "later" (runs 5 and 6: other books by the same authors and new synthetic essays, in
+evals/holdouts-later/, plus fixture holdouts with unused paragraphs). A passage is fresh when none of
+its paragraphs appeared in a passage of an avoided run.
 """
 import argparse
 import collections
@@ -54,7 +62,8 @@ SEED = 20261004
 PER_AUTHOR = 10
 LO, HI = 300, 500
 KINDS = ("plain", "fewshot", "idiolect")          # runs 1 to 3
-ALL_ARMS = ("plain", "fewshot", "idiolect", "lite")
+ALL_ARMS = ("plain", "fewshot", "idiolect", "lite", "bare")
+ABLATIONS = ("lite", "bare")
 LABELS = "ABCD"
 
 
@@ -108,40 +117,69 @@ def _cut_from(paras, i):
     return out
 
 
-def new_run(seed=SEED, run_id=None, per_author=PER_AUTHOR, arm_list=KINDS, avoid=()):
-    """Passages for a new run. Passages already used in the runs named in `avoid` are taken last, and
-    the number reused is recorded, because a run that repeats another's passages is not an independent
-    sample (review: runs 2 and 3 shared 38 of 50)."""
+def para_keys(text):
+    return {text_key(p) for p in re.split(r"\n\s*\n", text) if p.strip()}
+
+
+def holdout_files(source):
+    """[(author, path)] for a holdout source (evals/holdouts.json)."""
+    h = json.loads((ROOT / "evals" / "holdouts.json").read_text())
+    if source == "authors":
+        return {a: [FIX / a / f for f in files] for a, files in h["authors"].items()}
+    return {a: [ROOT / "evals" / f for f in files] for a, files in h[source]["authors"].items()}
+
+
+def new_run(seed=SEED, run_id=None, per_author=PER_AUTHOR, arm_list=KINDS, avoid=(), source="authors",
+            fresh_only=False, caps=None):
+    """Passages for a new run. Passages sharing a paragraph with a passage of the runs named in `avoid`
+    are taken last (or, with fresh_only, not at all), and the number reused is recorded, because a run
+    that repeats another's text is not an independent sample (review: runs 2 and 3 shared 38 of 50;
+    a different cut of the same paragraphs is the same text). caps: {author: n} below per_author."""
     run_id = run_id or dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     used = set()
     for r in avoid:
         for f in (run_dir(r) / "passages").glob("*.md"):
-            used.add(text_key(f.read_text(encoding="utf-8")))
+            used |= para_keys(f.read_text(encoding="utf-8"))
     d = RUNS / run_id
     (d / "passages").mkdir(parents=True)
     for sub in ("briefs", "judge", "recognition") + tuple(f"drafts/{k}" for k in arm_list):
         (d / sub).mkdir(parents=True, exist_ok=True)
     rng = random.Random(seed)
-    hold = json.loads((ROOT / "evals" / "holdouts.json").read_text())["authors"]
-    m = {"run": run_id, "seed": seed, "arms": list(arm_list), "avoid": list(avoid), "passages": [], "reused": {}}
+    hold = holdout_files(source)
+    caps = caps or {}
+    m = {"run": run_id, "seed": seed, "arms": list(arm_list), "avoid": list(avoid), "source": source,
+         "fresh_only": fresh_only, "caps": caps, "passages": [], "reused": {}}
     for author, files in sorted(hold.items()):
         pool = []
         for f in files:
-            ex = extract(FIX / author / f)
-            pool += [(f, p) for p in cut(ex.blocks, rng)]
+            ex = extract(f)
+            name = str(f.relative_to(FIX / author)) if f.is_relative_to(FIX / author) else str(f.relative_to(ROOT / "evals"))
+            if fresh_only:                          # cut each unbroken stretch of unused paragraphs
+                stretches, cur = [], []
+                for b in ex.blocks:
+                    if text_key(b) in used:
+                        stretches.append(cur)
+                        cur = []
+                    else:
+                        cur.append(b)
+                stretches.append(cur)
+                pool += [(name, p) for st in stretches if st for p in cut(st, rng)]
+            else:
+                pool += [(name, p) for p in cut(ex.blocks, rng)]
         rng.shuffle(pool)
-        fresh = [x for x in pool if text_key(x[1]) not in used]
-        old = [x for x in pool if text_key(x[1]) in used]
+        fresh = [x for x in pool if not para_keys(x[1]) & used]
+        old = [] if fresh_only else [x for x in pool if para_keys(x[1]) & used]
+        want = min(per_author, caps.get(author, per_author))
         chosen = []
         for part in (fresh, old):                   # fresh passages first, spread over essays
             by = collections.defaultdict(list)
             for f, p in part:
                 by[f].append(p)
-            while len(chosen) < per_author and any(by.values()):
+            while len(chosen) < want and any(by.values()):
                 for f in sorted(by):
-                    if by[f] and len(chosen) < per_author:
+                    if by[f] and len(chosen) < want:
                         chosen.append((f, by[f].pop()))
-        m["reused"][author] = sum(1 for _, p in chosen if text_key(p) in used)
+        m["reused"][author] = sum(1 for _, p in chosen if para_keys(p) & used)
         for n, (f, p) in enumerate(chosen, 1):
             pid = f"{author}-{n:02d}"
             (d / "passages" / f"{pid}.md").write_text(p + "\n", encoding="utf-8")
@@ -218,10 +256,11 @@ def prepare(run, scratch, per_agent=None):
                 t = re.sub(r"(?m)^consent: .*$", "consent: evaluation only", t)
             out.write_text(t, encoding="utf-8")
     shutil.copytree(ROOT / "idiolect", scratch / "idiolect", ignore=shutil.ignore_patterns("__pycache__"))
-    if "lite" in arm_list:
-        shutil.copytree(ROOT / "idiolect", scratch / "idiolect-lite", ignore=shutil.ignore_patterns("__pycache__"))
-        shutil.copy(ROOT / "evals" / "ablation" / "write-lite.md",
-                    scratch / "idiolect-lite" / "references" / "modes" / "write.md")
+    for k in ABLATIONS:
+        if k in arm_list:
+            shutil.copytree(ROOT / "idiolect", scratch / f"idiolect-{k}", ignore=shutil.ignore_patterns("__pycache__"))
+            shutil.copy(ROOT / "evals" / "ablation" / f"write-{k}.md",
+                        scratch / f"idiolect-{k}" / "references" / "modes" / "write.md")
     (scratch / "briefs").mkdir()
     (scratch / "fewshot").mkdir()
     (scratch / "prompts").mkdir()
@@ -533,8 +572,9 @@ def score(run):
             res["authors"][a]["rate_vs_fewshot"] >= 0.5 for a in rated)
     counted = [r for r in rows if not r["recognised"]]
     pairs = [("idiolect", "plain"), ("idiolect", "fewshot")]
-    if "lite" in arm_list:
-        pairs += [("lite", "plain"), ("lite", "fewshot"), ("idiolect", "lite")]
+    for k in ABLATIONS:
+        if k in arm_list:
+            pairs += [(k, "plain"), (k, "fewshot"), ("idiolect", k)]
     for a, b in pairs:
         name = f"{a} vs {b}"
         res["pairs"][name] = {g: cluster_ci([r for r in counted if r["group"] == g], a, b, lambda r: r["agent"])
@@ -630,10 +670,14 @@ def main():
     ap.add_argument("--per-agent", type=int)
     ap.add_argument("--arms")
     ap.add_argument("--avoid", default="")
+    ap.add_argument("--source", default="authors", choices=["authors", "later"])
+    ap.add_argument("--fresh-only", action="store_true")
+    ap.add_argument("--cap", action="append", default=[], help="author=N: fewer passages for this author")
     a = ap.parse_args()
     if a.action == "new":
         new_run(a.seed, per_author=a.per_author, arm_list=tuple(a.arms.split(",")) if a.arms else KINDS,
-                avoid=[r for r in a.avoid.split(",") if r])
+                avoid=[r for r in a.avoid.split(",") if r], source=a.source, fresh_only=a.fresh_only,
+                caps={k: int(v) for k, v in (c.split("=") for c in a.cap)})
     elif a.action == "overlap":
         overlap(a.run)
     elif a.action == "prepare":
