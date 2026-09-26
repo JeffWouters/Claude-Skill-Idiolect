@@ -7,19 +7,19 @@
     "sentence_length_sd": {
       "value": 13.751884,
       "overshoot": 1.61,
-      "shortfall": 0.61,
+      "shortfall": 0.502,
       "primary": true
     },
     "sentences_per_paragraph": {
       "value": 4.360656,
-      "overshoot": 1.88,
+      "overshoot": 2.064,
       "shortfall": 0.43,
       "primary": false
     },
     "long_sentence_share": {
       "value": 0.173872,
-      "overshoot": 1.65,
-      "shortfall": 0.49,
+      "overshoot": 2.049,
+      "shortfall": 0.229,
       "primary": true
     },
     "sentence_length_mean": {
@@ -30,31 +30,31 @@
     },
     "commas_per_sentence": {
       "value": 0.945489,
-      "overshoot": 1.48,
-      "shortfall": 0.62,
+      "overshoot": 1.802,
+      "shortfall": 0.523,
       "primary": false
     },
     "semicolons_per_1k": {
       "value": 3.019651,
-      "overshoot": 1.94,
-      "shortfall": 0.29,
+      "overshoot": 2.589,
+      "shortfall": 0.05,
       "primary": false
     },
     "conjunction_opener_share": {
       "value": 0.066729,
-      "overshoot": 2.25,
+      "overshoot": 2.876,
       "shortfall": 0.05,
       "primary": false
     },
     "contractions_per_1k": {
       "value": 3.750973,
-      "overshoot": 2.77,
+      "overshoot": 2.995,
       "shortfall": 0.05,
       "primary": false
     },
     "dashes_per_1k": {
       "value": 2.005237,
-      "overshoot": 2.69,
+      "overshoot": 4.215,
       "shortfall": 0.05,
       "primary": false
     },
@@ -72,14 +72,14 @@
     },
     "long_word_share": {
       "value": 0.205596,
-      "overshoot": 1.25,
-      "shortfall": 0.78,
+      "overshoot": 1.263,
+      "shortfall": 0.771,
       "primary": false
     },
     "hedges_per_1k": {
       "value": 4.246385,
-      "overshoot": 2.1,
-      "shortfall": 0.25,
+      "overshoot": 2.413,
+      "shortfall": 0.05,
       "primary": false
     },
     "digits_per_1k": {
