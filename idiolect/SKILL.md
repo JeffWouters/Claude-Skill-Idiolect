@@ -20,7 +20,7 @@ a **store** outside this skill, and writes, rewrites and checks text in that voi
 | `status` | **Available** | below |
 | `learn-edit` (draft and final: edit lessons) | **Available** | `references/modes/learn-edit.md` |
 | `interview` (answers to open questions become texts) | **Available** | `references/modes/interview.md` |
-| `export` | Not built yet (phase 6) | |
+| `export` (one prompt for another tool) | **Available** | `references/modes/export.md` |
 
 For a mode that is not built yet, say so plainly and offer what is available. Never imitate a mode
 by hand. Load a mode's procedure file before running it.
@@ -41,6 +41,7 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 | `interactive` | `true`, `false` | `true`; with `false` never ask, return the question instead |
 | `depth` | `voice`, `edit`, `full` (rewrite) | `voice` |
 | `report`, `explain` | `true`: return the check report; annotate choices with lesson ids | — |
+| `include_parent` | `true` (export): allow a slot that resolves to a parent profile | — |
 | `judge` | `true` (test): also a plain and a few-shot draft, ranked blind by the writer | — |
 | `since` | a year: writing from then on counts more (saved in the profile) | — |
 | `exclude`, `recursive` | globs to skip; `false` = only the folder's own files (saved in the rule) | — |

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "status": "fail",
+  "profile": "synthetic-noor",
+  "slot": "en.essay",
+  "confidence": "medium",
+  "flagged": 7,
+  "fail_threshold": 4,
+  "metrics": [
+    {
+      "name": "sentence_length_sd",
+      "draft": 9.5136,
+      "writer": 3.978,
+      "slot": 3.6426,
+      "ratio": 2.392,
+      "flag": "overshoot",
+      "primary": true
+    },
+    {
+      "name": "sentences_per_paragraph",
+      "draft": 4.2,
+      "writer": 6.4051,
+      "slot": 4.9275,
+      "ratio": 0.656,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "long_sentence_share",
+      "draft": 0.1429,
+      "writer": 0.0,
+      "slot": 0.0,
+      "ratio": null,
+      "flag": "overshoot",
+      "primary": true
+    },
+    {
+      "name": "sentence_length_mean",
+      "draft": 18.3333,
+      "writer": 7.1345,
+      "slot": 6.8706,
+      "ratio": 2.57,
+      "flag": "overshoot",
+      "primary": true
+    },
+    {
+      "name": "commas_per_sentence",
+      "draft": 1.0,
+      "writer": 0.2291,
+      "slot": 0.2029,
+      "ratio": 4.364,
+      "flag": "overshoot",
+      "primary": true
+    },
+    {
+      "name": "semicolons_per_1k",
+      "draft": 0.0,
+      "writer": 0.0,
+      "slot": 0.0,
+      "ratio": null,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "conjunction_opener_share",
+      "draft": 0.0,
+      "writer": 0.1623,
+      "slot": 0.1426,
+      "ratio": 0.0,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "contractions_per_1k",
+      "draft": 10.3896,
+      "writer": 0.2589,
+      "slot": 0.4281,
+      "ratio": null,
+      "flag": "overshoot",
+      "primary": false
+    },
+    {
+      "name": "dashes_per_1k",
+      "draft": 0.0,
+      "writer": 0.0,
+      "slot": 0.0,
+      "ratio": null,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "colons_per_1k",
+      "draft": 2.5974,
+      "writer": 0.7768,
+      "slot": 1.2842,
+      "ratio": 3.344,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "short_sentence_share",
+      "draft": 0.1429,
+      "writer": 0.6131,
+      "slot": 0.6368,
+      "ratio": 0.233,
+      "flag": "ok",
+      "primary": false
+    },
+    {
+      "name": "long_word_share",
+      "draft": 0.1351,
+      "writer": 0.0579,
+      "slot": 0.0591,
+      "ratio": 2.332,
+      "flag": "overshoot",
+      "primary": true
+    },
+    {
+      "name": "hedges_per_1k",
+      "draft": 0.0,
+      "writer": 0.1295,
+      "slot": 0.214,
+      "ratio": null,
+      "flag": "ok",
+      "primary": true
+    },
+    {
+      "name": "digits_per_1k",
+      "draft": 0.0,
+      "writer": 9.4696,
+      "slot": 8.9897,
+      "ratio": 0.0,
+      "flag": "shortfall",
+      "primary": false
+    }
+  ],
+  "targets": {
+    "examples": [
+      "e-001",
+      "e-004",
+      "e-002"
+    ],
+    "words": 196,
+    "weight": 0.3952
+  }
+}
