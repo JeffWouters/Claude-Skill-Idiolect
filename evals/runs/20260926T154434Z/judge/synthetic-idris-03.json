@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A",
+  "D"
+ ],
+ "reasons": {
+  "C": "Long, clause-laden sentences broken now and then by a short summary line, a measured first person ('I suspect') and a formal, slightly old-fashioned register: closest to the passage's movement and its sparing hedges.",
+  "B": "Sentence length and semicolon-joined clauses fit the passage well, but it stacks hedges ('It may be', 'I suspect', 'arguably', 'It seems to me', 'Perhaps') more thickly than the author does, which tips it towards imitation.",
+  "A": "Right register and hedging vocabulary, but short paragraphs, repeated rhetorical questions and a one-line closing aphorism give it a shorter, more essayistic rhythm and pile on the author's tics.",
+  "D": "Short, punchy declaratives, fragment-like lists and a plain, brisk modern tone: the opposite of the passage's long, reflective and qualified sentences."
+ }
+}

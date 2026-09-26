@@ -687,4 +687,9 @@ Built and tested on the local route with fixture authors only; no phase depends 
 
 - [x] ~~Does Idiolect replace `my-writing-style`?~~ Decided: it runs alongside, with narrow triggers (see Triggering).
 
-No design questions are open. The store has no fixed location, and questions about a particular writer's texts are asked by the skill at the first `learn`, not in this design.
+- [ ] What changes after run 4 (`evals/runs/20260926T154434Z/notes.md`)? Targets plus the
+  check-and-revise loop carry the gain over few-shot; lessons, favoured phrases and forms add nothing
+  measurable in the writing kit; corpus-wide targets pull drafts off the mode for a writer whose texts
+  vary. The writer decides.
+
+The store has no fixed location, and questions about a particular writer's texts are asked by the skill at the first `learn`, not in this design.

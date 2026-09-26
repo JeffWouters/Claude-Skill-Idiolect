@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "D",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "C": "Long, clause-laden sentences joined by semicolons, hedges like 'it may be' and 'arguably', and a rhetorical question within a dense paragraph closely track the passage's movement and measured, reflective stance; only slightly heavy on reader-addressing questions.",
+  "D": "Measured, formal, hedged ('I suspect', 'seems to me') with long balanced sentences and dense paragraphs, but rhythm is tidier and more symmetrical ('On the one hand... On the other') and it uses fewer semicolon pivots and embedded questions than the passage.",
+  "B": "Keeps the formal hedging and a closing rhetorical question, but sentences are shorter, paragraphs thinner, and the aphoristic final line is more epigrammatic than the passage's deliberative voice.",
+  "A": "Short declarative sentences, clipped fragments and a practical advice-column ending; plain modern register with none of the passage's long subordinate periods, semicolons or reflective hedging."
+ }
+}

@@ -1,0 +1,6 @@
+Files opened:
+- /tmp/claude-0/eval-20260926T154434Z/prompts/gen-plain-w1a.txt
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w1-01.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w1-02.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w1-03.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w1-04.md

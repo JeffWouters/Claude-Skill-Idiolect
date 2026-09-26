@@ -1,0 +1,11 @@
+A bookshop is an excellent place from which to observe the public; better, I sometimes think, than a courtroom, and a great deal quieter. The customers are not on their guard. They have come in, as they suppose, to examine books, and what they chiefly do is examine one another and talk.
+
+A considerable proportion of them love books. They tell you so. They come through the door with their hands clasped and announce, "Oh, I do love books," or, "I could spend my whole life in a place like this," and then they spend perhaps four minutes in it, and look at nothing whatever. They do not take a volume down from the shelf; they do not so much as read a title. Their affection for literature, so to speak, is an affection at a respectful distance, rather like the passion for the sea of a man who has never been on it.
+
+Then there is the remark. Nearly everybody makes it, and nearly everybody makes it as though it had just occurred to him: he looks round at the shelves, all the way up to the ceiling, and observes that of making many books there is no end. He is enormously pleased with himself, and he looks at you to see whether you are pleased with him too. You are expected to smile. You do smile, since it is part of the employment, but one hears the observation a dozen times in a week, and after the first year a certain stiffness creeps into the smile.
+
+The friends of authors are a class by themselves. They will not buy their friends' books. They ask for them, which is something; they turn them over, and then they put them down and explain that they expect to be presented with a copy. I have never discovered whether they are.
+
+The purchasers who know what they want are hardly easier. They want a book by the man who wrote the other book, and they cannot remember either title; they ask for an "edition" when they mean a copy, and a "copy" when they mean an edition, and they want a "first edition" of something published last week. And certain foreign customers--I will not say which foreign customers--come in requesting, with perfect gravity, titles so obscure and so technical that nobody in the establishment has heard of them: [example needed: an obscure technical title requested]. We write it down, we promise to send for it, and we generally do.
+
+It is not, on the whole, a disagreeable existence. It is only a repetitive one.

@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "D",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "B": "Short, flat declaratives in runs ('He wished to be informed. He did not look at them.') with a slightly stiff, formal register come closest to the passage's plain 'He was very earnest. He asked questions with deference.' movement and its earnest stance.",
+  "D": "Uses a parenthetical aside and clipped short sentences like the passage, but its showy turns ('with the paint off', 'Now, here is the curious part') give a breezier, more performed tone than the author's stiff, observational one.",
+  "A": "Polished, ironic essayist's voice, with balanced clauses, semicolons and witty closing similes; it has the parenthesis habit but is too urbane and smooth for the passage's awkward, Latinate earnestness.",
+  "C": "Modern, even and fluent prose with rhetorical questions and a neat, symmetrical ending; it lacks the passage's parentheses, stiff formality and abrupt fragments."
+ }
+}

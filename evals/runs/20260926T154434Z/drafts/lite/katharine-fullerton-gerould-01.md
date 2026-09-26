@@ -1,0 +1,9 @@
+It is a commonplace, to-day, that democracy and learning are natural enemies; that a people which believes every man as good as his neighbour can have no use for the scholar. Yet the early Americans prized learning, and prized it a good deal. The contradiction is only apparent. Let us look at the society they actually lived in.
+
+The frontier community was small, and it was like-minded. Men did not go into the wilderness in random crowds; they went with their own kind, and the strong among them rose as naturally as cream rises in a pan. No one appointed them. No one needed to. Leadership, in such a group, was not conferred but discovered--and every one knew where to find it. That is not the democracy of the ballot-box. It is something older.
+
+The founders, too, were egalitarian (I fancy they would have been startled to hear it questioned) within their own circle. Among themselves they were equals, and they said so handsomely. Beyond that circle their equality did not, on the whole, extend. Some one will object that this is hypocrisy. Granted; but it is hypocrisy of a very ordinary human sort, and it explains a great deal. A man who believes himself the equal of the best men he knows does not, therefore, believe that the best are no better than the worst.
+
+The point is that learning, for them, was not a gift. It was earned. A man got it by personal effort--by candle-light, often, and against odds [example needed: an early American who taught himself]--and having got it, he respected it in others precisely because he knew its price. Learning handed out gratis would have seemed to them as suspect as a title bought for cash. What was earned could be honoured; what was merely given could not.
+
+So there was no real quarrel between their democracy and their books. They believed in an open road, not in a level field. Every one might travel; not every one would arrive. That was the whole of their creed.

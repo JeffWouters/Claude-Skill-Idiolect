@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "D",
+  "C",
+  "B"
+ ],
+ "reasons": {
+  "A": "Long, clause-stacked sentences with varied rhythm, measured first-person hedging ('I suspect') and two dense paragraphs closely match the passage's movement and structure.",
+  "D": "Long periodic sentences, semicolons and hedges ('arguably', 'I suspect', 'perhaps') fit well, but the question opening and stacked hedges read slightly thicker than the passage.",
+  "C": "Right diction and a mid-piece rhetorical question, but shorter paragraphs, a question-led opening and an aphoristic close push the author's habits towards imitation.",
+  "B": "Short, clipped sentences, fragment-like lists and a plain, brisk tone are far from the passage's long, hedged, reflective periods."
+ }
+}

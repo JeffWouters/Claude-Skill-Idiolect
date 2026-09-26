@@ -1,0 +1,9 @@
+It can seem strange that the early Americans, who built a democracy and spoke so often of equality, should have held learning in such high regard. A people that distrusted rank and title might be expected to distrust the rank that learning confers as well. Yet they did not, and the reason lies in the kind of society they actually lived in.
+
+The frontier communities were small. They were made up of people who had come for much the same reasons, who shared much the same habits and beliefs, and who faced the same hard conditions. In such a group there was little need for a formal ladder of rank, because everyone could see who was capable. The strong, the able and the diligent rose to the top without anyone arranging it, and the others accepted their leadership as a plain fact of life rather than as an insult to their own standing.
+
+The founders carried this outlook with them. Their egalitarianism was real, but it had edges. It applied to those within their own circle, to men of their own kind and condition, and it did not stretch much further than that. Equality, as they understood it, meant that no one inside the circle was born above another. It did not mean that every person's judgment was worth the same, or that distinction of any sort was suspect.
+
+Learning fitted neatly into this picture. It was not an inheritance, like a title or an estate, passed down whether deserved or not. It had to be won, hour by hour, through a person's own effort and discipline. A man who had made himself learned had done something, and what he had done could be seen and respected by his neighbours. In that sense learning was the most democratic kind of distinction there was: open in principle to anyone willing to work for it, and closed to anyone who was not.
+
+So the early Americans saw no contradiction. They honoured learning because they honoured effort, and a democracy of the able had every reason to prize what the able had earned.

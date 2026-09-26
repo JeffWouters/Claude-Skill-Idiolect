@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "D",
+  "A"
+ ],
+ "reasons": {
+  "C": "Medium-long, clause-stacked sentences with period diction ('would require to keep', 'inquired', 'so to speak') and a dry, understated irony closest to the passage's slightly stiff, anecdotal manner.",
+  "B": "Right period feel and wry first-person stance ('so to say', 'I suppose'), but its many clipped short sentences move more briskly than the passage's rambling clauses.",
+  "D": "Polished comic-essayist rhythm with set-piece repetition, rhetorical questions and dashes; more crafted and punchline-driven than the passage, verging on caricature of a humorist.",
+  "A": "Modern, plain explanatory register with generalising 'you' and abstract summary; lacks the passage's period diction, oddities of syntax and anecdotal irony."
+ }
+}

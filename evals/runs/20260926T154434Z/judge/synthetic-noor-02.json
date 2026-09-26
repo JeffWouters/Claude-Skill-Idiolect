@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "D",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Closest sentence movement: clipped declaratives, one-word fragments, short paragraphs and flat, plain assertion like the passage; slightly overdoes the fragment runs ('Or in a bag. Or in the car.') but stays within the author's range.",
+  "D": "Short sentences and a dry, wry stance ('I had high hopes for the whiteboard') fit well, but the neat aphoristic turns and more comma-joined sentences read a little more polished than the author.",
+  "B": "Plain diction and some short sentences, but paragraphs are much larger and clauses chained with 'and' ('in a phone, and the phone was in a pocket, and nobody looked') give a different rhythm than the passage's stacked short lines.",
+  "C": "Long, balanced, explanatory sentences with colons and abstract reflection ('a small picture of a busy stretch of family life') are far from the author's terse, concrete, unhedged voice."
+ }
+}

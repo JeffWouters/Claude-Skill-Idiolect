@@ -1,0 +1,9 @@
+My commute is a train ride, and I have come to treat it as protected time. Not work time, not phone time. Quiet time. It took me a while to get there.
+
+The route itself is part of it. After enough trips you learn the landmarks the way you learn a song: [example needed], then [example needed], then the long stretch past [example needed]. None of them are remarkable on their own. They are markers, telling me how far along I am without my having to check. And every so often there is a heron. Not every day, and never when I am looking for it. It stands at the water's edge, perfectly still, and then the train carries me past. On the days it is there, the whole journey feels slightly better.
+
+For a long time I used the ride to work. I opened the laptop as soon as I sat down and tried to clear email or finish something before I arrived. It seemed efficient. In practice it meant I started the working day already tired and ended it without any gap between the office and home. So I stopped. The laptop stays in the bag now. I watch out of the window, or I read, and that is all. The work is still there when I arrive. I am just in better shape to do it.
+
+What surprised me is how much a routine lets you notice. When you take the same train at the same time every day, the view becomes a baseline, and small changes stand out against it. The light shifts across the seasons: [example needed]. What is outside the window changes with them. The people change too, in small ways. [example needed: a regular passenger, a change in the carriage]. You would never see any of it on a single trip. It only shows up because you have seen the same scene so many times before.
+
+That is what the commute gives me. Not productivity. Attention, and a little room to breathe before the day begins, and again before it ends.

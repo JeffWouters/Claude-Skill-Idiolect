@@ -1,0 +1,10 @@
+Files opened:
+- /tmp/claude-0/eval-20260926T154434Z/prompts/gen-fewshot-w2a.txt
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-01.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-02.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-03.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-04.md
+- /tmp/claude-0/eval-20260926T154434Z/fewshot/w2-01.md
+- /tmp/claude-0/eval-20260926T154434Z/fewshot/w2-02.md
+- /tmp/claude-0/eval-20260926T154434Z/fewshot/w2-03.md
+- /tmp/claude-0/eval-20260926T154434Z/fewshot/w2-04.md

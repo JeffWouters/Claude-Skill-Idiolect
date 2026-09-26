@@ -1,0 +1,11 @@
+A bookshop, to the person behind the counter, is not a place where books are sold.  It is a place where people come to say things about books.  The selling is incidental.  One learns this in the first week, and one never afterwards ceases to be entertained by it.
+
+There is, first, the visitor who loves books.  She tells you so at the door.  She tells you so again at the table of new fiction, and a third time at the poetry.  She has always loved books; she simply cannot keep away from them; she could spend whole days among them.  During all this she does not open one.  She does not so much as turn one over to look at the back.  Her gloves are on, and they stay on.  She loves books as some people love the sea, from the promenade.
+
+Then there is the remark.  I do not know how many times I have heard it.  Nearly every customer who stands for a moment before the long shelves, and looks up, and looks along, is visited by the same thought, and the thought is always Ecclesiastes.  "Of making many books," he says, "there is no end."  And he looks at you.  He is so pleased.  He has, he feels, put the whole business in a nutshell, and in the words of the Preacher at that.  You smile.  You have smiled at it [number needed: how often] times this season.  Whoso quoteth it thinketh it new.
+
+Now, the friends of authors are a class by themselves.  You would suppose that the friend of a writer would buy the writer's book.  Not at all.  He comes in to tell you that he knows the man, that he dined with him (or lunched, as the case may be), and that he does not intend to read the thing, since he has heard it all at table.
+
+The buyers who do buy are frequently in a fog as to what they want.  They ask for a "volume" when they mean a set, for an "edition" when they mean a copy, for "the new one" when there are three.  [example needed: a real muddle of terms from the shop]
+
+And there are, finally, certain foreign customers, grave and courteous men, who come in and ask, without the least embarrassment, for a work on [example needed: an obscure technical subject].  We have not got it.  We have never had it.  They are not surprised.  They bow, and go out, and presumably try the next shop.  It is a large world, and somewhere in it, I suppose, the book is to be had.

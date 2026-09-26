@@ -1,0 +1,1429 @@
+{
+ "summary": {
+  "run": "20260926T154434Z",
+  "arms": [
+   "plain",
+   "fewshot",
+   "idiolect",
+   "lite"
+  ],
+  "recognition_checks": "run",
+  "authors": {
+   "katharine-fullerton-gerould": {
+    "briefs": 8,
+    "counted": 7,
+    "excluded_recognised": 1,
+    "wins_vs_plain": 7,
+    "wins_vs_fewshot": 3,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.429,
+    "mean_flags": {
+     "plain": 2.71,
+     "fewshot": 1.29,
+     "idiolect": 0.0,
+     "lite": 2.71
+    },
+    "all_briefs": {
+     "vs_plain": 8,
+     "vs_fewshot": 3
+    }
+   },
+   "robert-cortes-holliday": {
+    "briefs": 8,
+    "counted": 5,
+    "excluded_recognised": 3,
+    "wins_vs_plain": 5,
+    "wins_vs_fewshot": 3,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.6,
+    "mean_flags": {
+     "plain": 3.6,
+     "fewshot": 4.2,
+     "idiolect": 1.2,
+     "lite": 3.8
+    },
+    "all_briefs": {
+     "vs_plain": 8,
+     "vs_fewshot": 4
+    }
+   },
+   "samuel-mcchord-crothers": {
+    "briefs": 8,
+    "counted": 7,
+    "excluded_recognised": 1,
+    "wins_vs_plain": 7,
+    "wins_vs_fewshot": 5,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.714,
+    "mean_flags": {
+     "plain": 3.29,
+     "fewshot": 2.86,
+     "idiolect": 0.43,
+     "lite": 4.29
+    },
+    "all_briefs": {
+     "vs_plain": 8,
+     "vs_fewshot": 5
+    }
+   },
+   "synthetic-idris": {
+    "briefs": 8,
+    "counted": 8,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 8,
+    "wins_vs_fewshot": 5,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.625,
+    "mean_flags": {
+     "plain": 6.88,
+     "fewshot": 3.0,
+     "idiolect": 0.38,
+     "lite": 4.5
+    },
+    "all_briefs": {
+     "vs_plain": 8,
+     "vs_fewshot": 5
+    }
+   },
+   "synthetic-noor": {
+    "briefs": 8,
+    "counted": 8,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 8,
+    "wins_vs_fewshot": 6,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.75,
+    "mean_flags": {
+     "plain": 7.0,
+     "fewshot": 2.5,
+     "idiolect": 1.0,
+     "lite": 3.62
+    },
+    "all_briefs": {
+     "vs_plain": 8,
+     "vs_fewshot": 6
+    }
+   }
+  },
+  "groups": {
+   "real": {
+    "briefs": 24,
+    "counted": 19,
+    "excluded_recognised": 5,
+    "wins_vs_plain": 19,
+    "wins_vs_fewshot": 11,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.579,
+    "mean_flags": {
+     "plain": 3.16,
+     "fewshot": 2.63,
+     "idiolect": 0.47,
+     "lite": 3.58
+    },
+    "all_briefs": {
+     "vs_plain": 24,
+     "vs_fewshot": 12
+    },
+    "pass": false
+   },
+   "synthetic": {
+    "briefs": 16,
+    "counted": 16,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 16,
+    "wins_vs_fewshot": 11,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.688,
+    "mean_flags": {
+     "plain": 6.94,
+     "fewshot": 2.75,
+     "idiolect": 0.69,
+     "lite": 4.06
+    },
+    "all_briefs": {
+     "vs_plain": 16,
+     "vs_fewshot": 11
+    },
+    "pass": true
+   }
+  },
+  "pairs": {
+   "idiolect vs plain": {
+    "real": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 6,
+     "briefs": 19
+    },
+    "synthetic": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 4,
+     "briefs": 16
+    },
+    "all": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 10,
+     "briefs": 35
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 1.0,
+     "robert-cortes-holliday": 1.0,
+     "samuel-mcchord-crothers": 1.0,
+     "synthetic-idris": 1.0,
+     "synthetic-noor": 1.0
+    }
+   },
+   "idiolect vs fewshot": {
+    "real": {
+     "rate": 0.579,
+     "ci95": [
+      0.412,
+      0.7
+     ],
+     "clusters": 6,
+     "briefs": 19
+    },
+    "synthetic": {
+     "rate": 0.688,
+     "ci95": [
+      0.562,
+      0.75
+     ],
+     "clusters": 4,
+     "briefs": 16
+    },
+    "all": {
+     "rate": 0.629,
+     "ci95": [
+      0.514,
+      0.722
+     ],
+     "clusters": 10,
+     "briefs": 35
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 0.429,
+     "robert-cortes-holliday": 0.6,
+     "samuel-mcchord-crothers": 0.714,
+     "synthetic-idris": 0.625,
+     "synthetic-noor": 0.75
+    }
+   },
+   "lite vs plain": {
+    "real": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 6,
+     "briefs": 19
+    },
+    "synthetic": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 4,
+     "briefs": 16
+    },
+    "all": {
+     "rate": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "clusters": 10,
+     "briefs": 35
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 1.0,
+     "robert-cortes-holliday": 1.0,
+     "samuel-mcchord-crothers": 1.0,
+     "synthetic-idris": 1.0,
+     "synthetic-noor": 1.0
+    }
+   },
+   "lite vs fewshot": {
+    "real": {
+     "rate": 0.526,
+     "ci95": [
+      0.35,
+      0.737
+     ],
+     "clusters": 6,
+     "briefs": 19
+    },
+    "synthetic": {
+     "rate": 0.5,
+     "ci95": [
+      0.188,
+      0.75
+     ],
+     "clusters": 4,
+     "briefs": 16
+    },
+    "all": {
+     "rate": 0.514,
+     "ci95": [
+      0.333,
+      0.688
+     ],
+     "clusters": 10,
+     "briefs": 35
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 0.286,
+     "robert-cortes-holliday": 0.6,
+     "samuel-mcchord-crothers": 0.714,
+     "synthetic-idris": 0.25,
+     "synthetic-noor": 0.75
+    }
+   },
+   "idiolect vs lite": {
+    "real": {
+     "rate": 0.579,
+     "ci95": [
+      0.412,
+      0.714
+     ],
+     "clusters": 6,
+     "briefs": 19
+    },
+    "synthetic": {
+     "rate": 0.812,
+     "ci95": [
+      0.75,
+      0.938
+     ],
+     "clusters": 4,
+     "briefs": 16
+    },
+    "all": {
+     "rate": 0.686,
+     "ci95": [
+      0.559,
+      0.794
+     ],
+     "clusters": 10,
+     "briefs": 35
+    },
+    "by_author": {
+     "katharine-fullerton-gerould": 0.714,
+     "robert-cortes-holliday": 0.4,
+     "samuel-mcchord-crothers": 0.571,
+     "synthetic-idris": 0.875,
+     "synthetic-noor": 0.75
+    }
+   }
+  },
+  "first_place_by_label": {
+   "A": 10,
+   "B": 7,
+   "C": 12,
+   "D": 11
+  }
+ },
+ "rows": [
+  {
+   "id": "katharine-fullerton-gerould-01",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 326,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w4a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould, \"The Extirpation of Culture\" (Modes and Morals, 1920)",
+    "confidence": "low",
+    "why": "Early-20th-century Atlantic-style essay on American culture and democracy; diction and argument resemble Gerould's essay, but no verbatim recall."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 2
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-02",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 310,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w4a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould, \"The Boundaries of Truth\" (Modes and Morals)",
+    "confidence": "low",
+    "why": "Early-20th-century American familiar essay on the ethics of lying (Soeur Simplice, Decalogue, genteel irony) fits Gerould's Atlantic essays, but I can't place the exact text."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 5
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-03",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 461,
+   "group": "real",
+   "rank": [
+    "lite",
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w4a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould (possibly Modes and Morals, 1920)",
+    "confidence": "low",
+    "why": "Circa-1920 American Atlantic-style essay defending culture against modernity and materialism fits Gerould's voice, but I cannot place the exact text."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 2,
+    "idiolect": 0,
+    "lite": 4
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-04",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 388,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w4a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould (essay on lying, possibly from Modes and Morals, 1920)",
+    "confidence": "low",
+    "why": "Early-20th-century American familiar essay on Honor, the gentleman's code and John Calvin reads like Gerould's style, but I cannot place the exact text."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 0,
+    "idiolect": 0,
+    "lite": 3
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-05",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 305,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "lite",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w4b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould, possibly \"The Extirpation of Culture\" (Modes and Morals, 1920)",
+    "confidence": "low",
+    "why": "American essay from around 1920 attacking democratised, easy-going schooling (eurhythmics, domestic science); the tone and theme fit Gerould, but I can't place the exact text."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 0
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-06",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 300,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w4b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould (possibly 'The Boundaries of Truth', Modes and Morals)",
+    "confidence": "low",
+    "why": "Early-20th-century American familiar essay on social lying and politeness; the style and subject suggest Gerould, but I don't recognise the exact text."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 3,
+    "idiolect": 0,
+    "lite": 2
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-07",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 341,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w4b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould, \"The Extirpation of Culture\" (Modes and Morals, 1920)",
+    "confidence": "medium",
+    "why": "Early-1900s American essay attacking anti-intellectual pressure on colleges, Montessori and state universities matches Gerould's style and her essay on culture in Modes and Morals"
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 2
+   }
+  },
+  {
+   "id": "katharine-fullerton-gerould-08",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 455,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w4b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Katharine Fullerton Gerould (essay on conventional lying, likely from Modes and Morals, 1920)",
+    "confidence": "low",
+    "why": "Early-20th-century American familiar essay on social lies and manners-as-morals; the style and themes fit Gerould, but I cannot recall the exact text."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 3
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-01",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 355,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "lite",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w5a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "low",
+    "why": "Recognisable as a bookshop clerk's early-1900s account of Henry James (Mr. Brownell suggests Scribner's), but I cannot name the author or the published work."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 5,
+    "idiolect": 1,
+    "lite": 7
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-02",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 318,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w5a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Robert Cortes Holliday, \"Hunting Lodgings\" (Walking-Stick Papers, 1918)",
+    "confidence": "low",
+    "why": "Early-1900s American familiar essay with London/Staple Inn wanderings and a whimsical bookman's voice suggests Holliday, but I can't place the exact text."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 2
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-03",
+   "author": "robert-cortes-holliday",
+   "essay": "20-humours-of-the-book-shop.md",
+   "words": 413,
+   "group": "real",
+   "rank": [
+    "lite",
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w5a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Robert Cortes Holliday, book-clerk essay (possibly in Walking-Stick Papers, 1918)",
+    "confidence": "low",
+    "why": "Early-20th-century American familiar essay on bookshop clerking ('the Zoo') fits Holliday's Scribner's bookstore essays, but I don't recognise the exact text."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-04",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 402,
+   "group": "real",
+   "rank": [
+    "lite",
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w5a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Robert Cortes Holliday (Walking-Stick Papers)",
+    "confidence": "medium",
+    "why": "Ex-Scribner's bookshop clerk's gossipy editorial-'we' account of Henry James meeting Brownell and Teddy Wharton matches Holliday's bookselling essays."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 5
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-05",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 365,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "lite",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w5b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Robert Cortes Holliday (Walking-Stick Papers, 1918)",
+    "confidence": "low",
+    "why": "Whimsical 1910s New York familiar essay on lodgings and Patchin Place fits Holliday's style, but I don't recognise the specific text."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 5,
+    "idiolect": 2,
+    "lite": 2
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-06",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 391,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w5b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Robert Cortes Holliday (bookshop essay on Henry James, likely from Walking-Stick Papers)",
+    "confidence": "medium",
+    "why": "First-person bookshop clerk watching Henry James and Edith Wharton at Scribner's on Fifth Avenue (Brownell) matches Holliday's essays about his years selling books at Scribner's."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-07",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 358,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w5b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Robert Cortes Holliday (a bookshop-clerk essay about Henry James, likely from Walking-Stick Papers)",
+    "confidence": "medium",
+    "why": "Editorial-'we' anecdote of a Scribner's bookshop clerk serving Henry James (the sister-in-law is Mrs. William James) matches Holliday's early-1900s bookselling essays."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 5
+   }
+  },
+  {
+   "id": "robert-cortes-holliday-08",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 323,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w5b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Robert Cortes Holliday (essay on hunting lodgings, possibly from Walking-Stick Papers)",
+    "confidence": "low",
+    "why": "Whimsical early-20th-century familiar essay about lodging-hunting in New York (Broome Street) and London (Kensington) matches Holliday's style and subjects, but I recall no specific lines."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 6,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-01",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 490,
+   "group": "real",
+   "rank": [
+    "lite",
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w1a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay on peace, c. WWI era)",
+    "confidence": "low",
+    "why": "Quotes Milton's Nativity Ode and the Morris/Magnusson Heimskringla; the genial, ironic essay voice on 'Christian nations' as novices reads like Crothers, but I cannot place the exact work."
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 0,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-02",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 359,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w1a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay, likely from The Pardoner's Wallet or a similar collection)",
+    "confidence": "low",
+    "why": "Genial, ironic Gilded-Age familiar-essay voice recalling a Nevada mining town; Crothers was a minister in Eureka, Nevada, but I do not recognise the exact passage."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-03",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 422,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w1a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay quoting the Memoirs of Stephen Burroughs)",
+    "confidence": "low",
+    "why": "The quoted material is clearly from Stephen Burroughs's 1798 Memoirs (the Pelham preaching imposture, the Hanover beehive raid); the ironic framing commentary reads like a genteel early-1900s essayist such as Crothers, but I cannot pin the frame text to a specific essay."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 5,
+    "idiolect": 0,
+    "lite": 5
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-04",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 309,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w1a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Essay quoting Tennyson's Maud (possibly Samuel McChord Crothers)",
+    "confidence": "low",
+    "why": "The verse lines are clearly Tennyson's Maud, but I cannot pin the surrounding prose commentary to a specific author or work; Crothers is only a guess."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 4,
+    "idiolect": 0,
+    "lite": 6
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-05",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 349,
+   "group": "real",
+   "rank": [
+    "lite",
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w1b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay, possibly from The Pardoner's Wallet)",
+    "confidence": "low",
+    "why": "Genial genteel-essay style with classical/biblical allusion about Western mining camps fits Crothers, who ministered in Nevada; no verbatim recall of the passage."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 1,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-06",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 350,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w1b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay likely from The Pardoner's Wallet)",
+    "confidence": "medium",
+    "why": "Genial, ironic early-1900s essay voice using Stephen Burroughs as a self-approving scamp matches Crothers' essays on conscience and self-complacency."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 3,
+    "idiolect": 0,
+    "lite": 3
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-07",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 351,
+   "group": "real",
+   "rank": [
+    "lite",
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w1b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genial early-1900s American essayist voice mixing Scripture, Kipling and Tennyson on war and generations resembles Crothers, but no specific passage is recalled."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 4,
+    "idiolect": 0,
+    "lite": 4
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-08",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 309,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w1b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers (essay collection, e.g. The Pardoner's Wallet / Humanly Speaking)",
+    "confidence": "low",
+    "why": "Genteel essayist voice with Chaucer allusion and Nevada mining-town humour fits Crothers, who ministered in Eureka, Nevada; no specific passage recalled."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 3,
+    "idiolect": 0,
+    "lite": 4
+   }
+  },
+  {
+   "id": "synthetic-idris-01",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 330,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w3a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 1,
+    "idiolect": 0,
+    "lite": 6
+   }
+  },
+  {
+   "id": "synthetic-idris-02",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 339,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w3a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 0,
+    "lite": 6
+   }
+  },
+  {
+   "id": "synthetic-idris-03",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 304,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w3a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 0,
+    "idiolect": 0,
+    "lite": 5
+   }
+  },
+  {
+   "id": "synthetic-idris-04",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 324,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w3a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 3,
+    "idiolect": 0,
+    "lite": 7
+   }
+  },
+  {
+   "id": "synthetic-idris-05",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 429,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "lite",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w3b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 4,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "synthetic-idris-06",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 429,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w3b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 9,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 2
+   }
+  },
+  {
+   "id": "synthetic-idris-07",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 300,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w3b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 6,
+    "idiolect": 0,
+    "lite": 2
+   }
+  },
+  {
+   "id": "synthetic-idris-08",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 307,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w3b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 5,
+    "idiolect": 1,
+    "lite": 5
+   }
+  },
+  {
+   "id": "synthetic-noor-01",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 307,
+   "group": "synthetic",
+   "rank": [
+    "lite",
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "agent": "w2a",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "synthetic-noor-02",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 329,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w2a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "synthetic-noor-03",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 302,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w2a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "synthetic-noor-04",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 327,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "lite",
+    "plain"
+   ],
+   "agent": "w2a",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 3,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "synthetic-noor-05",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 318,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w2b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "synthetic-noor-06",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 324,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "lite",
+    "plain"
+   ],
+   "agent": "w2b",
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 4
+   }
+  },
+  {
+   "id": "synthetic-noor-07",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 320,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "lite",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w2b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 3
+   }
+  },
+  {
+   "id": "synthetic-noor-08",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 316,
+   "group": "synthetic",
+   "rank": [
+    "lite",
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "agent": "w2b",
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "confidence": "not run"
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 2,
+    "idiolect": 1,
+    "lite": 4
+   }
+  }
+ ]
+}

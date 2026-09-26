@@ -1,0 +1,9 @@
+I have a tender recollection of a new silver camp in Nevada, where I once lived for a while. [name of camp needed] was not a beautiful town, and it made no pretence of being one. It had the frankness of youth. It did not ask to be admired; it asked only to be allowed to grow up.
+
+The smelter stood at one end of the camp and poured out its smoke day and night. A stranger might have thought this a misfortune, but the inhabitants knew better. The smoke, they told me, was the best disinfectant in the world. No germ could live in it. It was a matter of civic pride that the place was so healthy. It was true that nothing green could live in it either. There was not a blade of grass or a flower to be seen, for the smoke killed every plant that ventured within reach. But that was only the price of health, and nobody thought it too high.
+
+There was one street, and it held everything. The saloons were there, and the gaming halls, and they did a prosperous business. The churches were there also, but they were feeble folk, and seemed to exist on sufferance. It was hard for them to make themselves heard above the rattle of the chips. There were two newspapers, and they kept up a feud with a vigor that would have done credit to rival dynasties. What one editor affirmed the other denied, and each gave the impression that the future of civilization hung upon the outcome. The subscribers, I think, read both and enjoyed the quarrel.
+
+A little train connected the camp with the outside world. It was not a great railroad, but it was a comfort to know that it was there. It was the thread which bound us to the rest of mankind, and when it came in there was always a crowd to meet it.
+
+But the thing I remember best is the dust. It was the chief fact of daily life. It was in the air and on the table and in one's clothes and in one's thoughts. One did not fight against it; one accepted it, as the people accepted the smoke, as a part of the order of things.

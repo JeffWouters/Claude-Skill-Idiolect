@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "D",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, semicolon-jointed periodic sentences broken by short summary ones, a measured first-person aside ('I fancy') and a crisp closing aphorism come closest to the passage's movement and assured, urbane stance.",
+  "B": "Right register and a good mix of long and short sentences with apt metaphor, but the childhood-anecdote opening is more confiding than the passage and the exclamatory parenthesis tips towards pastiche.",
+  "D": "Diction and stance fit, but the clipped run of short declaratives moves more choppily than the passage, and it stacks the period tics ('I fancy', 'ex officio', 'Granted', exclamatory parenthesis) more thickly than the author does.",
+  "C": "Plain, modern, expository prose with no first-person voice, no figurative turns and even sentence lengths; it lacks the passage's periodic rhythm and ironic, aphoristic stance."
+ }
+}

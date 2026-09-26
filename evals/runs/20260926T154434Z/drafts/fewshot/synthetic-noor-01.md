@@ -1,0 +1,7 @@
+I keep the old to-do sheets. All of them. When a sheet is full, it goes in a box. The box is now [number] years deep. I had never read it. Last week I did. I sat on the floor with the box and went through it sheet by sheet, oldest first. It took most of an afternoon. It is not a list of jobs. It is a record of us.
+
+The chores come round like weather. Clean the gutters. Service the boiler. Get the winter coats down from the loft. Put them back up. The same lines turn up at the same time every year, in the same order. I could date a sheet by its chores alone. I did not need the date in the corner. The house has a calendar of its own, and we have been keeping it without knowing.
+
+Then there are the jobs that never got done. Fix the shed door. It is on a sheet from [year]. It is on the next one. And the next. It moves from sheet to sheet for years. It is still not fixed. I know. I walked past it this morning. Other jobs just stop. One sheet they are there. The next they are gone. No tick. No line through them. I cannot remember doing them. I cannot remember giving up on them either. [example needed]
+
+The grocery lines are the hardest to read. The early sheets are full of small things. Baby food. Nappies. Fish fingers. Later it is cereal by the double box. Then bread two loaves at a time. Milk every other day. The quantities climb year on year. Then they drop. One name stops asking for things. Then the other. The last sheets are short. Milk for two. Bread for two. It is all there, in pencil, in a box on the floor.

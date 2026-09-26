@@ -1,0 +1,11 @@
+Speaking of customers reminds me of certain things which one who has stood for some time behind the counter of a bookshop cannot help observing.  I set them down here, not unkindly.
+
+There is, to begin with, the visitor who loves books.  She tells you so as she comes in.  "Oh," she exclaims, "I just love books!"  She loves, it appears, to be among them.  She loves the very smell of them.  She stands in the middle of the shop and loves them, and while she is loving them she looks at the clock, and at her gloves, and at the young woman at the next table, and at you.  She does not look at the books.  She does not touch one.  After a while she goes out, still loving them.
+
+Then there is the remark.  I suppose that I have heard it a thousand times; I suppose that every bookseller has.  A gentleman looks about him at the shelves, and at the tables, and at the piles on the floor, and he smiles, and he says: "Of making many books there is no end."  He says it as though it had just come to him.  He is very pleased with it.  He looks at you to see that you are pleased with it, too.  And you are, as well as you can manage.  In the course of a single day, if the day is a busy one, you may be pleased with it several times.
+
+The friends of authors are a class by themselves.  You offer the friend of an author the author's new book.  He does not want it.  He knows the author.  He knows, it seems to be implied, rather too much about the author to be interested in what he has written.  Or he expects, perhaps, to be given a copy.
+
+A good many buyers, again, are a little uncertain as to terms.  They ask for one thing when they mean another, and are surprised, and sometimes hurt, when they receive what they asked for.  [example needed]  You learn, after a time, to hear not what is said but what is meant.
+
+And there are certain foreign customers--[nationality needed]--who come in quietly, and who do not love books aloud, and who do not tell you that there is no end of them.  They ask, instead, for a work on some technical subject of which you have never heard, by an author of whom you have never heard, in an edition which you are quite sure does not exist.  They are very polite about it.  They wait while you look.

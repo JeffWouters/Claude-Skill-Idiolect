@@ -1,0 +1,11 @@
+Files opened:
+- /tmp/claude-0/eval-20260926T154434Z/prompts/gen-idiolect-w5b.txt
+- /tmp/claude-0/eval-20260926T154434Z/idiolect/SKILL.md
+- /tmp/claude-0/eval-20260926T154434Z/idiolect/references/modes/write.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w5-05.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w5-06.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w5-07.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w5-08.md
+- Kit output (scripts/kit.py) saved and read: work/idiolect-w5b/kit-w5-05..08.md
+- Check output (scripts/check.py) saved and read: work/idiolect-w5b/c-w5-05..08.json
+- Own drafts: work/idiolect-w5b/d-w5-05..08.md

@@ -1,0 +1,303 @@
+{
+ "run": "20260926T154434Z",
+ "seed": 20261201,
+ "arms": [
+  "plain",
+  "fewshot",
+  "idiolect",
+  "lite"
+ ],
+ "avoid": [
+  "20260926T144759Z",
+  "20260926T144808Z"
+ ],
+ "passages": [
+  {
+   "id": "katharine-fullerton-gerould-01",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 326,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-02",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 310,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-03",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 461,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-04",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 388,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-05",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 305,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-06",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 300,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-07",
+   "author": "katharine-fullerton-gerould",
+   "essay": "04-the-extirpation-of-culture.md",
+   "words": 341,
+   "group": "real"
+  },
+  {
+   "id": "katharine-fullerton-gerould-08",
+   "author": "katharine-fullerton-gerould",
+   "essay": "08-the-boundaries-of-truth.md",
+   "words": 455,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-01",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 355,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-02",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 318,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-03",
+   "author": "robert-cortes-holliday",
+   "essay": "20-humours-of-the-book-shop.md",
+   "words": 413,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-04",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 402,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-05",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 365,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-06",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 391,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-07",
+   "author": "robert-cortes-holliday",
+   "essay": "08-henry-james-himself.md",
+   "words": 358,
+   "group": "real"
+  },
+  {
+   "id": "robert-cortes-holliday-08",
+   "author": "robert-cortes-holliday",
+   "essay": "15-hunting-lodgings.md",
+   "words": 323,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-01",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 490,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-02",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 359,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-03",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 422,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-04",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 309,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-05",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 349,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-06",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 350,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-07",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 351,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-08",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 309,
+   "group": "real"
+  },
+  {
+   "id": "synthetic-idris-01",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 330,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-02",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 339,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-03",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 304,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-04",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 324,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-05",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 429,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-06",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 429,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-07",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 300,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-08",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 307,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-01",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 307,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-02",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 329,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-03",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 302,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-04",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 327,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-05",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 318,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-06",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 324,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-07",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 320,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-08",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 316,
+   "group": "synthetic"
+  }
+ ],
+ "reused": {
+  "katharine-fullerton-gerould": 0,
+  "robert-cortes-holliday": 2,
+  "samuel-mcchord-crothers": 0,
+  "synthetic-idris": 6,
+  "synthetic-noor": 6
+ }
+}

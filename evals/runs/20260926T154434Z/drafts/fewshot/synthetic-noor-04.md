@@ -1,0 +1,7 @@
+The train takes [number] minutes each way. I used to work through all of it. Laptop open before the doors shut. Emails, then a document, then more emails. I got off tired and I got on tired. Now I do not open the laptop. The train is my quiet time. I guard it.
+
+I know the route by heart. The same things go past in the same order. [landmark needed]. Then the long stretch by the water. Then [landmark needed]. On the water there is sometimes a heron. Not every day. Maybe one day in [number]. It stands at the edge, dead still, grey on grey. I look for it every time. Most days it is not there. That is part of it. When it is there, it makes the day.
+
+Giving up the laptop was harder than I thought. For the first week I felt I was wasting the time. I kept reaching for the bag. Then I stopped. Now I watch. Or I read. A real book, a few pages at a time. Some days I do neither. I just look out of the window. I get off calmer than I got on. That is new. The work is still there when I get in. It has not gone anywhere.
+
+The odd thing about doing the same trip every day is how much you notice. You would think it would all blur. It does not. It sharpens. The trees along the bank turn a week at a time. I see the first yellow. I see the last leaf. The light at my stop moves with the months. Dark at [time] in winter. Bright by [time] in spring. And the people. The same faces in the same seats. One stops getting on. A new one starts. Someone has a cast on their arm, and then one day they do not. Nobody speaks. But I notice. On the train there is time to.

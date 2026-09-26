@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "A",
+  "B",
+  "D"
+ ],
+ "reasons": {
+  "C": "Short declarative sentences in bursts, rhetorical questions, dashes and a 'you' address give the passage's choppy, bemused movement most closely, though the closing tag is a touch mannered.",
+  "A": "Plain short sentences, 'But who?' questioning and a parenthetical aside match the passage's wry tone, but the rhythm is smoother and the ending's quiet twist feels more modern.",
+  "B": "Catches the dry, Latinate formality ('condescended', 'ascertain'), but the long, balanced periodic sentences and piled-up similes thicken the manner well past the passage's clipped rhythm.",
+  "D": "Fluent, modern reflective-essay voice with aphorisms and abstractions ('where my curiosity lives'); lacks the passage's abrupt short sentences, exclamations and period oddity."
+ }
+}

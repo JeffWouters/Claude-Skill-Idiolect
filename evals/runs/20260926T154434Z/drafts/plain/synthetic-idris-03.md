@@ -1,0 +1,9 @@
+Teams change estimation methods with some regularity. Hours give way to story points, story points to t-shirt sizes, t-shirt sizes to counting tickets or dropping estimates altogether. Each switch comes with enthusiasm and a workshop. And quite often, a few months later, nothing has really changed.
+
+The reason is that the technique was rarely the problem. What sits underneath is the organisation's attitude to uncertainty. If a number, in whatever unit, is treated as a promise the moment it is spoken, people will pad it, defend it, and feel punished when reality disagrees. Swapping hours for points does not alter that. It only changes the vocabulary of the negotiation.
+
+A more honest view is that an estimate is a statement about what the team knows right now. At the start of a piece of work that knowledge is thin, so the estimate is wide and tentative. As the work proceeds, the team learns things: the integration is harder than it looked, the data is cleaner than feared, a dependency turns out not to matter. The estimate should move with that learning. Revising it is not a failure of planning; it is planning working as intended. An organisation that expects revisions, and asks for them, gets better information than one that treats every change as slippage.
+
+It also helps to stop treating all work as the same kind of thing. Some work is familiar. The team has done it many times, knows its shape, and can forecast it with reasonable confidence. Other work is novel, involving a new technology, an unclear problem, or a domain nobody on the team has touched before. Forecasting those two together, with the same method and the same expected precision, hides the real risk inside an average. Separating them lets people give firm answers where they can and honest ranges where they cannot. [example needed]
+
+None of this requires a new technique. It requires deciding how the organisation wants to treat not knowing.

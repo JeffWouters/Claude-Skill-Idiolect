@@ -1,0 +1,9 @@
+Looking for a room to rent is one of the quickest ways to find out how strangers see you. You arrive at a door, a person you have never met looks you up and down, and within a minute or two they have decided what sort of tenant you are going to be. You do not get to explain yourself first. The judgement comes before the conversation, and the conversation is mostly spent trying to work out what the judgement was.
+
+Some of the experiences are simply odd. One landlady turned out to be a doctor, and she was perfectly happy to let the room, with one condition: she wanted to keep her surgical equipment in it. The instruments would stay, and I would live alongside them. She seemed to think this was an entirely reasonable arrangement and could not quite see why anyone would hesitate. Another landlady took one look at me, asked what I did for a living, and plainly concluded from the answer that my work was something shady. She did not say so directly, but the questions that followed made it obvious she was wondering what exactly I would be doing in her house, and at what hours.
+
+Then there are the respectable houses, which have their own way of sorting people. They want references. They want to know who can vouch for you, how long you have been known to them, and whether the people vouching are themselves the right sort. A stranger without letters in hand does not get very far past the front step, however polite he is.
+
+And beyond the respectable houses are the fashionable districts of London, where the question is not character at all but money. There, nobody asks what you do or who can speak for you. The rent itself does the asking, and it only accepts one answer. If you are not wealthy, the matter is settled before you have rung the bell.
+
+Put together, the search teaches you something you might not have wanted to learn: that to a great many people you are, at first sight, a set of guesses about your habits and your income.

@@ -1,0 +1,11 @@
+I suppose I ought to apologise before I begin, since what follows is, frankly, gossip. But I have thought about it a good deal, and I find I am in respectable company.
+
+Consider the coach driver. For generations he has carried the great and the not so great about the country, and it has never been expected that he should keep quiet about what he heard behind him. Consider the footman, who stands against the wall at dinner while the famous talk as though he were part of the furniture. Nobody is astonished when his memoirs appear; people are only astonished when they are dull. And consider the Roman waiter [example needed: the particular waiter and what he said], whose candour about the eminent diners he served is, as far as I can tell, the most honest thing written about them. These men saw their betters at close range and without ceremony, and they told what they saw. A bookstore clerk belongs to the same humble trade. He stands behind his counter as the footman stands behind his chair, and he is permitted, I think, the same privilege.
+
+So, with that settled, to the day itself.
+
+The first person I noticed was not the novelist at all but a man waiting near the front of the shop. He was very well dressed, in the careful, unhurried way of someone who has never needed to hurry, and he had the patient look of a husband who has been told he will only be a moment. He did not browse. He did not ask for anything. He simply waited, gloves in hand, with the air of a man who has done a great deal of waiting in his life and has made his peace with it. I remember wondering whom he belonged to.
+
+A minute later I found out. The door opened and the novelist came in. I had formed some picture of him from his books, and it was wrong in every particular. He was stout, a good deal stouter than I had imagined. He wore a hat of a shape I could not account for, neither in fashion nor quite out of it, and when he took it off he was bald. None of this seemed to trouble him in the least.
+
+Nor did he waste any time. Before I had fairly said good afternoon he was talking, easily and at length, as though we had been interrupted in the middle of a conversation and he was glad to pick it up again. What he talked about is the substance of the pages that follow.

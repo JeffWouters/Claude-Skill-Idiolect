@@ -1,0 +1,7 @@
+The kitchen tap had been dripping for months. It is an old brass one. I had stopped hearing it. So I measured it. I put a jug under the spout overnight. In the morning there was [amount] of water in it. That is a lot of water for a small drip. Once I had the number I could not ignore it. I had to fix the tap.
+
+First, the drain. Put the plug in. Then lay a cloth over the plug. Small parts come out of a tap. Screws, washers, a tiny spring. If one drops, it goes straight for the plughole. The plug stops it. The cloth stops it bouncing. I learned that the hard way. [example needed]
+
+Then the water. There are two small valves under the sink. One for hot, one for cold. Turn them both off. Clockwise. They are stiff if nobody has touched them for years. Mine were. Then open the tap. Both sides. Let it run until it stops. There is always more water in the line than you think. Leave the tap open. Now the line is empty and nothing will spray at you when you take it apart.
+
+Now the handle. There is a small cap on top. Prise it off with a thin blade. Under it is a screw. Undo it and lift the handle off. It may be tight. Wiggle it. Do not lever it against the body. Under the handle is the inner assembly. It has a big nut at the base. That nut needs a spanner. And here is the important part. Hold the body of the tap with your other hand while you turn the nut. Or with a second spanner. Old brass is soft. If you do not brace it, the whole tap turns on the sink. Then you have a second leak. Brace it, then turn. The nut gives. The assembly lifts out.

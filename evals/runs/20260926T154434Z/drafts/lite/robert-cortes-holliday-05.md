@@ -1,0 +1,9 @@
+I have never been able to make out who it is that lives in the expensive flats.  You pass them every day, great tall buildings with a man in a uniform at the door and a canopy out to the curb, and you are given to understand that the rents inside are something tremendous.  Somebody pays them.  But who?  Not the famous, surely; there are not enough famous people to go round.  No, the people who go in and out of those doors are, so far as I can see, perfectly anonymous, perfectly ordinary people.  They look like you and me.  And every month, without any apparent strain, they hand over a sum which would keep a man like me in comfort for a season.  It is one of the mysteries of the city, and I have given it up.
+
+The truth is, I do not care for flats of that kind at all.  My interest is entirely in rooms, modest rooms, the kind of room one takes by the week and pays for (when one pays) in cash.  A room with a bed, a table, a chair, and a window giving upon somebody else's wall.  That is the sort of place I understand.
+
+Not long ago I went to look at one in an alley in New York which is celebrated, I was told, as a haunt of the bohemian.  It did not look celebrated.  It looked, if anything, rather tired.  The house I had come to see was a shabby affair; paint gone from the door, a stair that complained at every step, a smell in the hall of a great many dinners of long ago.  The woman who showed me the room was not much interested in the room.  She was interested in the last tenant.
+
+He had drunk, it appeared.  He had drunk a good deal, and at all hours, and with company.  He had been late with the rent, and late again, and then later still.  She told me what he had said and what she had said, and what the people across the hall had said, and I stood there in the middle of his former residence and listened to the whole of it.
+
+It did not occur to her, I think, that she was telling me what would be said of me.

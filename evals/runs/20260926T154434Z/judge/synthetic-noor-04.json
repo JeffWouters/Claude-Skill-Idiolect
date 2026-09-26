@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "C",
+  "A",
+  "D"
+ ],
+ "reasons": {
+  "A": "Short plain sentences without contractions, but wry asides ('Sometimes both, badly', 'not that kind of carriage') and a few long chained sentences add a knowing tone the passage lacks.",
+  "B": "Closest movement: clipped declaratives and fragments ('Not any more.', 'That is all.'), flat unhedged stance, no contractions, and a quiet concrete ending in the passage's manner.",
+  "C": "Clipped sentences and list-like fragments fit, but the dense long paragraphs and emphatic lines ('It sharpens.', 'it makes the day') push slightly past the passage's restraint.",
+  "D": "Longer, smoothly joined essay sentences, a simile, colons and an abstract summary close ('Not productivity. Attention...') read as a different, more explanatory writer."
+ }
+}

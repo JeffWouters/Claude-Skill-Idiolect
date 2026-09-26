@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "C",
+  "A",
+  "B"
+ ],
+ "reasons": {
+  "D": "Long, heavily subordinated sentences with colon pivots ('Well:'), dashes and an ironic epigrammatic close match the passage's movement and dry, arguing stance; the one contraction is a minor slip.",
+  "C": "Period diction, confiding 'I fancy', semicolons, dashes and an exclamation echo the author well, but the clipped closing paragraph and a few short modern-feeling beats flatten the rhythm.",
+  "A": "Measured, period-appropriate prose with semicolons and asides, but more genial and even-tempered than the passage's sharp, epigrammatic turns; fewer abrupt shifts in sentence length.",
+  "B": "Plain, modern, evenly short sentences and a tidy essayistic structure; lacks the author's colons, exclamations, ironic asides and period register."
+ }
+}

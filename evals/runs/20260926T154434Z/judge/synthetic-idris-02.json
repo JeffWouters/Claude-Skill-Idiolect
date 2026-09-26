@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "D",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "C": "Long, clause-layered sentences joined by semicolons and 'since', long paragraphs, hedged earnest stance ('I suspect', 'arguably'), a rhetorical question and a closing 'Perhaps' move all track the passage's rhythm and stance most closely, with only a slight thickening of hedges.",
+  "D": "Similar measured, periodic sentences, semicolons and long paragraphs with an earnest hedged tone, but the confiding 'I should admit', colon-led lists and occasional short punchy lines ('The meeting is not on trial') drift a little from the passage's steadier movement.",
+  "B": "Has the hedging diction and a dash, but the short paragraphs, second-person scene-setting ('Consider what it is like... There is a pause') and the one-line aphoristic ending break the passage's long, continuous paragraph structure and rhythm.",
+  "A": "Short, plain declarative sentences, clipped fragments, direct advice ('The simplest fix is...'), no semicolons and a brisk practical tone are far from the passage's long, reflective, hedged periods."
+ }
+}

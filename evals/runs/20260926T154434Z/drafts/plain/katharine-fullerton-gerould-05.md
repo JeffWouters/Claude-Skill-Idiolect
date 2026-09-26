@@ -1,0 +1,9 @@
+There is a curious ambition abroad in American education: the wish that every young person should hold a degree, and the quiet willingness to make the degree mean less so that the wish can come true. We have not raised the student to the standard. We have lowered the standard to the student, and called the result opportunity.
+
+The signs are everywhere once one looks for them. Institutions hand out credentials that require little real study. A diploma that once marked years of disciplined effort now marks, too often, years of attendance. The paper is the same size and bears the same seal, but it carries far less weight, and everyone who hires or admits on the strength of it has begun to suspect as much.
+
+The pressure comes from both ends of society at once. Wealthy parents, anxious that their children should not suffer, press the schools to spare them hard work; they want the reward without the struggle, and they have the influence to ask for it. Poorer parents, reasonably enough, see the prestige a degree confers and demand that their children have an equal share of it. Neither group is asking for more learning. Both are asking for the badge, and the schools, eager to please everyone, find it easiest to give the badge freely.
+
+At the same time the curriculum drifts. Schools increasingly favour crafts and practical subjects over the training of the intellect. There is nothing shameful in a trade, and a good carpenter is worth more than a poor scholar. But a school that teaches only what can be sold on leaving has forgotten why schools exist. The purpose was to form a mind able to reason, to weigh evidence, to read hard things and not be defeated by them.
+
+A degree that anyone can have is a degree that proves nothing. If we want universal education, we must be willing to make it real, not merely universal.

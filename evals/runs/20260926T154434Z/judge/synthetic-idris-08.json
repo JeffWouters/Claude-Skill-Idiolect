@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "D",
+  "C"
+ ],
+ "reasons": {
+  "A": "Long, clause-heavy sentences joined by semicolons, steady hedging ('it seems to me', 'I suspect', 'in some sense'), a reader aside and few paragraphs match the passage's measured, reflective movement most closely, though it leans a little on the hedges.",
+  "B": "Flowing sentences with semicolons, a calm explanatory stance and no contractions are close to the author, but it hedges less and breaks into more short declaratives than the passage does.",
+  "D": "It has the author's hedges and a rhetorical question, but the clipped sentences ('It rarely does.'), short paragraphs and the one-line epigram close make it more punchy and aphoristic than the passage.",
+  "C": "Short, plain sentences, contractions ('won't', 'isn't'), second-person advice and many small paragraphs read as a brisk modern business voice, far from the author's long, hedged periodic sentences."
+ }
+}

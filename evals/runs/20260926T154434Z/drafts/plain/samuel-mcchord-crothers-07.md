@@ -1,0 +1,9 @@
+Every so often a nation that has lived at peace for a generation begins to drift toward war, and when one looks for the source of the drift, one finds it again and again among the young. It is not that the young are wicked or that the old are wise. It is that each generation must discover for itself what the one before it learned at a price, and some discoveries can only be made the hard way.
+
+The pattern is very old. The Bible tells of a king who came to the throne and was offered two kinds of counsel. The elders who had served his father advised him to be moderate and to lighten the burden on his people. The young men who had grown up with him advised the opposite: to show strength and to answer complaint with a harder hand. He ignored the elders and followed his peers, and the kingdom divided. The story has been read for centuries as a warning, and for centuries it has been ignored in much the same way. [example needed]
+
+The lesson for our own time is uncomfortable. It is possible to design a sound plan for peace, carefully reasoned and fair to all parties, and still see it fail. A plan for peace depends on the will of those who hold power, and if they crave conflict, no arrangement on paper will restrain them. The difficulty lies not in the plan but in the temper of the people who must carry it out.
+
+Poets tend to feel that temper before politicians admit to it. Kipling gives voice to it today, and Tennyson did so earlier. In both, one hears the same note: a youthful scorn for peace when that peace seems to rest on trade and profit rather than on honour. To the young, a peace kept for the sake of commerce looks mercenary, even shameful, and war can appear by contrast as something clean and noble.
+
+That scorn is not new, and it is not easily argued away. Anyone who hopes to keep the peace must first understand why so many of the young find it so hard to love.

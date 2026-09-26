@@ -1,0 +1,9 @@
+Most standing weekly meetings begin with a good reason. A project is at a delicate stage, two teams keep stepping on each other, a new process needs watching. Someone books an hour every Tuesday, and for a while that hour earns its place. Decisions get made, problems surface early, people leave knowing more than when they arrived.
+
+Then the reason fades. The project ships, the teams settle into a working rhythm, the process becomes routine. The meeting does not notice. It stays in the calendar because it is already there, and because nobody owns the question of whether it should be. The agenda thins into status updates that could have been a message. Attendance slips. People bring laptops and half-listen. The meeting has outlived the problem it was built to solve, and the drift happened so gradually that no single week felt like the moment to stop.
+
+The obvious response is to clear the calendar. Cancel every recurring meeting, start from zero, and let only the ones that people miss come back. It sounds bracing and efficient, and there is something satisfying about the idea. But it carries a risk that is easy to overlook, because a meeting that has lost its official purpose may still be doing something useful that nobody named.
+
+A standing meeting is often the only guaranteed contact some team members have with each other. It is where the quiet colleague gets a regular chance to speak, where someone mentions in passing that they are stuck, where a new joiner learns who does what. It is a small, reliable ritual that holds a group together, the kind of thing that only becomes visible once it disappears. [example needed]
+
+None of that means every weekly meeting deserves to survive. It means that the stated reason and the real value can come apart. Before scrapping a meeting that no longer does what it was designed for, it is worth asking what it has quietly started doing instead, and whether anything else would do that job.

@@ -1,0 +1,9 @@
+In every mining settlement of the West there was one figure whom everyone agreed to admire, and that was the prospector. He was not the richest man in camp, nor the best dressed, nor often the most sober. But he was the one whose opinion was quoted, whose judgment was trusted, and whose name came up whenever someone wanted to sound as if he knew what he was talking about.
+
+The bars flattered him first. A saloon keeper knew that a prospector with a story at the counter kept a room full longer than any piano. The papers followed, printing his views on the weather, the price of ore and the character of the new district as though he were a sage come down from the hills. Then came the politicians, who learned quickly that nothing won a crowd like a word of praise for the man with the pick and the pan. Each of them called him the voice of good sense, and each of them had his own reasons for doing so.
+
+Yet the prospector was never quite a settler. He was a restless wanderer, and his restlessness is the very thing that built the country he walked through. He found the ledge, and others came to work it. He moved on before the streets were graded, and the town that grew behind him rarely remembered to thank him. The railroad, the bank and the courthouse all followed where he had gone first, alone, with little more than a mule and a hunch. [example needed]
+
+Talk to a veteran prospector and you will notice that he does not count his years the way other men do. He does not say he was thirty or forty when something happened. He says it was the year of this rush or that one. His life is measured in stampedes. He has seen towns rise out of nothing in a single season, crowded with tents and hope, and he has seen the same towns empty again when the ore gave out, until only the wind moved down the main street.
+
+That is perhaps why he was revered. He had watched the whole cycle, many times over, and still went looking for the next one.

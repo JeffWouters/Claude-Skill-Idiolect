@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "D",
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "D": "Long, balanced sentences with measured hedges (arguably, perhaps, I would suggest) and a single mid-piece rhetorical question; it opens and turns declaratively like the passage without overdoing the tics.",
+  "B": "Right formal register, no contractions, semicolon-joined clauses and 'I suspect' hedging, but it opens on a question, adds a second rhetorical one and addresses the reader as 'you' more than the author does.",
+  "C": "Close in period feel and clause-chaining, but it stacks the hedges ('it may be', 'I suspect', 'in some sense', 'arguably', 'it seems to me', 'perhaps... in the end') and the reader-directed questions more thickly than the passage, so it reads as imitation.",
+  "A": "Contemporary blog voice: contractions, short punchy sentences, fragment-like closer and brisk assertion, with none of the author's hedged, long-clause movement."
+ }
+}

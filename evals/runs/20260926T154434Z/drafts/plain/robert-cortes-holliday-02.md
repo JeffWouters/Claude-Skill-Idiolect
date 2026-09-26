@@ -1,0 +1,9 @@
+Some people cure a bad temper with a long walk and some with a hot bath. My own remedy is to go and look at rooms I have no intention of renting. I recommend it without reservation. There is something in climbing a strange staircase behind a landlady, hearing the key turn and stepping into a stranger's idea of comfort that drives out every sour thought. The pleasure is keenest abroad, where every door opens onto a way of living slightly different from one's own.
+
+The first lesson for the beginner is that advertisements are works of imagination. A room described as spacious will accommodate a bed if the bed is not too ambitious. A view means that a window exists. Sunny is a statement of hope rather than of fact. None of this should discourage anyone; half the fun lies in measuring the prose against the premises.
+
+The second lesson, for an American in England, is that the words themselves will not behave. The British have their own names for rooms and for arrangements of rooms, and they do not always mean what an American expects [example needed: specific British and American terms]. It is wise to ask, and wiser still to go and look, because the answer will rarely match the picture in one's head.
+
+For the connoisseur, nothing in London compares with the old legal inns, those quiet courts and staircases that once housed lawyers and now let their chambers to anyone willing to climb. The rooms have a charm that no modern building can buy: old panelling, deep window seats, the sense that generations of clerks and barristers have worn the floor smooth before you. What they do not have is comfort. Heating is a matter of opinion, and hot water may be a rumour.
+
+That is why the seeker must arrive modest. Go expecting the romance of the place and nothing more, and you will come away delighted. Go expecting a modern flat, and you will come away in a worse mood than the one you set out to cure.

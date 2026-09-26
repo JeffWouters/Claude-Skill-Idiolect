@@ -1,0 +1,12 @@
+Files opened (w2a run):
+- /tmp/claude-0/eval-20260926T154434Z/prompts/gen-idiolect-w2a.txt
+- /tmp/claude-0/eval-20260926T154434Z/idiolect/SKILL.md
+- /tmp/claude-0/eval-20260926T154434Z/idiolect/references/modes/write.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-01.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-02.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-03.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-04.md
+- /tmp/claude-0/eval-20260926T154434Z/briefs/w2-05.md, w2-06.md, w2-07.md, w2-08.md (printed by mistake through a shell glob `w2-0*.md`; not used for any piece)
+- Directory listing of /tmp/claude-0/eval-20260926T154434Z/briefs/ (file names only)
+- Script output: scripts/check_env.py, scripts/kit.py (kits saved in work/idiolect-w2a/kit-0N.md), scripts/check.py (reports saved in work/idiolect-w2a/c-*.json)
+- Own working files in /tmp/claude-0/eval-20260926T154434Z/work/idiolect-w2a/ (drafts d-0N.md, chk.sh)

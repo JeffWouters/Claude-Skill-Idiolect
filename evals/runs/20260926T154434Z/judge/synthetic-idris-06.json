@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C",
+  "D"
+ ],
+ "reasons": {
+  "A": "Long balanced sentences joined by semicolons and the same tentative stance (it may be, arguably, it seems to me, perhaps), but its five shorter paragraphs and a slightly listy opening feel a touch more assembled than the passage's flow.",
+  "B": "Closest match: long, clause-rich sentences with semicolon pivots, measured hedging and a reflective question worked in naturally, four full paragraphs, and a 'perhaps... not X but Y' close that echoes the author's cadence without overdoing it.",
+  "C": "Formal and measured, with semicolons and 'I suspect'/'presumably' hedges, but the verbless fragment, colon-led lists and heavy first-person 'we' move it away from the author's impersonal, continuous rhythm.",
+  "D": "Short declarative sentences, fragments, contractions and a plain, direct advisory tone: a modern business-blog voice far from the author's long, hedged, formal periods."
+ }
+}

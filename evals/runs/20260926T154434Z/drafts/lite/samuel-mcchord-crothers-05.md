@@ -1,0 +1,9 @@
+In the mining settlements of the West there was one figure whom every one agreed to revere, and that was the Prospector. He was not revered in the way a bishop is revered, from a respectful distance and on stated occasions. He was revered daily and familiarly, over the bar and in the columns of the local paper. When a politician wished to show that he was sound at heart, he appealed to the Prospector. When an editor wished to rebuke the folly of the capitalists in the East, he reminded them what the Prospector would think. He had become the voice of good sense, and it was a voice that everybody was quite willing to speak for him.
+
+I do not object to the flattery. It is a wholesome thing for a community to have some one to admire who is not in a position to take advantage of it. The Prospector was seldom in town long enough to be spoiled.
+
+For he was, above all things, a wanderer. He could not stay. The towns that he had helped to build were no sooner built than he had lost interest in them. Other men came after him to lay out streets and open banks and organize churches, and they were the solid citizens. But it was the restless man with the pick and the pack animal who had first found the reason for there being any street at all. The West was built by those who could not sit still in it.
+
+The veteran prospector has seen a good deal of history, and he has seen it move very fast. He has watched towns spring up in a season and vanish in another, leaving nothing behind but a few cabins and a name on an old map. He does not reckon his life by years, as the rest of us do, but by rushes. He was a young man at the time of one strike, and he began to feel his age when another came to nothing.
+
+It is a chronology that has its advantages. The years go by whether we notice them or not. A rush, at least, is something one remembers.

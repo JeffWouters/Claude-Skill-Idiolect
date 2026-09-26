@@ -1,0 +1,14 @@
+{
+ "ranking": [
+  "C",
+  "D",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "C": "Long, semicolon-jointed sentences in dense paragraphs, an ironic sidelong opening, 'Well:' and 'Granted;' turns and a closing epigram match the passage's arguing, wry movement best; the lone 'That's' is a small slip.",
+  "D": "Period diction, 'I fancy', dashes and parenthetical asides with a teasing address to the reader come close, but it reads a touch more sermon-like and even-paced than the passage's darting irony.",
+  "B": "Right register and semicolon habit, but more measured and expository, and the '(Heaven forbid...!)' aside feels laid on rather than natural.",
+  "A": "Modern, plain essay voice: short declarative sentences, signposted structure ('Take adornment first', 'Now the dull host'), no semicolons or dashes, none of the passage's irony."
+ }
+}
