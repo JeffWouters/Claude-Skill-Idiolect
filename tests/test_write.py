@@ -50,7 +50,7 @@ def test_kit_contents():
     md = kit.markdown(k)
     # examples lead; every lesson carries how many texts show it (decision log, run 1)
     assert md.index("## Example passages") < md.index("## Habits the writer usually shows")
-    assert all(x["of"] == k["counts"]["texts"] and x["texts"] for x in k["lessons"])
+    assert all(x["texts"] and x["of"] and x["texts"] <= x["of"] <= k["counts"]["texts"] for x in k["lessons"])
     assert "seen in " in md and "## Observed lessons" not in md
 
 

@@ -129,3 +129,17 @@ def test_favoured_phrases_over_the_whole_text():
 def test_example_store_is_version_2():
     data = read_store_file(EXAMPLE / "profiles/sam/vocabulary.yaml", "vocabulary")
     assert data["schema_version"] == 2 and {e["kind"] for e in data["entries"]} == {"coinage", "term", "phrase"}
+
+
+def test_lesson_evidence_says_out_of_how_many_sampled_texts(tmp_path):
+    import kit
+    from test_learn import lesson_file
+    st = learned_noor(tmp_path)
+    learn.lessons_sample(st, "noor", "en.essay")
+    learn.lessons_apply(st, "noor", "en.essay", lesson_file(tmp_path, st, "noor", "en.essay"))
+    summaries = [i["summary"] for i, _ in items(st) if i["kind"] == "lesson"]
+    assert summaries and all(" of " in s.split("_(")[1] for s in summaries)
+    x = kit.with_share({"section": "Tone", "evidence_raw": '3 of 12 texts; "q"'}, 40)
+    assert (x["texts"], x["of"], x["default"]) == (3, 12, False)
+    old = kit.with_share({"section": "Tone", "evidence_raw": '7 texts; "q"'}, 8)
+    assert (old["texts"], old["of"], old["default"]) == (7, 8, True)

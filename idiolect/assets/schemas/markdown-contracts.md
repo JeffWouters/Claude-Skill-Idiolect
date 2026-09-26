@@ -34,8 +34,11 @@ last_id: 12
   The fingerprint JSON is the source; the page is never edited to change it.
 - Every lesson under the other headings is one list item that starts with its id and ends in its
   evidence (ids: spec §14.2):
-  `- [l-003] Short sentences land a point after a long one. _(12 texts; "It broke. Nobody noticed.")_`
-  The quote is redacted. `## Seen once` items carry `_(1 text)_`.
+  `- [l-003] Short sentences land a point after a long one. _(12 of 15 texts; "It broke. Nobody noticed.")_`
+  The quote is redacted. `## Seen once` items carry `_(1 of 15 texts)_`. The second number is how
+  many texts the lessons sample held (a large slot is sampled, not read whole), so the kit can say how
+  common the habit is. Pages written before it existed say `_(12 texts; ...)_`; that form stays valid
+  and is read as "of every text in the slot".
 
 ## Edit lessons — `profiles/<profile>/<slot>.edits.md`
 

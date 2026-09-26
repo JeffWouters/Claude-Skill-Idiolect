@@ -62,15 +62,18 @@ def pick_examples(examples, brief, lang, n=3):
     return [e for _, _, e in sorted(scored)[:n]]
 
 
-EVIDENCE = re.compile(r"^(\d+) (?:text|paragraph)s?\b")
+EVIDENCE = re.compile(r"^(\d+)(?: of (\d+))? (?:text|paragraph)s?\b")
 
 
 def with_share(lesson, n_texts):
-    """A lesson plus how many of the slot's texts show it (design: Write and rewrite, step 2)."""
+    """A lesson plus how many texts show it (design: Write and rewrite, step 2): "N of M" from the
+    page, where M is the texts the lessons sample held; an older page's "N texts" is read as N of
+    every text in the slot."""
     m = EVIDENCE.match(lesson.get("evidence_raw") or "")
     n = int(m.group(1)) if m else (1 if lesson["section"] == "Seen once" else None)
-    out = {**lesson, "texts": n, "of": n_texts}
-    out["default"] = bool(n and n_texts and n * 2 >= n_texts)
+    of = int(m.group(2)) if m and m.group(2) else n_texts
+    out = {**lesson, "texts": n, "of": of}
+    out["default"] = bool(n and of and n * 2 >= of)
     return out
 
 

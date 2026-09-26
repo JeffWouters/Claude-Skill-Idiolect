@@ -818,6 +818,11 @@ def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
     data = load_yaml_text(pathlib.Path(file).read_text(encoding="utf-8")) or []
     lang = slot.split(".")[0]
     texts = dict(slot_texts(run, prof, slot))
+    # how many texts the lessons sample held: the "of" in "seen in 5 of 9 texts" (markdown contracts)
+    sample = run.pending.work("lessons", prof, slot, "sample.md")
+    sampled = set(re.findall(r"(?m)^### text (\S+)$", sample.read_text(encoding="utf-8"))) & set(texts) \
+        if sample.exists() else set()
+    of = len(sampled) or len(texts)
     rejected = stage.rejected_normalised(run.store, prof, slot)
     page = run.store.root / "profiles" / prof / f"{slot}.md"
     meta, existing = {}, []
@@ -858,7 +863,8 @@ def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
             last += 1
             lid = f"l-{last:03d}"
         lesson = {"profile": prof, "slot": slot, "id": lid, "section": les["section"], "text": les["text"].strip(),
-                  "evidence": {"count": count, "quote": quote}, "seen_once": count < 2, "unit": "text",
+                  "evidence": {"count": count, "of": max(of, count), "quote": quote}, "seen_once": count < 2,
+                  "unit": "text",
                   "evidence_keys": ev, "quote_key": qkey}
         new_line_ev = pages.evidence_text(lesson)
         if cur and cur["section"] == lesson["section"] and cur["evidence_raw"] == new_line_ev and cur["text"] == lesson["text"] \

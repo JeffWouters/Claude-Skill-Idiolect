@@ -43,7 +43,10 @@ def evidence_text(lesson):
     ev = lesson.get("evidence") or {}
     n = ev.get("count", 1)
     unit = lesson.get("unit", "text")
-    part = f"{n} {unit}{'' if n == 1 else 's'}"
+    if ev.get("of"):
+        part = f"{n} of {ev['of']} {unit}{'' if ev['of'] == 1 else 's'}"
+    else:
+        part = f"{n} {unit}{'' if n == 1 else 's'}"
     if ev.get("quote"):
         q = ev["quote"].replace('"', "'")
         part += f'; "{q}"'
