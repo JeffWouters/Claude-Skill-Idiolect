@@ -568,3 +568,70 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    writer into one. Dictated answers are taken as transcribed.
 4. Then the learn pipeline from measurement on (§9, learn.md steps 5 to 10), with the same approval.
 
+## 22. Export
+
+1. `export.py --store S [--profile P] [--lang L] [--type T] [--facet k=v] [--include-parent] [--out F]`
+   resolves the slot (§12.4) and writes one self-contained Markdown prompt; it writes nothing to the
+   store and takes no lock.
+2. Contents, in this order: what the prompt is for (the profile, slot, confidence, date); how to use
+   it (the example passages show the voice; never invent facts, leave a placeholder; never reuse the
+   examples' content); rulings (merged across the chain, every one); edit lessons (confirmed only);
+   targets in words with the writer's range where the slot has writer bands; the never-list; forms and
+   favoured phrases (vocabulary without `private: true`; a phrase with its rate as "at most"); the
+   observed lessons seen in at least half the texts, without quotes; the example passages.
+3. **Own only.** When the slot resolves to a parent profile, export refuses unless
+   `--include-parent` is given, and then names the parent in the header.
+4. **Privacy.** An example without `redaction.redacted: true` and `reviewed: true` refuses the whole
+   export, naming the example. Lesson quotes, edit pairs, rejections, the corpus, the manifest and
+   snapshots are never exported.
+
+## 23. Web and connector texts
+
+1. **Connector run** (`connector.py start --profile P --lang L --type T`, lock mode `learn`): a learn
+   run with no inventory, as §21. `connector.py add --file F --origin web|mail --ownership O [--date D]
+   [--note N] [--strip]` adds one text: `path: null`; the ownership the writer gave (web and connector
+   texts start undecided and are never assumed `own`, §7.5); `--strip` removes quotes and a signature
+   as §6.4; `mail` texts are redacted (§15, names from `learn.py mail-names`); under 150 words refused;
+   `--note` (a URL, a subject) goes into the item summary and the changelog only. Then the learn
+   pipeline from measurement on.
+2. **Web** (`web.py fetch --url U [--max 50] --out DIR`): fetched raw over HTTP (`urllib`, a 20-second
+   timeout), never through a summarising tool. A sitemap gives its page URLs, an RSS or Atom feed its
+   item links and dates, anything else is one page; at most `--max` pages. From each page the main
+   text: `<article>`, else `<main>`, else `<body>`, without `script`, `style`, `nav`, `header`,
+   `footer`, `aside`, `form` and the title; paragraphs from block elements. The date from
+   `article:published_time`, a `<time datetime>` or the feed. Writes `DIR/NNN.txt` and `DIR/index.json`
+   (url, date, words) for `connector.py add`.
+3. **Microsoft 365 mail** (model adapter): through the Microsoft 365 connector, the writer's own sent
+   items only, at most 10 messages per call; each body saved and added with `--origin mail --strip`
+   after the writer confirms ownership and the names for redaction.
+
+## 24. Transcripts
+
+1. `.vtt`, `.srt` and `*.transcript.txt` files. Removed: the `WEBVTT` header, cue numbers, timestamp
+   lines, `NOTE`/`STYLE`/`REGION` blocks and tags (`<i>`, `<c.x>`). Cues are joined into paragraphs; a
+   pause of two seconds or more, or a change of speaker, starts a new one.
+2. Speaker labels (`<v Name>`, or `Name:` at the start of a cue) are removed. With more than one
+   speaker the extract is flagged `several speakers`, and the inventory row says so: learn only a
+   transcript of the writer alone.
+
+## 25. Calls from other skills
+
+1. A calling skill passes `interactive=false`, `report=true` and explicit facets. Idiolect never asks;
+   where it would, it returns `needs_input` with the question.
+2. The caller publishes only on `pass` (or `low_confidence`, if it accepts that) and on anything else
+   stops and tells the writer the status and message. It never writes to the store.
+3. `evals/callers/` holds a demonstration publishing skill and its gate, used by the phase 6 exit test.
+
+## 26. Bridged route
+
+1. **Shell bridge.** When the session reaches the writer's computer through a shell (a device bridge
+   with a shell) and `check_env.py` passes there, the scripts run on the computer against the connected
+   folders: the local route unchanged, nothing copied. This is the default bridged route.
+2. **File bridge** (no usable shell): the store and the target are mirrored into the workspace with
+   their relative layout. `bridge.py plan --listing L` turns a directory listing (path, size, mtime) into
+   the files to copy, in batches of at most 50, skipping files whose size and mtime match
+   `.state/bridge.json`; the writer is told before the first copy that source text goes to the cloud
+   workspace. The run happens on the mirror; `bridge.py changed --before B` lists the store files the
+   run changed, in batches of at most 50, to write back; deletions need the writer's delete permission.
+   `bridge.py record --listing L` updates `.state/bridge.json` after a successful write-back.
+
