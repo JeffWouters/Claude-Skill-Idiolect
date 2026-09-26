@@ -77,7 +77,8 @@ def prose(vocab, words, paras=3):
 
 
 def nwords(t):
-    return len(re.findall(r"[^\W\d_][\w'-]*", t))
+    # references/fingerprint.md: a letter, then letters, ' or -
+    return len(re.findall(r"[^\W\d_](?:[^\W\d_]|['-])*", t))
 
 
 def write(rel, text, date=None):
@@ -142,17 +143,21 @@ def make_docx(rel, runs):
 
 
 def main():
-    if FX.exists() and any(FX.iterdir()):
-        sys.exit(f"{FX} exists; move it to _to_delete/ first (never deleted automatically)")
-    rows, manifest = [], {}
+    # Deterministic: re-running overwrites the files this script writes with identical content.
+    # It never removes anything; a file it does not write is left alone and reported.
+    rows, manifest, texts = [], {}, {}
 
     def entry(path, status="active", holdout=False, **extra):
         e = {"path": path, "date": None, "origin": "file",
-             "profiles": {"sam": {"ownership": "own", "decided": "2026-09-01", "decided_by": "folder-rule"}},
+             "profiles": {"sam": {"ownership": "own", "decided": "2026-09-01", "decided_by": "path-rule"}},
              "facets": {"lang": "en", "type": "essay"}, "words": 0, "holdout": holdout,
              "status": status, "cached": status != "forgotten"}
         e.update(extra)
         return e
+
+    def remember(t):
+        texts[content_hash(t)] = t
+        return content_hash(t)
 
     def row(path, result, text=None, key=None, lang="en", type_="essay", note=None):
         r = {"path": path, "result": result,
@@ -164,48 +169,64 @@ def main():
 
     # 6. unchanged
     t = prose(EN, 220); write("essays/unchanged.md", t)
-    manifest[content_hash(t)] = entry("essays/unchanged.md", words=nwords(t))
+    manifest[remember(t)] = entry("essays/unchanged.md", words=nwords(t))
     row("essays/unchanged.md", "unchanged", t)
     # 6. unreachable returns
     t = prose(EN, 200); write("essays/back.md", t)
-    manifest[content_hash(t)] = entry("essays/back.md", status="unreachable", words=nwords(t))
+    manifest[remember(t)] = entry("essays/back.md", status="unreachable", words=nwords(t))
     row("essays/back.md", "unchanged", t, note="unreachable entry returns to active")
     # 7. moved
     t = prose(EN, 210); write("essays/renamed.md", t)
-    manifest[content_hash(t)] = entry("essays/old-name.md", words=nwords(t))
+    manifest[remember(t)] = entry("essays/old-name.md", words=nwords(t))
     row("essays/renamed.md", "moved", t, note="manifest path essays/old-name.md becomes essays/renamed.md")
     # 6 + 8. copy
     t = prose(EN, 230); write("essays/original.md", t); write("archive/original-copy.md", t)
-    manifest[content_hash(t)] = entry("essays/original.md", words=nwords(t))
+    manifest[remember(t)] = entry("essays/original.md", words=nwords(t))
     row("essays/original.md", "unchanged", t)
-    row("archive/original-copy.md", "copy", t, type_="?", note="same text as essays/original.md; not learned twice")
+    row("archive/original-copy.md", "copy", t, note="same text as essays/original.md; not learned twice; facets follow the entry (spec §12.1)")
     # 9. reverted
     old = prose(EN, 240)
     newer = old.replace(".", ", and then it rained.", 1)
     write("essays/reverted.md", old)
-    manifest[content_hash(old)] = entry("essays/reverted.md", status="superseded",
+    manifest[remember(old)] = entry("essays/reverted.md", status="superseded",
                                         superseded_by=content_hash(newer), words=nwords(old))
-    manifest[content_hash(newer)] = entry("essays/reverted.md", words=nwords(newer))
+    manifest[remember(newer)] = entry("essays/reverted.md", words=nwords(newer))
     row("essays/reverted.md", "reverted", old,
         note="superseded entry returns to active; the current one becomes superseded")
     # 11. changed (an edit of the old text: would be a near-duplicate of itself, must not be)
     old = prose(EN, 250)
     new = old.replace(".", ". It was late.", 1)
     write("essays/changed.md", new)
-    manifest[content_hash(old)] = entry("essays/changed.md", words=nwords(old))
+    manifest[remember(old)] = entry("essays/changed.md", words=nwords(old))
     row("essays/changed.md", "changed", new, note="old entry will be superseded; never a near-duplicate of itself")
     # 4. forgotten
     t = prose(EN, 180); write("essays/forgotten.md", t)
-    manifest[content_hash(t)] = entry("essays/forgotten.md", status="forgotten", words=nwords(t))
+    manifest[remember(t)] = entry("essays/forgotten.md", status="forgotten", words=nwords(t))
     row("essays/forgotten.md", "skipped: forgotten", t)
     # 5. holdout
     t = prose(EN, 190); write("essays/holdout.md", t)
-    manifest[content_hash(t)] = entry("essays/holdout.md", holdout=True, words=nwords(t))
+    manifest[remember(t)] = entry("essays/holdout.md", holdout=True, words=nwords(t))
     row("essays/holdout.md", "skipped: holdout", t)
     # unreachable (in scope, not found anywhere)
     t = prose(EN, 205)
-    manifest[content_hash(t)] = entry("essays/deleted.md", words=nwords(t))
-    unreachable = [{"path": "essays/deleted.md", "key": content_hash(t)}]
+    manifest[remember(t)] = entry("essays/deleted.md", words=nwords(t))
+    unreachable = [{"path": "essays/deleted.md", "key": content_hash(t)}]  # extended below
+    # 9b. an earlier (superseded) version of unchanged.md lying at another path
+    cur = next(k for k, e in manifest.items() if e["path"] == "essays/unchanged.md")
+    v0 = prose(EN, 215); write("archive/unchanged-v0.md", v0)
+    manifest[remember(v0)] = entry("essays/unchanged.md", status="superseded", superseded_by=cur, words=nwords(v0))
+    row("archive/unchanged-v0.md", "skipped: earlier version", v0, note="superseded entry; nothing changes")
+    # 10 + unreachable: a changed file that became too short leaves its old entry unreachable
+    old = prose(EN, 200)
+    manifest[remember(old)] = entry("essays/shrunk.md", words=nwords(old))
+    short = paragraph(EN, 60); write("essays/shrunk.md", short)
+    row("essays/shrunk.md", "skipped: too short", short, note="old entry at this path becomes unreachable")
+    unreachable_extra = [{"path": "essays/shrunk.md", "key": content_hash(old)}]
+    # 11: an unreachable entry's path comes back with new text
+    old = prose(EN, 200)
+    manifest[remember(old)] = entry("essays/returned.md", status="unreachable", words=nwords(old))
+    t = prose(EN, 210); write("essays/returned.md", t)
+    row("essays/returned.md", "changed", t, note="path of an unreachable entry, new hash")
     # 10. too short
     t = prose(EN, 80, paras=1); write("essays/short-note.md", t)
     row("essays/short-note.md", "skipped: too short", t)
@@ -238,8 +259,8 @@ def main():
     ja = "\n\n".join(["今日は朝から雨が降っていた。駅まで歩く道はいつもより静かで、傘の音だけが聞こえた。"
                       "私は古い本を一冊持って、窓の近くの席に座った。"] * 6)
     write("essays/japanese.md", ja)
-    rows.append({"path": "essays/japanese.md", "result": "skipped: language not supported", "key": None,
-                 "words": None, "lang": "ja", "type": "essay"})
+    rows.append({"path": "essays/japanese.md", "result": "skipped: language not supported", "key": content_hash(ja),
+                 "words": None, "lang": "ja", "type": "essay", "note": "words not counted: no word boundaries"})
     # PDF and DOCX (keys depend on the extractor; words and result are asserted)
     t = prose(EN, 220); make_pdf("essays/lecture.pdf", t)
     rows.append({"path": "essays/lecture.pdf", "result": "new", "key": None, "words": nwords(t),
@@ -278,14 +299,19 @@ def main():
         lines.append(f'    "{k}": ' + json.dumps(e) + ("," if i < len(items) - 1 else ""))
     lines += ["  }", "}"]
     (STORE / "corpus" / "manifest.json").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    for k, e in manifest.items():
+        if e["cached"]:
+            (STORE / "corpus" / f"{k}.txt").write_text(texts[k] + "\n", encoding="utf-8")
 
     rows.sort(key=lambda r: (r["path"], r["key"] or ""))
     expected = {
+        "schema_version": 1,
+        "store": ".idiolect",
         "command": "learn dry-run=true store=tests/inventory-fixture/sources/.idiolect",
         "scope": "all registered sources",
         "not_listed": [".idiolect/** (the store itself)", "drafts/wip.md (excluded glob)"],
         "rows": rows,
-        "unreachable": unreachable,
+        "unreachable": sorted(unreachable + unreachable_extra, key=lambda u: u["path"]),
         "notes": ["key null: not asserted (depends on the PDF/DOCX extractor or not computed)",
                   "words: words of prose after cleaning, as defined in idiolect/references/fingerprint.md",
                   "type '?': not set by a rule, frontmatter or the command; a dry run does not detect it"],

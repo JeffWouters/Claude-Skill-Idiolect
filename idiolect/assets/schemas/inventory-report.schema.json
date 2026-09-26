@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/inventory-report.schema.json",
+  "title": "Inventory report (learn step 1, the whole output of dry-run=true); also the format of expected-inventory.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scope",
+    "rows",
+    "unreachable"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "command": {
+      "type": "string"
+    },
+    "store": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Store root used; null when a dry run runs without a store."
+    },
+    "scope": {
+      "type": "string"
+    },
+    "not_listed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Excluded paths or folders with the reason; informational, never compared."
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "key",
+          "result",
+          "words",
+          "lang",
+          "type"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "common.schema.json#/$defs/relPath"
+          },
+          "key": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/textKey"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null only for skipped: not prose. In an expected file null means 'not asserted'."
+          },
+          "result": {
+            "enum": [
+              "unchanged",
+              "moved",
+              "copy",
+              "reverted",
+              "changed",
+              "new",
+              "skipped: not prose",
+              "skipped: language not supported",
+              "skipped: forgotten",
+              "skipped: holdout",
+              "skipped: earlier version",
+              "skipped: too short",
+              "skipped: near-duplicate"
+            ]
+          },
+          "words": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Words of this text after cleaning (references/fingerprint.md); null when not extracted."
+          },
+          "lang": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/langValue"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Resolved main language (spec §12.1); null for not prose."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/facetValue"
+              },
+              {
+                "const": "?"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Resolved type; ? when only the model could tell (dry run); null for not prose."
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "unreachable": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "key"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "common.schema.json#/$defs/relPath"
+          },
+          "key": {
+            "$ref": "common.schema.json#/$defs/textKey"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

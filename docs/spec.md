@@ -12,7 +12,7 @@ experiment are listed in §18 and explained in `evals/spike/RESULTS.md`.
 2. YAML MUST be loaded as YAML 1.2 core schema with a safe loader that keeps dates and times as
    strings. A writer typing `created: 2026-10-02` without quotes gets a string, not a date object,
    and `lang: no` (Norwegian) stays the string `no`: only `true` and `false` are booleans. The tests
-   load YAML this way (`tests/yaml12.py`), and `tests/invalid-yaml/` holds the cases.
+   load YAML this way (`tests/yaml12.py`), and `tests/yaml-cases/` holds the cases.
 3. Every structured store file MUST validate against its schema in `idiolect/assets/schemas/` before
    it is read and after it is written. A file that fails validation stops the run with `status: error`
    and names the file; the engine never repairs a store file silently.
@@ -28,7 +28,16 @@ experiment are listed in §18 and explained in `evals/spike/RESULTS.md`.
    elsewhere. The engine detects this per run by probing the sources root.
 4. Symlinks and junctions are not followed out of `sources_root`.
 5. The inventory MUST skip the store root and everything under it, even when the store sits inside
-   `sources_root`.
+   `sources_root`, and every other folder listed in §5 row 1.
+6. **Globs** (`exclude` in `sources.yaml`, the `exclude=` option):
+   - A global `exclude` is matched against the path relative to `sources_root`; a rule's `exclude`
+     against the path relative to that rule's `path`.
+   - `*` matches any characters within one path segment, `?` one character, `**` zero or more whole
+     segments. `drafts/**` matches everything under `drafts`; `**/_archive/**` matches `_archive` at
+     any depth.
+   - A pattern without `/` is matched against the file name only (`*Accepted*`).
+   - Case follows §2.3.
+7. A rule's `path: .` means the whole `sources_root`.
 
 ## 3. Store discovery
 
@@ -39,7 +48,11 @@ experiment are listed in §18 and explained in `evals/spike/RESULTS.md`.
 3. One hit: use it and name it. Several: list them and ask (`needs_input` when non-interactive). None:
    on `learn`, offer to create one and ask where (never inside a folder being learned from); on any
    other mode, stop with `no_store`.
-4. Nothing about the chosen store is remembered between sessions.
+4. **Dry run without a store.** `learn dry-run=true` with no store found never asks and creates
+   nothing. It reports with `store: null`, applies no rules and has no manifest, so every extractable
+   file is `new` or skipped by rows 1–3, 10 or 12; `type` comes from the command or frontmatter, else
+   `?`.
+5. Nothing about the chosen store is remembered between sessions.
 
 ## 4. Text normalisation and hashing
 
@@ -52,51 +65,102 @@ experiment are listed in §18 and explained in `evals/spike/RESULTS.md`.
    4. Encode as UTF-8; SHA-256; lower-case hex.
    Test vectors: `tests/hash-vectors.json`, checked by `tests/test_hash.py`.
 3. Metadata-only changes (file dates, PDF producer, Word properties) therefore never change the hash.
-4. A mixed-language file keeps the whole-file hash as its key for the main language; each split-off
-   segment is `<hash>#n` (n = 2, 3, …, in order of appearance), stored as `<hash>-n.txt`.
+4. **Language and segments.** Language identification uses `lingua-language-detector` 2.1 with all
+   languages enabled, reported as ISO 639-1 lower-case codes (`en`, `nl`, `ja`).
+   1. Each paragraph of 40 or more words is identified; a result counts when its confidence is at
+      least 0.9.
+   2. The **main language** is the language with the most words over those counted paragraphs; with
+      none, the whole text is identified once. A `lang` set by the command, the manifest entry, a rule
+      or frontmatter (§12.1) replaces the detected main language but does not stop segmenting.
+   3. A **segment** is a maximal run of consecutive counted paragraphs in the same language other
+      than the main one. Any other paragraph ends the run.
+   4. The main text is the file's cleaned text without its segments; its key is the hash of the
+      **whole** cleaned text. Segments are keyed `<hash>#n` (n = 2, 3, … in order of first
+      appearance) and stored as `<hash>-n.txt`. Words are counted per text: the main text's own
+      paragraphs, each segment's own.
+   5. **Unsupported languages** (written without spaces between words): `ja`, `zh`, `th`, `lo`, `km`,
+      `my`, `bo`. A text whose main language is one of these is skipped (§5 row 3).
 
 ## 5. Inventory classification
 
 The inventory runs over one **scope**: the targets of this run (a file, a folder, a tag), or every
 registered source when `learn` has no target. Each found file is extracted (§6) and hashed (§4); a
 mixed-language file yields several texts, each classified on its own. The checks run in this order;
-the first match decides.
+the first match decides. The `result` values are the exact strings of the inventory report schema.
 
-| # | Check | Rule | Result |
+| # | Check | Rule | `result` |
 | --- | --- | --- | --- |
-| 1 | Excluded | Inside the store root (§2.5), or matches a global `exclude` glob or the rule's own `exclude` | Not listed |
-| 2 | No adapter | Extension not handled by an available adapter | Skipped: not prose |
-| 3 | Unsupported language | Detected language written without spaces between words | Skipped: language not supported |
-| 4 | Known hash, `forgotten` | | Skipped: forgotten (relearning needs `forget <source> ownership=own`) |
-| 5 | Known hash, `holdout: true` | | Skipped: holdout |
-| 6 | Known hash, `active` or `unreachable`, same path | | Unchanged (an `unreachable` entry returns to `active`) |
-| 7 | Known hash, `active` or `unreachable`, other path | Old path no longer found | Moved: path updated, nothing relearned |
-| 8 | Known hash, `active`, other path | Old path still found | Copy: one entry keeps the old path; the copy is reported, not learned twice |
-| 9 | Known hash, `superseded`, same path | The file went back to an earlier version | Reverted: that entry returns to `active`; the current one at the path is superseded by it |
-| 10 | Too short | Fewer than 150 words of prose after cleaning | Skipped: too short |
-| 11 | Changed | Path of an `active` entry, new hash | Changed: the old entry will be superseded |
-| 12 | Near-duplicate | 5-word-shingle Jaccard ≥ 0.90 with another candidate at a different path, or with an `active` text at a different path | Keep the newest (document date, then modification time); skip the others as near-duplicates |
-| 13 | New | Everything else | Usable |
+| 1 | Excluded | Inside the store root; inside a hidden folder (name starts with `.`), `node_modules` or `_to_delete`; inside any other folder holding an `idiolect.yaml`; or matches a global or rule `exclude` glob (§2.6) | Not a row (may be named in `not_listed`) |
+| 2 | No adapter | Extension not handled by an available adapter | `skipped: not prose` |
+| 3 | Unsupported language | Main language in the §4.4.5 list | `skipped: language not supported` |
+| 4 | Known hash, `forgotten` | | `skipped: forgotten` (relearning needs `forget <source> ownership=own`) |
+| 5 | Known hash, `holdout: true` | Path handled as in rows 6–8 (updated if moved, housekeeping) | `skipped: holdout` |
+| 6 | Known hash, `active` or `unreachable`, same path | | `unchanged` (an `unreachable` entry returns to `active`) |
+| 7 | Known hash, `active` or `unreachable`, other path | Old path no longer found | `moved`: path updated, nothing relearned |
+| 8 | Known hash, `active`, other path | Old path still found | `copy`: the entry keeps its path; the copy is reported, not learned twice |
+| 9 | Known hash, `superseded`, same path | The file went back to an earlier version | `reverted`: that entry returns to `active`; the current one at the path is superseded by it |
+| 9b | Known hash, `superseded`, other path | An old version lying elsewhere | `skipped: earlier version`; nothing changes |
+| 10 | Too short | Fewer than 150 words after cleaning | `skipped: too short` |
+| 11 | Changed | Path of an `active` or `unreachable` entry, new hash | `changed`: the old entry will be superseded |
+| 12 | Near-duplicate | 5-word-shingle Jaccard ≥ 0.90 with another candidate at a different path, or with a cached `active` corpus text at a different path | `skipped: near-duplicate` (see below) |
+| 13 | New | Everything else | `new` |
 
-- Check 12 never compares a file with its own previous version, so an edited file is always
-  **changed**, never a near-duplicate of itself.
-- **Unreachable:** after the scan, each `active` entry whose path lies inside the scope and was not
-  found, and whose hash was not found elsewhere, is reported as unreachable. Entries outside the
-  scope are not touched: learning one file never marks the rest of the corpus unreachable.
-- **Dry run** reports every row with its path, result, words, and detected `lang`. It reports `type`
-  only when a rule, frontmatter or the command sets it, otherwise `?`, because type detection needs
-  the model (pipeline step 4) and a dry run stops before it.
-- `tests/inventory-fixture/` holds a source folder covering every row, with the expected report in
-  `expected-inventory.json`. Phase 1 is done when the inventory reproduces it.
+- **Near-duplicates.** Among candidates, the one with the newest **document date** is kept and the
+  others are skipped. Document date: Markdown frontmatter `date`, PDF `/CreationDate`, Word
+  `dcterms:created`; missing or unparsable → file modification time; equal → the path that sorts
+  first (§2.3 case rule) is kept. A cached `active` corpus text is never skipped: a candidate that
+  duplicates one is skipped, whatever the dates, and the note names the corpus text. Row 12 never
+  compares a file with its own previous version, and entries with `cached: false` have no text and are
+  not compared.
+- **Unreachable:** after the scan, each `active` entry whose path lies inside the scope and whose hash
+  was found nowhere in the scan, and which is not about to be superseded by a `changed` row, is listed
+  under `unreachable`. A changed file that became too short (row 10) therefore leaves its old entry
+  unreachable. Entries outside the scope are not touched.
+- **Cache consistency.** An entry with `cached: true` whose `corpus/<key>.txt` is missing is a store
+  inconsistency: the run stops with `status: error` naming the entry. A dry run reports it in `notes`
+  and continues.
+- **Report.** The inventory report (and the whole output of a dry run) follows
+  `inventory-report.schema.json`: one row per text with `path`, `key`, `result`, `words`, `lang`,
+  `type`, optional `note`; plus `unreachable`. `lang` and `type` are the resolved values (§12.1);
+  `type` is `?` when only the model could tell, since a dry run stops before step 4. `skipped: not
+  prose` rows have `key`, `words`, `lang` and `type` null.
+- **Comparing with an expected report** (phase 1's exit test, `tests/inventory_compare.py`): rows are
+  matched on (`path`, `key`) and must match one to one; `result`, `words`, `lang` and `type` must be
+  equal; an expected `key` of null matches any key; `unreachable` must match as a set; `note`,
+  `notes`, `not_listed`, `command` and `scope` are not compared.
+- `tests/inventory-fixture/` holds a source folder covering the rows, with the expected report in
+  `expected-inventory.json`.
 
 ## 6. Extraction (adapters)
 
-1. Removed before caching: frontmatter, code blocks and inline code longer than 40 characters, tables
-   whose cells are mostly numbers, quoted replies (lines starting `>` in mail, "On … wrote:" blocks),
-   signatures (from a line `-- ` or a detected sign-off block to the end), and blockquotes.
-2. Kept: headings (as plain lines), paragraphs, list items.
-3. `docx`: tracked insertions kept, deletions dropped, comments dropped, read from `word/document.xml`.
-4. `pdf`: text layer only; a page with no text layer is flagged, never OCR'd in v1.
+The cleaned text is a list of **blocks** (paragraphs, headings, list items) joined by one blank line.
+Inside a block, line breaks become single spaces.
+
+1. **Markdown** (`markdown-it-py` 4, CommonMark with tables enabled; HTML blocks and inline HTML
+   removed):
+   1. A YAML frontmatter block (first line `---` to the next `---` line) is removed first; its `date`,
+      `tags`, `lang` and `type` are read as metadata.
+   2. Removed: fenced and indented code blocks; inline code longer than 40 characters; blockquotes,
+      except Obsidian callouts (`> [!type] Title`), whose body is kept and whose title line is
+      dropped; tables where more than half of the body cells are numeric (digits with optional
+      `.,%€$-` and spaces); images and embeds (`![…](…)`, `![[…]]`); HTML comments; footnote
+      definitions; inline `#tags`.
+   3. Kept as text: headings without their `#` markers (each its own block); paragraphs; list items
+      without their markers (each its own block); inline code of 40 characters or fewer without its
+      backticks; link text (`[text](url)` → `text`; `[[note]]` → `note`; `[[note|alias]]` →
+      `alias`); emphasis text without its markers; other tables row by row, cells joined by a space.
+2. **Word** (`.docx`): read `word/document.xml` directly (not `python-docx`'s `paragraph.text`, which
+   drops tracked insertions). Each `w:p` is a block: the text of its `w:t` elements, including those
+   inside `w:ins`; `w:delText`, `w:moveFrom` and comments dropped. Empty paragraphs are skipped.
+3. **PDF**: `pdfminer.six` `extract_text` with default layout analysis. Each text box is a block;
+   lines inside it are joined with a space, and a line ending in `-` before a lower-case letter is
+   joined without the hyphen. Lines repeated on at least half of the pages (headers, footers) and
+   lines that are only a page number are removed. A page with no text layer is flagged, never OCR'd
+   in v1.
+4. **Mail** (phase 5): quoted replies (lines starting `>`, "On … wrote:" blocks) and signatures (from
+   a line `-- ` or a detected sign-off block to the end) are removed.
+5. **Headings in measurement.** Headings stay in the cached text and the hash, but are not measured:
+   see `references/fingerprint.md`.
 
 ## 7. Ownership (the ledger)
 
@@ -114,7 +178,7 @@ the entry's `profiles` map (§8).
 3. A **changed** file (same path, new hash), per profile:
    - previously decided by a rule → the rule decides again; nothing is asked.
    - previously decided per file → ask again, offering the previous answer as the default.
-4. A text is cached (`cached: true`) when it is `own` for at least one profile. A text that is only
+4. A text is cached (`cached: true`) when it is `own` for at least one profile and not `forgotten`. A text that is only
    `assisted` or `exclude` gets an entry with `cached: false` and no text on disk.
 5. Mail and web sources with no matching rule are always undecided.
 6. Ownership answers go to the pending area; they take effect only on approval.
@@ -176,13 +240,12 @@ Entries that do not feed the profile are never touched by its rollback.
 4. **Commit** on approval:
    1. The engine regenerates each affected staged file from the **approved** items only. Staged files
       are never patched by hand.
-   2. It writes the **journal**: the `commit` block of `plan.json`, listing every write and deletion
-      in order, each with state `todo`.
-   3. Take a snapshot (§11) of every affected profile.
-   4. Apply the journal in order, marking each step `done` after it: corpus texts, then the manifest,
-      then profile files, then deletions, then the changelog entry. Every write is atomic (§1.4), so
-      repeating a step is harmless.
-   5. Clear `.state/pending/` and release the lock.
+   2. It writes the **journal**: the `commit` block of `plan.json`, listing every step in order, each
+      with state `todo`: first a `snapshot` step per affected profile (§11), then corpus texts, the
+      manifest, profile files, deletions and finally the `changelog` entry.
+   3. It applies the journal in order, marking each step `done` after it. Every write is atomic
+      (§1.4), so repeating a step is harmless; a snapshot step that finds its folder complete is done.
+   4. Clear `.state/pending/` and release the lock.
 5. If everything is rejected: record the rejections, clear `.state/pending/`, release the lock, write
    nothing else.
 6. **Leftovers.** A pending area found at the start of any store-writing run is shown before anything
@@ -196,22 +259,30 @@ Entries that do not feed the profile are never touched by its rollback.
 
 1. **Store-writing modes** are `learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune` and
    `test` (`test` flags holdout texts and writes `eval/results.md`). Each creates `.state/lock`
-   exclusively before its first write, including the pending area. Read-only modes (`write`,
-   `rewrite`, `check`, `export`, `status`) and any `dry-run=true` never take the lock and read only
-   committed files.
-2. The heartbeat is updated at every pipeline step, while waiting for the writer, and at least every
-   five minutes.
-3. A lock whose heartbeat is **one hour old or newer** blocks: stop and say which mode holds it, since
+   exclusively (create-new, failing if it exists) before its first write, including the pending area.
+   Read-only modes (`write`, `rewrite`, `check`, `export`, `status`) and any `dry-run=true` never take
+   the lock and read only committed files.
+2. The heartbeat is updated at every pipeline step and every script call the run makes. Nothing runs
+   between the writer's messages, so a run waiting for the writer does not update it; that case is
+   handled by rule 4.
+3. A lock whose heartbeat is **less than one hour old** blocks: stop and say which mode holds it, since
    when.
-4. A lock whose heartbeat is **older than one hour** is abandoned. The next store-writing run tells
+4. A lock whose heartbeat is **one hour old or older** is abandoned. The next store-writing run tells
    the writer and takes it over:
+   - it writes its own lock to `.state/lock.tmp`, renames it over `.state/lock`, reads it back and
+     continues only if it holds its own `started` value (two runs taking over at once: one wins);
    - with no pending area, it starts normally;
    - with a pending area, it offers resume or discard first (§9.6).
    A leftover pending area therefore never locks the store for good.
+5. A lock file that is empty or does not validate (a crash while creating it) is treated as a lock
+   whose heartbeat is the file's modification time, reported as damaged, and taken over by rule 4.
+   This is the one exception to §1.3.
+6. The `pending` field in the lock is informational; takeover depends only on the heartbeat.
 
 ## 11. Snapshots, rollback, prune, deletion
 
-1. A snapshot is `profiles/<profile>/snapshots/<UTC timestamp YYYY-MM-DDTHHMM>/` containing a copy of
+1. A snapshot is `profiles/<profile>/snapshots/<UTC timestamp YYYY-MM-DDTHHMMSSZ>/` (a `-2`, `-3` …
+   suffix if that name exists) containing a copy of
    every file in the profile folder except `snapshots/`, plus `manifest-entries.json`: the manifest
    entries whose `profiles` include this profile (schema `manifest-entries.schema.json`).
 2. `rollback` (latest snapshot when `to=` is omitted):
@@ -225,9 +296,11 @@ Entries that do not feed the profile are never touched by its rollback.
 
 ## 12. Facets, slot keys and resolution
 
-1. Facet values are taken in this order, per facet: command, ledger (manifest entry, then the
-   matching rule's `facets`), detection (`lang` by script, `type` by model from `types`), `defaults`,
-   else `_`. `lang` MUST resolve to a real language; if it cannot, the text is listed as uncertain.
+1. Facet values are taken in this order, per facet and per text (a text's facets follow its hash, so
+   a copy at another path gets the entry's values): the command; the manifest entry; the most
+   specific matching rule's `facets`; frontmatter (`lang`, `type`); detection (`lang` by §4.4, `type`
+   by the model from `types`, not in a dry run); `defaults`; else `_` (for `type` in a report: `?`).
+   `lang` MUST resolve to a real language; if it cannot, the text is listed as uncertain.
 2. The slot key joins one value per declared facet with `.`, in declared order.
 3. Pooled slots are built for every key obtained by replacing a suffix of facets (never `lang`) with
    `_`, when at least one text matches.
@@ -246,18 +319,24 @@ Entries that do not feed the profile are never touched by its rollback.
 ## 13. Confidence
 
 1. Count level: `low` if texts < 3 or words < 3,000; `high` if texts ≥ 8 and words ≥ 15,000;
-   otherwise `medium` (confirmed by the phase 0 experiment).
-2. Stability level: split the slot's corpus into two random halves five times with the slot's seed;
-   measure the slot's metric list (primary metrics, or the global list before any contrast pass) on
-   each half. The relative difference of a metric is `|a − b| / max(floor, (a + b) / 2)`. A metric is
+   otherwise `medium`. The text counts are supported by the phase 0 experiment; the word floors were
+   not varied there and stay starting values.
+2. Stability level: split the slot's texts (corpus texts and segments in the slot) into two halves
+   five times, and measure the applicable global metrics (§17.1) on each half joined with blank lines.
+   - Seed: `int(sha256("<profile>/<slot key>").hexdigest()[:8], 16)`, stored as the fingerprint's
+     `seed`. RNG: Python `random.Random(seed)`; texts sorted by key first; each split is
+     `order = rng.sample(texts, len(texts))`, halves `order[:n // 2]` and `order[n // 2:]`; the five
+     splits draw from the same RNG in sequence.
+   - With fewer than 2 texts no split is made and the stability level equals the count level.
+   - The relative difference of a metric is `|a − b| / max(floor, (a + b) / 2)`. A metric is
    **unstable** when that difference exceeds its own `stability_tolerance` (from
    `assets/global-metrics.json`) in 2 or more of the 5 splits. If the number of unstable metrics is at
    least the **downgrade count**, the stability level is one step below the count level; otherwise
    equal to it.
-   - Downgrade count = `max(min_count, ceil(downgrade_fraction × metrics in the list))`: 4 for the
-     14 global metrics.
-   - Measured in phase 0: a genuine single-author corpus is downgraded 10% of the time at 8 texts and
-     2% at 12; a corpus mixing two authors 60% and 36%.
+   - Downgrade count: as the fail count in §17.2, from `downgrade_fraction`: 4 for 11 to 14 metrics.
+   - Measured in phase 0: a genuine single-author corpus is downgraded 60% of the time at 3 texts,
+     32% at 5, 10% at 8 and 2% at 12; a corpus mixing two authors 60% at 8 and 36% at 12. So most
+     slots under 8 texts drop one level: small slots are honestly less settled.
 3. Confidence = the lower of the two. It is written to the fingerprint and copied to the slot page.
 
 ## 14. Lessons, ids and rejections
@@ -299,7 +378,7 @@ Entries that do not feed the profile are never touched by its rollback.
 | Case | Behaviour |
 | --- | --- |
 | How-to that is mostly code | Code stripped; skipped under 150 words of prose |
-| Text switching language | Paragraphs of 40+ words identified as another language with probability ≥ 0.9 become a segment |
+| Text switching language | A run of consecutive 40+-word paragraphs identified as the same other language (confidence ≥ 0.9) becomes one segment (§4.4) |
 | Long quote from someone else | Stripped before learning; untouched in rewrites |
 | Slot from one or two texts | Usable at `low`; lessons still need two supporting texts |
 | Mixed ownership in one file | Asked per file; not learned until answered |
@@ -317,14 +396,19 @@ Entries that do not feed the profile are never touched by its rollback.
 
 ## 17. Check decision
 
-1. For each metric in the slot's list: if the writer's value is below the metric's `floor`, flag when
-   the draft exceeds it by more than 2 × `floor`; otherwise flag when `draft / writer` is above
-   `overshoot` or, for non-sparse metrics, below `shortfall`.
-2. The **fail count** is `max(min_count, ceil(fail_fraction × metrics in the list))`: 4 for the 14
-   global metrics. `status` is `fail` when the number of flagged metrics is at least the fail count;
-   otherwise `pass`, or `low_confidence` when the slot's confidence is `low`. The report records the
-   resolved count as `fail_threshold`.
-3. Every flag is still reported in the report, as a hint for the rewrite.
+1. `check` uses the **applicable global metrics**: the 14 in `global-metrics.json`, minus those whose
+   word list is missing for the text's language (`references/fingerprint.md`), so 11 to 14. Primary
+   metrics from the contrast pass steer drafting and order the hints; they do not shorten the list.
+   For each metric: if the writer's value is below the metric's `floor`, flag when the draft exceeds
+   it by more than 2 × `floor` (`ratio` is then null in the report); otherwise flag when
+   `draft / writer` is above `overshoot` or, for non-sparse metrics, below `shortfall`.
+2. The **fail count** is `min(n, max(min_count, ceil(p × n / 100)))` in integer arithmetic, where n is
+   the number of applicable metrics and p = `round(fail_fraction × 100)` (28): 4 for 11 to 14
+   metrics. `status` is `fail` when the number of flagged metrics is at least the fail count;
+   otherwise `pass`, or `low_confidence` when the slot's confidence is `low`. The report records
+   `flagged` and the resolved count as `fail_threshold`.
+3. The stability downgrade count (§13.2) is computed the same way from `downgrade_fraction`.
+4. Every flag is still reported in the report, as a hint for the rewrite.
 
 ## 18. Values set in phase 0
 
@@ -337,5 +421,5 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 | Stability tolerance | Per metric, 0.14 to 1.50 (capped: the relative difference cannot exceed 2.0) |
 | Downgrade count | `downgrade_fraction` 0.28 → 4 of 14 unstable metrics (10% of genuine 8-text corpora downgraded, 60% of two-author mixes) |
 | Fail count for `check` | `fail_fraction` 0.28 → 4 of 14 flagged metrics (17% of genuine passages fail, 80% of AI rewrites; real authors 18% / 70%, synthetic 0% / 100%) |
-| Count thresholds | Confirmed: `low` < 3 texts, `high` ≥ 8 texts and 15,000 words |
+| Count thresholds | Text counts supported (`low` < 3 texts, `high` ≥ 8); word floors 3,000 and 15,000 untested starting values |
 | Near-duplicate threshold | 0.90 confirmed (distinct essays peak at 0.004) |

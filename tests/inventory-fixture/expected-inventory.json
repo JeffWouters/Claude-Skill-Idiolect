@@ -1,4 +1,6 @@
 {
+  "schema_version": 1,
+  "store": ".idiolect",
   "command": "learn dry-run=true store=tests/inventory-fixture/sources/.idiolect",
   "scope": "all registered sources",
   "not_listed": [
@@ -12,8 +14,17 @@
       "key": "f3c7eb63b3c5b19c9c873777697e4fcdaebba67bf547cab3aaf1b378ffece673",
       "words": 241,
       "lang": "en",
-      "type": "?",
-      "note": "same text as essays/original.md; not learned twice"
+      "type": "essay",
+      "note": "same text as essays/original.md; not learned twice; facets follow the entry (spec §12.1)"
+    },
+    {
+      "path": "archive/unchanged-v0.md",
+      "result": "skipped: earlier version",
+      "key": "1aa271dceb9aed529037ba7dea9f9e2c701dd7c864eb12b98cd5fd2274954380",
+      "words": 228,
+      "lang": "en",
+      "type": "essay",
+      "note": "superseded entry; nothing changes"
     },
     {
       "path": "essays/back.md",
@@ -52,16 +63,17 @@
     {
       "path": "essays/japanese.md",
       "result": "skipped: language not supported",
-      "key": null,
+      "key": "c1c1718a9f8dd1933589e8d2c516b7c3c50426e0bb412b8628e9f7d8a4d3a466",
       "words": null,
       "lang": "ja",
-      "type": "essay"
+      "type": "essay",
+      "note": "words not counted: no word boundaries"
     },
     {
       "path": "essays/lecture.pdf",
       "result": "new",
       "key": null,
-      "words": 228,
+      "words": 262,
       "lang": "en",
       "type": "essay",
       "note": "text layer only"
@@ -69,8 +81,8 @@
     {
       "path": "essays/mixed.md",
       "result": "new",
-      "key": "ff0357f7d5b4113d8d05121e6071259369f832f7b49d32dc6baa6778c6fe8e46",
-      "words": 249,
+      "key": "502268243d0c2229bd659597d71091476fbc639ce6f2f2bf42e677df68eaa83f",
+      "words": 244,
       "lang": "en",
       "type": "essay",
       "note": "main language; key is the whole-file hash"
@@ -78,8 +90,8 @@
     {
       "path": "essays/mixed.md",
       "result": "new",
-      "key": "ff0357f7d5b4113d8d05121e6071259369f832f7b49d32dc6baa6778c6fe8e46#2",
-      "words": 183,
+      "key": "502268243d0c2229bd659597d71091476fbc639ce6f2f2bf42e677df68eaa83f#2",
+      "words": 186,
       "lang": "nl",
       "type": "essay",
       "note": "segment 2, cached as <hash>-2.txt"
@@ -87,8 +99,8 @@
     {
       "path": "essays/near-dup-a.md",
       "result": "skipped: near-duplicate",
-      "key": "39300c0d6044d9bedbb6cee3e5d54ae8220fae7e6d01b7853616bfab1218bd1d",
-      "words": 275,
+      "key": "2c3bc4718de8195843a7bb36af3f9512f8ec42f333c359c317cd8427112773d1",
+      "words": 277,
       "lang": "en",
       "type": "essay",
       "note": "of essays/near-dup-b.md, which is newer"
@@ -96,16 +108,16 @@
     {
       "path": "essays/near-dup-b.md",
       "result": "new",
-      "key": "56a993a291da13eea033addb2add0d1e9025c8e44baf5adc40db3628adea8c0d",
-      "words": 278,
+      "key": "0ad12ba338f2ee44301106379f4914985e72371b4cc127a9139f080ed5f52617",
+      "words": 277,
       "lang": "en",
       "type": "essay"
     },
     {
       "path": "essays/new-essay.md",
       "result": "new",
-      "key": "6607fc216c1409de7437afa99abed893286445ff857900628034be40886a833c",
-      "words": 311,
+      "key": "817c7df2c861b44a33ef756aed1444f35210854dcad258089fc7e7b6974593b8",
+      "words": 347,
       "lang": "en",
       "type": "essay"
     },
@@ -127,6 +139,15 @@
       "note": "manifest path essays/old-name.md becomes essays/renamed.md"
     },
     {
+      "path": "essays/returned.md",
+      "result": "changed",
+      "key": "53d7ababe31256b0e4584e28a9f92275b47151119a708172b2ff90ae3db0d731",
+      "words": 228,
+      "lang": "en",
+      "type": "essay",
+      "note": "path of an unreachable entry, new hash"
+    },
+    {
       "path": "essays/reverted.md",
       "result": "reverted",
       "key": "e4f976cb616f71602d05a00a200147948332155c59023dc5c0b3429782233373",
@@ -138,16 +159,25 @@
     {
       "path": "essays/short-note.md",
       "result": "skipped: too short",
-      "key": "58b88e586af1ee40c5a9b436b8420d6514455fb38d4d38c07618d22c7af1267a",
-      "words": 97,
+      "key": "a208792add01b58151b41e4fad0480cb41140c02c2f3eaacf9dbb322611be1aa",
+      "words": 91,
       "lang": "en",
       "type": "essay"
+    },
+    {
+      "path": "essays/shrunk.md",
+      "result": "skipped: too short",
+      "key": "6cf9816665268fedcf5443681f7c0884164d8fa4509f3aff7f27634eae444ea9",
+      "words": 66,
+      "lang": "en",
+      "type": "essay",
+      "note": "old entry at this path becomes unreachable"
     },
     {
       "path": "essays/tracked.docx",
       "result": "new",
       "key": null,
-      "words": 235,
+      "words": 227,
       "lang": "en",
       "type": "essay",
       "note": "insertions kept, deletions dropped"
@@ -163,8 +193,8 @@
     {
       "path": "howto/code-heavy.md",
       "result": "skipped: too short",
-      "key": "98c6e4e9e934adebaebf1c4287dd4a91c89dca7a35b39ee937dcfc550bdb78c1",
-      "words": 103,
+      "key": "1d0595d724578213d819c9d364687125dce019ea8b89fa50313c0a195d84f38a",
+      "words": 118,
       "lang": "en",
       "type": "?",
       "note": "heading kept as a plain line, code block removed"
@@ -182,6 +212,10 @@
     {
       "path": "essays/deleted.md",
       "key": "de2d91c547e3747fffc97ab99817ee16facd8769ae4a15f9269ddf6d5863c75c"
+    },
+    {
+      "path": "essays/shrunk.md",
+      "key": "e184367c96294eefb617120608ccfc56214c6f70a36c43e79b68dc9922882032"
     }
   ],
   "notes": [

@@ -145,7 +145,7 @@ manifest_entry = {
                 "properties": {
                     "ownership": ref("ownership"),
                     "decided": ref("date"),
-                    "decided_by": {"enum": ["folder-rule", "tag-rule", "writer"],
+                    "decided_by": {"enum": ["path-rule", "tag-rule", "writer"],
                                    "description": "Per-file answer (writer) beats path rule beats tag rule."}
                 },
                 "additionalProperties": False}},
@@ -338,11 +338,13 @@ check_report = {
         "confidence": ref("confidenceLevel"),
         "flagged": {"type": "integer", "minimum": 0, "description": "Number of metrics flagged."},
         "fail_threshold": {"type": "integer", "minimum": 1,
-                           "description": "The resolved count: max(min_count, ceil(fail_fraction x metrics in the list)); 4 for the 14 global metrics. The draft fails when flagged >= fail_threshold."},
+                           "description": "The resolved fail count (spec §17.2): 4 for 11 to 14 applicable metrics. The draft fails when flagged >= fail_threshold."},
         "metrics": {"type": "array", "items": {
             "type": "object", "required": ["name", "draft", "writer", "ratio", "flag"],
             "properties": {"name": {"type": "string"}, "draft": {"type": "number"},
-                           "writer": {"type": "number"}, "ratio": {"type": "number"},
+                           "writer": {"type": "number"},
+                           "ratio": {"type": ["number", "null"],
+                                     "description": "draft / writer; null when the writer's value is below the metric's floor (then judged by absolute difference, spec §17.1)."},
                            "flag": {"enum": ["ok", "overshoot", "shortfall"]},
                            "primary": {"type": "boolean"}},
             "additionalProperties": False}},
@@ -357,7 +359,7 @@ check_report = {
     "allOf": [
         {"if": {"properties": {"status": {"const": "needs_input"}}}, "then": {"required": ["question"]}},
         {"if": {"properties": {"status": {"enum": ["pass", "fail", "low_confidence"]}}},
-         "then": {"required": ["profile", "slot", "confidence", "metrics"]}},
+         "then": {"required": ["profile", "slot", "confidence", "metrics", "flagged", "fail_threshold"]}},
         {"if": {"properties": {"status": {"enum": ["no_slot", "no_store", "error"]}}},
          "then": {"required": ["message"]}}
     ]
@@ -374,7 +376,7 @@ lock = {
         "profile": ref("profileName"),
         "started": ref("dateTime"),
         "heartbeat": ref("dateTime"),
-        "pending": {"type": "boolean", "description": "A pending area exists; the lock is not stale while true."}
+        "pending": {"type": "boolean", "description": "Informational: a pending area exists. Takeover depends only on the heartbeat age (spec §10)."}
     },
     "additionalProperties": False
 }
@@ -497,7 +499,49 @@ global_metrics = {
     "additionalProperties": False
 }
 
+RESULTS = ["unchanged", "moved", "copy", "reverted", "changed", "new",
+           "skipped: not prose", "skipped: language not supported", "skipped: forgotten",
+           "skipped: holdout", "skipped: earlier version", "skipped: too short", "skipped: near-duplicate"]
+
+inventory_report = {
+    "$schema": DRAFT, "$id": BASE + "inventory-report.schema.json",
+    "title": "Inventory report (learn step 1, the whole output of dry-run=true); also the format of expected-inventory.json",
+    "type": "object",
+    "required": ["schema_version", "scope", "rows", "unreachable"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "command": {"type": "string"},
+        "store": {"type": ["string", "null"], "description": "Store root used; null when a dry run runs without a store."},
+        "scope": {"type": "string"},
+        "not_listed": {"type": "array", "items": {"type": "string"},
+                       "description": "Excluded paths or folders with the reason; informational, never compared."},
+        "rows": {"type": "array", "items": {
+            "type": "object", "required": ["path", "key", "result", "words", "lang", "type"],
+            "properties": {
+                "path": ref("relPath"),
+                "key": {"oneOf": [ref("textKey"), {"type": "null"}],
+                        "description": "null only for skipped: not prose. In an expected file null means 'not asserted'."},
+                "result": {"enum": RESULTS},
+                "words": {"type": ["integer", "null"], "minimum": 0,
+                          "description": "Words of this text after cleaning (references/fingerprint.md); null when not extracted."},
+                "lang": {"oneOf": [ref("langValue"), {"type": "null"}],
+                         "description": "Resolved main language (spec §12.1); null for not prose."},
+                "type": {"oneOf": [ref("facetValue"), {"const": "?"}, {"type": "null"}],
+                         "description": "Resolved type; ? when only the model could tell (dry run); null for not prose."},
+                "note": {"type": "string"}
+            },
+            "additionalProperties": False}},
+        "unreachable": {"type": "array", "items": {
+            "type": "object", "required": ["path", "key"],
+            "properties": {"path": ref("relPath"), "key": ref("textKey")},
+            "additionalProperties": False}},
+        "notes": {"type": "array", "items": {"type": "string"}}
+    },
+    "additionalProperties": False
+}
+
 SCHEMAS = {
+    "inventory-report": inventory_report,
     "global-metrics": global_metrics,
     "common": common, "idiolect": idiolect, "sources": sources, "manifest": manifest,
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,

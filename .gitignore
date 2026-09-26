@@ -9,6 +9,7 @@ __pycache__/
 
 # Local stores and scratch
 .state/
+!tests/example-store/.state/
 scratch/
 *.tmp
 

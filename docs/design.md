@@ -18,7 +18,7 @@ Updated 26 September 2026 · JeffOps · diagrams as JeffOps cards in `idiolect-d
 
 | Term | Meaning |
 | --- | --- |
-| Store | The folder holding everything learned, marked by `idiolect.yaml`. Never inside a folder it learns from |
+| Store | The folder holding everything learned, marked by `idiolect.yaml`. Never created inside a folder it learns from; if one ends up there, the inventory skips it |
 | Source | An original file, folder or mailbox the engine may learn from. Never modified by the engine |
 | Ownership | `own` (learned from), `assisted` (recorded, not learned, can be promoted to `own`) or `exclude` (ignored) |
 | Ledger | The ownership record, per text **and per profile**: path and tag rules in `sources.yaml` plus per-file answers in the manifest. Per-file answer beats path rule beats tag rule beats undecided |
@@ -31,12 +31,13 @@ Updated 26 September 2026 · JeffOps · diagrams as JeffOps cards in `idiolect-d
 | Slot | One value per facet inside a profile, e.g. `en.essay`. `_` means "any" and is never allowed for `lang` |
 | Pooled slot | A slot with `_` in one or more non-language facets, built automatically, e.g. `en._` |
 | Fingerprint | A slot's measured statistics with per-metric thresholds and confidence |
-| Primary metrics | The metrics that best separate a slot's writer from AI text, found by the contrast pass |
+| Primary metrics | The metrics that best separate a slot's writer from AI text, found by the contrast pass. They steer drafting and order the hints; `check` still uses every applicable metric |
 | Contrast pass | Rewriting sample paragraphs in a neutral AI style, in a fresh context, and measuring the gap |
 | Never-list | Markers found in the AI rewrites but not in the writer's text |
 | Confidence | `low`, `medium` or `high`: the lower of a count level and a stability level |
 | Drift, overshoot, shortfall | How far a draft's metric sits from the fingerprint, as a ratio; beyond a threshold it is flagged |
-| Fail count | How many flagged metrics fail a draft in `check`: a fixed share (28%) of the slot's metric list, 4 of the 14 global metrics |
+| Applicable metrics | The 14 global metrics minus any whose word list is missing for the text's language: 11 to 14 |
+| Fail count | How many flagged metrics fail a draft in `check`: 28% of the applicable metrics, which is 4 for 11 to 14 |
 | Observed lesson | A pattern from the corpus supported by at least two texts; rebuilt on every relearn but keeps its id (`l-003`) |
 | Edit lesson | A pattern from stored edit pairs supported by at least two pairs; rebuilt from the edit store, never lost; id `d-002` |
 | Seen once | A pattern with one supporting text or pair, kept until a second confirms it |
@@ -185,9 +186,9 @@ Scripts can only touch files in the environment they run in, and a skill keeps n
 - **Paths are relative.** `sources_root` is relative to the store (e.g. `../Writing`), and every path in the store is relative to `sources_root` or the store, so the same store works on Windows, Linux and through the bridge.
 - **No remembered state.** The store is found per session by `store=` or discovery. For a permanent default, the engine suggests one line the writer can add to their project instructions; it never writes it.
 - **Resumable batches.** Large learns run in batches of at most 50 files. After each batch, progress is written to `.state/progress.json`; every step is idempotent by content hash, so a restart continues where it stopped. Each batch is reported in one line.
-- **Lock.** Every mode that writes to the store (`learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune`, `test`) takes `.state/lock`, which records the mode and a heartbeat updated at every step and while waiting for the writer. A lock whose heartbeat is older than one hour is abandoned: the next writing run takes it over and, if a pending area was left behind, first offers resume or discard (resume only, if a commit had started). `dry-run=true` and read-only modes take no lock.
+- **Lock.** Every mode that writes to the store (`learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune`, `test`) takes `.state/lock`, which records the mode and a heartbeat updated at every step and while waiting for the writer. The heartbeat is updated at every step and script call; nothing runs between the writer's messages. A lock whose heartbeat is an hour old is abandoned: the next writing run takes it over atomically and, if a pending area was left behind, first offers resume or discard (resume only, if a commit had started). A damaged lock file counts as abandoned by its file time. `dry-run=true` and read-only modes take no lock.
 - **Leftover pending area.** If a session ends before approval, the next store-writing run shows the waiting diff and offers to resume or discard it before doing anything else. If it ended during a commit, the only choice is resume: the journal says which writes are done, and every write is atomic, so repeating one is harmless.
-- **Dependencies.** Python, a PDF library, a Word library and a small language-identification library. A start-up check names anything missing. Word tracked changes are read from the document XML (insertions kept, deletions dropped).
+- **Dependencies.** Python 3.10+, `markdown-it-py` (Markdown), `pdfminer.six` (PDF), `lingua-language-detector` (language), `PyYAML`, `jsonschema`. Word files are read from their XML with the standard library, so tracked insertions are kept and deletions dropped. A start-up check names anything missing.
 
 ## Learning pipeline
 
@@ -198,10 +199,10 @@ One pipeline for a file, folder or tag. Nothing from steps 2–9 is final until 
 | 1 | Lock and inventory | Script | Take the store lock (not in a dry run). Walk the target, always skipping the store folder. Adapters extract text in memory to compute hashes. Report usable files by detected slot; skipped (not prose, unsupported language, forgotten, holdouts, under ~150 words of prose, near-duplicates keeping the newest); unchanged; moved; copies; reverted; changed (same path, new hash); unreachable within the scanned scope. Exact order in spec §5. `dry-run=true` stops here and writes nothing |
 | 2 | Ownership | Script + writer | Apply the ledger per profile: per-file answer, else the most specific path rule, else a tag rule, else ask, once per target or per file. Rules for different profiles never conflict. A path rule applies to mail files like any other; only connector and web sources with no rule start undecided. Answers go to the pending area |
 | 3 | Extraction | Script (adapters) | For texts that are `own` for at least one profile, cleaned text goes to the pending area: frontmatter, code, data tables, quoted replies, signatures and quoted words of others removed. Texts that are only `assisted` or `exclude` get a manifest entry but no cached text; promoting one to `own` extracts it then. Hash = SHA-256 of the text normalised to Unicode NFC with whitespace collapsed (case kept), with test vectors in `tests/hash-vectors.json` |
-| 4 | Language and type | Script + model | Script identifies language (languages written without spaces between words are skipped in v1); a paragraph of 40+ words identified as another language with probability of at least 0.9 becomes a segment (`<hash>#2`, stored as `<hash>-2.txt`). Model assigns `type` from the `types` list, or proposes a new one. Uncertain cases are listed in the diff |
+| 4 | Language and type | Script + model | Script identifies language per paragraph; the main language is the one with the most words, and a run of consecutive paragraphs in another language becomes one segment (spec §4.4). Languages written without spaces between words are skipped in v1; a paragraph of 40+ words identified as another language with probability of at least 0.9 becomes a segment (`<hash>#2`, stored as `<hash>-2.txt`). Model assigns `type` from the `types` list, or proposes a new one. Uncertain cases are listed in the diff |
 | 5 | Measurement | Script | Rebuild fingerprints of affected slots and pooled slots from corpus plus pending texts, with a fixed seed. `since=` weighting applies |
-| 6 | Contrast | Model (fresh context) + script | A fresh agent with no skill or corpus loaded rewrites a sample of paragraphs in a neutral style; a script measures the gap and sets the never-list and primary metrics. The sample is reused until the slot's corpus changes by more than 20%. Without a fresh context, the result is flagged as less reliable |
-| 7 | Confidence | Script | Count level and stability level (see Confidence), using primary metrics, or the global phase-0 metric list if no contrast has run |
+| 6 | Contrast | Model (fresh context) + script | A fresh agent with no skill or corpus loaded rewrites a sample of paragraphs in a neutral style; a script measures the gap and sets the never-list and marks the primary metrics. The sample is reused until the slot's corpus changes by more than 20%. Without a fresh context, the result is flagged as less reliable |
+| 7 | Confidence | Script | Count level and stability level (see Confidence), on the applicable global metrics |
 | 8 | Qualitative pass | Model | Reads a stratified sample chosen by a script (at most 20,000 words per slot) and proposes observed lessons, with evidence counts from the full corpus via script lookups |
 | 9 | Vocabulary, examples, filter, diff | Script + model | Propose vocabulary; redact candidate examples (script for patterns, model for names and organisations); drop proposals matching a rejection exactly and flag probable rewordings. Show one diff per affected slot, including corpus and ledger changes and every redaction |
 | 10 | Record | Script | On approval: rebuild the staged files from the approved items, write the commit journal, snapshot the profile and its manifest entries, apply the journal step by step, record rejections, write the changelog, release the lock. On rejection of everything: record the rejections, clear the pending area and release the lock |
@@ -260,7 +261,7 @@ Computed per slot after the contrast pass, stored in the fingerprint, copied ont
 | `medium` | At least 3 texts and 3,000 words |
 | `high` | At least 8 texts and 15,000 words |
 
-**Stability.** The corpus is split into halves five times with a fixed seed, and the slot's metrics are compared (primary metrics, or the global list before a contrast pass). A metric is unstable when it varies by more than its own phase-0 tolerance in two or more splits. When 4 of the 14 global metrics are unstable (the same 28% share of a shorter list), the stability level drops one step. One unstable metric is normal: it happens in 75% of genuine 8-text corpora. With the rule at 4, 10% of genuine 8-text corpora drop a level, and 60% of corpora that mix two writers do. A split-half test cannot catch every mix, so facets remain the main guard against mixing voices. Confidence is the lower of the two levels. A `low` slot is usable and flagged in every draft; `check` then reports `low_confidence`, which a calling skill may treat as a pass with a warning.
+**Stability.** The corpus is split into halves five times with a fixed seed, and the applicable global metrics are compared. A metric is unstable when it varies by more than its own phase-0 tolerance in two or more splits. When 4 of them are unstable, the stability level drops one step. One unstable metric is normal: it happens in 75% of genuine 8-text corpora. With the rule at 4, 10% of genuine 8-text corpora drop a level, and 60% of corpora that mix two writers do. Small slots drop more often (60% at 3 texts, 32% at 5): they are honestly less settled, and the slot page says so. A split-half test cannot catch every mix, so facets remain the main guard against mixing voices. Confidence is the lower of the two levels. A `low` slot is usable and flagged in every draft; `check` then reports `low_confidence`, which a calling skill may treat as a pass with a warning.
 
 ![Confidence is the lower of two levels: a count level from the number of texts and words, and a stability level from five seeded half-splits, in which a metric over its tolerance in two splits counts as unstable and 4 of the 14 unstable metrics lower the level by one.](idiolect-design-images/07-confidence.png)
 
@@ -271,7 +272,7 @@ Computed per slot after the contrast pass, stored in the fingerprint, copied ont
 Facets are declared in `idiolect.yaml` in a fixed order; `lang` is always first and `type` second.
 
 - **Slot key:** one value per facet in declared order, `_` for "any": `en.essay`, `en._`, `en.post.linkedin`. `lang` is never `_`, so there is no cross-language pool.
-- **Value order per facet:** command, then ledger, then detection (language by script, type by model from the `types` list), then `defaults`, else `_`.
+- **Value order per facet:** command, then the text's manifest entry, then the most specific rule's `facets`, then frontmatter, then detection (language by script, type by model from the `types` list), then `defaults`, else `_`. Facets follow the text, so a copy at another path has the entry's values.
 - **New facets only at the end.** Migration appends `_` to every existing key.
 - **Pooled slots** (`en._` and so on) are built for every generalisation that has texts. They get the full set of slot files, because they combine one writer's own texts.
 
@@ -356,7 +357,7 @@ A store deeper than three levels, or outside the reachable folders, needs `store
       en.essay.never.md    never-list
       en._.md / .json / …  pooled slot, same file set
       snapshots/
-        2026-10-02T2140/   this profile's files (excluding snapshots/) + manifest-entries.json
+        2026-10-02T214000Z/ this profile's files (excluding snapshots/) + manifest-entries.json
 ```
 
 ### idiolect.yaml
@@ -415,7 +416,7 @@ exclude:
 
 - **Identity.** Keys are content hashes; segments of a mixed-language file are `<hash>#n`, stored on disk as `<hash>-n.txt`. `origin` is `file`, `interview`, `mail` or `web`.
 - **Status values:** `active`, `superseded` (a changed file replaced it; back to `active` if the file is reverted), `unreachable` (path gone inside the scope, still learned; back to `active` when found), `forgotten` (removed by `forget` for every profile, text deleted; back to `active` only through `forget … ownership=own`). `holdout: true` is a separate flag; learning refuses it, and only `rollback` or `forget` clears it.
-- **Inventory order.** Known hashes are sorted out first (forgotten, holdout, unchanged, moved, copy, reverted), then too short, changed, near-duplicate and new. A near-duplicate is only ever another file, never the file's own earlier version. The exact table is spec §5, and `tests/inventory-fixture/` exercises every row.
+- **Inventory order.** Known hashes are sorted out first (forgotten, holdout, unchanged, moved, copy, reverted, earlier version), then too short, changed, near-duplicate and new. A near-duplicate is only ever another file, never the file's own earlier version; among near-duplicates the newest document date wins, and a text already in the corpus always wins. Hidden folders, `node_modules`, `_to_delete` and any other store are never walked. The exact table is spec §5, and `tests/inventory-fixture/` exercises every row.
 - **Several profiles, ownership per profile.** A text feeds every profile whose `sources.yaml` rule matches it; the same path may appear in rules for two profiles, with different ownership (a text can be `own` for the house style `acme` and `assisted` for `sam`). `profiles` therefore maps each profile to its own ownership record. Forgetting a text for one profile keeps it for the others; rollback of one profile restores only that profile's records (spec §7, §8).
 - **Only texts that are `own` for some profile are cached.** Entries that are only `assisted` or `exclude` keep the hash and decisions, not the text.
 - **Sources are never modified.** Existing frontmatter may be read as a hint, never written.
@@ -517,7 +518,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 
 - **Fixture authors.** Lesser-known public-domain authors, supplemented by synthetic authors (distinct invented writing personas, labelled as synthetic). Before use, the judge is asked whether it recognises the author from a held-out text; a recognised author is replaced. Living writers are not used, because that would need their consent.
 - **Two baselines per brief:** a plain draft, and a few-shot draft given the same three example passages but no profile.
-- **Briefs.** A separate brief-writer agent reads the held-out passage and writes a topic-only brief of at most 60 words in its own words; a script rejects any brief sharing a run of four or more words with the passage. The generating runs never have the held-out text or its path in context. Full procedure in `evals/eval-protocol.md`, including a person spot-checking 10% of judgments and a pass having to hold over two separate runs.
+- **Briefs.** A separate brief-writer agent reads the held-out passage and writes a topic-only brief of at most 60 words in its own words; a script rejects any brief sharing a run of four or more words with the passage, ignoring stop words. The generating runs never have the held-out text or its path in context. Full procedure in `evals/eval-protocol.md`, including a person spot-checking 10% of judgments and a pass having to hold over two separate runs.
 - **Judge.** For fixtures, a separate agent using skill-creator's comparator sees a held-out text by the author and the shuffled drafts, and picks the closest; a person spot-checks its picks. For a writer's own profile, the writer judges, with drafts labelled A/B/C and a hidden key.
 - **The bar,** over at least 10 briefs per author: Idiolect is picked over the plain draft in at least 70% of cases and over the few-shot draft in at least 60%, **met separately on the synthetic authors and on the public-domain authors**. The model has a sense of the real authors' styles (phase 0 recognition check), so results on them alone could flatter Idiolect. Missing the few-shot bar means the machinery adds nothing, and the design changes.
 - **Clean runs.** Other voice skills are switched off by the tester during evaluation.
@@ -529,7 +530,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 
 ### Metrics are chosen by evidence
 
-In phase 0 a script measured fixture texts and AI rewrites of them (`evals/spike/spike.py`, results in `evals/spike/RESULTS.md`; anyone can re-run it). Fourteen metrics were kept, each with overshoot and shortfall thresholds and its own stability tolerance; that is the global metric list in `idiolect/assets/global-metrics.json`, with exact definitions in `references/fingerprint.md`, and the contrast pass later narrows it per slot. The experiment also showed that a single flag means little (85% of an author's own passages get at least one), so `check` fails a draft only when 4 or more are flagged. On passages and rewrites of matched length, each checked against a fingerprint without its own essay, 17% of genuine passages fail and 80% of AI rewrites do (real authors 18% and 70%, synthetic 0% and 100%). The same count, 4 unstable metrics, decides the stability downgrade. Both are stored as a share of the list so a narrowed list scales. `check` informs; the blind evaluation in phase 3 decides.
+In phase 0 a script measured fixture texts and AI rewrites of them (`evals/spike/spike.py`, results in `evals/spike/RESULTS.md`; anyone can re-run it). Fourteen metrics were kept, each with overshoot and shortfall thresholds and its own stability tolerance; that is the global metric list in `idiolect/assets/global-metrics.json`, with exact definitions in `references/fingerprint.md`. `check` always uses all of them that apply to the language; the contrast pass only marks which are primary for a slot. Headings are left out of measurement, since they are not sentences. The experiment also showed that a single flag means little (85% of an author's own passages get at least one), so `check` fails a draft only when 4 or more are flagged. On passages and rewrites of matched length, each checked against a fingerprint without its own essay, 17% of genuine passages fail and 80% of AI rewrites do (real authors 18% and 70%, synthetic 0% and 100%). The same count, 4 unstable metrics, decides the stability downgrade. Both are stored as a share, so a language with fewer applicable metrics (11 to 13) gets the same count of 4. `check` informs; the blind evaluation in phase 3 decides.
 
 ### What the skill loads
 
@@ -567,7 +568,7 @@ Templates, `SKILL.md` and references contain no details taken from a real person
 | Case | Behaviour |
 | --- | --- |
 | How-to that is mostly code | Code stripped; skipped under ~150 words of prose |
-| Text switching language | Paragraphs of 40+ words clearly in another language become a segment for that language |
+| Text switching language | A run of 40+-word paragraphs clearly in another language becomes one segment for that language |
 | Long quote from someone else | Stripped before learning; untouched in rewrites |
 | Slot from one or two texts | Usable at `low`; lessons still need two supporting texts |
 | Mixed ownership in one file | Asked per file; not learned until answered |
@@ -643,6 +644,9 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Unreachable only within the run's scope | Learning one file must not mark the rest of the corpus as gone |
 | Metric definitions fixed in `references/fingerprint.md` | Thresholds only mean something if every run measures the same way |
 | Languages without spaces between words skipped in v1 | Every metric counts words; those languages need their own tokeniser first |
+| `check` and stability always use every applicable global metric; primary metrics only steer | The counts were calibrated on 14 metrics; a list narrowed per slot would make them untested |
+| Extraction and language identification pinned to named libraries | The same file must give the same hash and words on every machine |
+| Near-duplicates decided by document date, and corpus texts always win | File times change on copy or checkout; an approved corpus text must not be displaced silently |
 | Brief writer may read the held-out passage; generators never do | A brief needs the topic; copied phrasing is blocked by an overlap check |
 | Evaluation bar met separately on synthetic and real fixture authors | The model recognises real authors' styles at low confidence, which can flatter results |
 | Redaction recorded per item | Export must be able to enforce it |

@@ -70,7 +70,11 @@
             "type": "number"
           },
           "ratio": {
-            "type": "number"
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "draft / writer; null when the writer's value is below the metric's floor (then judged by absolute difference, spec §17.1)."
           },
           "flag": {
             "enum": [
@@ -148,7 +152,9 @@
           "profile",
           "slot",
           "confidence",
-          "metrics"
+          "metrics",
+          "flagged",
+          "fail_threshold"
         ]
       }
     },

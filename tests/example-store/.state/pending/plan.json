@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "run_id": "20261002T211000Z",
+ "mode": "learn",
+ "profiles": [
+  "sam"
+ ],
+ "created": "2026-10-02T21:35:00Z",
+ "items": [
+  {
+   "id": "i-001",
+   "kind": "corpus-text",
+   "op": "add",
+   "profile": "sam",
+   "ref": "76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa",
+   "path": "corpus/76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa.txt",
+   "summary": "New own text: Published/2025-on-slowness.md",
+   "decision": "approved"
+  },
+  {
+   "id": "i-002",
+   "kind": "fingerprint",
+   "op": "modify",
+   "profile": "sam",
+   "slot": "en.essay",
+   "path": "profiles/sam/en.essay.json",
+   "summary": "Fingerprint rebuilt (17 texts)",
+   "decision": "approved"
+  },
+  {
+   "id": "i-003",
+   "kind": "lesson",
+   "op": "add",
+   "profile": "sam",
+   "slot": "en.essay",
+   "ref": "l-004",
+   "path": "profiles/sam/en.essay.md",
+   "summary": "New lesson: ends on a one-line paragraph",
+   "decision": "rejected"
+  },
+  {
+   "id": "i-004",
+   "kind": "ruling",
+   "op": "add",
+   "profile": "sam",
+   "ref": "r-001",
+   "path": "profiles/sam/rulings.yaml",
+   "summary": "l-002 promoted to a ruling",
+   "decision": "approved"
+  }
+ ],
+ "commit": {
+  "started": "2026-10-02T21:41:00Z",
+  "steps": [
+   {
+    "op": "snapshot",
+    "path": "profiles/sam/snapshots/2026-10-02T214100Z",
+    "state": "done"
+   },
+   {
+    "op": "write",
+    "path": "corpus/76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa.txt",
+    "state": "done"
+   },
+   {
+    "op": "write",
+    "path": "corpus/manifest.json",
+    "state": "todo"
+   },
+   {
+    "op": "write",
+    "path": "profiles/sam/en.essay.json",
+    "state": "todo"
+   },
+   {
+    "op": "write",
+    "path": "profiles/sam/rulings.yaml",
+    "state": "todo"
+   },
+   {
+    "op": "write",
+    "path": "profiles/sam/rejected.yaml",
+    "state": "todo"
+   },
+   {
+    "op": "changelog",
+    "path": "profiles/sam/changelog.md",
+    "state": "todo"
+   }
+  ]
+ }
+}

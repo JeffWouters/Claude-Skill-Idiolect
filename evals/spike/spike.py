@@ -339,7 +339,7 @@ def main():
         "seed": SEED,
         "authors": authors,
         "global_metrics": [{"name": k, **defaults[k]} for k in kept],
-        "stability_tolerance": tolerance,
+        "stability_p90_all_metrics_8_texts": tolerance,  # diagnostic only; per-metric tolerances are in global_metrics
         "stability_by_texts": stab,
         "near_duplicate_max_jaccard_between_distinct_essays": round(maxj, 3),
         "diagnostics": {k: {"ai_separation_authors": score[k], "eta_squared": round(eta[k], 3),

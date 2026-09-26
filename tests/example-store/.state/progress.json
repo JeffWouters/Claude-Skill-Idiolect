@@ -1,0 +1,3 @@
+{"schema_version": 1, "run_id": "20261002T211000Z", "mode": "learn", "target": "Published", "batch_size": 50,
+ "batches_done": 1, "done": ["Published/2025-on-slowness.md", "Published/2026-small-tools.md"],
+ "started": "2026-10-02T21:10:00Z", "updated": "2026-10-02T21:20:00Z"}

@@ -95,7 +95,7 @@ profile: sam
 ## 2026-10-02T21:40:00Z · learn · run 20261002T211000Z
 - Slots: en.essay, en._
 - Summary: 17 texts added; 9 observed lessons; 1 rejected (x-001); 1 promoted (r-001).
-- Snapshot: snapshots/2026-10-02T2140/
+- Snapshot: snapshots/2026-10-02T214000Z/
 ```
 
 Newest entry last. Modes that write here: learn, learn-edit, interview, forget, rollback, prune.

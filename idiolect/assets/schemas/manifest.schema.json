@@ -86,7 +86,7 @@
               },
               "decided_by": {
                 "enum": [
-                  "folder-rule",
+                  "path-rule",
                   "tag-rule",
                   "writer"
                 ],

@@ -35,7 +35,7 @@
     },
     "pending": {
       "type": "boolean",
-      "description": "A pending area exists; the lock is not stale while true."
+      "description": "Informational: a pending area exists. Takeover depends only on the heartbeat age (spec §10)."
     }
   },
   "additionalProperties": false

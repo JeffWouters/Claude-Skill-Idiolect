@@ -4,7 +4,7 @@
   "fail_fraction": 0.28,
   "downgrade_fraction": 0.28,
   "min_count": 2,
-  "note": "Thresholds are counts derived from the metric list in use: count = max(min_count, ceil(fraction x number of metrics)). With the 14 global metrics both are 4. check fails a draft when that many metrics are flagged; single flags are hints. A slot's stability level drops one step when that many metrics are unstable (over tolerance in 2 or more of 5 half-splits). Metrics with a writer value below floor are judged by absolute difference (flag when the draft exceeds the writer value by more than 2 x floor). stability_tolerance is capped at 1.5 because the relative difference cannot exceed 2.0.",
+  "note": "check and the stability rule both use the applicable global metrics (these 14, minus any whose language word list is missing). Counts: min(n, max(min_count, ceil(p x n / 100))) in integers, p = round(fraction x 100); 4 for 11 to 14 metrics. check fails a draft at that many flagged metrics; single flags are hints. A slot's stability level drops one step at that many unstable metrics (over tolerance in 2 or more of 5 half-splits). Metrics with a writer value below floor are judged by absolute difference (flag when the draft exceeds the writer value by more than 2 x floor). stability_tolerance is capped at 1.5 because the relative difference cannot exceed 2.0. Definitions: references/fingerprint.md; rules: docs/spec.md \u00a713 and \u00a717.",
   "metrics": [
     {
       "name": "sentence_length_sd",

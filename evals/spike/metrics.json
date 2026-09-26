@@ -318,7 +318,7 @@
       "stability_tolerance": 0.71
     }
   ],
-  "stability_tolerance": 0.597,
+  "stability_p90_all_metrics_8_texts": 0.597,
   "stability_by_texts": {
     "3": {
       "p50": 0.175,

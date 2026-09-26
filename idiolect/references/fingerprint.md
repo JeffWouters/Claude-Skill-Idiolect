@@ -13,6 +13,10 @@ measuring:
 1. Remove HTML comments and YAML frontmatter.
 2. Replace curly apostrophes `’` `‘` with `'`.
 3. Paragraphs are blocks separated by one or more blank lines; empty blocks are ignored.
+4. **Headings are not measured.** A block that is a single line of fewer than 12 words and does not
+   end in `.`, `!`, `?`, `:`, `;` or a closing quote or bracket after one of those is treated as a
+   heading (or a short label) and left out of every metric. Without this, the sentence splitter would
+   merge each heading into the next sentence. The cached text and the hash keep headings.
 
 A slot's value is measured on its texts joined with blank lines, not averaged per text.
 
@@ -22,7 +26,8 @@ A slot's value is measured on its texts joined with blank lines, not averaged pe
   (optionally followed by closing quotes or brackets `"` `'` `)` `]`) when the next non-space
   character, optionally after an opening quote or bracket, is an upper-case letter or a digit.
   Empty pieces are dropped.
-- **Words.** Maximal runs that start with a letter and continue with letters, `'` or `-`. The phase 0
+- **Words.** Maximal runs that start with a letter and continue with letters, `'` or `-`
+  (Python: `[^\W\d_](?:[^\W\d_]|['-])*`); digits and `_` end a word. The phase 0
   script used ASCII letters only; `measure.py` uses Unicode letters, so accented words count. For
   English this changes values by well under the stability tolerances.
 - **Sentence length.** Words in the sentence.
@@ -63,8 +68,11 @@ The engine supports languages that separate words with spaces and end sentences 
 | `contractions.txt` | `contractions_per_1k` | One regular expression per line, matched on lower-cased text |
 | `stopwords.txt` | Rejection matching (spec §14) | One word per line, lower case |
 
-- A language **without** one of the first three files has that metric removed from its slots' metric
-  list. The fail and downgrade counts are then computed from the shorter list (spec §13, §17).
+- A language **without** one of the first three files has that metric removed from the list for its
+  texts, so a text is judged on 11 to 14 **applicable metrics**. The fail and downgrade counts are
+  computed from that number (spec §13, §17); both are 4 for 11 to 14.
+- `check` and the stability rule always use all applicable metrics. The contrast pass marks
+  **primary** metrics, which steer drafting and order the hints, but never shortens the list.
 - A language with no `stopwords.txt` matches rejections without stop-word removal.
 - Languages written without spaces between words (Chinese, Japanese, Thai and others) are out of
   scope for v1: `learn` reports their texts as "Skipped: language not supported" and never builds a
