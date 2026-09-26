@@ -3,8 +3,8 @@
 This document turns the design's rules into precise, testable behaviour. `docs/design.md` says
 *what* and *why*; this says *exactly how*. Where they disagree, fix one of them in the same commit.
 
-**MUST**, **SHOULD** and **MAY** have their usual meaning. Values marked ⟨phase 0⟩ are set by the
-metric experiment and recorded in `evals/spike/RESULTS.md`.
+**MUST**, **SHOULD** and **MAY** have their usual meaning. Values measured in the phase 0 metric
+experiment are listed in §18 and explained in `evals/spike/RESULTS.md`.
 
 ## 1. Files, encoding and loading
 
@@ -172,11 +172,12 @@ automatically.
 ## 13. Confidence
 
 1. Count level: `low` if texts < 3 or words < 3,000; `high` if texts ≥ 8 and words ≥ 15,000;
-   otherwise `medium` (starting values ⟨phase 0⟩).
+   otherwise `medium` (confirmed by the phase 0 experiment).
 2. Stability level: split the slot's corpus into two random halves five times with the slot's seed;
-   measure the primary metrics (or the global list) on each half. If any metric's relative
-   difference between halves exceeds the tolerance ⟨phase 0⟩ in more than one split, the stability
-   level is one step below the count level; otherwise equal to it.
+   measure the primary metrics (or the global list) on each half. The relative difference of a metric
+   is `|a − b| / max(floor, (a + b) / 2)`. If any metric exceeds **its own** `stability_tolerance`
+   (from `assets/global-metrics.json`) in more than one split, the stability level is one step below
+   the count level; otherwise equal to it.
 3. Confidence = the lower of the two. It is written to the fingerprint and copied to the slot page.
 
 ## 14. Lessons, ids and rejections
@@ -215,12 +216,24 @@ automatically.
 | Unquoted date in YAML | Read as a string (§1.2) |
 | Store file fails validation | Run stops with `status: error` naming the file |
 
-## 17. Values set in phase 0
+## 17. Check decision
 
-| Value | Used in | Status |
-| --- | --- | --- |
-| Global metric list | §13, fingerprints | ⟨phase 0⟩ |
-| Default overshoot and shortfall per metric | fingerprints, `check` | ⟨phase 0⟩ |
-| Stability tolerance | §13 | ⟨phase 0⟩ |
-| Count thresholds | §13 | Starting values above; confirm in phase 0 |
-| Near-duplicate threshold | §5 | 0.90; confirm in phase 0 |
+1. For each metric in the slot's list: if the writer's value is below the metric's `floor`, flag when
+   the draft exceeds it by more than 2 × `floor`; otherwise flag when `draft / writer` is above
+   `overshoot` or, for non-sparse metrics, below `shortfall`.
+2. `status` is `fail` when the number of flagged metrics is at least `fail_threshold` (5); otherwise
+   `pass`, or `low_confidence` when the slot's confidence is `low`.
+3. Every flag is still reported in the report, as a hint for the rewrite.
+
+## 18. Values set in phase 0
+
+All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.json`.
+
+| Value | Result |
+| --- | --- |
+| Global metric list | 14 metrics, listed in RESULTS.md |
+| Overshoot, shortfall, floor per metric | In `global-metrics.json`; five metrics are sparse (overshoot only) |
+| Stability tolerance | Per metric, 0.14 to 2.00 |
+| Fail threshold for `check` | 5 flagged metrics (8% of genuine passages fail, 87% of AI rewrites) |
+| Count thresholds | Confirmed: `low` < 3 texts, `high` ≥ 8 texts and 15,000 words |
+| Near-duplicate threshold | 0.90 confirmed (distinct essays peak at 0.004) |

@@ -307,6 +307,9 @@ check_report = {
         "profile": ref("profileName"),
         "slot": ref("slotKey"),
         "confidence": ref("confidenceLevel"),
+        "flagged": {"type": "integer", "minimum": 0, "description": "Number of metrics flagged."},
+        "fail_threshold": {"type": "integer", "minimum": 1,
+                           "description": "The draft fails when flagged >= fail_threshold (5, from global-metrics.json)."},
         "metrics": {"type": "array", "items": {
             "type": "object", "required": ["name", "draft", "writer", "ratio", "flag"],
             "properties": {"name": {"type": "string"}, "draft": {"type": "number"},

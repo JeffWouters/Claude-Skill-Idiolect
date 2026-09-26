@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "source": "evals/spike (phase 0 metric experiment), seed 20261002",
+  "fail_threshold": 5,
+  "note": "A draft fails check when fail_threshold or more metrics are flagged. Single flags are hints. Metrics with a writer value below floor are judged by absolute difference (flag when the draft exceeds the writer value by more than 2 x floor).",
+  "metrics": [
+    {
+      "name": "sentence_length_sd",
+      "overshoot": 1.61,
+      "shortfall": 0.61,
+      "floor": 0.02,
+      "stability_tolerance": 0.24,
+      "sparse": false
+    },
+    {
+      "name": "sentences_per_paragraph",
+      "overshoot": 1.88,
+      "shortfall": 0.43,
+      "floor": 0.02,
+      "stability_tolerance": 0.47,
+      "sparse": false
+    },
+    {
+      "name": "long_sentence_share",
+      "overshoot": 1.65,
+      "shortfall": 0.49,
+      "floor": 0.02,
+      "stability_tolerance": 0.26,
+      "sparse": false
+    },
+    {
+      "name": "sentence_length_mean",
+      "overshoot": 1.33,
+      "shortfall": 0.76,
+      "floor": 0.02,
+      "stability_tolerance": 0.14,
+      "sparse": false
+    },
+    {
+      "name": "commas_per_sentence",
+      "overshoot": 1.48,
+      "shortfall": 0.62,
+      "floor": 0.02,
+      "stability_tolerance": 0.21,
+      "sparse": false
+    },
+    {
+      "name": "semicolons_per_1k",
+      "overshoot": 1.94,
+      "shortfall": 0.29,
+      "floor": 0.5,
+      "stability_tolerance": 0.34,
+      "sparse": false
+    },
+    {
+      "name": "conjunction_opener_share",
+      "overshoot": 2.25,
+      "shortfall": 0.05,
+      "floor": 0.02,
+      "stability_tolerance": 0.53,
+      "sparse": true
+    },
+    {
+      "name": "contractions_per_1k",
+      "overshoot": 2.77,
+      "shortfall": 0.05,
+      "floor": 0.5,
+      "stability_tolerance": 2.0,
+      "sparse": true
+    },
+    {
+      "name": "dashes_per_1k",
+      "overshoot": 2.69,
+      "shortfall": 0.05,
+      "floor": 0.5,
+      "stability_tolerance": 0.72,
+      "sparse": true
+    },
+    {
+      "name": "colons_per_1k",
+      "overshoot": 4.28,
+      "shortfall": 0.05,
+      "floor": 0.5,
+      "stability_tolerance": 1.19,
+      "sparse": true
+    },
+    {
+      "name": "short_sentence_share",
+      "overshoot": 2.61,
+      "shortfall": 0.05,
+      "floor": 0.02,
+      "stability_tolerance": 0.74,
+      "sparse": true
+    },
+    {
+      "name": "long_word_share",
+      "overshoot": 1.25,
+      "shortfall": 0.78,
+      "floor": 0.02,
+      "stability_tolerance": 0.15,
+      "sparse": false
+    },
+    {
+      "name": "hedges_per_1k",
+      "overshoot": 2.1,
+      "shortfall": 0.25,
+      "floor": 0.5,
+      "stability_tolerance": 0.74,
+      "sparse": false
+    },
+    {
+      "name": "digits_per_1k",
+      "overshoot": 2.01,
+      "shortfall": 0.32,
+      "floor": 0.5,
+      "stability_tolerance": 0.71,
+      "sparse": false
+    }
+  ]
+}

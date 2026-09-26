@@ -38,6 +38,16 @@
     "confidence": {
       "$ref": "common.schema.json#/$defs/confidenceLevel"
     },
+    "flagged": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of metrics flagged."
+    },
+    "fail_threshold": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The draft fails when flagged >= fail_threshold (5, from global-metrics.json)."
+    },
     "metrics": {
       "type": "array",
       "items": {

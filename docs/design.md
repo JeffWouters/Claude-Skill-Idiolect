@@ -121,7 +121,7 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 | `forget` | A source, or a source and a new ownership | Removes a text from the corpus (deleting its cached text) or reclassifies it, and relearns affected slots | After approval |
 | `write` | A brief | Drafts from the resolved slot | Nothing |
 | `rewrite` | A text | Rewrites within `depth` | Nothing |
-| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot | Nothing |
+| `check` | A text | Compares with the fingerprint; flags shortfall and overshoot per metric, and fails the draft when 5 or more metrics are flagged | Nothing |
 | `test` | A holdout text, plus a topic-only brief | Flags the text as holdout through an approved diff; if it was already learned, affected slots are relearned first. Then generates from the brief in a context that never sees the text, and records per-metric drift | `eval/results.md` only |
 | `status` | Optionally a profile | Active store, slots, counts, confidence, rejections, inherited rulings, unreachable sources | Nothing |
 | `rollback` | A profile, optionally `to=` | Restores a snapshot of the profile and manifest after showing the diff; takes a snapshot first; removes slot files created after the restored snapshot; restores only this profile's manifest entries | After approval |
@@ -508,7 +508,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 - **Two baselines per brief:** a plain draft, and a few-shot draft given the same three example passages but no profile.
 - **Briefs.** Topic-only briefs written without seeing the held-out text; the generating run never has the held-out text or its path in context.
 - **Judge.** For fixtures, a separate agent using skill-creator's comparator sees a held-out text by the author and the shuffled drafts, and picks the closest; a person spot-checks its picks. For a writer's own profile, the writer judges, with drafts labelled A/B/C and a hidden key.
-- **The bar,** over at least 10 briefs per author: Idiolect is picked over the plain draft in at least 70% of cases and over the few-shot draft in at least 60%. Missing the second bar means the machinery adds nothing, and the design changes.
+- **The bar,** over at least 10 briefs per author: Idiolect is picked over the plain draft in at least 70% of cases and over the few-shot draft in at least 60%, **met separately on the synthetic authors and on the public-domain authors**. The model has a sense of the real authors' styles (phase 0 recognition check), so results on them alone could flatter Idiolect. Missing the few-shot bar means the machinery adds nothing, and the design changes.
 - **Clean runs.** Other voice skills are switched off by the tester during evaluation.
 - **Results** go in the store's `eval/results.md` (for writer tests) or in `evals/` (for fixtures), as blind picks plus per-metric drift; no single score.
 
@@ -518,7 +518,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 
 ### Metrics are chosen by evidence
 
-In phase 0 a throwaway script measures fixture texts and AI rewrites of them. Metrics that separate each author clearly from the AI version are kept, with starting thresholds and a stability tolerance; the rest are dropped. That list is the global metric list; the contrast pass later narrows it per slot.
+In phase 0 a throwaway script measured fixture texts and AI rewrites of them (`evals/spike/RESULTS.md`). Fourteen metrics were kept, each with overshoot and shortfall thresholds and its own stability tolerance; that is the global metric list in `idiolect/assets/global-metrics.json`, and the contrast pass later narrows it per slot. The experiment also showed that a single flag means little (95% of an author's own passages get at least one), so `check` fails a draft only when 5 or more metrics are flagged: 8% of genuine passages fail, 87% of AI rewrites do.
 
 ### What the skill loads
 
@@ -614,6 +614,8 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | `interactive=false` for callers | A skill cannot tell who invoked it |
 | Never invent facts | A voice built to be believed makes invented details more harmful |
 | Caricature guard | Imitation overdoes habits |
+| `check` fails on 5+ flagged metrics, not on one | Measured in phase 0: single flags hit 95% of genuine passages; five flags separate genuine from AI (8% vs 87%) |
+| Evaluation bar met separately on synthetic and real fixture authors | The model recognises real authors' styles at low confidence, which can flatter results |
 | Redaction recorded per item | Export must be able to enforce it |
 | Consent recorded per profile | Voice imitation of others must be authorised |
 | Store content is data, not instructions | Texts and shared profiles could otherwise steer every draft |
