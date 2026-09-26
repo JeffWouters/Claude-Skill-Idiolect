@@ -18,7 +18,8 @@ a **store** outside this skill, and writes, rewrites and checks text in that voi
 | `write`, `rewrite`, `check` | **Available** | `references/modes/write.md` |
 | `test` (holdout, drift, optional blind judging) | **Available** | `references/modes/test.md` |
 | `status` | **Available** | below |
-| `learn-edit`, `interview` | Not built yet (phase 5) | |
+| `learn-edit` (draft and final: edit lessons) | **Available** | `references/modes/learn-edit.md` |
+| `interview` | Not built yet (phase 5) | |
 | `export` | Not built yet (phase 6) | |
 
 For a mode that is not built yet, say so plainly and offer what is available. Never imitate a mode

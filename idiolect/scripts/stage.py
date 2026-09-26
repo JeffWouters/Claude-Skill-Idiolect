@@ -196,7 +196,7 @@ class Pending:
             pl = payloads[i["id"]]
             # ledger items name a profile only for grouping; their records carry their own needs
             profs = set() if pl.get("manifest") else ({i.get("profile")} - {None})
-            for field in ("lesson", "example", "never", "fingerprint"):
+            for field in ("lesson", "example", "never", "fingerprint", "edit_lesson", "edit_pair"):
                 if pl.get(field):
                     profs.add(pl[field]["profile"])
             for field in ("vocab", "ruling"):
@@ -506,6 +506,32 @@ def render(store, pending, include, final=False):
                               + [int(i.split("-")[1]) for i in byid])
         out[rel] = pages.render_examples(meta, list(byid.values()))
 
+    # edit pairs and edit lessons (spec §20)
+    for it, pl in items:
+        if "edit_pair" in pl:
+            pair = copy.deepcopy(pl["edit_pair"]["pair"])
+            if final:
+                pair["redaction"]["reviewed"] = True
+            check_schema("edit-pair", pair, f"edit pair {pair['id']}")
+            out[f"profiles/{pl['edit_pair']['profile']}/edits/{pair['id']}/pair.yaml"] = dump_yaml(pair)
+    edit_lessons = collections.defaultdict(list)
+    for it, pl in items:
+        if "edit_lesson" in pl:
+            edit_lessons[(pl["edit_lesson"]["profile"], pl["edit_lesson"]["slot"])].append(pl["edit_lesson"])
+    for (prof, slot), rows in edit_lessons.items():
+        rel = f"profiles/{prof}/{slot}.edits.md"
+        base = _read(store, rel)
+        if base:
+            meta, cur = pages.parse_edits(base)
+        else:
+            meta, cur = {"schema_version": 1, "profile": prof, "slot": slot, "personal_data": "none", "last_id": 0}, []
+        byid = {c["id"]: c for c in cur}
+        for les in rows:
+            byid[les["id"]] = les
+        meta["last_id"] = max([meta.get("last_id") or 0, _plan_ids(pending, "edit_lesson", prof, slot)]
+                              + [int(i.split("-")[1]) for i in byid])
+        out[rel] = pages.render_edits(meta, list(byid.values()))
+
     # rulings and vocabulary
     for fname, schema, field in (("rulings.yaml", "rulings", "ruling"), ("vocabulary.yaml", "vocabulary", "vocab")):
         per = collections.defaultdict(list)
@@ -572,9 +598,9 @@ def render_rejections(store, pending):
         if writer.get(it["id"]) != "rejected" or not kind or it["op"] != "add":
             continue
         pl = pending.payload(it["id"])
-        body = pl.get("lesson") or pl.get("example") or (pl.get("vocab") or {}).get("entry") or {}
+        body = pl.get("lesson") or pl.get("edit_lesson") or pl.get("example") or (pl.get("vocab") or {}).get("entry") or {}
         text = body.get("text", "")
-        slot = it.get("slot") or (pl.get("lesson") or pl.get("example") or {}).get("slot") or "_"
+        slot = it.get("slot") or (pl.get("lesson") or pl.get("edit_lesson") or pl.get("example") or {}).get("slot") or "_"
         lang = slot.split(".")[0]
         if kind == "example":
             # never keep a passage in rejected.yaml: a hash of it is enough to recognise it again
@@ -673,7 +699,8 @@ def affected_profiles(store, pending, include):
             continue
         pl = pending.payload(it["id"])
         gone = gone_records(pending, pl)
-        for body in (pl.get("lesson"), pl.get("example"), pl.get("never"), pl.get("fingerprint")):
+        for body in (pl.get("lesson"), pl.get("example"), pl.get("never"), pl.get("fingerprint"),
+                     pl.get("edit_lesson"), pl.get("edit_pair")):
             if body:
                 profs.add(body["profile"])
         for field in ("vocab", "ruling"):

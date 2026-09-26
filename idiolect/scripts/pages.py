@@ -104,6 +104,43 @@ def render_examples(meta, examples):
     return join_page(meta, sections)
 
 
+# ---------- edit lessons ----------
+
+EDIT_SECTIONS = ["Edit lessons", "Seen once"]
+EDIT_EVIDENCE = re.compile(r"^(?:(?P<kind>[a-z][a-z0-9-]{0,39}); )?(?P<n>\d+) pairs?: (?P<pairs>p-\d{3,6}(?:, p-\d{3,6})*)$")
+
+
+def parse_edits(text):
+    """(meta, lessons) for a <slot>.edits.md page (markdown-contracts.md, spec §20). Each lesson:
+    {id, text, section, kind (None on a page written before kinds were recorded), pairs, seen_once}."""
+    meta, sections = split_page(text)
+    out = []
+    for sec in EDIT_SECTIONS:
+        for ln in sections.get(sec, []):
+            m = LESSON_LINE.match(ln.strip())
+            if not m:
+                continue
+            ev = EDIT_EVIDENCE.match(m.group("ev") or "")
+            out.append({"id": m.group("id"), "text": m.group("text"), "section": sec,
+                        "kind": ev.group("kind") if ev else None,
+                        "pairs": ev.group("pairs").split(", ") if ev else [],
+                        "evidence_raw": m.group("ev") or "", "seen_once": sec == "Seen once"})
+    return meta, out
+
+
+def render_edits(meta, lessons):
+    by = {s: [] for s in EDIT_SECTIONS}
+    for les in sorted(lessons, key=lambda x: x["id"]):
+        if les.get("pairs"):
+            n = len(les["pairs"])
+            ev = (f"{les['kind']}; " if les.get("kind") else "") + f"{n} pair{'' if n == 1 else 's'}: " + ", ".join(les["pairs"])
+        else:
+            ev = les.get("evidence_raw", "")
+        by["Seen once" if les.get("seen_once") else "Edit lessons"].append(
+            f"- [{les['id']}] {les['text']}" + (f" _({ev})_" if ev else ""))
+    return join_page(meta, [(s, by[s]) for s in EDIT_SECTIONS])
+
+
 # ---------- never-list ----------
 
 def render_never(meta, markers):

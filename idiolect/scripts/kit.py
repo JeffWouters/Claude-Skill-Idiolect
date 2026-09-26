@@ -137,7 +137,9 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
     kit["lessons"] = [with_share(x, n_texts) for x in
                       (pages.parse_slot_page(page.read_text(encoding="utf-8"))[2] if page.exists() else [])]
     edits = base / f"{slot}.edits.md"
-    kit["edit_lessons"] = pages.parse_slot_page(edits.read_text(encoding="utf-8"))[2] if edits.exists() else []
+    # confirmed edit lessons only (two or more pairs); a kind seen once is not yet a lesson (spec §20)
+    kit["edit_lessons"] = [x for x in pages.parse_edits(edits.read_text(encoding="utf-8"))[1]
+                           if not x["seen_once"]] if edits.exists() else []
     never = base / f"{slot}.never.md"
     kit["never"] = [m["marker"] for m in pages.parse_never(never.read_text(encoding="utf-8"))[1]] if never.exists() else []
     rulings = [r for r in resolve.merged(store, prof, "rulings") if r.get("slot") in (None, slot)]
