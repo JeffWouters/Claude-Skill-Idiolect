@@ -226,7 +226,12 @@ manifest that feeds the rolled-back profile:
    text, and a rollback never changes another profile. Only this profile's record is restored (or
    removed), which can leave this profile without that text until its next learn; the diff says so.
 2. Not in the snapshot (added later): this profile's record is removed. If no profile remains, the
-   entry becomes `forgotten` and its text is deleted.
+   entry is removed from the manifest and its text deleted: at the snapshot it did not exist, so a
+   later learn sees the text as new again (it is not `forgotten`; the writer never forgot it).
+3. Restored to `forgotten`, or owned by no profile any more: its cached text is deleted.
+4. `rejected.yaml` is never rolled back: rejections are permanent until the writer lifts them. A
+   restored page or list keeps the highest `last_id` of the current version, so ids created after the
+   snapshot are never reused.
 
 Entries that do not feed the profile are never touched by its rollback.
 
@@ -241,9 +246,15 @@ Entries that do not feed the profile are never touched by its rollback.
    Several items can land in one file (all lessons of a slot page).
 3. The diff is grouped per profile and slot. Rejected observed, edit, vocabulary and example items are
    recorded in `rejected.yaml` on commit.
-4. **Decisions carry through** (applied whenever decisions change, and again before commit):
-   - An item may *require* others (a text decided by a new rule requires that rule; anything of a
-     new profile requires the profile item). When a required item is rejected, so is the item.
+4. **Decisions carry through.** The writer's own decisions are kept apart; effective decisions are
+   recomputed from them every time, so approving an item again undoes the knock-on rejections it
+   caused, and only the writer's own rejections are recorded in `rejected.yaml`:
+   - An item may *require* others: anything of a new profile requires the profile item; a text
+     decided by a new rule requires that rule; a text of a new type requires the item adding the
+     type; a lesson, example or never-list of a new slot requires that slot's fingerprint. When a
+     required item is rejected, so is the item.
+   - At commit, a slot removal whose slot still has texts (the change that emptied it was rejected)
+     is dropped.
    - An example drawn from a rejected text is rejected; a lesson whose evidence texts are all
      rejected is rejected; other lessons lose the rejected texts from their evidence at commit.
    - An item on a pooled slot that holds exactly the texts of one exact slot *follows* the matching
@@ -378,7 +389,8 @@ Entries that do not feed the profile are never touched by its rollback.
    | `i-` | Pending item | `.state/pending/plan.json` only |
 
    The next number is above every number the file has used, including ids of items rejected in this
-   proposal and ids named by `rejects` in `rejected.yaml`.
+   proposal and ids named by `rejects` in `rejected.yaml`. A slot left without texts keeps its lessons
+   page and examples page, emptied, so their `last_id` survives.
 
    On relearn, a proposed lesson whose normalised form (below) equals an existing lesson's in the
    same slot keeps that lesson's id; otherwise it gets a new one. So a ruling promoted from `l-003`,

@@ -642,6 +642,10 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | YAML read as 1.2 core, dates as strings | `lang: no` (Norwegian) must not become false |
 | Decisions carry through: requirements, rejected texts, mirrored slots; fingerprints re-measured at commit | A text the writer rejected must never count or become an example; a lone rejection must not leave a half-consistent store |
 | forget, rollback and prune are all-or-nothing | Their items only make sense together |
+| Only the writer's own rejections become permanent | A lesson rejected only because its text or profile was rejected must be able to come back |
+| Rollback never restores rejections and never lowers id counters | Rejections are permanent until lifted; ids must not be reused |
+| Rolling back past a text's first learn removes its entry | The entry did not exist then; "forgotten" would block every later learn of a text the writer never forgot |
+| A slot left without texts keeps its lessons and examples pages, emptied | Their id counters must survive |
 | Rollback keeps the status of a text another profile uses | Status belongs to the text; a rollback of one profile must never change another |
 | A profile's first learn gets an empty snapshot | Every approved change can be rolled back, including the first |
 | Lesson evidence is the model's list of texts, checked by script | A script cannot find a style pattern; it can check the texts and the quote exist |

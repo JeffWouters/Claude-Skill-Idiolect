@@ -248,7 +248,9 @@ def test_first_learn_can_be_rolled_back_and_forget_drops_examples(tmp_path):
     maintain.rollback(st, "noor", to=first)
     approve_all(st)
     s = Store(st)
-    assert all(e["status"] == "forgotten" for e in s.manifest["texts"].values())
+    # everything the first learn added is gone from the ledger, so a later learn sees the texts as new
+    assert s.manifest["texts"] == {}
+    assert not list((st / "corpus").glob("*.txt"))
     assert not (st / "profiles/noor/en.essay.json").exists()
 
 
@@ -277,13 +279,14 @@ def test_recursive_false_is_honoured(tmp_path):
     stage.discard(st)
 
 
-@pytest.mark.parametrize("text", ["In 1066 AD the", "a 3000 MB disk", "2019 SP was", "the 2024 NL election"])
+@pytest.mark.parametrize("text", ["In 1066 AD the", "a 3000 MB disk", "2019 SP was", "the 2024 NL election",
+                                  "the 2024 EU Summit", "1999 US President", "2030 UN Goals"])
 def test_postcode_pattern_leaves_ordinary_text(text):
     assert redact.redact(text)[0] == text
 
 
 def test_postcode_and_contacts_are_redacted():
-    out, _ = redact.redact("Write to 1012 AB Amsterdam, a.b@example.org or +31 6 12345678.")
+    out, _ = redact.redact("Write to Kerkstraat 12, 1012 AB Amsterdam, a.b@example.org or +31 6 12345678.")
     assert "1012" not in out and "@" not in out and "12345678" not in out
 
 

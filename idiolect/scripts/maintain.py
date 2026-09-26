@@ -21,11 +21,13 @@ import detect  # noqa: E402
 
 def _entries_for(store, source):
     texts = store.manifest["texts"]
-    if source in texts or source.split("#")[0] in texts:
-        base = source.split("#")[0]
-        return {k: e for k, e in texts.items() if k == source or (source == base and k.split("#")[0] == base)}
-    # by path: the current version and its segments; superseded versions are history (spec §8)
-    return {k: e for k, e in texts.items() if e.get("path") == source and e["status"] != "superseded"}
+    if source in texts:
+        return {source: texts[source]}          # by key: exactly that text
+    # by path: the current version and its segments; superseded versions are history (spec §8), and
+    # forgotten ones count only when nothing else is there
+    at = {k: e for k, e in texts.items() if e.get("path") == source and e["status"] != "superseded"}
+    live = {k: e for k, e in at.items() if e["status"] != "forgotten"}
+    return live or at
 
 
 def _reextract(store, entry, key):
@@ -72,8 +74,8 @@ def _remeasure(store, pending, patches, profiles, corpus_add):
                         {"fingerprint": fp}, profile=prof, slot=fp["slot"])
         for slot in sorted(set(keep) - seen):
             pending.add("deletion", "remove", f"profiles/{prof}/{slot}.json",
-                        "slot has no texts left; fingerprint removed",
-                        {"delete": [f"profiles/{prof}/{slot}.json"]}, profile=prof, slot=slot)
+                        "slot has no texts left: fingerprint and never-list removed, lessons and examples emptied",
+                        stage.retire_slot_payload(store, prof, slot), profile=prof, slot=slot)
 
 
 def forget(store_root, source, profile=None, ownership=None):
@@ -82,6 +84,10 @@ def forget(store_root, source, profile=None, ownership=None):
         entries = _entries_for(store, source)
         if not entries:
             raise StoreError(f"no manifest entry for {source}")
+        if profile and not (store.root / "profiles" / profile / "profile.yaml").exists():
+            raise StoreError(f"no profile {profile}; a new profile is created by learn, with its consent recorded")
+        if profile and not ownership and not any(profile in e["profiles"] for e in entries.values()):
+            raise StoreError(f"{source} does not feed profile {profile}")
         today = utcnow().date().isoformat()
         patches, corpus_add, affected, losing = [], {}, set(), {}
         for key, e in sorted(entries.items()):
@@ -143,11 +149,42 @@ def forget(store_root, source, profile=None, ownership=None):
                                 profile=profs[0], ref=key)
                 patches.append(patch)
         _drop_examples(store, pending, losing)
+        _blank_quotes(store, pending, losing)
         _remeasure(store, pending, patches, affected, corpus_add)
         return {"proposed": len(pending.plan["items"]), "next": "stage.py diff, decide, commit"}
     except Exception:
         stage.discard(store_root)
         raise
+
+
+def _keep_last_id(content, current_path):
+    """A restored page or list keeps the highest id the current version used (spec §14.2)."""
+    import pages
+    from common import dump_yaml, load_yaml_text
+    if not current_path.exists():
+        return content
+    cur = current_path.read_text(encoding="utf-8")
+    try:
+        if current_path.suffix == ".md" and content.startswith("---"):
+            meta_new, secs = pages.split_page(content)
+            meta_cur, _ = pages.split_page(cur)
+            if "last_id" in meta_new or "last_id" in meta_cur:
+                n = max(meta_new.get("last_id") or 0, meta_cur.get("last_id") or 0)
+                if n != meta_new.get("last_id"):
+                    head, body = content.split("\n---\n", 1)
+                    meta_new["last_id"] = n
+                    return "---\n" + dump_yaml(meta_new).rstrip() + "\n---\n" + body
+        elif current_path.suffix == ".yaml":
+            new, old = load_yaml_text(content) or {}, load_yaml_text(cur) or {}
+            if "entries" in new:
+                ids = [int(e["id"].split("-")[1]) for e in old.get("entries", [])]
+                n = max([new.get("last_id") or 0, old.get("last_id") or 0] + ids)
+                if n != new.get("last_id"):
+                    new["last_id"] = n
+                    return dump_yaml(new)
+    except Exception:  # noqa: BLE001 - a page that does not parse is restored as it was
+        return content
+    return content
 
 
 def _drop_examples(store, pending, losing):
@@ -164,6 +201,33 @@ def _drop_examples(store, pending, losing):
                                     f"{ex['id']} came from the forgotten text; removed",
                                     {"example": {**ex, "profile": prof, "slot": slot}}, profile=prof, slot=slot,
                                     ref=ex["id"])
+
+
+def _blank_quotes(store, pending, losing):
+    """A lesson quote taken from a forgotten text loses its quote now; the lesson itself is refreshed at
+    the next learn (review I5)."""
+    import pages
+    import re as _re
+    norm = lambda t: _re.sub(r"\s+", " ", t).strip().lower()  # noqa: E731
+    for key, profs in losing.items():
+        try:
+            text = norm(store.corpus_text(key))
+        except StoreError:
+            continue
+        for prof in sorted(profs):
+            for f in sorted((store.root / "profiles" / prof).glob("*.md")):
+                if f.name.endswith((".examples.md", ".never.md", ".edits.md")) or f.name == "changelog.md":
+                    continue
+                slot = f.name[:-3]
+                _, _, lessons = pages.parse_slot_page(f.read_text(encoding="utf-8"))
+                for les in lessons:
+                    m = _re.search(r'"(.+)"', les["evidence_raw"])
+                    if m and norm(m.group(1)) in text:
+                        raw = les["evidence_raw"][: m.start()].rstrip("; ").strip()
+                        new = {**les, "profile": prof, "slot": slot, "evidence_raw": raw}
+                        pending.add("lesson", "modify", f"profiles/{prof}/{slot}.md",
+                                    f"{les['id']}: quote came from the forgotten text; removed",
+                                    {"lesson": new}, profile=prof, slot=slot, ref=les["id"])
 
 
 def _snap_order(name):
@@ -190,10 +254,11 @@ def rollback(store_root, profile, to=None):
         pdir = store.root / "profiles" / profile
         snap_files = {p.relative_to(sdir).as_posix() for p in sdir.rglob("*") if p.is_file()}
         snap_files.discard("manifest-entries.json")
+        snap_files.discard("rejected.yaml")      # rejections are permanent until the writer lifts them
         cur_files = {p.relative_to(pdir).as_posix() for p in pdir.rglob("*") if p.is_file()
-                     and p.relative_to(pdir).parts[0] != "snapshots"}
+                     and p.relative_to(pdir).parts[0] != "snapshots"} - {"rejected.yaml"}
         for rel in sorted(snap_files):
-            content = (sdir / rel).read_text(encoding="utf-8")
+            content = _keep_last_id((sdir / rel).read_text(encoding="utf-8"), pdir / rel)
             cur = pdir / rel
             if cur.exists() and cur.read_text(encoding="utf-8") == content:
                 continue
@@ -201,6 +266,19 @@ def rollback(store_root, profile, to=None):
                         f"restore {rel} from {name}", {"restore": {f"profiles/{profile}/{rel}": content}},
                         profile=profile)
         for rel in sorted(cur_files - snap_files):
+            slot = rel[:-3] if rel.endswith(".md") and not rel.endswith((".never.md", ".examples.md", ".edits.md")) \
+                and rel != "changelog.md" and "/" not in rel else None
+            if rel.endswith(".examples.md"):
+                slot = rel[: -len(".examples.md")]
+            if slot:
+                # a page keeps its last_id when emptied, so ids created after the snapshot are never reused
+                pl = stage.retire_slot_payload(store, profile, slot)
+                content = pl["restore"].get(f"profiles/{profile}/{rel}")
+                if content:
+                    pending.add("restore", "modify", f"profiles/{profile}/{rel}",
+                                f"{rel} was created after {name}; emptied (ids stay used)",
+                                {"restore": {f"profiles/{profile}/{rel}": content}}, profile=profile)
+                    continue
             pending.add("deletion", "remove", f"profiles/{profile}/{rel}", f"{rel} was created after {name}",
                         {"delete": [f"profiles/{profile}/{rel}"]}, profile=profile)
         then = read_store_file(sdir / "manifest-entries.json", "manifest-entries")["texts"]
@@ -237,6 +315,10 @@ def rollback(store_root, profile, to=None):
                 summary = f"{e.get('path') or key}: back to {old['status']}"
                 corpus = store.root / "corpus" / (key.replace("#", "-") + ".txt")
                 will_own = rec and rec["ownership"] == "own" and old["status"] != "forgotten"
+                if not will_own and corpus.exists() and not any(
+                        r["ownership"] == "own" for p, r in e["profiles"].items() if p != profile):
+                    pl["delete"] = [f"corpus/{key.replace('#', '-')}.txt"]
+                    summary += "; cached text deleted"
                 if will_own and not corpus.exists():
                     text = _reextract(store, e, key)
                     if text is not None:
@@ -257,12 +339,13 @@ def rollback(store_root, profile, to=None):
                         pl["delete"] = [f"corpus/{key.replace('#', '-')}.txt"]
                     summary = f"{e.get('path') or key}: added after {name}; removed from {profile}"
                 else:
-                    patch = {"key": key, "set": {"status": "forgotten", "holdout": False},
-                             "force": {"cached": False}}
+                    # the entry did not exist at the snapshot: rollback removes it, so a later learn sees
+                    # the text as new again (it is not "forgotten": the writer never forgot it)
+                    patch = {"key": key, "remove": True}
                     pl = {"manifest": [patch]}
                     if (store.root / "corpus" / (key.replace("#", "-") + ".txt")).exists():
                         pl["delete"] = [f"corpus/{key.replace('#', '-')}.txt"]
-                    summary = f"{e.get('path') or key}: added after {name}; forgotten"
+                    summary = f"{e.get('path') or key}: added after {name}; removed from the ledger"
                 pending.add("deletion" if "delete" in pl else "status", "modify", "corpus/manifest.json",
                             summary, pl, profile=profile, ref=key)
         return {"proposed": len(pending.plan["items"]), "snapshot": name, "next": "stage.py diff, decide, commit"}

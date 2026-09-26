@@ -119,6 +119,10 @@ class Pending:
         atomic_write(self.dir / "items" / f"{iid}.json", json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
         plan["items"].append(item)
         self.save(plan)
+        if decision != "pending":             # housekeeping, or something the writer said directly
+            w = self.writer_decisions()
+            w[iid] = decision
+            self._save_writer(w)
         return iid
 
     def remove_items(self, pred):
@@ -138,6 +142,15 @@ class Pending:
     def payload(self, iid):
         return json.loads((self.dir / "items" / f"{iid}.json").read_text(encoding="utf-8"))
 
+    # ----- decisions: the writer's own, and what follows from them (spec §9.4) -----
+
+    def writer_decisions(self):
+        f = self.dir / "work" / "decisions.json"
+        return json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+
+    def _save_writer(self, d):
+        atomic_write(self.work("decisions.json"), json.dumps(d, indent=1, sort_keys=True))
+
     def decide(self, approve=(), reject=(), all_decision=None):
         ensure_owner(self.store, self)
         plan = self.plan
@@ -147,16 +160,19 @@ class Pending:
         for x in list(approve) + list(reject):
             if x not in ids:
                 raise StoreError(f"no pending item {x}")
-        for it in plan["items"]:
-            if it["id"] in approve:
-                it["decision"] = "approved"
-            if it["id"] in reject:
-                it["decision"] = "rejected"
-        self.cascade(plan)
-        for it in plan["items"]:
-            if all_decision and it["decision"] == "pending":
-                it["decision"] = all_decision
-        self.cascade(plan)
+        writer = self.writer_decisions()
+        for x in approve:
+            writer[x] = "approved"
+        for x in reject:
+            writer[x] = "rejected"
+        self._save_writer(writer)
+        plan = self.cascade(plan)
+        if all_decision:
+            for it in plan["items"]:
+                if it["decision"] == "pending":
+                    writer[it["id"]] = all_decision
+            self._save_writer(writer)
+            plan = self.cascade(plan)
         self.save(plan)
         return plan
 
@@ -164,16 +180,68 @@ class Pending:
         m = self.dir / "work" / "meta.json"
         return m.exists() and json.loads(m.read_text(encoding="utf-8")).get("atomic", False)
 
-    def cascade(self, plan):
-        """Decisions that follow from others (spec §9.2): an item whose requirement is rejected is
-        rejected; a mirrored item takes the decision of the item it follows; an example drawn from a
-        rejected text is rejected; an atomic proposal is rejected as a whole."""
+    def _implicit_requires(self, plan, payloads):
+        """Requirements that follow from what the items are, beyond an item's own `requires`."""
+        req = collections.defaultdict(set)
+        new_profiles = {payloads[i["id"]]["profile_yaml"]["name"]: i["id"] for i in plan["items"]
+                        if i["kind"] == "profile" and i["op"] == "add"}
+        types_item = next((i["id"] for i in plan["items"] if payloads[i["id"]].get("types_add")), None)
+        new_types = set(payloads[types_item]["types_add"]) if types_item else set()
+        fp_items = {}
+        for i in plan["items"]:
+            fp = payloads[i["id"]].get("fingerprint")
+            if fp:
+                fp_items[(fp["profile"], fp["slot"])] = i["id"]
+        for i in plan["items"]:
+            pl = payloads[i["id"]]
+            profs = {i.get("profile")} - {None}
+            for field in ("lesson", "example", "never", "fingerprint"):
+                if pl.get(field):
+                    profs.add(pl[field]["profile"])
+            for field in ("vocab", "ruling"):
+                if pl.get(field):
+                    profs.add(pl[field]["profile"])
+            for r in pl.get("sources_rules") or []:
+                profs.add(r["profile"])
+            for p in pl.get("manifest") or []:
+                profs |= set(((p.get("create") or {}).get("profiles") or {}))
+                profs |= set(p.get("profiles") or {}) | set(p.get("replace_profiles") or {})
+                if new_types and ((p.get("create") or {}).get("facets") or {}).get("type") in new_types:
+                    req[i["id"]].add(types_item)
+            for prof in profs:
+                if prof in new_profiles and new_profiles[prof] != i["id"]:
+                    req[i["id"]].add(new_profiles[prof])
+            body = pl.get("lesson") or pl.get("example") or pl.get("never")
+            if body:
+                key = (body["profile"], body["slot"])
+                fid = fp_items.get(key)
+                exists = (self.store.root / "profiles" / key[0] / f"{key[1]}.json").exists()
+                if fid and not exists:
+                    req[i["id"]].add(fid)
+        return req
+
+    def cascade(self, plan, extra_rejects=()):
+        """Effective decisions, recomputed from the writer's own every time, so a knock-on rejection is
+        undone when its cause is approved again (spec §9.4):
+        - an item whose requirement is rejected is rejected (a new profile, a new rule, a new type, the
+          fingerprint of a new slot, or the item's own `requires`);
+        - an item that follows another (a pooled slot with the same texts) takes its decision;
+        - an example drawn from a rejected text, or a lesson whose every evidence text is rejected, is
+          rejected;
+        - an atomic proposal is rejected as a whole when the writer rejects any item."""
+        writer = self.writer_decisions()
         by_id = {i["id"]: i for i in plan["items"]}
         payloads = {i["id"]: self.payload(i["id"]) for i in plan["items"]}
-        if self.atomic() and any(i["decision"] == "rejected" for i in plan["items"]):
+        for i in plan["items"]:
+            i["decision"] = writer.get(i["id"], "pending")
+        if self.atomic() and any(d == "rejected" for d in writer.values()):
             for i in plan["items"]:
                 i["decision"] = "rejected"
             return plan
+        for x in extra_rejects:
+            if x in by_id:
+                by_id[x]["decision"] = "rejected"
+        req = self._implicit_requires(plan, payloads)
         changed = True
         while changed:
             changed = False
@@ -182,7 +250,8 @@ class Pending:
             for i in plan["items"]:
                 pl = payloads[i["id"]]
                 want = None
-                if any(by_id.get(r, {}).get("decision") == "rejected" for r in pl.get("requires", [])):
+                needs = set(pl.get("requires", [])) | req.get(i["id"], set())
+                if any(by_id.get(r, {}).get("decision") == "rejected" for r in needs):
                     want = "rejected"
                 elif pl.get("follows") and by_id.get(pl["follows"], {}).get("decision") in ("approved", "rejected"):
                     want = by_id[pl["follows"]]["decision"]
@@ -191,7 +260,7 @@ class Pending:
                 elif pl.get("lesson") and pl["lesson"].get("evidence_keys") and \
                         not set(pl["lesson"]["evidence_keys"]) - rejected_keys:
                     want = "rejected"
-                if want and i["decision"] != want and not (want == "approved" and i["decision"] == "rejected"):
+                if want and i["decision"] != want:
                     i["decision"] = want
                     changed = True
         return plan
@@ -211,6 +280,9 @@ def _read(store, rel):
 
 def _apply_manifest_patch(texts, patch):
     key = patch["key"]
+    if patch.get("remove"):                 # rollback of an entry added after the snapshot
+        texts.pop(key, None)
+        return
     if "create" in patch:
         texts[key] = copy.deepcopy(patch["create"])
         texts[key]["cached"] = False
@@ -421,6 +493,25 @@ def render(store, pending, include, final=False):
     return out
 
 
+def retire_slot_payload(store, prof, slot):
+    """A slot left without texts: its fingerprint and never-list go; its lessons page and examples page
+    stay, emptied, so their last_id keeps ids from ever being reused (spec §14.2)."""
+    base = store.root / "profiles" / prof
+    pl = {"delete": [f"profiles/{prof}/{slot}{ext}" for ext in (".json", ".never.md") if (base / f"{slot}{ext}").exists()],
+          "restore": {}}
+    page = base / f"{slot}.md"
+    if page.exists():
+        meta, _, lessons = pages.parse_slot_page(page.read_text(encoding="utf-8"))
+        meta["last_id"] = max([meta.get("last_id") or 0] + [int(x["id"].split("-")[1]) for x in lessons])
+        pl["restore"][f"profiles/{prof}/{slot}.md"] = pages.render_slot_page(meta, "no texts", [])
+    ex = base / f"{slot}.examples.md"
+    if ex.exists():
+        meta, exs = pages.parse_examples(ex.read_text(encoding="utf-8"))
+        meta["last_id"] = max([meta.get("last_id") or 0] + [int(x["id"].split("-")[1]) for x in exs])
+        pl["restore"][f"profiles/{prof}/{slot}.examples.md"] = pages.render_examples(meta, [])
+    return pl
+
+
 # ---------- rejections (spec §14.3) ----------
 
 def stopwords(lang):
@@ -435,12 +526,14 @@ def normalise_lesson(text, lang):
 
 
 def render_rejections(store, pending):
+    """Only the writer's own rejections become permanent; knock-on rejections do not (spec §9.4)."""
     plan = pending.plan
+    writer = pending.writer_decisions()
     per = collections.defaultdict(list)
     today = utcnow().date().isoformat()
     for it in plan["items"]:
         kind = ITEM_KINDS_REJECTABLE.get(it["kind"])
-        if it["decision"] != "rejected" or not kind or it["op"] != "add":
+        if writer.get(it["id"]) != "rejected" or not kind or it["op"] != "add":
             continue
         pl = pending.payload(it["id"])
         body = pl.get("lesson") or pl.get("example") or (pl.get("vocab") or {}).get("entry") or {}
@@ -559,7 +652,9 @@ def affected_profiles(store, pending, include):
 
 def rederive_fingerprints(store, pending):
     """Re-measure approved fingerprints on the approved corpus only, so a rejected text never counts
-    (spec §9.5). Primary flags, contrast block and metric list are kept."""
+    (spec §9.5). Primary flags, contrast block and metric list are kept. Returns the ids that must be
+    rejected as a consequence: fingerprints of slots left without texts, and slot deletions whose slot
+    still has texts because the change that emptied it was rejected."""
     import measure
     plan = pending.plan
     approved = [i for i in plan["items"] if i["decision"] == "approved"]
@@ -574,10 +669,15 @@ def rederive_fingerprints(store, pending):
     def get_text(k):
         return texts[k] if k in texts else store.corpus_text(k)
 
+    extra = set()
     for it in approved:
+        pl = pending.payload(it["id"])
+        if it["kind"] == "deletion" and it.get("slot") and it.get("profile"):
+            if it["slot"] in measure.slot_texts(view, get_text, store.facets, it["profile"]):
+                extra.add(it["id"])
+            continue
         if it["kind"] != "fingerprint":
             continue
-        pl = pending.payload(it["id"])
         old = pl["fingerprint"]
         prof = old["profile"]
         since = None
@@ -590,8 +690,7 @@ def rederive_fingerprints(store, pending):
                 since = pp["data"].get("since")
         slots = measure.slot_texts(view, get_text, store.facets, prof)
         if old["slot"] not in slots:
-            it["decision"] = "rejected"
-            it["summary"] += " (dropped: no approved texts left)"
+            extra.add(it["id"])
             continue
         v = slots[old["slot"]]
         primary = [m for m, x in old["metrics"].items() if x.get("primary")]
@@ -600,7 +699,7 @@ def rederive_fingerprints(store, pending):
         if fp != old:
             pl["fingerprint"] = fp
             atomic_write(pending.dir / "items" / f"{it['id']}.json", json.dumps(pl, ensure_ascii=False, indent=1) + "\n")
-    pending.save(plan)
+    return extra
 
 
 def prepare_commit(store, pending):
@@ -613,8 +712,9 @@ def prepare_commit(store, pending):
     if undecided:
         raise StoreError(f"undecided items: {', '.join(undecided)}; approve or reject them first")
     pending.save(pending.cascade(plan))
-    rederive_fingerprints(store, pending)
-    plan = pending.plan
+    extra = rederive_fingerprints(store, pending)
+    plan = pending.cascade(pending.plan, extra)
+    pending.save(plan)
     files = render(store, pending, approved, final=True)
     files.update(render_rejections(store, pending))
     any_approved = any(approved(i) for i in plan["items"])

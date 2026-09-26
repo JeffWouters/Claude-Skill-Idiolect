@@ -304,6 +304,11 @@ def answer(store_root, file):
 
 # ---------- types ----------
 
+def _owned(run, key, info):
+    decided, _ = _decide(run, key, info)
+    return any(o == "own" for o, _ in decided.values())
+
+
 def _type_for(run, key, info):
     """Type after this run's answers: a set type, else the inventory's, else an answered rule's facets."""
     if key in run.state["types"]:
@@ -322,7 +327,8 @@ def types(store_root):
     run = Run(store_root)
     out = []
     for key, info in sorted(run.state["texts"].items(), key=lambda kv: kv[1]["path"]):
-        if info["result"] in LEARNABLE and not excluded_now(run, info["path"]) and _type_for(run, key, info) in ("?", None):
+        if info["result"] in LEARNABLE and not excluded_now(run, info["path"]) and _type_for(run, key, info) in ("?", None) \
+                and _owned(run, key, info):
             excerpt = " ".join(words(run.text(key))[:300])
             out.append({"key": key, "path": info["path"], "excerpt": excerpt})
     return {"allowed": run.store.config["types"], "texts": out}
@@ -389,10 +395,20 @@ def stage_texts(store_root):
     for key, info in sorted(st["texts"].items(), key=lambda kv: (kv[1]["path"], kv[0])):
         res = info["result"]
         entry = manifest.get(key)
-        if res == "moved":
-            pending.add("status", "modify", "corpus/manifest.json", f"{info['path']}: moved from {entry['path']}",
-                        {"manifest": [{"key": key, "set": {"path": info["path"], "status": "active"}}]},
-                        ref=key, decision="approved")
+        needs_cache = bool(entry) and entry["status"] != "forgotten" and not store.corpus_path(key).exists() \
+            and any(r["ownership"] == "own" for r in entry["profiles"].values())
+        if res == "moved" or (res == "unchanged" and entry and entry["status"] == "active" and needs_cache):
+            patch = {"key": key, "set": {"path": info["path"], "status": "active"}}
+            pl = {"manifest": [patch]}
+            if needs_cache:
+                text = run.text_from_source(key, info["path"])
+                if text is not None:
+                    pl["corpus"] = {key: text}
+                    patch["cache"] = True
+            what = f"moved from {entry['path']}" if res == "moved" else "text cached again"
+            pending.add("status", "modify", "corpus/manifest.json",
+                        f"{info['path']}: {what}" + ("; text cached again" if res == "moved" and "corpus" in pl else ""),
+                        pl, ref=key, decision="approved")
         elif res == "unchanged" and entry and entry["status"] == "unreachable":
             patch = {"key": key, "set": {"status": "active"}}
             pl = {"manifest": [patch]}
@@ -417,6 +433,8 @@ def stage_texts(store_root):
             continue
         decided, _ = _decide(run, key, info)
         facets = {"lang": info["lang"], "type": _type_for(run, key, info)}
+        if facets["type"] in ("?", None) and not any(o == "own" for o, _ in decided.values()):
+            facets["type"] = "_"          # recorded, never learned: no type needed
         if facets["type"] in ("?", None):
             raise StoreError(f"{info['path']}: type unknown; run `learn.py types` and `set-types`")
         for f in store.facets[2:]:
@@ -527,11 +545,10 @@ def do_measure(store_root):
         for slot in slots:
             if slot in produced or not keep.get(slot):
                 continue
-            files = [f"profiles/{prof}/{slot}{ext}" for ext in (".json", ".md", ".never.md", ".examples.md")
-                     if (run.store.root / "profiles" / prof / f"{slot}{ext}").exists()]
             run.pending.add("deletion", "remove", f"profiles/{prof}/{slot}.json",
-                            f"slot {slot} has no texts left; its files are removed (edit lessons are kept)",
-                            {"delete": files}, profile=prof, slot=slot)
+                            f"slot {slot} has no texts left: fingerprint and never-list removed, lessons and "
+                            f"examples emptied (edit lessons are kept)",
+                            stage.retire_slot_payload(run.store, prof, slot), profile=prof, slot=slot)
     # a pooled slot with exactly the texts of one exact slot mirrors it: contrast and lessons are shared
     for o in out:
         if not o["pooled"]:
@@ -541,6 +558,12 @@ def do_measure(store_root):
         twin = [sl for sl, v in allsl.items() if not v["pooled"] and {k for k, _, _ in v["texts"]} == mine]
         if twin:
             o["mirrors"] = twin[0]
+            lead, follower = _fp_item(run, o["profile"], twin[0]), _fp_item(run, o["profile"], o["slot"])
+            if lead and follower:
+                fpl = run.pending.payload(follower["id"])
+                fpl["follows"] = lead["id"]
+                stage.atomic_write(run.pending.dir / "items" / f"{follower['id']}.json",
+                                   json.dumps(fpl, ensure_ascii=False, indent=1) + "\n")
     run.state["steps"]["measure"] = True
     run.state["slots"] = out
     run.save()
@@ -678,7 +701,7 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
         if len(markers) >= 15:
             break
     run.pending.remove_items(lambda i: i["kind"] == "never-list" and i.get("profile") == prof and i.get("slot") == slot)
-    run.pending.add("never-list", "add", f"profiles/{prof}/{slot}.never.md",
+    never_id = run.pending.add("never-list", "add", f"profiles/{prof}/{slot}.never.md",
                     f"{len(markers)} markers from {len(ai)} neutral rewrites" + ("" if fresh else " (not a fresh context: less reliable)"),
                     {"never": {"profile": prof, "slot": slot, "markers": markers}}, profile=prof, slot=slot)
     run.state["steps"]["contrast"].append(f"{prof}/{slot}")
@@ -695,7 +718,8 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
                                json.dumps(mpl, ensure_ascii=False, indent=1) + "\n")
         run.pending.remove_items(lambda i: i["kind"] == "never-list" and i.get("profile") == prof and i.get("slot") == m)
         run.pending.add("never-list", "add", f"profiles/{prof}/{m}.never.md", f"same as {slot} (same texts)",
-                        {"never": {"profile": prof, "slot": m, "markers": markers}}, profile=prof, slot=m)
+                        {"never": {"profile": prof, "slot": m, "markers": markers}, "follows": never_id},
+                        profile=prof, slot=m)
         run.state["steps"]["contrast"].append(f"{prof}/{m}")
     run.save()
     return {"primary": primary, "never": [m["marker"] for m in markers], "next": _next(run)}
@@ -962,7 +986,7 @@ def _next(run):
     if q["undecided"] or q["new_profiles_need"]:
         return "answer the ownership questions (learn.py questions / answer)"
     unknown = [k for k, i in run.state["texts"].items() if i["result"] in LEARNABLE
-               and not excluded_now(run, i["path"]) and _type_for(run, k, i) in ("?", None)]
+               and not excluded_now(run, i["path"]) and _type_for(run, k, i) in ("?", None) and _owned(run, k, i)]
     if unknown:
         return f"assign a type to {len(unknown)} texts (learn.py types / set-types)"
     if not st["texts"]:

@@ -33,7 +33,8 @@ touched: a text that another profile also uses keeps its status, and only this p
 changes (this profile may then lack that text until the next learn; say so). The commit takes a new
 snapshot first, so a rollback can itself be rolled back: a plain `rollback` straight after a rollback
 undoes it. A profile's first learn has an empty snapshot, so rolling back to it removes everything
-that learn added.
+that learn added, including the profile itself; a later `learn` asks for the profile again and sees
+the texts as new. Rejections are never rolled back, and lesson and example ids are never reused.
 
 ## prune
 

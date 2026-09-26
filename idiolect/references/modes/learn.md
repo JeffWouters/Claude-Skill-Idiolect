@@ -126,6 +126,7 @@ lessons you did not re-propose. Evidence counts are the keys you list, checked t
 ```yaml
 names: [{name: "Jane Doe", placeholder: "[person]"}]
 examples: [{key: <key>, text: "<exact passage>", habit: "long-then-short rhythm"}]
+remove: [e-002]        # optional: retire examples that no longer fit
 ```
 
 ## 8. Diff and approval (writer)
@@ -133,7 +134,9 @@ examples: [{key: <key>, text: "<exact passage>", habit: "long-then-short rhythm"
 `stage.py --store S diff` shows every item grouped per profile and slot. Show it (shorten long
 lists), then ask what to reject. Decisions carry through: rejecting a text also drops examples taken
 from it and takes it out of the fingerprints (re-measured at commit); rejecting a new profile or rule
-rejects what depends on it; items on a pooled slot with the same texts follow the exact slot. Rulings: when the writer says a lesson is "always" or "never", add
+rejects what depends on it; items on a pooled slot with the same texts follow the exact slot.
+Knock-on rejections are undone when their cause is approved again, and only the writer's own
+rejections are remembered for later learns. Rulings: when the writer says a lesson is "always" or "never", add
 `learn.py rule --profile P --text "..." --from l-002`. Apply decisions with
 `stage.py decide --approve all` or `--reject i-004,i-009` (then `--approve all` for the rest), and
 `stage.py commit`. Say what was learned in two lines: slots, confidence, lessons added, rejected.
