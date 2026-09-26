@@ -446,7 +446,8 @@ Entries that do not feed the profile are never touched by its rollback.
    For each metric and a reference value: if the reference is below the metric's `floor`, the draft
    is outside its band when it exceeds it by more than 2 × `floor` (`ratio` is then null in the
    report); otherwise when `draft / reference` is above `overshoot` or, for non-sparse metrics, below
-   `shortfall`. The metric is flagged only when the draft is outside the band around **both** the
+   `shortfall`. `overshoot` and `shortfall` are the fingerprint's: global, or the writer's own bands
+   (`references/fingerprint.md`, "Bands"); a fingerprint shortfall of 0.05 or less is not flagged. The metric is flagged only when the draft is outside the band around **both** the
    target for the piece and the slot's own value; the direction reported is the one relative to the
    target.
    - **Target for the piece:** `kit.blend`: the example passages `kit.pick_examples` chooses for the
@@ -473,7 +474,7 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 | Value | Result |
 | --- | --- |
 | Global metric list | 14 metrics, listed in RESULTS.md |
-| Overshoot, shortfall, floor per metric | In `global-metrics.json`; five metrics are sparse (overshoot only) |
+| Overshoot, shortfall, floor per metric | In `global-metrics.json`; five metrics are sparse (overshoot only). A slot with at least 20 windows of 350 words gets writer bands instead, never narrower (`references/fingerprint.md`, "Bands") |
 | Stability tolerance | Per metric, 0.14 to 1.50 (capped: the relative difference cannot exceed 2.0) |
 | Downgrade count | `downgrade_fraction` 0.28 → 4 of 14 unstable metrics (10% of genuine 8-text corpora downgraded, 60% of two-author mixes) |
 | Fail count for `check` | `fail_fraction` 0.28 → 4 of 14 flagged metrics (17% of genuine passages fail, 80% of AI rewrites; real authors 18% / 70%, synthetic 0% / 100%) |

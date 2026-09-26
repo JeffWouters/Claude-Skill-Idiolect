@@ -83,3 +83,11 @@ Set out for the writer in the report. In short, the machinery (targets and the c
 reliably helps against few-shot for regular, consistent voices, and does not for real essayists whose
 style varies across books and years. The protocol's own rule ("missing the few-shot bar means the
 machinery adds nothing, and the design changes") applies to the real group.
+
+## Decided after these runs
+
+The writer's decision (design: decision log): the real authors become the known-author group, scored
+and reported but no longer gating phase 3; `check` uses writer bands, so the real authors' own passages
+stop failing it (33% of their held-out passages failed with the global bands, 6% with writer bands);
+and the writer's own profile, judged blind by the writer, is the deciding test. The synthetic result
+of these runs stands for the new design: every synthetic kit and check report is unchanged.

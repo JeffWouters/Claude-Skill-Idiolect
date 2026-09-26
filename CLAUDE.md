@@ -8,12 +8,12 @@ anything; it is the single source of truth for behaviour, file formats and the b
 **Phases 1 (engine) and 2 (learning) are done.** Scripts in `idiolect/scripts/`, model procedures in
 `idiolect/references/modes/`, tests in `tests/`, the learned evaluation store in `evals/store/`
 (holdouts in `evals/holdouts.json`). **Phase 3 (writing) is built but not done:** write, rewrite,
-check, the kit and the evaluation harness exist. After the writer's decision on run 4 (lessons as
-background, targets that follow the piece), confirming runs 5 and 6 met the few-shot bar for the
-synthetic group in both runs and missed it for the real authors in both. The next design decision is
-the writer's; see `evals/runs/20260926T163530Z/notes.md` and the open question in `docs/design.md`.
-From run 7 recognition is forced choice with controls and a sensitivity test, and the real authors
-are the known-author group (`evals/recognition-study/`, `evals/eval-protocol.md`).
+check, the kit and the evaluation harness exist. Runs 5 and 6 met the few-shot bar for the synthetic
+group and missed it for the real authors. The writer then decided (design: decision log): the real
+authors are the known-author group, reported but not gating; the check's bands follow the writer's own
+variation (writer bands); and the **writer's own profile, judged blind by the writer, is the deciding
+test** (`evals/eval-protocol.md`, last section). That test is what remains. Recognition from run 7 is
+forced choice with controls and a sensitivity test (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 
 Phase 0 deliverables, still the reference:

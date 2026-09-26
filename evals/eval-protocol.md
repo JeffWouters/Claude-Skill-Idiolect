@@ -76,7 +76,8 @@ person it works for. A run that cannot switch memory off says so in its notes.
 
 - **Win against plain**: Idiolect ranked above the plain draft for that brief. Same for few-shot.
 - **Win rate**: wins divided by briefs, computed per author and per group.
-- **Groups**: scored **separately**, and only passing in both counts.
+- **Groups**: scored **separately**. Only the unknown-author tests decide phase 3 (see "The bar"); the
+  known-author group is scored and reported every run.
   - The **known-author group** (the public-domain authors, `real` in the data). The model knows these
     writers: in the recognition study a forced-choice agent put the true author first for all twelve
     real passages tried, most of them passages from books it had never been shown. So this group tests
@@ -102,7 +103,12 @@ person it works for. A run that cannot switch memory off says so in its notes.
 
 ## The bar
 
-For each group, over all its briefs, **in each of the two runs**:
+**The unknown-author tests decide phase 3**: the synthetic authors and the writer's own profile. The
+known-author group is held to the same numbers in every report, but missing them does not stop the
+phase (design: decision log, after runs 5 and 6): the model knows those writers, so their result
+measures its prior as much as Idiolect. `harness.py pool` reports `bar_met` from the gating groups.
+
+For each gating group, over all its briefs, **in each of the two runs**:
 
 | Comparison | Idiolect must win at least |
 | --- | --- |
@@ -116,7 +122,10 @@ comparison must beat chance: a one-sided exact binomial test against 50% gives p
 briefs that means at least 26 wins; for 80, at least 48). A passage that appears in more than one run counts once in the pool. The binomial check guards against a small
 group passing by luck; the per-run bar guards against one lucky run.
 
-If the few-shot bar is missed, the design changes before more is built (phase 3 is not done).
+If the few-shot bar is missed on an unknown-author test, the design changes before more is built
+(phase 3 is not done). The synthetic group met the bar in runs 5 and 6; the design change after
+those runs (writer bands) leaves every synthetic kit and check report unchanged, so that result
+stands. The writer's own test is the deciding test.
 
 ## Runs and results
 
@@ -215,10 +224,23 @@ Fixed seeds for holdout selection, passage cuts and label shuffling (`evals/runs
 Generators and judges are model calls and vary; a phase is only marked done on a pass that holds over
 **two separate runs**.
 
-## A writer's own profile (after phase 3)
+## A writer's own profile: the deciding test for phase 3
 
-The same protocol with three changes: the writer picks the holdout texts (at least 5), the writer is
-the judge (drafts labelled A/B/C, key hidden), and there are no groups. This is an unknown-author
-test. If agents judge instead of the writer, they run with memory off (see "Context"), because an
-agent that has the writer's profile in memory is not blind to who wrote the passage. Results go in the store's
-`eval/results.md`.
+Decided after runs 5 and 6 (design: decision log). The same protocol with these changes:
+
+- **Holdout.** The writer picks at least 5 of their own texts of the kind the profile covers, enough
+  for **at least 20 passages** of 300 to 500 words. They are set aside as holdouts before the profile
+  is learned (or the profile is relearned without them), so the profile never saw them.
+- **One profile, no groups.** Arms: plain, few-shot, Idiolect. Briefs by fresh agents as usual.
+- **Memory off for every agent.** Brief writers, generators and any agent helpers run with the
+  writer's memory switched off (see "Context"): a plain generator that has the writer's profile in
+  memory is not a plain baseline.
+- **The writer judges.** Packets show the passage and the three drafts labelled A, B, C, the key
+  hidden, in a balanced label order. The writer ranks all three per packet by "which reads most like
+  me", ignoring content, and may add a line per draft. No spot-check: the writer is the judge.
+- **The bar:** Idiolect ranked above plain in at least 70% of the briefs and above few-shot in at
+  least 60%, over all of them, with the one-sided binomial p against 50% reported beside each. One
+  run is enough, because a second set of the writer's own unseen texts is rarely available; that is
+  why it needs 20 briefs rather than 10.
+- Results go in the store's `eval/results.md` and are summarised in the design's decision log. A miss
+  on few-shot means the design changes, as for any unknown-author test.
