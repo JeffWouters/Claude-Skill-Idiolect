@@ -197,8 +197,10 @@ def test_forced_choice_run_counts_every_brief_and_reports_controls_and_sensitivi
     assert s["wins_vs_fewshot"] == {"original": 4, "blind": 4, "named": 0} and s["unreliable"]
     assert s["agreement"]["original_blind"] == 1.0 and s["agreement"]["original_named"] < 1
     assert res["groups"]["real"]["reliable"] is False
+    assert res["groups"]["real"]["gating"] is False and res["groups"]["synthetic"]["gating"] is True
     md = (d / "results.md").read_text()
     assert "known-author (real)" in md and "unreliable" in md and "Detector check" in md
+    assert "reported, does not gate" in md
 
 
 def test_sensitivity_within_noise_is_reliable():

@@ -82,6 +82,9 @@ POSITIVE_MIN = 60                 # a positive control must get at least this on
 NONE_MIN = 80                     # synthetic passages (negative controls) must average this on "none"
 SENS_N = 12
 SCREEN_MAX = 30                   # an author is usable when the mean on the true author is below this
+# Groups whose bar decides phase 3 (design: decision log, after runs 5 and 6). The known-author group
+# ("real") is scored and reported but does not gate: the model already knows those writers.
+GATING = ("synthetic",)
 
 
 def run_dir(run):
@@ -836,6 +839,7 @@ def score(run):
         rated = [a for a, x in res["authors"].items() if group_of[a] == g and x["counted"]]
         v["pass"] = bool(v["counted"]) and v["rate_vs_plain"] >= 0.70 and v["rate_vs_fewshot"] >= 0.60 and all(
             res["authors"][a]["rate_vs_fewshot"] >= 0.5 for a in rated)
+        v["gating"] = g in GATING
     counted = [r for r in rows if not r["recognised"]]
     pairs = [("idiolect", "plain"), ("idiolect", "fewshot")]
     for k in ABLATIONS:
@@ -908,6 +912,8 @@ def write_results_md(d, run, res):
             mark += " (unreliable: sensitivity test)"
         elif fc and g == "real" and v.get("reliable") is None:
             mark += " (sensitivity test not run)"
+        if v.get("gating") is False:
+            mark += "; reported, does not gate"
         L.append(f"| {gname(g)} | {v['counted']} | {pct(v['rate_vs_plain'])} | {pct(v['rate_vs_fewshot'])} | {mark} |")
     if fc:
         L += ["", "Win rates by familiarity (the probability given to the true author):", "",
@@ -968,13 +974,16 @@ def pool(runs):
             tot[row["group"]][0] += 1
             tot[row["group"]][1] += row["win_plain"]
             tot[row["group"]][2] += row["win_fewshot"]
-    out = {"repeated_passages_skipped": repeats}
+    out = {"repeated_passages_skipped": repeats, "gating": list(GATING)}
     for g, (n, wp, wf) in tot.items():
         out[g] = {"briefs": n, "p_vs_plain": round(binom_p(wp, n), 5), "p_vs_fewshot": round(binom_p(wf, n), 5),
                   "each_run_passed": all(per_run[r].get(g) for r in runs)}
         out[g]["pass"] = out[g]["each_run_passed"] and out[g]["p_vs_plain"] < 0.05 and out[g]["p_vs_fewshot"] < 0.05
         if g in unreliable:
             out[g]["unreliable_runs"] = unreliable[g]      # the sensitivity test flagged these runs
+        out[g]["gating"] = g in GATING
+    gates = [g for g in GATING if g in tot]
+    out["bar_met"] = bool(gates) and all(out[g]["pass"] for g in gates)
     print(json.dumps(out, indent=1))
     return out
 
