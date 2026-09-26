@@ -14,15 +14,15 @@ def paras(n, size=120):
 
 
 def test_cut_depends_on_the_seed_and_keeps_an_overshooting_paragraph():
-    blocks = paras(30)
+    blocks = paras(31)       # starts 0 and 1 both give ten passages
     cuts = {tuple(harness.cut(blocks, random.Random(s))) for s in range(12)}
     assert len(cuts) > 1
     big = [" ".join(["a"] * 200) + ".", " ".join(["z"] * 350) + "."] + paras(6, 60)
-    class First:
-        def randrange(self, a, b):
-            return 0
-    out = harness.cut(big, First())
+    out = harness._cut_from(big, 0)
     assert out and out[0].startswith("z z")
+    # the seed chooses only among starts that give the most passages
+    n = max(len(harness._cut_from(blocks, i)) for i in range(4))
+    assert all(len(harness.cut(blocks, random.Random(s))) == n for s in range(12))
 
 
 def test_strip_notes_keeps_a_scene_break_and_cuts_a_report():

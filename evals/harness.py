@@ -80,13 +80,21 @@ def text_key(t):
 # ---------- passages ----------
 
 def cut(blocks, rng):
-    """300-500-word passages cut at paragraph boundaries. The first passage starts at a random one of
-    the first few paragraphs, so different seeds give different cuts of the same essay (review: the
-    seed used to be ignored). A paragraph that would push a passage past 500 words is not lost with
-    the paragraphs before it: it starts the next passage."""
-    out = []
+    """300-500-word passages cut at paragraph boundaries. The first passage starts at one of the first
+    few paragraphs, chosen by the seed among the starts that give the most passages, so different
+    seeds give different cuts of the same essay without losing passages (review: the seed used to be
+    ignored). A paragraph that would push a passage past 500 words is not lost with the paragraphs
+    before it: it starts the next passage."""
     paras = [b for b in blocks if count_words(b) > 0]
-    i = rng.randrange(0, min(4, len(paras))) if paras else 0
+    if not paras:
+        return []
+    options = [_cut_from(paras, start) for start in range(min(4, len(paras)))]
+    best = max(len(o) for o in options)
+    return rng.choice([o for o in options if len(o) == best])
+
+
+def _cut_from(paras, i):
+    out = []
     while i < len(paras):
         cur, n = [], 0
         while i < len(paras) and n < LO:
