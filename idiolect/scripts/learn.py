@@ -3,6 +3,7 @@ here; model steps (ownership questions, type, contrast rewrites, lessons, vocabu
 done by Claude following references/modes/learn.md, and their results come back through the
 `*-apply` commands. Everything lands in the pending area; nothing is learned until `stage.py commit`.
 
+    learn.py --store S init --sources ../Writing --profile sam [--types essay,post] [--lang en]
     learn.py --store S start [--target REL]... [--tag T]... [--profile P] [--lang L] [--type T]
     learn.py --store S questions                     ownership still undecided
     learn.py --store S answer --file answers.yaml    folder rules, per-file answers, new profiles
@@ -79,6 +80,39 @@ class Run:
                 for p in self.pending.payload(it["id"]).get("manifest") or []:
                     stage._apply_manifest_patch(texts, p)
         return texts
+
+
+# ---------- init (housekeeping: the marker and empty layout, spec §3.3) ----------
+
+def init(store_root, sources_root, profile, types_=("essay",), lang="en"):
+    from common import SKILL, check_schema, dump_yaml, write_yaml
+    import os
+    root = pathlib.Path(store_root)
+    if os.path.isabs(sources_root):
+        try:
+            sources_root = pathlib.PurePath(os.path.relpath(sources_root, root.resolve())).as_posix()
+        except ValueError:
+            raise StoreError("the store and the sources must be on the same drive (paths are stored relative)")
+    if (root / "idiolect.yaml").exists():
+        raise StoreError(f"{root} already holds a store")
+    cfg = {"schema_version": 1, "sources_root": sources_root, "facets": ["lang", "type"],
+           "types": list(types_), "default_profile": profile, "defaults": {"lang": lang}}
+    check_schema("idiolect", cfg, "idiolect.yaml")
+    src = (root / sources_root).resolve()
+    if not src.exists():
+        raise StoreError(f"sources_root {sources_root} does not exist relative to {root}")
+    root.mkdir(parents=True, exist_ok=True)
+    try:
+        inside = root.resolve().relative_to(src)
+    except ValueError:
+        inside = None
+    write_yaml(root / "idiolect.yaml", cfg, "idiolect")
+    (root / "README.md").write_text((SKILL / "assets" / "templates" / "README.md").read_text(encoding="utf-8"),
+                                    encoding="utf-8")
+    for d in ("corpus", "profiles", ".state"):
+        (root / d).mkdir(exist_ok=True)
+    return {"created": str(root), "warning": f"the store sits inside the sources ({inside}); the inventory "
+                                             f"always skips it" if inside is not None else None}
 
 
 # ---------- start ----------
@@ -407,6 +441,15 @@ def do_measure(store_root):
                             {"fingerprint": fp}, profile=prof, slot=fp["slot"])
             out.append({"profile": prof, "slot": fp["slot"], "pooled": fp["pooled"],
                         "texts": fp["counts"]["texts"], "confidence": fp["confidence"]["level"]})
+    # a pooled slot with exactly the texts of one exact slot mirrors it: contrast and lessons are shared
+    for o in out:
+        if not o["pooled"]:
+            continue
+        allsl = measure.slot_texts(view, run.text, run.store.facets, o["profile"])
+        mine = {k for k, _, _ in allsl[o["slot"]]["texts"]}
+        twin = [sl for sl, v in allsl.items() if not v["pooled"] and {k for k, _, _ in v["texts"]} == mine]
+        if twin:
+            o["mirrors"] = twin[0]
     run.state["steps"]["measure"] = True
     run.state["slots"] = out
     run.save()
@@ -546,7 +589,26 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
                     {"never": {"profile": prof, "slot": slot, "markers": markers}}, profile=prof, slot=slot)
     run.state["steps"]["contrast"].append(f"{prof}/{slot}")
     run.save()
+    for m in _mirrors(run, prof, slot):
+        mit = _fp_item(run, prof, m)
+        if mit:
+            mpl = run.pending.payload(mit["id"])
+            for name in mpl["fingerprint"]["metrics"]:
+                mpl["fingerprint"]["metrics"][name]["primary"] = name in primary
+            mpl["fingerprint"]["metric_list"] = "contrast"
+            mpl["fingerprint"]["contrast"] = fp["contrast"]
+            stage.atomic_write(run.pending.dir / "items" / f"{mit['id']}.json",
+                               json.dumps(mpl, ensure_ascii=False, indent=1) + "\n")
+        run.pending.remove_items(lambda i: i["kind"] == "never-list" and i.get("profile") == prof and i.get("slot") == m)
+        run.pending.add("never-list", "add", f"profiles/{prof}/{m}.never.md", f"same as {slot} (same texts)",
+                        {"never": {"profile": prof, "slot": m, "markers": markers}}, profile=prof, slot=m)
+        run.state["steps"]["contrast"].append(f"{prof}/{m}")
+    run.save()
     return {"primary": primary, "never": [m["marker"] for m in markers], "next": _next(run)}
+
+
+def _mirrors(run, prof, slot):
+    return [o["slot"] for o in run.state.get("slots", []) if o["profile"] == prof and o.get("mirrors") == slot]
 
 
 # ---------- lessons (spec §14) ----------
@@ -649,7 +711,9 @@ def lessons_apply(store_root, prof, slot, file, names=None):
                             profile=prof, slot=slot, ref=x["id"])
     run.state["steps"]["lessons"].append(f"{prof}/{slot}")
     run.save()
-    return {"dropped_as_rejected": dropped, "problems": problems, "next": _next(run)}
+    for m in _mirrors(run, prof, slot):
+        lessons_apply(store_root, prof, m, file, names)
+    return {"dropped_as_rejected": dropped, "problems": problems, "next": _next(Run(store_root))}
 
 
 # ---------- vocabulary ----------
@@ -825,11 +889,15 @@ def main(argv=None):
     ap.add_argument("--text")
     ap.add_argument("--from", dest="from_lesson")
     ap.add_argument("--names")
+    ap.add_argument("--sources", help="init: sources_root relative to the store")
+    ap.add_argument("--types", help="init: comma-separated text types")
     a = ap.parse_args(argv)
     try:
         s = a.store
         act = a.action
-        if act == "start":
+        if act == "init":
+            out = init(s, a.sources or "..", a.profile or "me", (a.types or "essay").split(","), a.lang or "en")
+        elif act == "start":
             out = start(s, a.target, a.tag, a.profile, a.lang, a.type)
         elif act == "questions":
             out = questions(Run(s))
