@@ -73,7 +73,8 @@ def with_share(lesson, n_texts):
     n = int(m.group(1)) if m else (1 if lesson["section"] == "Seen once" else None)
     of = int(m.group(2)) if m and m.group(2) else n_texts
     out = {**lesson, "texts": n, "of": of}
-    out["default"] = bool(n and of and n * 2 >= of)
+    # a habit seen once is weak evidence, however small the sample (review L1)
+    out["default"] = bool(lesson["section"] != "Seen once" and n and n >= 2 and of and n * 2 >= of)
     return out
 
 
@@ -115,8 +116,10 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
     rulings = [r for r in resolve.merged(store, prof, "rulings") if r.get("slot") in (None, slot)]
     kit["rulings"] = rulings[:RULINGS_CAP]
     vocab = resolve.merged(store, prof, "vocabulary")
-    kit["phrases"] = [v for v in vocab if v["kind"] == "phrase"][:VOCAB_CAP]
-    kit["forms"] = [v for v in vocab if v["kind"] != "phrase"][:VOCAB_CAP]
+    # one cap for the whole vocabulary (design: capped in size); phrases first, forms fill the rest
+    phrases = [v for v in vocab if v["kind"] == "phrase"][:VOCAB_CAP]
+    kit["phrases"] = phrases
+    kit["forms"] = [v for v in vocab if v["kind"] != "phrase"][:VOCAB_CAP - len(phrases)]
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     targets = []
     for m, v in fp["metrics"].items():
@@ -140,15 +143,15 @@ def markdown(kit):
              f"{kit['counts']['texts']} texts, {kit['counts']['words']} words.")
     for w in kit["warnings"]:
         L.append(f"- **Warning:** {w}")
-    if kit["rulings"]:
-        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
-                                                for r in kit["rulings"]]
     if kit["examples"]:
         L += ["", "## Example passages: this is the voice",
               "Match how these read: sentence movement, tone, how often each device appears. They are style "
               "references only; never reuse their content, facts, names or phrasing."]
         for e in kit["examples"]:
             L += ["", f"### {e['id']}", "", e["text"]]
+    if kit["rulings"]:
+        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
+                                                for r in kit["rulings"]]
     L += ["", "## How to use the notes below",
           f"They describe what the writer's {kit['counts']['texts']} texts show, and how often. **Habits are "
           "sampled, not stacked.** A habit seen in at least half the texts is the writer's default; one seen in "

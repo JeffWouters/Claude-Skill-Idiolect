@@ -270,6 +270,18 @@ vocabulary = entry_list("vocabulary.schema.json", {
              "additionalProperties": False}
 }, ["id", "text", "kind", "private", "created"], {"title": "profiles/<name>/vocabulary.yaml"})
 # version 2 (design: Schemas and migrations): keep -> phrase, phrase rates
+def absolute_refs(node):
+    """A schema published under another version path must point at the shared definitions absolutely."""
+    if isinstance(node, dict):
+        return {k: (BASE + v if k == "$ref" and v.startswith("common.schema.json") else absolute_refs(v))
+                for k, v in node.items()}
+    if isinstance(node, list):
+        return [absolute_refs(x) for x in node]
+    return node
+
+
+vocabulary = absolute_refs(vocabulary)
+vocabulary["$id"] = BASE.replace("/v1/", "/v2/") + "vocabulary.schema.json"
 vocabulary["properties"]["schema_version"] = {"const": 2, "description": "Version 2: kind keep became phrase, with a rate. migrate.py upgrades version 1."}
 
 rejected = entry_list("rejected.schema.json", {

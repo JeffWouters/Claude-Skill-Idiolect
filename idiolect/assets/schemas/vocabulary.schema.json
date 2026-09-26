@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/vocabulary.schema.json",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v2/vocabulary.schema.json",
   "type": "object",
   "required": [
     "schema_version",
@@ -29,7 +29,7 @@
         ],
         "properties": {
           "id": {
-            "$ref": "common.schema.json#/$defs/id"
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/id"
           },
           "text": {
             "type": "string",
@@ -54,7 +54,7 @@
           "overrides": {
             "oneOf": [
               {
-                "$ref": "common.schema.json#/$defs/id"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/id"
               },
               {
                 "type": "null"
@@ -62,7 +62,7 @@
             ]
           },
           "created": {
-            "$ref": "common.schema.json#/$defs/date"
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
           },
           "rate": {
             "type": "object",
@@ -89,7 +89,7 @@
                 "description": "Texts measured."
               },
               "measured": {
-                "$ref": "common.schema.json#/$defs/date"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
               }
             },
             "additionalProperties": false

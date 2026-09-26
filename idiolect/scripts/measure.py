@@ -56,15 +56,21 @@ def applicable(lang):
 
 # ---------- metrics ----------
 
-def prepare(text):
+def blocks(text):
+    """Every block of the text in order, headings included: [(number, block, is_heading)], numbered
+    from 1 as the reader sees them."""
     t = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     if t.startswith("---"):
         parts = t.split("---", 2)
         if len(parts) == 3:
             t = parts[2]
-    t = t.replace("’", "'").replace("‘", "'")
-    blocks = [b.strip() for b in re.split(r"\n\s*\n", t) if b.strip()]
-    return [b for b in blocks if not is_heading(b)]
+    t = t.replace("\u2019", "'").replace("\u2018", "'")   # fixed by references/fingerprint.md; do not widen
+    bs = [b.strip() for b in re.split(r"\n\s*\n", t) if b.strip()]
+    return [(i, b, is_heading(b)) for i, b in enumerate(bs, 1)]
+
+
+def prepare(text):
+    return [b for _, b, h in blocks(text) if not h]
 
 
 def is_heading(block):
@@ -212,19 +218,44 @@ def profile_texts(entries, get_text, facet_names, profile):
     return out
 
 
+QUOTES = str.maketrans({"\u2019": "'", "\u2018": "'", "\u201c": '"', "\u201d": '"', "\u00a0": " "})
+
+
+def normalise_quotes(text):
+    """Curly quotes to straight and non-breaking spaces to spaces, applied to both the phrase and the
+    text it is counted in, so a phrase measured in the corpus and counted in a draft is the same
+    phrase. Metric measurement keeps its own fixed normalisation (prepare)."""
+    return text.translate(QUOTES)
+
+
+def _phrase_regex(phrase):
+    parts = normalise_quotes(phrase).split()
+    return r"\s+".join(re.escape(x) for x in parts)
+
+
 def phrase_pattern(phrase):
-    return re.compile(r"(?<!\w)" + re.escape(phrase.strip()) + r"(?!\w)", re.I)
+    return re.compile(r"(?<!\w)" + _phrase_regex(phrase) + r"(?!\w)", re.I)
+
+
+def phrases_pattern(phrases):
+    """One pattern for several phrases, longest first, so overlapping phrases ("I think", "I think
+    that") count once per use, not once per phrase."""
+    alts = sorted({_phrase_regex(p) for p in phrases if p.strip()}, key=len, reverse=True)
+    return re.compile(r"(?<!\w)(?:" + "|".join(alts) + r")(?!\w)", re.I) if alts else None
 
 
 def phrase_rate(phrase, texts, today=None):
     """A favoured phrase's rate over a profile's own texts (design: Lessons): uses per 1,000 words and
-    how many texts use it at least once. `texts` is a list of strings."""
+    how many texts use it at least once. `texts` is a list of strings. None when there is nothing to
+    measure on (no texts or no words): a rate of 0 would read as "never use it"."""
     pat = phrase_pattern(phrase)
-    uses = [len(pat.findall(t)) for t in texts]
+    texts = [normalise_quotes(t) for t in texts]
     n_words = sum(len(words(t)) for t in texts)
-    return {"per_1k": round(sum(uses) * 1000 / n_words, 2) if n_words else 0.0,
-            "texts": sum(1 for u in uses if u), "of": len(texts),
-            "measured": (today or utcnow().date().isoformat())}
+    if not texts or not n_words:
+        return None
+    uses = [len(pat.findall(t)) for t in texts]
+    return {"per_1k": round(sum(uses) * 1000 / n_words, 2), "texts": sum(1 for u in uses if u),
+            "of": len(texts), "measured": (today or utcnow().date().isoformat())}
 
 
 def own_texts(entries, get_text, facet_names, profile):

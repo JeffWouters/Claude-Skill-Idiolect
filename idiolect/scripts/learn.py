@@ -813,15 +813,18 @@ def _rejected_ids(store, prof, slot, prefix):
                       if e.get("rejects", "").startswith(prefix + "-") and e.get("slot") == slot])
 
 
-def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
+def lessons_apply(store_root, prof, slot, file, names=None, follows=None, sampled=None):
     run = Run(store_root)
     data = load_yaml_text(pathlib.Path(file).read_text(encoding="utf-8")) or []
     lang = slot.split(".")[0]
     texts = dict(slot_texts(run, prof, slot))
-    # how many texts the lessons sample held: the "of" in "seen in 5 of 9 texts" (markdown contracts)
-    sample = run.pending.work("lessons", prof, slot, "sample.md")
-    sampled = set(re.findall(r"(?m)^### text (\S+)$", sample.read_text(encoding="utf-8"))) & set(texts) \
-        if sample.exists() else set()
+    # how many texts the lessons sample held: the "of" in "seen in 5 of 9 texts" (markdown contracts).
+    # A mirror slot is never sampled; it is handed the sample of the slot it mirrors (review M5).
+    if sampled is None:
+        sample = run.pending.work("lessons", prof, slot, "sample.md")
+        sampled = set(re.findall(r"(?m)^### text (\S+)$", sample.read_text(encoding="utf-8"))) \
+            if sample.exists() else set()
+    sampled = set(sampled) & set(texts)
     of = len(sampled) or len(texts)
     rejected = stage.rejected_normalised(run.store, prof, slot)
     page = run.store.root / "profiles" / prof / f"{slot}.md"
@@ -842,7 +845,8 @@ def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
         if norm in rejected:
             dropped.append(les["text"])
             continue
-        ev = sorted({k for k in les.get("evidence", []) if k in texts})
+        # evidence counts only texts the model was shown, so "N of M" never exceeds the sample
+        ev = sorted({k for k in les.get("evidence", []) if k in (sampled or texts)})
         quote = les.get("quote") or ""
         qkey = next((k for k in ev if quote and _norm_ws(quote) in _norm_ws(texts[k])), None)
         if quote and not qkey:
@@ -863,7 +867,7 @@ def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
             last += 1
             lid = f"l-{last:03d}"
         lesson = {"profile": prof, "slot": slot, "id": lid, "section": les["section"], "text": les["text"].strip(),
-                  "evidence": {"count": count, "of": max(of, count), "quote": quote}, "seen_once": count < 2,
+                  "evidence": {"count": count, "of": of, "quote": quote}, "seen_once": count < 2,
                   "unit": "text",
                   "evidence_keys": ev, "quote_key": qkey}
         new_line_ev = pages.evidence_text(lesson)
@@ -886,7 +890,7 @@ def lessons_apply(store_root, prof, slot, file, names=None, follows=None):
     run.state["steps"]["lessons"].append(f"{prof}/{slot}")
     run.save()
     for m in _mirrors(run, prof, slot):
-        lessons_apply(store_root, prof, m, file, names, follows=made)
+        lessons_apply(store_root, prof, m, file, names, follows=made, sampled=sampled)
     return {"dropped_as_rejected": dropped, "problems": problems, "next": _next(Run(store_root))}
 
 
@@ -913,12 +917,14 @@ def vocab_apply(store_root, prof, file):
         if e["kind"] != "phrase":
             continue
         rate = measure.phrase_rate(e["text"], own, today)
+        if rate is None:
+            continue            # nothing to measure on: keep the rate it has
         old_rate = {k: v for k, v in (e.get("rate") or {}).items() if k != "measured"}
         if {k: v for k, v in rate.items() if k != "measured"} != old_rate:
             upd = {**e, "rate": rate}
             run.pending.add("vocabulary", "modify", f"profiles/{prof}/vocabulary.yaml",
                             f"{e['id']} phrase: {e['text']}: rate now {rate['per_1k']} per 1,000 words, "
-                            f"in {rate['texts']} of {rate['of']} texts",
+                            f"in {rate['texts']} of {rate['of']} texts" + (" (private)" if e.get("private") else ""),
                             {"vocab": {"profile": prof, "entry": upd}}, profile=prof, ref=e["id"])
     for v in data:
         t = v["text"].strip()
@@ -934,7 +940,9 @@ def vocab_apply(store_root, prof, file):
         if v.get("note"):
             entry["note"] = v["note"]
         if kind == "phrase":
-            entry["rate"] = measure.phrase_rate(t, own, today)
+            rate = measure.phrase_rate(t, own, today)
+            if rate:
+                entry["rate"] = rate
         run.pending.add("vocabulary", "add", f"profiles/{prof}/vocabulary.yaml",
                         f"{entry['id']} {entry['kind']}: {t}" + (" (private)" if entry["private"] else ""),
                         {"vocab": {"profile": prof, "entry": entry}}, profile=prof, ref=entry["id"])

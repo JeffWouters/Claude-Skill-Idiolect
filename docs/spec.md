@@ -284,7 +284,8 @@ Entries that do not feed the profile are never touched by its rollback.
 ## 10. Lock
 
 1. **Store-writing modes** are `learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune` and
-   `test` (`test` flags holdout texts and writes `eval/results.md`). Each creates `.state/lock`
+   `test` (`test` flags holdout texts and writes `eval/results.md`), and `migrate.py`, which takes the
+   lock as mode `migrate` while it upgrades file formats and refuses to run while a pending area waits. Each creates `.state/lock`
    exclusively (create-new, failing if it exists) before its first write, including the pending area.
    Read-only modes (`write`, `rewrite`, `check`, `export`, `status`) and any `dry-run=true` never take
    the lock and read only committed files.
@@ -306,6 +307,9 @@ Entries that do not feed the profile are never touched by its rollback.
    whose heartbeat is the file's modification time, reported as damaged, and taken over by rule 4.
    This is the one exception to §1.3.
 6. The `pending` field in the lock is informational; takeover depends only on the heartbeat.
+7. Adding `migrate` to the modes did not bump the lock's `schema_version`: a lock lives only for one
+   run, and an older engine that meets a `migrate` lock reads it as damaged (rule 5), which blocks it
+   for an hour and never lets it write while the upgrade runs.
 
 ## 11. Snapshots, rollback, prune, deletion
 

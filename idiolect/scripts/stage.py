@@ -714,6 +714,25 @@ def rederive_fingerprints(store, pending):
         return texts[k] if k in texts else store.corpus_text(k)
 
     extra = set()
+    # favoured phrases: their rate too is re-measured on the approved corpus (review M1)
+    own = {}
+    for it in approved:
+        pl = pending.payload(it["id"])
+        entry = (pl.get("vocab") or {}).get("entry")
+        if not entry or entry.get("kind") != "phrase" or it["op"] == "remove":
+            continue
+        prof = pl["vocab"]["profile"]
+        if prof not in own:
+            own[prof] = measure.own_texts(view, get_text, store.facets, prof)
+        rate = measure.phrase_rate(entry["text"], own[prof], (entry.get("rate") or {}).get("measured"))
+        new = {k: v for k, v in entry.items() if k != "rate"}
+        if rate:
+            new["rate"] = rate
+        elif entry.get("rate") and it["op"] != "add":
+            new["rate"] = entry["rate"]       # nothing to measure on now: keep the approved rate
+        if new != entry:
+            pl["vocab"]["entry"] = new
+            atomic_write(pending.dir / "items" / f"{it['id']}.json", json.dumps(pl, ensure_ascii=False, indent=1) + "\n")
     for it in approved:
         pl = pending.payload(it["id"])
         if it["kind"] == "deletion" and it.get("slot") and it.get("profile"):

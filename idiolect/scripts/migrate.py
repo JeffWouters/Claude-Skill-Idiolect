@@ -27,15 +27,27 @@ from common import StoreError, atomic_write, check_schema, dump_yaml, iso, load_
 from store import Store  # noqa: E402
 
 
+def check_vocabulary_1(data, where):
+    """The version 1 schema is gone from assets/, so a version 1 file is checked by hand before it is
+    upgraded (spec §1.3: validate before use)."""
+    ok = isinstance(data, dict) and isinstance(data.get("entries"), list) and all(
+        isinstance(e, dict) and isinstance(e.get("id"), str) and isinstance(e.get("text"), str)
+        and e.get("kind") in ("term", "spelling", "coinage", "keep") for e in data["entries"])
+    if not ok:
+        raise StoreError(f"{where} is not a valid version 1 vocabulary file; nothing was upgraded")
+
+
 def vocabulary_1_to_2(data, own_texts=None, today=None):
-    """Version 1 -> 2. own_texts=None leaves phrases without a rate."""
+    """Version 1 -> 2. own_texts=None, or no text to measure on, leaves phrases without a rate."""
     out = {**data, "schema_version": 2, "entries": []}
     for e in data.get("entries", []):
         e = dict(e)
         if e.get("kind") == "keep":
             e["kind"] = "phrase"
         if e["kind"] == "phrase" and own_texts is not None:
-            e["rate"] = measure.phrase_rate(e["text"], own_texts, today)
+            rate = measure.phrase_rate(e["text"], own_texts, today)
+            if rate:
+                e["rate"] = rate
         out["entries"].append(e)
     return out
 
@@ -72,13 +84,11 @@ def migrate(store_root, dry_run=False, now=None):
             raise StoreError("a run is waiting in .state/pending/; resume or discard it before migrating")
         backup = store.root / ".state" / "migrations" / stamp
         today = now.date().isoformat()
-        own = {}
-        touched = {}
+        # 1. convert and validate everything in memory; nothing is written if any file fails (review M4)
+        own, converted, touched = {}, [], {}
         for f, schema, v, prof, is_snap in todo:
-            dest = backup / f.relative_to(store.root)
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(f, dest)
             data = load_yaml_text(f.read_text(encoding="utf-8"))
+            check_vocabulary_1(data, str(f))
             texts = None
             if not is_snap:
                 if prof not in own:
@@ -88,8 +98,15 @@ def migrate(store_root, dry_run=False, now=None):
                 data = STEPS[schema][v](data, texts, today)
                 v += 1
             check_schema(schema, data, str(f))
-            atomic_write(f, dump_yaml(data))
+            converted.append((f, data))
             touched.setdefault(prof, []).append(f"{schema} {data['schema_version']}")
+        # 2. back up every original, then write; a re-run after a crash here finds what is left
+        for f, _ in converted:
+            dest = backup / f.relative_to(store.root)
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, dest)
+        for f, data in converted:
+            atomic_write(f, dump_yaml(data))
         for prof, what in touched.items():
             cl = store.root / "profiles" / prof / "changelog.md"
             existing = cl.read_text(encoding="utf-8") if cl.exists() else ""

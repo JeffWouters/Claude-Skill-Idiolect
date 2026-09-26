@@ -33,14 +33,14 @@ PHRASES_MIN_COUNT = 2      # whole text; calibrated on run 1 (design: decision l
 
 
 def poisson_tail(k, lam):
-    """P(X >= k) for X ~ Poisson(lam)."""
+    """P(X >= k) for X ~ Poisson(lam). Terms are summed in log space, so a large lam cannot underflow
+    to a tail of 1 (review L4)."""
     if k <= 0:
         return 1.0
-    term, below = math.exp(-lam), 0.0
-    for i in range(k):
-        below += term
-        term *= lam / (i + 1)
-    return max(0.0, 1.0 - below)
+    if lam <= 0:
+        return 0.0
+    below = sum(math.exp(-lam + i * math.log(lam) - math.lgamma(i + 1)) for i in range(k))
+    return min(1.0, max(0.0, 1.0 - below))
 
 
 def is_bunch(count, lam):
@@ -48,13 +48,15 @@ def is_bunch(count, lam):
 
 
 def bunched(text, lang, fp_metrics, phrases=()):
-    """Paragraphs (1-based) that use a countable habit far above the writer's rate, and the favoured
+    """Blocks (numbered from 1 as they appear, headings included) that use a countable habit far above the writer's rate, and the favoured
     phrases together overused in the whole text (paragraph 0). phrases: vocabulary entries of kind
     phrase; those without a measured rate are skipped."""
     out = []
-    rated = [v for v in phrases if v.get("rate")]
-    paras = measure.prepare(text)
-    for i, para in enumerate(paras, 1):
+    rated = [v for v in phrases if v.get("rate") and v["rate"].get("of")]
+    pat = measure.phrases_pattern([v["text"] for v in rated])
+    numbered = [(i, b) for i, b, heading in measure.blocks(text) if not heading]
+    paras = [b for _, b in numbered]
+    for i, para in numbered:            # numbered as the reader sees them, headings counted (review L3)
         nw = len(words(para))
         if nw < BUNCH_MIN_WORDS:
             continue
@@ -67,14 +69,14 @@ def bunched(text, lang, fp_metrics, phrases=()):
             if is_bunch(count, lam):
                 out.append({"paragraph": i, "habit": m, "count": count, "expected": round(lam, 2)})
         if rated:
-            count = sum(len(measure.phrase_pattern(v["text"]).findall(para)) for v in rated)
+            count = len(pat.findall(measure.normalise_quotes(para)))
             lam = sum(v["rate"]["per_1k"] for v in rated) * nw / 1000
             if is_bunch(count, lam):
                 out.append({"paragraph": i, "habit": "favoured phrases", "count": count, "expected": round(lam, 2)})
     body = "\n\n".join(paras)
     if rated:
         # the favoured phrases together over the whole text: 2 uses can already be far too many
-        count = sum(len(measure.phrase_pattern(v["text"]).findall(body)) for v in rated)
+        count = len(pat.findall(measure.normalise_quotes(body)))
         lam = sum(v["rate"]["per_1k"] for v in rated) * len(words(body)) / 1000
         if count >= PHRASES_MIN_COUNT and poisson_tail(count, lam) < BUNCH_P:
             out.append({"paragraph": 0, "habit": "favoured phrases", "count": count, "expected": round(lam, 2)})
