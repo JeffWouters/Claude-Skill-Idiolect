@@ -1,0 +1,9 @@
+Woollen socks wear through in predictable places, and for a long time I simply threw them away when a hole appeared. Now I mend them by hand. It is not difficult, and it needs very little equipment.
+
+There are three things to gather. The first is a long needle, long enough to span the damaged area in a single pass, with an eye large enough for yarn. The second is yarn that matches the sock as closely as possible, both in colour and in weight, so that the repair sits comfortably and does not create a hard ridge. The third is something rounded to support the fabric from inside while you work. A proper darning tool does the job, but an old light bulb works surprisingly well: slip it into the sock under the hole and the fabric stretches smoothly over its curve.
+
+Before starting, it is worth looking closely at the area around the hole. A hole rarely appears on its own. The fabric around it has usually been thinning for some time, and if you repair only the hole itself, the thin area next to it will give way soon after. So the repair should cover the thinned area as well, extending out into fabric that is still sound. That gives the new threads something firm to anchor into.
+
+With the sock stretched over the support, I outline the patch first. I run a line of small stitches around the whole area to be repaired, enclosing the hole and the thinned fabric around it. This outline marks the edges of the work and helps stabilise the worn section.
+
+Then I lay the lengthwise threads. Starting at one edge of the outline, I run the yarn in parallel lines from one side of the patch to the other, back and forth, each thread close beside the last. Across the hole itself these threads bridge open space, and across the thinned areas they pass through the old fabric. When the whole outline is filled with parallel lines, the foundation of the darn is in place and ready for the crosswise weaving.

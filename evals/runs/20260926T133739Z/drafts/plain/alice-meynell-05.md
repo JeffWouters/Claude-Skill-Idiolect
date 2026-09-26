@@ -1,0 +1,9 @@
+It has become a commonplace among contemporary authors to dwell on the violence of the natural world. Nature, we are told again and again, is cruel: a place of constant killing, where every creature lives in fear and every life ends in a struggle. Books and essays linger on the hunter and the hunted, on claw and tooth, until the woods come to seem like a battlefield.
+
+Yet when I walk in the woods, I see almost none of this. Dying creatures are hardly ever visible. Corpses are rarer still. I can go for many walks without coming across a single dead animal, and when I do find one it strikes me as an event, something worth stopping for. If the woods were really the slaughterhouse described, I would expect to see its evidence everywhere. Instead the place appears calm, full of living things going about their business.
+
+Part of the explanation, I suppose, is that predators do not leave much behind. But that cannot be the whole story. Countless small animals must die without being killed at all. They grow old, or sicken, or simply wear out. Every mouse, beetle and small bird that is not caught by something else must end somehow, and there are far more of them than of the predators. Their deaths should outnumber the violent ones by a wide margin. And still they remain unseen.
+
+Where do they go? I imagine they creep away into holes and hollows, under leaves and roots, and that what is left of them is quickly taken back into the ground. Whatever the mechanism, the effect is a kind of discretion. The woods keep their dying out of sight.
+
+This does not prove that nature is gentle. But it does suggest that the writers who stress its cruelty are describing something they have mostly read about rather than seen. The woods as they actually appear to a walker are not a scene of constant death. Most of their endings, violent or quiet, happen where no one is watching.

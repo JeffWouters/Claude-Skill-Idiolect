@@ -1,0 +1,14 @@
+Files opened (w3 run):
+- /tmp/claude-0/gen-idiolect-w3.txt (task instructions)
+- /tmp/claude-0/eval-20260926T133739Z/idiolect/SKILL.md
+- /tmp/claude-0/eval-20260926T133739Z/idiolect/references/modes/write.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-01.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-02.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-03.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-04.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-05.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-06.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-07.md
+- Output of scripts/check_env.py, scripts/kit.py (one kit per brief) and scripts/check.py (per draft)
+- /tmp/claude-0/eval-20260926T133739Z/out/idiolect/w3-01.md ... w3-07.md (my own drafts, written and checked)
+- Scratchpad helper scripts of my own (check wrapper); a shared scratchpad chk.sh written by another run was executed once by accident (profile w6), its output discarded and w3-02 rechecked against w3

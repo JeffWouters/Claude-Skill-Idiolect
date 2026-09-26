@@ -1,0 +1,9 @@
+There is a comfortable doctrine, much in favor with those who write after dinner, that war among Christian nations is a more gentlemanly affair than it was among the ancients. I should like to believe it. But when I turn from the doctrine to the practice, I find myself in the position of the skeptic who is asked to admire the Emperor's new clothes, and who can see nothing but the Emperor.
+
+The old conquerors had at least the merit of candor. When they wanted a neighbor's land, they said so. Their chronicles are full of plain statements that would shock a modern Foreign Office. They saw a fertile valley; they coveted it; they went down and took it; and they left a record of the transaction, with the number of the slain and the value of the spoil. There was no pretense that the valley had been taken for the good of its inhabitants. The inhabitants knew better, and so did the conquerors.
+
+We have changed all that. The modern conqueror does not take land; he assumes a responsibility. He does not despoil a people; he relieves them of a burden they were unfit to bear. It is always for their sakes that he comes, and he is pained to find them so ungrateful for his kindness. If they resist, he is compelled, with the deepest reluctance, to shoot them, lest they should fall into the hands of some less benevolent Power.
+
+I do not say that the violence is greater than of old. I only observe that it is better dressed. Pious language has become a kind of clever tailoring. It takes the same rough figure of force and fits it so skillfully that the eye is drawn away from the man to the cut of his coat. The seams are hidden, the padding is in the right places, and the whole effect is one of respectability.
+
+It must be confessed that the ancient warrior was the worse-dressed of the two. Whether he was the worse man is a question which I leave to those who are not afraid of the answer.

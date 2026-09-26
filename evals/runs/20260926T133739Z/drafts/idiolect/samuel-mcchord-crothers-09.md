@@ -1,0 +1,9 @@
+Every rogue of any standing has a philosophy, and the more notorious the rogue, the more elaborate the philosophy is likely to be. The gentleman whose memoirs I have been reading, [name needed: the rogue], was never at a loss for a reason. He could justify anything he had done, and he generally did so before anybody asked him.
+
+Consider his defence of counterfeiting. The country, he observed, was suffering from a scarcity of money. Trade was languishing, honest men could not pay their debts, and the public was crying out for a circulating medium. What was needed was more coin. He supplied it. That the coin was not quite what it pretended to be seemed to him a minor detail when set against the benefit to the community, and he regarded himself less as a criminal than as a kind of unofficial treasury, relieving the distress of a cash-starved people at considerable personal risk.
+
+This is all very well as political economy. But the magistrates, who had studied a different school of economics, took another view of the matter, and the argument that had seemed so persuasive in his own mind brought him in the end to the inside of a prison. It is the common fate of original thinkers.
+
+His choice of the pulpit was reasoned with the same admirable directness. He had looked over the learned professions with the eye of a man who must earn his living. The law required money for study, and he had none. Medicine required money, and he had none of that either. A trade required an apprenticeship and a stock of tools, and these, too, lay beyond his means. The ministry alone asked nothing of him but a voice and a willingness to use it. So he became a preacher.
+
+Was he a hypocrite? I do not think so. He did not pretend to a calling he had not received; he simply never supposed that a calling was required. The pulpit was a practical option, open to a man of small capital, and he took it as another man might take a vacant shop.

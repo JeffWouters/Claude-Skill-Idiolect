@@ -1,0 +1,39 @@
+# Judge packet alice-meynell-03
+
+## The passage (by the author)
+
+Now and then, indeed, they may be betrayed. It happened in a cold winter. The late frosts were so sudden, and the famine was so complete, that the birds were taken unawares. The sky and the earth conspired that February to make known all the secrets; everything was published. Death was manifest. Editors, when a great man dies, are not more resolute than was the frost of '95.
+
+The birds were obliged to die in public. They were surprised and forced to do thus. They became like Shelley in the monument which the art and imagination of England combined to raise to his memory at Oxford.
+
+Frost was surely at work in both cases, and in both it wrought wrong. There is a similarity of unreason in betraying the death of a bird and in exhibiting the death of Shelley. The death of a soldier--passe encore. But the death of Shelley was not his goal. And the death of the birds is so little characteristic of them that, as has just been said, no one in the world is aware of their dying, except only in the case of birds in cages, who, again, are compelled to die with observation. The woodland is guarded and kept by a rule. There is no display of the battlefield in the fields. There is no tale of the game- bag, no boast. The hunting goes on, but with strange decorum. You may pass a fine season under the trees, and see nothing dead except here and there where a boy has been by, or a man with a trap, or a man with a gun. There is nothing like a butcher's shop in the woods.
+
+But the biographers have always had other ways than those of the wild world. They will not have a man to die out of sight. I have turned over scores of "Lives," not to read them, but to see whether now and again there might be a "Life" which was not more emphatically a death. But there never is a modern biography that has taken the hint of Nature. One and all, these books have the disproportionate illness, the death out of all scale.
+
+## Draft A
+
+This winter was a hard one, and for a few weeks it did something nature almost never does: it let us watch wild birds die. They were found on paths and lawns, under hedges, beside frozen water, small bodies lying in the open where anyone could see them. It was a distressing sight, and part of the distress, I think, came from its sheer unfamiliarity.
+
+In an ordinary year we hardly ever see such a thing. Birds die constantly, as all creatures do, but nature keeps the matter hidden and discreet. The sick bird withdraws; the dead one is covered, taken, or simply lost in the undergrowth. We are left with the living flock and hardly any evidence of the ones that failed. The harsh weather broke that arrangement, and what it exposed felt less like knowledge than like an intrusion, a glimpse of something that was never meant to be looked at.
+
+I found myself thinking of biographies. When a poet dies, we are commonly given a full account of the event: the last illness, its progress, the final days and hours. Yet what is gained by displaying a poet's death? It seems to me as senseless as exposing the birds'. In both cases the dying is real, and in both cases it is not the point. We did not love the birds for the way they perished in a frost; we loved them for their flight and song. We do not read a poet for the manner of his dying, but for the poems.
+
+Nature, left to itself, has better manners than we do. It lets the end pass privately and keeps the living in view. Modern life-stories do the reverse. They almost always overemphasize the final illness and the dying, spending pages on the sickroom that might have been spent on the work, as if the last chapter were the truest and a life were best understood by the way it stopped.
+
+It was a relief when the thaw came and the birds vanished from sight again. I would feel a similar relief if biographers learned from it, and let their subjects go quietly out of view rather than setting the death out on the path for everyone to step around.
+
+## Draft B
+
+In ordinary seasons nature is the most discreet of undertakers. The bird that sickens does not sicken before our eyes; it withdraws into the thicket, under the hedge, into some covert we never enter, and there it dies, and there it is quietly disposed of. We walk the lanes year after year and hardly ever see a dead thing among all the multitudinous living. It is not that the creatures do not die. It is that their dying is hidden, as though by a kind of natural decency that keeps the last hour out of sight. But this winter was harsh beyond that decency. The frost came down so hard and lay so long that the birds could no longer creep away; they fell where they were, on the open path, on the frozen field, at the very doorstep, and they lay there in plain view. It was a sight that nature had never meant us to see--or, if she had meant it, she had meant it rarely. And the spectacle was not instructive. We learned nothing from it but pity and a certain shame, as though we had broken in upon something that was none of our business.
+
+Is it otherwise with the death of a poet? When a biographer sets out the last illness at length, the failing breath, the sickroom and its drugs, he exposes what nature herself would have hidden, and to as little purpose. The poet's life was in his work and in his days of health; his dying, like the dying of the birds, was an affair of the covert, and belongs there. Yet modern life-stories almost always give it a disproportionate place. The final chapters swell, the details accumulate, and the reader who came to know a mind is detained, page after page, at a bedside. I think the fashion will pass, though I know not when. Meanwhile we might learn from the thicket and the hedge. Of all the lessons of the hard winter, this seems the plainest: that what is laid open is not therefore understood, and that some things are better left where they fall.
+
+## Draft C
+
+It was a winter that broke the rule of the fields. The frost held so long and so hard that the birds could no longer keep their secret, and they died where anyone might see them--on paths, under hedges, in the open furrows, on the very doorsteps. [example needed] One had not known how many there were until one saw how many could fall.
+
+For in the ordinary course nature is discreet. She is not, as the moralists will have it, careless of her creatures' ends; she is rather jealous of them. The bird that sickens goes aside. It creeps into the thick of the bush, or under the roots, or into some cover that the eye does not search, and there it has its death alone. The wild creature dies as it lived, out of sight. It is not merely that we do not happen to find the bodies. It is that the whole order of the woods is so disposed that they shall not be found. Death there is a private matter, kept with a kind of instinctive modesty.
+
+That hard season undid the modesty, and the sight was not instructive; it was only painful. Nothing was learnt of the thrush by seeing it lie stiff on the gravel that was not better learnt by hearing it sing. And nothing is learnt of the poet by seeing him die. To set out the particulars of his last illness--the nights, the remedies, the failing--is to do for him what the frost did for the birds: to drag into the open what should have been hidden, and to call the exposure knowledge. It is as senseless in the one case as in the other, and in the one case it is not an accident of weather but a choice.
+
+Yet the choice is made again and again. There is hardly a modern life of a writer but gives its closing chapters to the sickroom, and gives them more room, and more care, than it gave to the works. The biographer lingers there as though the dying were the explanation of the living. Surely it is the other way. The woods have the better manners, and the better sense.

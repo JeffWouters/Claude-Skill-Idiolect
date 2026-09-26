@@ -1,0 +1,287 @@
+{
+ "alexander-smith-01": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "alexander-smith-02": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "alexander-smith-03": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "alexander-smith-04": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "alexander-smith-05": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "alexander-smith-06": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "alexander-smith-07": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "alexander-smith-08": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "alexander-smith-09": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "alexander-smith-10": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "alice-meynell-01": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "alice-meynell-02": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "alice-meynell-03": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "alice-meynell-04": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "alice-meynell-05": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "alice-meynell-06": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "alice-meynell-07": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "arthur-christopher-benson-01": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "arthur-christopher-benson-02": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "arthur-christopher-benson-03": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "arthur-christopher-benson-04": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "arthur-christopher-benson-05": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "arthur-christopher-benson-06": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "arthur-christopher-benson-07": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "arthur-christopher-benson-08": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "arthur-christopher-benson-09": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "arthur-christopher-benson-10": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-01": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-02": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-03": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-04": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-05": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-06": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "samuel-mcchord-crothers-07": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "samuel-mcchord-crothers-08": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-09": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "samuel-mcchord-crothers-10": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-idris-01": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-idris-02": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-idris-03": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-idris-04": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-idris-05": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-idris-06": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-idris-07": {
+  "A": "fewshot",
+  "B": "idiolect",
+  "C": "plain"
+ },
+ "synthetic-idris-08": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-09": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-idris-10": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-01": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-02": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-noor-03": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-noor-04": {
+  "A": "plain",
+  "B": "idiolect",
+  "C": "fewshot"
+ },
+ "synthetic-noor-05": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-06": {
+  "A": "idiolect",
+  "B": "fewshot",
+  "C": "plain"
+ },
+ "synthetic-noor-07": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-noor-08": {
+  "A": "fewshot",
+  "B": "plain",
+  "C": "idiolect"
+ },
+ "synthetic-noor-09": {
+  "A": "plain",
+  "B": "fewshot",
+  "C": "idiolect"
+ },
+ "synthetic-noor-10": {
+  "A": "idiolect",
+  "B": "plain",
+  "C": "fewshot"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "C",
+  "B"
+ ],
+ "reasons": {
+  "A": "Long, balanced sentences with semicolon pivots, light first-person hedging ('in my experience', 'I think'), a rhetorical-question paragraph opener and a measured, unhurried British register match the passage's movement and stance without overdoing them.",
+  "C": "Has the right ingredients (opening question, semicolons, 'It seems to me', 'I suspect', a 'not X but Y' close), but it stacks hedges ('nonetheless, arguably', 'perhaps') and triple anaphora more thickly than the passage does, and its run-on 'because' sentence moves awkwardly, so it reads as imitation.",
+  "B": "Short, punchy sentences, verbless fragments, snappy chiasmus ('what gets reported gets rewarded') and an assertive, coaching tone are far from the passage's long, hedged, reflective periods."
+ }
+}

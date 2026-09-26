@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "A": "Short, clipped sentences in many small paragraphs and a plain, punchy stance; none of the passage's long clause-chained periods, semicolons or measured hedging.",
+  "B": "Long hedged sentences joined by semicolons and a reflective stance close to the passage, but it has none of the passage's dashes, fewer turns of concession, and leans on stock openers ('Consider', 'It may be that') more thickly than the passage does.",
+  "C": "Best matches the passage's movement: long qualified sentences with semicolons and a dashed list, a rhetorical-question opening, concessive self-correction ('I am not sure that would be fair'), formal no-contraction diction and a measured, gently arguing close."
+ }
+}

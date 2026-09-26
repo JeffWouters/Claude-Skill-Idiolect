@@ -1,0 +1,405 @@
+{
+ "run": "20260926T133739Z",
+ "seed": 20261004,
+ "passages": [
+  {
+   "id": "alexander-smith-01",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 459,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-02",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 450,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-03",
+   "author": "alexander-smith",
+   "essay": "12-on-vagabonds.md",
+   "words": 457,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-04",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 452,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-05",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 470,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-06",
+   "author": "alexander-smith",
+   "essay": "12-on-vagabonds.md",
+   "words": 470,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-07",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 308,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-08",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 342,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-09",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 339,
+   "group": "real"
+  },
+  {
+   "id": "alexander-smith-10",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 358,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-01",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 489,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-02",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 391,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-03",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 365,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-04",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 303,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-05",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 330,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-06",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 367,
+   "group": "real"
+  },
+  {
+   "id": "alice-meynell-07",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 338,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-01",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 389,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-02",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 436,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-03",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 367,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-04",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 354,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-05",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 336,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-06",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 336,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-07",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 310,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-08",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 314,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-09",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 354,
+   "group": "real"
+  },
+  {
+   "id": "arthur-christopher-benson-10",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 466,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-01",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 322,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-02",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 309,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-03",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 350,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-04",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 364,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-05",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 456,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-06",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 304,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-07",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 312,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-08",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 306,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-09",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 327,
+   "group": "real"
+  },
+  {
+   "id": "samuel-mcchord-crothers-10",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 322,
+   "group": "real"
+  },
+  {
+   "id": "synthetic-idris-01",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 345,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-02",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 304,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-03",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 307,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-04",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 314,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-05",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 301,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-06",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 333,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-07",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 300,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-08",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 324,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-09",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 429,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-idris-10",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 429,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-01",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 302,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-02",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 327,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-03",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 327,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-04",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 309,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-05",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 324,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-06",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 320,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-07",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 316,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-08",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 306,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-09",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 318,
+   "group": "synthetic"
+  },
+  {
+   "id": "synthetic-noor-10",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 306,
+   "group": "synthetic"
+  }
+ ]
+}

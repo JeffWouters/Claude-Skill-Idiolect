@@ -1,0 +1,9 @@
+There is a particular moment that experienced engineers know well. A new technology arrives, the team decides to adopt it, and someone who has been good at their job for years suddenly has to start over.
+
+That moment often shows up first as pushback. The new tool is overhyped, the old approach worked fine, the migration is not worth the risk. Sometimes those objections are right. But often they hide something harder to say: the discomfort of feeling unskilled again. When you are used to being the person others come to with questions, becoming the person asking them is unsettling. Arguing about the tool is easier than admitting that.
+
+Employers do not always make this easier. Most organisations praise growth. They talk about learning cultures, put development goals into reviews, and say they want people to keep their skills current. Then they leave no time in the week for any of it. The sprint is full, the backlog is long, and learning becomes something you are expected to do in the margins, as if the margins had room.
+
+So people learn piecemeal. A tutorial in the evening, an answer copied from a forum, a pattern borrowed from a colleague's pull request. Enough to get the task done, not enough to understand why it works. The knowledge that results is fragile and shallow. It holds up on the happy path and gives way the first time something unexpected happens, which is exactly when real understanding matters most.
+
+This is not a failure of the engineers involved. It is the predictable result of asking people to become beginners again without giving them the conditions beginners need: time, room to make mistakes, and the freedom to say they do not know yet. If we want experienced people to adopt new technology well, rather than resist it or skim it, we have to make starting over something the week actually allows for.

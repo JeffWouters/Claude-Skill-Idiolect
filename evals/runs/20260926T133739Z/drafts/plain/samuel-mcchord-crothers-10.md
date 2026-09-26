@@ -1,0 +1,9 @@
+At the birth of Christ, we are told, the angels promised peace on earth. It is a hard thing to read that promise and then look at the record of the nations that bear his name. They have fought one another with great regularity, and they have carried war into every corner of the world that their ships could reach. The skeptic asks a fair question: if these countries are really Christian, where is the peace?
+
+The first part of the answer is simply that the work of spreading civilization has been done by human beings, and human beings are flawed. The men who carried the gospel and the flag abroad were not saints. Some were greedy, some were cruel, and many were merely ordinary, with ordinary appetites and ordinary blind spots. It would be strange if the history they made were any better than they were.
+
+The second part of the answer is patience. Milton, in one of his poems, reflects on how long a prophecy may wait before it comes true. The promise is made, and then the years go by, and the centuries, and still the thing has not happened. The delay does not mean the promise was false. It means that the world moves slowly toward what has been foretold, and those who expect the fulfillment in their own lifetime are likely to be disappointed.
+
+The third part is the most important. These nations did not start near the gospel. They started a very long way from it, as pagan peoples with warlike habits, and they have been travelling toward it ever since, sometimes quickly and more often not at all. To judge them by how far they still have to go is to forget how far they have come.
+
+It is fairer, I think, to call them learners than frauds. A fraud pretends to a virtue he has no intention of acquiring. A learner professes an ideal he has not yet reached and is, however clumsily, trying to reach it. The Christian nations are a poor class of pupils, and their marks are very low. But they are still in school, and the lesson has not been abandoned.

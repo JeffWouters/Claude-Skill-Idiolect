@@ -1,0 +1,9 @@
+We are often told, with a certain comfortable satisfaction, that the nations calling themselves Christian have learned to make war in a finer spirit than the peoples of antiquity. The old conquerors, so the story runs, were brutes; we are gentlemen who fight only when conscience compels us. I confess I have never been able to read the claim without a smile.
+
+Look at the old accounts. When an ancient king marched into his neighbor's valley, the chronicler did not trouble himself to invent a reason. The land was good, the king wanted it, and he took it. There was greed in the transaction, certainly, but there was also a sort of honesty. Nobody pretended that the burned village had been done a favor. The victim was allowed at least the dignity of knowing he had been robbed.
+
+The modern conqueror is a more delicate creature. He cannot simply want a province; he must want it for the sake of the people who live there. He arrives to rescue them from their ignorance, their bad government, their unfortunate religion, and if a great many of them must be shot in the course of the rescue, that is a sorrow he bears with visible reluctance. When the smoke clears he owns the land, exactly as the ancient king did, but he has also collected a vote of thanks, which the ancient king never thought to ask for.
+
+This is the real advance, and it is an advance in tailoring rather than in morals. The body underneath is the same body it always was, with the same appetites and the same strong arms. What has changed is the cut of the coat. Pious language has been fitted so neatly over the violence that the seams hardly show, and a man may walk through the streets of the conquered town in it and be taken for a missionary.
+
+I do not say the ancients were better men. I only say they were worse tailors, and that we ought not to mistake a good suit for a good heart.

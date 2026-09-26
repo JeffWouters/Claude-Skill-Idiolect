@@ -1,0 +1,9 @@
+Every rogue has his reasons, but few have set them down as completely as the notorious rogue whose memoir I have been reading. He does not ask the reader to forgive him. He asks the reader to agree with him, and he lays out his arguments with such confidence that one is half inclined to do so before remembering where they led.
+
+Consider his defense of counterfeiting. He did not regard it as a crime so much as a public service. The country, as he describes it, was short of money. Trade was hampered, honest people could not pay their debts, and business stood still for want of coin. He had the skill to supply the deficiency, and so he supplied it. The coins he made passed from hand to hand and did exactly what coins are supposed to do; they kept the wheels turning. Where, he wants to know, was the harm?
+
+The authorities took a different view of the matter, and his reasoning landed him behind bars. He records this without bitterness, as a man might record that the weather turned against him. The argument had been sound; the world had simply failed to appreciate it.
+
+His choice of the pulpit is justified in the same practical spirit. When he looked about him for a respectable calling, he found that most of the doors were closed. Law required money for study, and he had none. Medicine required money too. A trade required an apprenticeship and the means to support himself through it. The ministry, by contrast, required very little outlay. A man with a good voice and a ready tongue could set up as a preacher more or less at once. And so he did.
+
+There is no suggestion in his account that he felt any particular call. He chose the pulpit as another man might choose a shop that was going cheap, because it was available and within his means. [example needed] What is striking is not that he reasoned this way, but that he saw nothing in the reasoning that needed to be concealed.

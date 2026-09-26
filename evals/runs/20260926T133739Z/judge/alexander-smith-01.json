@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "A": "Modern plain register with contractions-free but conversational, self-deprecating wry tone; no exclamations, questions or period diction, so it sounds nothing like the passage's ornate Victorian present-tense reverie.",
+  "B": "Present tense, sudden exclamation and rhetorical questions, double-hyphen dashes, 'To-morrow' and period diction match the passage's movement and punctuation closely; a few archaisms ('nay', 'whither', 'foolishest') edge towards caricature but not enough to lose first place.",
+  "C": "Right period register, long semicolon-linked sentences and similes fit well, but it is past-tense narration with polished epigrams and none of the passage's exclamations or excited questions, so it reads as a more measured, aphoristic essayist."
+ }
+}

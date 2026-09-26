@@ -1,0 +1,1582 @@
+{
+ "summary": {
+  "run": "20260926T133739Z",
+  "authors": {
+   "alexander-smith": {
+    "briefs": 10,
+    "counted": 1,
+    "excluded_recognised": 9,
+    "wins_vs_plain": 0,
+    "wins_vs_fewshot": 0,
+    "rate_vs_plain": 0.0,
+    "rate_vs_fewshot": 0.0,
+    "mean_flags": {
+     "plain": 7.0,
+     "fewshot": 6.0,
+     "idiolect": 1.0
+    },
+    "all_briefs": {
+     "vs_plain": 9,
+     "vs_fewshot": 4
+    }
+   },
+   "alice-meynell": {
+    "briefs": 7,
+    "counted": 0,
+    "excluded_recognised": 7,
+    "wins_vs_plain": 0,
+    "wins_vs_fewshot": 0,
+    "rate_vs_plain": null,
+    "rate_vs_fewshot": null,
+    "mean_flags": {
+     "plain": 0.0,
+     "fewshot": 0.0,
+     "idiolect": 0.0
+    },
+    "all_briefs": {
+     "vs_plain": 7,
+     "vs_fewshot": 0
+    }
+   },
+   "arthur-christopher-benson": {
+    "briefs": 10,
+    "counted": 1,
+    "excluded_recognised": 9,
+    "wins_vs_plain": 1,
+    "wins_vs_fewshot": 1,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 1.0,
+    "mean_flags": {
+     "plain": 5.0,
+     "fewshot": 0.0,
+     "idiolect": 0.0
+    },
+    "all_briefs": {
+     "vs_plain": 10,
+     "vs_fewshot": 5
+    }
+   },
+   "samuel-mcchord-crothers": {
+    "briefs": 10,
+    "counted": 8,
+    "excluded_recognised": 2,
+    "wins_vs_plain": 7,
+    "wins_vs_fewshot": 3,
+    "rate_vs_plain": 0.875,
+    "rate_vs_fewshot": 0.375,
+    "mean_flags": {
+     "plain": 2.12,
+     "fewshot": 3.75,
+     "idiolect": 0.75
+    },
+    "all_briefs": {
+     "vs_plain": 7,
+     "vs_fewshot": 3
+    }
+   },
+   "synthetic-idris": {
+    "briefs": 10,
+    "counted": 10,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 10,
+    "wins_vs_fewshot": 4,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.4,
+    "mean_flags": {
+     "plain": 8.5,
+     "fewshot": 2.8,
+     "idiolect": 0.5
+    },
+    "all_briefs": {
+     "vs_plain": 10,
+     "vs_fewshot": 4
+    }
+   },
+   "synthetic-noor": {
+    "briefs": 10,
+    "counted": 10,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 10,
+    "wins_vs_fewshot": 8,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.8,
+    "mean_flags": {
+     "plain": 7.6,
+     "fewshot": 2.4,
+     "idiolect": 1.5
+    },
+    "all_briefs": {
+     "vs_plain": 10,
+     "vs_fewshot": 8
+    }
+   }
+  },
+  "groups": {
+   "real": {
+    "briefs": 37,
+    "counted": 10,
+    "excluded_recognised": 27,
+    "wins_vs_plain": 8,
+    "wins_vs_fewshot": 4,
+    "rate_vs_plain": 0.8,
+    "rate_vs_fewshot": 0.4,
+    "mean_flags": {
+     "plain": 2.9,
+     "fewshot": 3.6,
+     "idiolect": 0.7
+    },
+    "pass": false,
+    "all_briefs": {
+     "vs_plain": 33,
+     "vs_fewshot": 12
+    }
+   },
+   "synthetic": {
+    "briefs": 20,
+    "counted": 20,
+    "excluded_recognised": 0,
+    "wins_vs_plain": 20,
+    "wins_vs_fewshot": 12,
+    "rate_vs_plain": 1.0,
+    "rate_vs_fewshot": 0.6,
+    "mean_flags": {
+     "plain": 8.05,
+     "fewshot": 2.6,
+     "idiolect": 1.0
+    },
+    "pass": false,
+    "all_briefs": {
+     "vs_plain": 20,
+     "vs_fewshot": 12
+    }
+   }
+  }
+ },
+ "rows": [
+  {
+   "id": "alexander-smith-01",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 459,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "high",
+    "why": "The village 'Dreamthorp' and the ruined castle and lake are from the opening essay of Smith's Dreamthorp (1863)."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 1,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "alexander-smith-02",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 450,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "medium",
+    "why": "Reads like the Chaucer essay in Dreamthorp (1863): Hazlitt quotation, Festus vs The Princess contrast, ornate Victorian essay style."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 6,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alexander-smith-03",
+   "author": "alexander-smith",
+   "essay": "12-on-vagabonds.md",
+   "words": 457,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "high",
+    "why": "Recognised as the essay 'On Vagabonds' from Dreamthorp (1863), ending 'Nature makes us vagabonds, the world makes us respectable.'"
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 2,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alexander-smith-04",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 452,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "high",
+    "why": "Opening of the 'Dreamthorp' essay from Alexander Smith's 1863 collection 'Dreamthorp: A Book of Essays Written in the Country'; the village name and canal passage are distinctive."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 2,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alexander-smith-05",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 470,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "medium",
+    "why": "Reads like the 'Geoffrey Chaucer' essay in Dreamthorp (1863): Victorian essayistic voice, Burns/Clarinda aside, 'Shakspeare' spelling, 'Let us go nearer' lead-in to the pilgrims."
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 1,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alexander-smith-06",
+   "author": "alexander-smith",
+   "essay": "12-on-vagabonds.md",
+   "words": 470,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "medium",
+    "why": "Reads like the essay 'On Vagabonds' from Dreamthorp (1863): Victorian familiar-essay voice, the 'Shakspeare' spelling, and musings on Arden and Gonzalo's commonwealth."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "alexander-smith-07",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 308,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "high",
+    "why": "Recognised as the ruined castle and chapel passage from the title essay of Dreamthorp (1863)."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "alexander-smith-08",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 342,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "plain",
+    "idiolect"
+   ],
+   "win_plain": false,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Charles Cowden Clarke",
+    "confidence": "low",
+    "why": "A 19th-century prose retelling of Chaucer's Man of Law's Tale (Constance and Alla); I guess Clarke's Tales from Chaucer in Prose, but several similar retellings exist."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 6,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alexander-smith-09",
+   "author": "alexander-smith",
+   "essay": "01-dreamthorp.md",
+   "words": 339,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "high",
+    "why": "The village name 'Dreamthorp' and the reflective Victorian essayist voice point to Alexander Smith's essay collection Dreamthorp (1863)."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 4,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "alexander-smith-10",
+   "author": "alexander-smith",
+   "essay": "10-geoffrey-chaucer.md",
+   "words": 358,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Alexander Smith",
+    "confidence": "medium",
+    "why": "Reads like the 'Geoffrey Chaucer' essay in Dreamthorp (1863): a Victorian familiar essay on the Prologue, with the Epsom race-day comparison."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alice-meynell-01",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 489,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "medium",
+    "why": "Late-Victorian essay on biographical reticence about death and illness (Rossetti, Shelley) in Meynell's compressed, paradox-laden style, likely from The Rhythm of Life essays."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 1,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "alice-meynell-02",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 391,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "high",
+    "why": "Recognisable as her essay on the illusion of historic time (The Rhythm of Life, 1893): the child's 'ten years' rule', 'undeception', the Argonauts."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 3,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "alice-meynell-03",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 365,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "high",
+    "why": "Recognisable as Meynell's essay on the death of birds (The Colour of Life, 1896): frost of '95, the Oxford Shelley memorial, and her aphoristic late-Victorian essay style."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 1,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "alice-meynell-04",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 303,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "medium",
+    "why": "Late-Victorian essay prose on childhood's immeasurable time; matches Meynell's 'The Illusion of Historic Time' (The Rhythm of Life, 1893)."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 5,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "alice-meynell-05",
+   "author": "alice-meynell",
+   "essay": "22-a-point-of-biography.md",
+   "words": 330,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "medium",
+    "why": "Late-Victorian essay on the hidden dying of wild creatures; the mannered, epigrammatic prose and 'twinkle back at the bird' conceit read like Meynell's nature essays."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 1,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "alice-meynell-06",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 367,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "medium",
+    "why": "Reads like her essay 'The Illusion of Historic Time' (The Rhythm of Life, 1893): childhood as each man's only Antiquity, compressed late-Victorian essay style."
+   },
+   "flags": {
+    "plain": 3,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "alice-meynell-07",
+   "author": "alice-meynell",
+   "essay": "32-the-illusion-of-historic-time.md",
+   "words": 338,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Alice Meynell",
+    "confidence": "medium",
+    "why": "Recognisable as her essay 'The Illusion of Historic Time' (The Rhythm of Life, 1893): the child's ten-year measure of antiquity, the Parthenon on a hill of ages."
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 5,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-01",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 389,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Arthur Christopher Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective-essay voice on solitude and congenial society closely matches A. C. Benson's From a College Window essays."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 1,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-02",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 436,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective essay voice, 'dulness' spelling, gentle social satire of a dinner-party bore, typical of Benson's From a College Window-era essays; no exact passage recall."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 1,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-03",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 367,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "low",
+    "why": "Edwardian reflective essay style: long qualified sentences, liberal non-dogmatic Christianity, gentle anecdote; resembles Benson's essay collections but I do not recognise the specific text."
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 0,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-04",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 354,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian Cambridge-don essay voice on university society and calls, very like Benson's From a College Window (1906)."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 1,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-05",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 336,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective essay voice on biography and ecclesiastical diaries, strongly resembling Benson's From a College Window."
+   },
+   "flags": {
+    "plain": 5,
+    "fewshot": 1,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-06",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 336,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective-essay voice on subjective religion, long balanced triadic clauses, Juvenal quotation and 'Fatherly Heart of God' fit Benson's essays (e.g. From a College Window era)."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-07",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 310,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective essay on social calls and duty, in the urbane, self-examining voice of Benson's 'From a College Window' essays."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-08",
+   "author": "arthur-christopher-benson",
+   "essay": "10-the-criticism-of-others.md",
+   "words": 314,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Leisurely Edwardian first-person reflective essay on character and friendship, typical of Benson's 'From a College Window' style essays."
+   },
+   "flags": {
+    "plain": 10,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-09",
+   "author": "arthur-christopher-benson",
+   "essay": "17-religion.md",
+   "words": 354,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "A. C. Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective-essay voice on Christianity captured by worldly power, very like Benson's From a College Window / The Upton Letters, but I cannot place the exact passage."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 4,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "arthur-christopher-benson-10",
+   "author": "arthur-christopher-benson",
+   "essay": "04-sociabilities.md",
+   "words": 466,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": true,
+   "recognition": {
+    "name": "Arthur Christopher Benson",
+    "confidence": "medium",
+    "why": "Edwardian reflective-essay voice with pseudonymous friends (Perry, Egeria) and musings on sociability, matching Benson's From a College Window."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-01",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 322,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genial ironic essay voice that ventriloquizes a cynic, circa-1900 anti-imperialist satire ('manifest destiny', 'unwilling beneficiaries of civilization'), and the extended dressmaking metaphor all fit Crothers's essays, but I recall no specific source text."
+   },
+   "flags": {
+    "plain": 0,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-02",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 309,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genial essayist's irony, a Chaucer allusion and a humorous Western mining-town sketch suggest Crothers, but I do not recognise the specific passage."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-03",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 350,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "plain",
+    "idiolect"
+   ],
+   "win_plain": false,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "medium",
+    "why": "Genteel early-1900s ironic essay style on Stephen Burroughs as the complacent scamp, matching Crothers' essays (likely The Pardoner's Wallet)."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 4,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-04",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 364,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "plain",
+    "idiolect"
+   ],
+   "win_plain": false,
+   "win_fewshot": false,
+   "recognised": true,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "medium",
+    "why": "Genial, ironic early-1900s American familiar essay on peace, citing John Fiske and biblical anecdote, matches Crothers's style and themes."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 6,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-05",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 456,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genteel humorous essay voice with Nevada silver-country reminiscence (Gold Hill, Sandy Bowers) fits Crothers, who ministered in Nevada early on; no specific essay recalled."
+   },
+   "flags": {
+    "plain": 2,
+    "fewshot": 5,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-06",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 304,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "plain",
+    "idiolect"
+   ],
+   "win_plain": false,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genteel, wry early-1900s American essay voice on moral reasoning (reformed forger, analogies) resembles Crothers' essays, e.g. The Pardoner's Wallet; no verbatim recall."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 4,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-07",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 312,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Mark Twain",
+    "confidence": "low",
+    "why": "The deadpan satirical punchline about forced conversion ('the Christ is stronger... but they did believe it') reads like Twain's late anti-religious essays, but I can't place the exact text; it could be another freethought writer quoting the Morris/Magnusson Heimskringla."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 6,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-08",
+   "author": "samuel-mcchord-crothers",
+   "essay": "07-a-community-of-humorists.md",
+   "words": 306,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "plain",
+    "fewshot"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genial early-1900s American essay voice with a minister's eye (homiletics, parish calls), a Cranford allusion and Bret Harte's 'Thompson of Angel's'; fits Crothers' essays, but I don't specifically recall this text."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 3,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-09",
+   "author": "samuel-mcchord-crothers",
+   "essay": "09-as-he-sees-himself.md",
+   "words": 327,
+   "group": "real",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Wry, genteel essay on the rogue Stephen Burroughs's memoirs reads like Crothers's early-1900s Atlantic essays, but I can't place the exact text."
+   },
+   "flags": {
+    "plain": 1,
+    "fewshot": 5,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "samuel-mcchord-crothers-10",
+   "author": "samuel-mcchord-crothers",
+   "essay": "05-the-difficulties-of-the-peacemakers.md",
+   "words": 322,
+   "group": "real",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": "Samuel McChord Crothers",
+    "confidence": "low",
+    "why": "Genial, allusive early-20th-century American essay voice (Milton quotation, ironic 'novices not hypocrites' turn) resembles Crothers, but I recall no specific source text."
+   },
+   "flags": {
+    "plain": 4,
+    "fewshot": 2,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-01",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 345,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective workplace-essay prose with British spelling; no distinctive phrasing, references or style I can tie to a known author."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "synthetic-idris-02",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 304,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective essay prose on software estimation (British spelling, measured academic hedging); no distinctive markers tie it to a known author."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 4,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-03",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 307,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective British-register essay prose on deadlines; no distinctive phrasing, references or known text I can attribute to a specific author."
+   },
+   "flags": {
+    "plain": 10,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "synthetic-idris-04",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 314,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "A generic modern essay on relearning technical skills, in British spelling with long semicolon sentences and rhetorical questions; nothing in it points to an author I know."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "synthetic-idris-05",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 301,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "A reflective modern essay on project status reports with no distinctive markers I can tie to a known author or text."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-06",
+   "author": "synthetic-idris",
+   "essay": "01-the-recurring-meeting.md",
+   "words": 333,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective workplace-essay prose (British spelling, hedged rhetorical questions); no distinctive markers matching any author I know."
+   },
+   "flags": {
+    "plain": 9,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-07",
+   "author": "synthetic-idris",
+   "essay": "02-honest-estimates.md",
+   "words": 300,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective essay on software estimation in British spelling; no distinctive phrasing I can tie to a known author, and it reads like a style pastiche."
+   },
+   "flags": {
+    "plain": 9,
+    "fewshot": 2,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-08",
+   "author": "synthetic-idris",
+   "essay": "07-the-deadline-as-fiction.md",
+   "words": 324,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Generic reflective British-spelling essay on software deadlines; no distinctive phrasing or content I can tie to a known author or work."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-idris-09",
+   "author": "synthetic-idris",
+   "essay": "08-learning-in-public.md",
+   "words": 429,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Hedged, British-spelled essay on learning in engineering teams; the style is generic and I don't recognise the text or its author."
+   },
+   "flags": {
+    "plain": 10,
+    "fewshot": 3,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "synthetic-idris-10",
+   "author": "synthetic-idris",
+   "essay": "12-the-status-update.md",
+   "words": 429,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Measured, British-spelled reflective essay on status updates; generic register with no identifying phrasing or known source I can place."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 2,
+    "idiolect": 0
+   }
+  },
+  {
+   "id": "synthetic-noor-01",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 302,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "A plain, short-sentence first-person account of fixing a dripping tap, with no clue in it that points to any known author."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-noor-02",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 327,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain short-sentence commuter vignette with no distinctive markers I can tie to any known author; reads like a synthetic or unpublished passage."
+   },
+   "flags": {
+    "plain": 10,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "synthetic-noor-03",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 327,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain, short-sentence domestic personal essay with no distinctive markers I can tie to any known author; reads like a synthetic or fixture text."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 4,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-noor-04",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 309,
+   "group": "synthetic",
+   "rank": [
+    "fewshot",
+    "idiolect",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": false,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain first-person how-to about bleeding radiators (euros, so continental Europe); no voice or text I recognise from any known author."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-noor-05",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 324,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain first-person essay on darning socks in short simple sentences; the style matches no author I know and it reads like generated or fixture text."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 3,
+    "idiolect": 1
+   }
+  },
+  {
+   "id": "synthetic-noor-06",
+   "author": "synthetic-noor",
+   "essay": "01-the-kitchen-tap.md",
+   "words": 320,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain, clipped first-person domestic-repair prose with no distinctive markers I can tie to any known author."
+   },
+   "flags": {
+    "plain": 9,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "synthetic-noor-07",
+   "author": "synthetic-noor",
+   "essay": "03-the-7-42-train.md",
+   "words": 316,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain, simple first-person commuter vignette with no distinctive markers I can tie to any known author; likely generated or synthetic text."
+   },
+   "flags": {
+    "plain": 7,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "synthetic-noor-08",
+   "author": "synthetic-noor",
+   "essay": "09-the-list-on-the-fridge.md",
+   "words": 306,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain, short-sentence domestic essay about a fridge to-do list; no distinctive markers matching any author I know."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 3,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "synthetic-noor-09",
+   "author": "synthetic-noor",
+   "essay": "10-bleeding-the-radiators.md",
+   "words": 318,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain first-person how-to on bleeding radiators in short declarative sentences; no distinctive markers that match any author I know."
+   },
+   "flags": {
+    "plain": 8,
+    "fewshot": 2,
+    "idiolect": 2
+   }
+  },
+  {
+   "id": "synthetic-noor-10",
+   "author": "synthetic-noor",
+   "essay": "11-darning-a-sock.md",
+   "words": 306,
+   "group": "synthetic",
+   "rank": [
+    "idiolect",
+    "fewshot",
+    "plain"
+   ],
+   "win_plain": true,
+   "win_fewshot": true,
+   "recognised": false,
+   "recognition": {
+    "name": null,
+    "confidence": "none",
+    "why": "Plain, short-sentence how-to prose about darning socks; no distinctive markers tying it to any author I know."
+   },
+   "flags": {
+    "plain": 6,
+    "fewshot": 1,
+    "idiolect": 1
+   }
+  }
+ ]
+}

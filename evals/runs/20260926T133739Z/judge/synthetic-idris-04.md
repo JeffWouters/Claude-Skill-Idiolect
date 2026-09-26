@@ -1,0 +1,39 @@
+# Judge packet synthetic-idris-04
+
+## The passage (by the author)
+
+What does it feel like to become a beginner again after a long period of competence? Most of us in technical work will face the question repeatedly, since the tools and languages and platforms we depend upon change with a regularity that makes permanent expertise almost impossible; the skills that made us valuable not long ago may now be of diminishing relevance, and the new skills we need must be acquired while we continue to be expected to perform. It is an uncomfortable position, arguably more uncomfortable for experienced practitioners than for newcomers, since the experienced have grown accustomed to the feeling of knowing what they are doing and have perhaps forgotten what it is like not to. I suspect that a great deal of resistance to new technology, which is usually described in terms of technical merit, is really a resistance to that feeling of incompetence. We defend the familiar tool not because it is better but because we are better at it, and because the alternative would require us to be seen struggling.
+
+There is also the question of where the learning is supposed to happen. Organisations speak warmly about continuous learning and professional development, and some of them genuinely mean it; yet the actual structure of most working weeks leaves remarkably little room for the slow, inefficient, exploratory activity that real learning requires. You are expected to acquire the new skill somehow, perhaps in the margins of the day or in your own time, while delivering at the level you delivered before. Is it surprising that people tend to learn only as much as is immediately necessary, picking up fragments of a new technology in the course of solving particular problems without ever developing a coherent understanding of how it works? The result is a kind of patchwork competence, adequate for the tasks at hand but brittle whenever something unexpected occurs.
+
+## Draft A
+
+What happens to an experienced engineer when the technology they know well is replaced by something they do not know at all? It may be that the familiar resistance to new tools, the objections about maturity and churn, is not always what it appears to be. I suspect it is frequently a way of avoiding a more uncomfortable feeling.
+
+Consider what it is like, after years of being the person others come to with questions, to sit in front of an unfamiliar system and not know how to do the simplest thing. The expertise that once defined you is suddenly of limited use; the questions now flow in the other direction; the confidence that came from long practice gives way to something that feels, in some sense, like being a beginner again. Who among us would choose that feeling willingly? Pushback against the new tool is arguably a more comfortable thing to express than this discomfort at feeling unskilled, and it can be dressed in perfectly respectable technical language.
+
+There is also the matter of time, which is where the difficulty becomes less personal and more structural. Employers speak warmly of growth and continuous learning, and yet the working week is usually arranged as though learning happened somewhere else, in evenings or in the gaps between delivery. People learn anyway, because they must, but they learn piecemeal, picking up a fragment here to solve one problem and a fragment there to solve another. The knowledge that results is considerably more fragile than it looks, shallow in places where depth would matter and oddly detailed where it hardly matters, and it tends to give way precisely when something unusual goes wrong and the engineer who was supposed to understand the system discovers that they understood only the parts they happened to touch.
+
+It seems to me that both problems share a root, which is that starting over is treated as a private difficulty rather than an organisational one. Perhaps the question is not whether experienced engineers can learn new things but whether anyone has made room for them to do so.
+
+## Draft B
+
+There is a particular discomfort that comes to experienced engineers when the ground beneath them shifts. Someone who has spent years becoming genuinely good at a set of tools finds that those tools are being replaced, and that the new ones must be learned from the beginning, with all the clumsiness and uncertainty that beginning implies. It is not surprising that such changes are often met with resistance. What is perhaps less often acknowledged is what the resistance is really about.
+
+The objections, when they come, are usually framed in technical terms: the new tool is immature, the migration is risky, the old approach was working perfectly well. Some of these objections are sound. But beneath many of them lies something more personal, which is the unease of feeling unskilled again after a long time of feeling competent. To be a beginner again, late in a career and in front of colleagues who may be younger and quicker, is not a comfortable experience, and it is entirely human to reach for reasons why it should not be necessary.
+
+Organisations, for their part, do not always make this easier. They speak warmly of growth and continuous learning, and they mean it sincerely enough; yet the working week is arranged as though learning were something that happens elsewhere, in time that no one has actually set aside. The engineer is expected to become fluent in the new technology while continuing to deliver everything that was expected before.
+
+The consequence is a kind of learning that happens in fragments — a tutorial in a spare half-hour, an answer found under pressure, a pattern copied from a colleague without being fully understood. Knowledge acquired this way tends to be shallow and fragile. It is sufficient for the task at hand, but it does not bear much weight, and it gives way at precisely the moment when something unexpected happens. We might do better to recognise that starting over is real work, and to treat it as such.
+
+## Draft C
+
+There is a particular moment that experienced engineers know well. A new technology arrives, the team decides to adopt it, and someone who has been good at their job for years suddenly has to start over.
+
+That moment often shows up first as pushback. The new tool is overhyped, the old approach worked fine, the migration is not worth the risk. Sometimes those objections are right. But often they hide something harder to say: the discomfort of feeling unskilled again. When you are used to being the person others come to with questions, becoming the person asking them is unsettling. Arguing about the tool is easier than admitting that.
+
+Employers do not always make this easier. Most organisations praise growth. They talk about learning cultures, put development goals into reviews, and say they want people to keep their skills current. Then they leave no time in the week for any of it. The sprint is full, the backlog is long, and learning becomes something you are expected to do in the margins, as if the margins had room.
+
+So people learn piecemeal. A tutorial in the evening, an answer copied from a forum, a pattern borrowed from a colleague's pull request. Enough to get the task done, not enough to understand why it works. The knowledge that results is fragile and shallow. It holds up on the happy path and gives way the first time something unexpected happens, which is exactly when real understanding matters most.
+
+This is not a failure of the engineers involved. It is the predictable result of asking people to become beginners again without giving them the conditions beginners need: time, room to make mistakes, and the freedom to say they do not know yet. If we want experienced people to adopt new technology well, rather than resist it or skim it, we have to make starting over something the week actually allows for.

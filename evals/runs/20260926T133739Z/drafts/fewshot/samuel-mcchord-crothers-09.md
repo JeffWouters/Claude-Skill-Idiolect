@@ -1,0 +1,9 @@
+The notorious rogue whose adventures I have been following was never at a loss for a reason. He did a great many questionable things in the course of his life, but he never did anything without first making sure that it was right. His method was to find a principle and then to act upon it with a thoroughness that would have done credit to a better cause.
+
+Take, for example, his venture into counterfeiting. He had observed that the public was suffering from a scarcity of money. Trade was hampered, honest men could not pay their debts, and the whole community was in distress for want of a circulating medium. Here was an evil that called for a remedy. He supplied the remedy. He made coins, and put them into circulation, and so relieved the necessities of the people. That the coins were not genuine seemed to him a detail. They did what coins are supposed to do. They passed from hand to hand, and every hand was the better for them while they lasted.
+
+Unfortunately the authorities took a narrower view of public service. His reasoning, however sound it may have seemed to him, landed him behind bars. He does not appear to have been much disturbed by this. He regarded it as one of those misunderstandings to which benefactors are always exposed.
+
+His choice of the ministry was reached by the same kind of reasoning. He wished to enter a profession, and he considered the possibilities in order. The law required money for his training. So did medicine. A trade required money to set up in it. He had no money for any of these. The pulpit, on the other hand, seemed to be open to a man who had nothing but his voice and his assurance, and of these he had a sufficient supply. So he became a preacher. It was not a matter of vocation. It was a practical option, chosen as another man might choose between one road and another.
+
+I do not know that he preached worse than many who entered the ministry for loftier reasons.

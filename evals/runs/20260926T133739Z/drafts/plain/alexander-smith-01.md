@@ -1,0 +1,13 @@
+The afternoon was too warm for anything useful, so I untied the rowing boat from its post and pushed off onto the lake. I did not get away unobserved. A handful of the village children had gathered on the bank, as they always seem to when anything is happening, and they watched me fumble with the oars with the frank interest of people who expect a disaster and would not mind one. Behind them an older onlooker leaned on the fence, saying nothing, which was worse. I managed a few straight strokes, the children lost interest, and the bank slid away behind me.
+
+Once out past the reeds I stopped rowing altogether. There is no point in hurrying on a lake; it goes nowhere, and neither need you. I shipped the oars, lay back against the stern, and let the boat turn slowly on whatever faint current the water had to offer.
+
+The swans came first. They had been watching from the far side and now made their way over in that unhurried, faintly offended manner swans have, as though the lake were theirs and I had come without an invitation. Which, to be fair, I had. They circled once, decided I had no bread, and drifted off again, keeping one eye on me as they went.
+
+On the meadow that runs down to the water the cattle stood knee-deep in the shallows, too hot to graze and too comfortable to move. Now and then one of them lifted its head, looked across the lake at nothing in particular, and lowered it again. I found I envied them. They had solved the problem of a summer afternoon long before I had.
+
+Above it all stood the old castle, or what remains of it. From the water the ruin looks larger and more complete than it does from the road, its broken walls catching the light, its empty windows framing patches of sky. The jackdaws own it now. They wheeled and quarrelled around the top of the tower the whole afternoon, a noisy, restless crowd that never seemed to settle on anything, and their chatter carried across the water long after the rest of the world had gone quiet.
+
+I meant to row back after an hour. I did not. The hours went the way they go on water, without announcing themselves. I watched the shadows of the castle walls stretch out across the meadow, watched the cattle finally wander back up the field, watched the light go from white to gold to something softer than either. I thought about a great many things and settled none of them, which seemed exactly right.
+
+It was the cool that told me the day was over. A small wind came off the water, the swans had gone in among the reeds, and the jackdaws had at last fallen silent on their tower. Dusk was coming up from the far bank. I took up the oars again, stiff and reluctant, and rowed slowly back to shore, where the children, and the onlooker by the fence, had long since gone home.

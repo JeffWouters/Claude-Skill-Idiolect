@@ -1,0 +1,9 @@
+Software teams produce estimates constantly, and few people trust them. Not the engineers who give them, not the managers who pass them on, and not the business that plans around them. Yet the estimates keep coming. It is worth asking why.
+
+Part of the answer is that an estimate is rarely what it claims to be. It presents itself as a measurement: this will take so long. In practice it is a bargain. On one side are the business's wishes, a date that would be convenient, a scope that would be ideal. On the other side are engineering's worries, the unknowns, the dependencies, the parts of the system nobody wants to touch. The number that comes out is where those two sides settled, for now. That is useful information, as long as everyone understands it as a negotiated position rather than a fact.
+
+Trouble starts once that figure turns into a binding promise. Somewhere between the planning meeting and the roadmap, the bargain loses its context. The worries that shaped it are no longer attached. What remains is a number, and a number looks like a commitment. From then on, any change to it reads as a failure rather than as the ordinary result of learning more.
+
+What makes this worse is that planning seldom admits how often past guesses missed. Most teams have a long history of estimates, and most of those estimates were off, sometimes by a lot. That history is rarely brought into the room when the next estimate is made. Each new plan is built as if this time the numbers will hold, even though there is little reason to think so.
+
+The result is a cycle: estimates are asked for, given, hardened into promises, missed, and then asked for again with the same confidence. Breaking it does not require better estimators. It requires being honest about what an estimate is, and about how well our previous ones did.

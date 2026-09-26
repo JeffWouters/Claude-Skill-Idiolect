@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "C",
+  "A"
+ ],
+ "reasons": {
+  "A": "Modern, plain expository voice with short even sentences, no semicolon-balanced clauses, dashes or homely period similes; reads as a present-day critic, not the author.",
+  "B": "Closest match: long sentences balanced on semicolons and '--' asides, confident Victorian assertion leavened with homely concrete touches (eating, sweating, the reckoning), and a string-and-beads close that echoes the author's easy figurative turn without overdoing it.",
+  "C": "Right period register and semicolon rhythm, but piles on rhetorical questions, 'nay', and ornate similes the passage never uses, so it reads as a thicker imitation of the voice rather than the author."
+ }
+}

@@ -1,0 +1,53 @@
+# Judge packet samuel-mcchord-crothers-05
+
+## The passage (by the author)
+
+An English writer laments the fact that the schools send out thousands of persons whose imaginations have been stifled by the too prosaic discipline which they have undergone. “Why,” he says, “is it that ninety-nine persons out of a hundred lose this faculty in the earliest period of their childhood? It is simply because their bringing up has consisted in the persistent inoculation with the material facts of life, and the correspondingly persistent elimination of all imaginative ideas.”
+
+He blames parents who give their children mechanical toys, especially if they are well made. Even a doll should not have too much verisimilitude. “It would be better to place a bundle of rags in the arms of a little girl, and tell her to imagine it to be a baby. She would, if left to herself with no other resource than her own fancy learn to exercise all her dormant powers of imagination and originality.”
+
+That kind of education the Honest Miner has carried into mature life. He is full of imaginative ideas. The barest shanty is glorified in his eyes if it bears the sign “Palace Hotel” or “Delmonico’s.” If he cannot have the thing, he takes satisfaction in the name. Above all else, he craves variety.
+
+The inhabitants of Gold Hill used to relate with pleasure the exploits of Sandy Bowers. When he struck an incredibly rich pocket in the mountain, Sandy built for himself a huge and expensive mansion in Washoe Valley. He imported all kinds of trees from foreign lands, none of which would grow. He filled his house with pianos, and when some one suggested sheet music he telegraphed to New York: “Send me some sheet music, one of every kind.”
+
+It was the desire for one of every kind which induced our community, when it put off the habits of a “camp” and became a “city,” to lift into temporary prominence an elderly farmer from Pennsylvania who had drifted into Nevada without changing any of his ways. He came from York County, where he would have gone on his way unnoticed, for there were so many like him. But in the silver country he was different from the common run of fortune-seekers, therefore he was made much of. Some local Diogenes turned his lantern upon him and discovered that he was an honest man, honest in a plodding, Pennsylvania Dutch fashion. “Honest John” became a man of note. Then some one suggested that we had “in our midst a grand old man.” That was enough to make the political fortune of the honest man. He was elected to a position of power in the new city government, for every one was anxious to see what our “grand old man” would do.
+
+## Draft A
+
+A learned critic has lately been lamenting the decay of fancy among children. He lays the blame upon realistic toys and upon a kind of schooling that leaves nothing to the imagination. The child who is given a perfect model of a locomotive, he says, has no need to make one out of a row of chairs. He is taught what things are before he has had a chance to wonder what they might be. And so, by the time he is grown, the faculty of make-believe has withered away for want of use.
+
+There may be something in this. But I should like to take the critic with me to the silver country, and let him see what becomes of fancy among grown men who have escaped the influences he deplores. The prospector is not a child, but he has kept the child's appetite for wonder. He lives in a world that is always about to be transformed. To-morrow the vein may widen; to-morrow the claim may be sold; to-morrow the camp may be a city. It is a state of mind extremely favorable to the imagination.
+
+What the miner craves above all things is novelty. He is tired of the familiar before it has had time to become familiar. He likes grand names for small places, and he likes a good deal of variety in everything. His idea of luxury is not quality so much as abundance of kinds. I heard of one man who, having grown suddenly rich, sent an order for music. He did not specify what music he wanted. He wanted every kind. The notion of choosing among good things struck him as a needless limitation. Why should a man with money be content with one tune when there were so many?
+
+This love of the unusual has a curious effect on the distribution of honors. In an old community a man becomes distinguished by being better than his neighbors. In the silver country it is enough to be different from them. I knew of a plain farmer from Pennsylvania who had drifted into one of these camps. In his own county he would have been one among thousands of his kind, and nobody would have looked at him twice. But in the camp he was a rarity. He was exactly what he had always been, a plain farmer, and that was precisely what nobody else in the camp was. The miners had never seen anything like it. They regarded him with a mixture of curiosity and respect, as one regards a strange animal that has been brought from a distance.
+
+He became a local celebrity. People pointed him out to newcomers. And in due course, since fame in a new country is easily converted into office, he was elected to a position of trust. He had done nothing to deserve it except to be ordinary in a place where ordinariness was extraordinary. It was not a bad reason, after all. Many men have been elected for worse.
+
+## Draft B
+
+There is a critic who holds that we are killing the imagination of our children. We give them toys that are too realistic, he says, perfect little engines and dolls with real hair, so that nothing is left for the child to supply, and then we send them to schools that teach them facts in such orderly rows that fancy has no room to breathe. The child who once made a kingdom out of a stick and a pile of sand now has the kingdom made for him, and grows up with nothing to do but admire it.
+
+If he is right, and I suspect he partly is, then he should go West and spend a season in the silver country. He would find there a population whose fancy has survived everything, including a good deal of hard schooling in the rocks. The prospector lives in a world that is always about to change. Tomorrow he may be rich; next week he may own a mountain. A man who lives in that condition does not let his imagination go to sleep.
+
+It shows in everything. The miner craves novelty as other men crave bread. He wants the new thing, the strange thing, the thing nobody else in the camp has seen. He gives his claims grand names, names out of history and legend and the Bible, so that a hole in the hillside with a windlass over it may carry a title fit for an empire. And when he has money he wants variety above all. I was told of one man who, having struck it rich, sent for music, and when asked what kind, ordered every kind there was. He did not want to choose. He wanted the whole of it, all at once, because he could have it.
+
+This appetite for the unusual works in curious ways. Anything out of the common is valued simply for being out of the common. A man need not be brilliant or rich or even particularly agreeable; he need only be different from the people around him, and the camp will take him up.
+
+I heard of a case in point. A plain farmer from Pennsylvania, a man who would have passed without notice in any village at home, found himself in one of these towns. There was nothing remarkable about him except that there was nobody else like him there. He was steady where they were restless, and ordinary where they were extravagant. And for precisely that reason he became a celebrity. People talked about him, pointed him out, sought his opinion. Before long they had made him an officeholder. [example needed]
+
+I do not think the farmer ever quite understood what had happened to him. He had not changed; only the background had. But the episode tells us something about the silver country. Its people may have been poorly schooled, and they certainly had no realistic toys, but their fancy was very much alive, and it was always looking for something new to feed on.
+
+## Draft C
+
+A critic of our schools, [name needed: the critic], has lately complained that we are starving the imagination of our children. We give them toys that are exact models of real engines and real houses, so that nothing is left for the mind to supply, and we send them to schools where every fact is delivered in its proper wrapping and nothing is left to be wondered at. The child who once made a kingdom out of a stick and a piece of string now receives the kingdom ready-made, with the parts numbered. His fancy, having no work to do, goes to sleep.
+
+This is all very well, and I have no doubt the critic is right about the children. But if he wishes to see the fancy in full health, untouched by realistic toys or systematic instruction, I would advise him to leave the nursery and travel to the silver country of the West. There he will find it flourishing among grown men, who have had very little schooling and have never been troubled by any toy more realistic than a pick.
+
+The prospector lives on novelty. He has staked his life on the chance that the next hillside will be different from the last, and the habit of expecting the unexpected does not leave him when he comes into town. He likes grand names. A handful of tents will call itself a city, and its streets will carry titles that [example needed: a grand name given to a humble place] would envy. He likes variety, and when he grows rich he wants all of it at once. I have heard of one fortunate miner who, having struck it rich, was asked what kind of music he would have at his entertainment. He could see no reason to choose. He ordered every kind.
+
+Is this vulgarity? Perhaps. Yet it is the vulgarity of an active imagination, and I find it more agreeable than the refinement of a mind that has stopped expecting anything.
+
+The most instructive case is that of a plain farmer from Pennsylvania who found his way into one of these camps. At home he had been the most ordinary of men, indistinguishable from a hundred neighbours who ploughed the same kind of field in the same kind of way. But in the silver country there was nobody like him. His slow speech, his regular habits, his settled opinions about crops and weather were a curiosity which the miners had never encountered, and they valued him accordingly. He became a local celebrity. Before long they elected him to office, not for anything he had done, but for the simple distinction of being unusual in that place. In Pennsylvania he had been a farmer; in the camp he was an institution.
+
+The critic need not despair of the human fancy, therefore. It has only moved West, where there is more room for it.

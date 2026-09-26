@@ -1,0 +1,9 @@
+The conversion of the North was not accomplished by argument. When the king set out to bring his pagan farmers into the fold, he did not trouble himself with the finer points of theology. He had a simpler method, and it had the advantage of being rapid.
+
+He came among the farmers at the time of their gathering, and while they were considering what he had to say, he went into their temple and knocked over their idols. At the same time his men killed a local chief who might have given trouble. It was a double demonstration. The gods had been shown to be unable to stand up, and their chief defender had been shown to be unable to stand at all. The farmers drew their own conclusions.
+
+The king then offered them a choice. They might be baptized, or they might fight. It was a fair offer, as such offers go, and it was clearly put. There was no attempt to confuse the issue with subtleties. Most of them, being practical men, chose baptism. And the king, being a practical man also, took hostages to make sure that the conversion would last. It was a sensible precaution. A faith that has been accepted at the point of the sword needs something more than faith to hold it in place.
+
+I do not wish to be unjust to the king. He may have believed sincerely in the religion he was spreading. But it is plain that he did not rely upon its intrinsic merits. His real argument was that his side was the stronger. The new god had more warriors than the old ones, and that settled the matter. The farmers understood this argument perfectly. It was the only one that had ever been addressed to them in language they could not misinterpret.
+
+It must be confessed that this is not the method recommended in the Gospels. But it was the method that was used, and the historian who would understand the result must reckon with it.

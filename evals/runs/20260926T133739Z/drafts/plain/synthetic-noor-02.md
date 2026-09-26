@@ -1,0 +1,9 @@
+When I first started taking the train every day, I treated the journey as working time. I opened the laptop as soon as I sat down, answered messages, and tried to arrive with something already done. It never worked as well as I hoped. The carriage moved, the connection came and went, and I usually got off feeling I had done neither the work nor the travelling properly. At some point I gave it up. Now I spend the trip looking out of the window or reading, and the journey has become a different thing.
+
+What surprised me is how much there is to see on a route I take every single day. The view is never quite the same, because the seasons keep rearranging it. In one part of the year the fields and gardens along the line are [seasonal detail needed]; in another they are [seasonal detail needed]. The light changes too, and with it the look of the same stretch of track, the same backs of houses, the same stations. Something I barely registered in one month becomes the thing I watch for in the next.
+
+The evenings are a different experience from the mornings. The trains going home are crowded, and there is less room to look out and less quiet to read in. On those journeys the view is often somebody's shoulder, and attention turns inward to the carriage itself: the standing, the shuffling at each stop, the collective wish to be home.
+
+Still, the routine is what has sharpened my attention. When you see the same scene day after day, your eye learns what belongs there, and then any small difference stands out. A new sign, a fence repaired, a window lit that is usually dark, a tree cut back: [example needed]. None of these would register on a journey made once. They only become visible because the rest has become so familiar.
+
+I used to think a daily commute was time lost between one place and another. Now I think of it as the one part of the day when I notice things.

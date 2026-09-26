@@ -1,0 +1,9 @@
+On our refrigerator there is a sheet of paper, and it runs the house more than any other system we have tried. It is a to-do list, written by hand, and it is divided into three sections.
+
+The first section is groceries. Anyone who notices that something is running out adds it there, and whoever does the shopping takes the list, or a photo of it, to the store. The second section is quick tasks: small jobs that take minutes rather than hours, such as [example needed]. The third section is for major projects, the larger jobs that need planning and a free weekend, such as [example needed]. Keeping these apart matters. A quick task should not get lost under a major project, and a major project should not sit alongside the groceries as though it could be done on the way home.
+
+We did not start here. Over the years we tried phone apps, notebooks and a whiteboard. Each had something to recommend it, and each eventually fell out of use. The problem was always the same: visibility. An app lives inside a phone, and a list you have to open is a list you forget. A notebook goes into a drawer or a bag and disappears. The whiteboard was visible, but [reason needed]. The refrigerator, on the other hand, is something everyone in the house looks at many times a day. A list on its door gets seen without anyone having to go looking for it, and a list that gets seen gets used.
+
+The last lesson was about the writing itself. After some experiment we settled on pencil on paper, and it has proved the most reliable combination of all. Pencil does not run dry, does not smudge in the way some markers do, and can be corrected without making a mess. Paper needs no charging, no updates and no login. When a sheet is full, we start a new one.
+
+It is a low-tech answer, but it works, and it keeps working.

@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "B": "Long, accumulating sentences joined by semicolons and relative clauses, a rhetorical question opening the turn, measured 'I suspect' hedging and a single dash match the passage's rhythm and reflective stance without overdoing it.",
+  "A": "Right register and sentence length with semicolons and a rhetorical question, but it stacks hedges ('It may be that', 'I suspect', 'It seems to me', 'arguably somewhat', 'Perhaps') more thickly than the passage, tipping toward imitation.",
+  "C": "Short, clipped sentences, fragments, second-person imperatives and a brisk advice-column tone are far from the passage's long, hedged, contemplative periods."
+ }
+}

@@ -1,0 +1,13 @@
+Engineering teams talk a lot about learning. They run lunch sessions, share links, and put growth goals in everyone's review. Yet in many teams, the actual experience of learning, the part where you do not understand something yet, stays mostly hidden. People learn in private and show up in public only once they have figured it out.
+
+That is a missed opportunity. When someone admits confusion publicly, everyone learns quicker. A question asked in a shared channel gets answered once, for everyone who had the same question and did not ask it. A half-formed understanding, said out loud, gets corrected before it spreads. A colleague who says they are stuck on something often turns out to be stuck on the same thing as three other people, and the team solves it together instead of four times over. Openness about not knowing is not a weakness in a team's learning. It is the mechanism.
+
+So why is it so rare? Mostly because knowledge works as status. In engineering, being the person who knows is a source of standing. People come to you, your opinion carries weight, your name comes up when something difficult needs doing. That standing is earned, and it is also fragile. Every visible gap in your knowledge feels like a small withdrawal from it.
+
+This weighs heaviest on senior engineers. The more your role is defined by knowing things, the more exposed you feel when you do not. Juniors are expected to ask questions. Seniors are expected to answer them. So seniors often fear showing ignorance more than anyone, and the result is that the people whose example matters most are the ones least likely to show the team what learning looks like.
+
+I think this rests on a mistaken idea of what competence is. Real competence in a field that keeps changing does not mean having finished learning. It means continuing to learn, steadily and without embarrassment. The engineers people most admire are rarely the ones who seem to know everything. They are the ones who stay curious. They ask the naive question in the meeting, say they have not used a tool before, and treat not knowing as the ordinary starting point for knowing.
+
+Making learning open and normal, then, starts at the top. When senior people say "I do not know, let me find out" in front of others, they lower the cost of saying it for everyone else. They show that status and curiosity are not in conflict. And over time, the team stops treating confusion as something to hide and starts treating it as something to share.
+
+That shift does not need a programme or a budget. [example needed] It needs a few people willing to go first.

@@ -1,0 +1,22 @@
+# Files opened (w6)
+- /tmp/claude-0/gen-fewshot-w6.txt
+- briefs/w6-01.md
+- fewshot/w6-01.md
+- briefs/w6-02.md
+- fewshot/w6-02.md
+- briefs/w6-03.md
+- fewshot/w6-03.md
+- briefs/w6-04.md
+- fewshot/w6-04.md
+- briefs/w6-05.md
+- fewshot/w6-05.md
+- briefs/w6-06.md
+- fewshot/w6-06.md
+- briefs/w6-07.md
+- fewshot/w6-07.md
+- briefs/w6-08.md
+- fewshot/w6-08.md
+- briefs/w6-09.md
+- fewshot/w6-09.md
+- briefs/w6-10.md
+- fewshot/w6-10.md

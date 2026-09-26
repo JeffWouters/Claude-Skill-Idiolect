@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "A",
+  "B",
+  "C"
+ ],
+ "reasons": {
+  "A": "Short first-person past-tense declaratives with fragments, 'So to...' openers and brief present-tense rules of thumb match the passage's movement and plain, quietly confiding stance most closely.",
+  "B": "Sentence length is right, but it shifts into imperative, second-person how-to instruction and stacks aphorisms ('It is a small part. It is the whole fix.'), which gives it a manual's stance rather than the author's first-person account.",
+  "C": "Long, smoothly joined sentences with semicolons, colons and reflective abstraction ('the moment of truth', 'worth every minute') are far from the passage's clipped rhythm and spare diction."
+ }
+}

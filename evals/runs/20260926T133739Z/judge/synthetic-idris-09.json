@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "C",
+  "B",
+  "A"
+ ],
+ "reasons": {
+  "A": "Short, punchy declaratives and fragments with little hedging or clause-building; a plain modern blog cadence far from the passage's long, qualified, semicolon-linked sentences.",
+  "B": "Long periodic sentences and semicolon series fit, but it leans on second-person 'you' address the passage never uses and stacks the hedges ('It may be', 'I suspect', 'arguably', 'perhaps') more thickly than the author, tipping towards caricature.",
+  "C": "Measured, impersonal and lightly hedged ('I suspect', 'It seems to me', 'rightly or wrongly'); long balanced sentences joined by semicolons and dashes, with rhythm and a reflective, essayistic stance closest to the passage without overdoing its tics."
+ }
+}

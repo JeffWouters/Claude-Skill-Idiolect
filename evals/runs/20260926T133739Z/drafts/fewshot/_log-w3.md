@@ -1,0 +1,16 @@
+Files opened:
+- /tmp/claude-0/gen-fewshot-w3.txt
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-01.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-02.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-03.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-04.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-05.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-06.md
+- /tmp/claude-0/eval-20260926T133739Z/briefs/w3-07.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-01.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-02.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-03.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-04.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-05.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-06.md
+- /tmp/claude-0/eval-20260926T133739Z/fewshot/w3-07.md

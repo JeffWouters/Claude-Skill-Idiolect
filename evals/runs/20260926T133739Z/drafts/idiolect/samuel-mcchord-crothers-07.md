@@ -1,0 +1,9 @@
+The conversion of a people is commonly described as the work of the missionary, who goes among them with a book and a patient temper and wins them over one by one. There was a Norwegian king, [name needed: the king], who had no patience with so slow a method. He had embraced the new faith himself, and he saw no reason why his subjects should be allowed the luxury of making up their own minds about it.
+
+His procedure had the merit of simplicity. He would arrive at a district where the farmers still kept the old gods, walk into their temple, and knock the idols over with his own hands. While the worshippers were considering this theological argument, his men would kill the local chief. The farmers were then invited to reflect.
+
+They were offered a choice, and the king was scrupulous about offering it. They might be baptized, or they might fight. Most of them, having looked at the fallen idols and the fallen chief, found the case for baptism unexpectedly persuasive. But the king was a practical man and did not trust sudden conversions, so he took hostages from the villages as a guarantee that the new faith would still be there when he came back.
+
+"Surely," you say, "this was not conversion at all." I am not so sure. The farmers were not fools. They had been taught that the gods rewarded those who served them, and here was a god whose servant had just proved stronger than all their own. By the only standard they knew, the demonstration was complete. The king understood this perfectly; he preached the doctrine they were equipped to understand, and he preached it with an axe.
+
+It would be pleasant to believe that the gospel of peace won the North by its own gentleness. The record suggests otherwise. The real argument for the new faith was superior force, and it proved, as it usually does, remarkably convincing.

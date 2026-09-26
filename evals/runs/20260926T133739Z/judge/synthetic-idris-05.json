@@ -1,0 +1,12 @@
+{
+ "ranking": [
+  "B",
+  "A",
+  "C"
+ ],
+ "reasons": {
+  "B": "Closest match: it opens with a question, uses long sentences joined by semicolons, and hedges as the passage does ('It may be', 'I suspect', 'arguably'). It stacks hedges a little thicker than the passage and has no dashes.",
+  "A": "The long, measured sentences, the dashes and the formal register with no contractions fit well. But the stance is more impersonal, with no first-person suspicion and no questions, and a few short, punchy sentences break the passage's rhythm.",
+  "C": "Mostly short, declarative sentences that speak to the reader as 'you', with a plain tone that tells the reader what to do and a neat closing line. That is far from the passage's long, qualified sentences, where the author thinks things through with the reader."
+ }
+}
