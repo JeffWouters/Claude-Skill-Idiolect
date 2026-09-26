@@ -48,6 +48,18 @@
   "should_trigger": true
  },
  {
+  "query": "Export my Idiolect voice profile as one prompt I can paste into another AI tool for my LinkedIn posts.",
+  "should_trigger": true
+ },
+ {
+  "query": "Have Idiolect learn my voice from my blog's RSS feed at https://example.com/feed.xml, only the posts I wrote myself.",
+  "should_trigger": true
+ },
+ {
+  "query": "I have transcripts of my conference talks as .vtt files. Can Idiolect build a spoken-voice profile from them?",
+  "should_trigger": true
+ },
+ {
   "query": "Rewrite this in my voice: 'We are pleased to announce that the new PowerShell module is now available on the gallery. It offers numerous improvements.'",
   "should_trigger": false
  },
@@ -93,6 +105,18 @@
  },
  {
   "query": "Interview me about my career so far and turn it into a short bio for a conference page.",
+  "should_trigger": false
+ },
+ {
+  "query": "Export this Word document to PDF and keep the headings as bookmarks.",
+  "should_trigger": false
+ },
+ {
+  "query": "Transcribe this meeting recording and summarise the decisions.",
+  "should_trigger": false
+ },
+ {
+  "query": "Summarise the last ten posts on https://example.com/blog in a table.",
   "should_trigger": false
  }
 ]

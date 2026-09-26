@@ -8,7 +8,7 @@ Updated 26 September 2026 · JeffOps · diagrams as JeffOps cards in `idiolect-d
 - **Keeps lessons** in a store the writer chooses, split into profiles and slots. Every change is approved from a diff and can be rolled back.
 - **Writes** from the learned profile and a few real example passages, and never invents facts.
 - **Proves itself** in blind tests against a plain draft and against a draft given the same examples.
-- **v1 runs locally** (Claude Code, or any session with a shell on the writer's machine). A bridged cloud route comes later.
+- **Runs where a shell reaches the files:** locally (Claude Code, or any session with a shell on the writer's machine), or from a cloud session bridged to that machine (Runtime).
 
 **Reading order.** Concept (glossary, principles, non-goals) → Using it (parameters, modes, worked example) → Internals (runtime, pipeline, adapters, lessons, facets, store, integration, guardrails) → Building it (package, quality plan, build plan, decisions, open questions).
 
@@ -608,7 +608,7 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | 3. Writing | `write`, `rewrite` with `depth`, `report` and `explain`; `check` with the report and caricature guard; resolution order; `interactive=false` and `needs_input`; evaluation harness; trigger tests. **Entry condition:** the `my-writing-style` question is decided (it is: runs alongside; see Triggering) | Idiolect meets the bar on the unknown-author tests: the synthetic authors (met in runs 5 and 6) and the writer's own profile, judged blind by the writer (`evals/eval-protocol.md`). **Closed by the writer's decision** on the synthetic result (decision log); the writer's own test and the trigger tests move to phase 4 |
 | 4. Validation | `test` with holdout flagging and topic-only briefs; the writer's own blind test (`evals/eval-protocol.md`, last section) and the trigger tests, carried over from phase 3 | A learned text flagged as holdout triggers a relearn first; over three runs, per-metric drift shrinks within tolerance when fixture texts are added and relearned (made precise in the decision log). **Done:** `tests/test_holdout.py`, `evals/drift-trend.py`, trigger tests 20 of 20; the writer's own blind test is available as `test judge=true` and waits for the writer's texts |
 | 5. Feedback | `learn-edit` and the edit store, `interview`, `mailfile` adapter, extra facets with `migrate.py`, inheritance (and inherited rulings in `status`) | Scripted edit pairs produce edit lessons that survive a relearn; a migrated store with a new facet resolves correctly. **Done:** `tests/test_learn_edit.py` (the six pairs give the expected lessons, which survive a relearn and a seventh pair), `tests/test_facets_inheritance.py`, `tests/test_interview.py`, `tests/test_mailfile.py` |
-| 6. Reach | Bridged runtime route, `export`, `web`, `m365-mail` and `transcript` adapters, calls from other skills | A publishing skill gates on `check` with `interactive=false`, an exported prompt works in another tool, and a learn runs end to end over the bridge |
+| 6. Reach | Bridged runtime route, `export`, `web`, `m365-mail` and `transcript` adapters, calls from other skills | A publishing skill gates on `check` with `interactive=false`, an exported prompt works in another tool, and a learn runs end to end over the bridge. **Done:** `evals/callers/` (live `claude -p` run: the writer's passage published, a plain draft refused), `evals/export-test/` (export in `claude -p`: its draft passes `check`, the plain one fails), `evals/bridge-test/` (a full learn through the device shell) |
 
 ## Decision log
 
@@ -708,5 +708,8 @@ Built and tested on the local route with fixture authors only; no phase depends 
 - [x] ~~What changes after run 4?~~ Decided by the writer: observed lessons become background in the writing kit, targets follow the piece, and runs 5 and 6 confirm on fresh text (decision log).
 
 - [x] ~~What changes after runs 5 and 6?~~ Decided by the writer: the known-author group is reported but no longer gates, the check's bands follow the writer's own variation, and the writer's own profile, judged blind by the writer, is the deciding test for phase 3 (decision log).
+
+- [ ] Short mails: most e-mails are under the 150-word floor and are skipped, so a mail slot learns only from longer messages. Joining short mails (per thread or per week) would change what a "text" is. The writer decides.
+- [ ] The writer's own blind test (`test judge=true`, `evals/eval-protocol.md`) waits for the writer's texts.
 
 The store has no fixed location, and questions about a particular writer's texts are asked by the skill at the first `learn`, not in this design.

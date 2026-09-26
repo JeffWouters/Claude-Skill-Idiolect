@@ -23,7 +23,7 @@ the first run (`runs/2026-09-26-parallel-invalid.json`, 10 workers) scored 10 of
 should-trigger query missed; the same set run serially scored 20 of 20.
 
 **Bar, set before the first run:** at least 90% of the queries on the right side of a 50% trigger
-rate (18 of 20; 22 of 24 from phase 5), and no general "in my voice" or editing request triggering at
+rate (18 of 20; 22 of 24 from phase 5; 27 of 30 from phase 6), and no general "in my voice" or editing request triggering at
 all.
 Results of each run go in `runs/<date>.json`.
 
@@ -31,3 +31,4 @@ Results of each run go in `runs/<date>.json`.
 | --- | --- | --- | --- | --- |
 | 2026-09-26 | claude-opus-5-5 | 20 of 20 | 10 of 10 at 3/3 | 10 of 10 at 0/3 |
 | 2026-09-26 (phase 5: 24 queries, description names learn-edit and interview) | claude-opus-5-5 | 24 of 24 | 12 of 12 at 3/3 | 12 of 12 at 0/3 |
+| 2026-09-27 (phase 6: 30 queries, adds export, web feeds and transcripts, with near misses for exporting a document, transcribing a meeting and summarising a blog) | claude-opus-5-5 | 30 of 30 | 15 of 15 at 3/3 | 15 of 15 at 0/3 |
