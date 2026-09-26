@@ -24,7 +24,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import lock as lockmod  # noqa: E402
 import pages  # noqa: E402
-from common import (LANG_DIR, StoreError, atomic_write, check_schema, dump_yaml, iso,  # noqa: E402
+from common import (version_of, LANG_DIR, StoreError, atomic_write, check_schema, dump_yaml, iso,  # noqa: E402
                     load_yaml_text, read_store_file, run_id, utcnow, write_json)
 from store import Store  # noqa: E402
 
@@ -514,7 +514,7 @@ def render(store, pending, include, final=False):
                 per[pl[field]["profile"]].append((it["op"], pl[field]["entry"]))
         for prof, ops in per.items():
             rel = f"profiles/{prof}/{fname}"
-            base = load_yaml_text(_read(store, rel) or "") or {"schema_version": 1, "entries": []}
+            base = load_yaml_text(_read(store, rel) or "") or {"schema_version": version_of(schema), "entries": []}
             byid = {e["id"]: e for e in base["entries"]}
             for op, entry in ops:
                 if op == "remove":
@@ -590,7 +590,7 @@ def render_rejections(store, pending):
     out = {}
     for prof, rows in per.items():
         rel = f"profiles/{prof}/rejected.yaml"
-        base = load_yaml_text(_read(store, rel) or "") or {"schema_version": 1, "entries": []}
+        base = load_yaml_text(_read(store, rel) or "") or {"schema_version": version_of("rejected"), "entries": []}
         last = max([base.get("last_id") or 0] + [int(e["id"].split("-")[1]) for e in base["entries"]])
         for r in rows:
             if not r["slot"] and r["kind"] != "vocabulary":

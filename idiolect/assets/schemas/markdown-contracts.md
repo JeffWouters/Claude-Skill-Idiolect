@@ -101,7 +101,7 @@ profile: sam
 - Snapshot: snapshots/2026-10-02T214000Z/
 ```
 
-Newest entry last. Modes that write here: learn, learn-edit, interview, forget, rollback, prune.
+Newest entry last. Modes that write here: learn, learn-edit, interview, forget, rollback, prune, and migrate.py (one entry per format upgrade).
 
 ## Test results — `eval/results.md`
 

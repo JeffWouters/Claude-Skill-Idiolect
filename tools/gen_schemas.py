@@ -3,7 +3,7 @@
 
 Run from the repo root:  python3 tools/gen_schemas.py
 Writes idiolect/assets/schemas/*.schema.json. Edit this file, not the output.
-Every schema is draft 2020-12 and describes schema_version 1.
+Every schema is draft 2020-12 and describes schema_version 1, except vocabulary (2).
 """
 import json
 import pathlib
@@ -254,12 +254,23 @@ rulings = entry_list("rulings.schema.json", {
 vocabulary = entry_list("vocabulary.schema.json", {
     "id": ref("id"),
     "text": {"type": "string", "minLength": 1},
-    "kind": {"enum": ["term", "spelling", "coinage", "keep"]},
+    "kind": {"enum": ["term", "spelling", "coinage", "phrase"],
+             "description": "term, spelling and coinage are forms: written exactly this way whenever used, never "
+                            "required. phrase is a favoured phrase: a habit with a measured rate, never required."},
     "note": {"type": "string"},
     "private": {"type": "boolean", "description": "Private entries are never exported."},
     "overrides": {"oneOf": [ref("id"), {"type": "null"}]},
-    "created": ref("date")
+    "created": ref("date"),
+    "rate": {"type": "object", "required": ["per_1k", "texts", "of", "measured"],
+             "description": "Phrases only: how often the profile's own texts use it, measured by script.",
+             "properties": {"per_1k": {"type": "number", "minimum": 0},
+                            "texts": {"type": "integer", "minimum": 0, "description": "Texts that use it at least once."},
+                            "of": {"type": "integer", "minimum": 0, "description": "Texts measured."},
+                            "measured": ref("date")},
+             "additionalProperties": False}
 }, ["id", "text", "kind", "private", "created"], {"title": "profiles/<name>/vocabulary.yaml"})
+# version 2 (design: Schemas and migrations): keep -> phrase, phrase rates
+vocabulary["properties"]["schema_version"] = {"const": 2, "description": "Version 2: kind keep became phrase, with a rate. migrate.py upgrades version 1."}
 
 rejected = entry_list("rejected.schema.json", {
     "id": ref("id"),
@@ -350,6 +361,15 @@ check_report = {
                            "flag": {"enum": ["ok", "overshoot", "shortfall"]},
                            "primary": {"type": "boolean"}},
             "additionalProperties": False}},
+        "bunched": {"type": "array", "description": "Habits used far above the writer's rate in one paragraph "
+                    "(design: Guardrails, No caricature). A revision trigger, not a fail by itself.",
+                    "items": {"type": "object", "required": ["paragraph", "habit", "count", "expected"],
+                              "properties": {"paragraph": {"type": "integer", "minimum": 0,
+                                                           "description": "1-based; 0 means the whole text."},
+                                             "habit": {"type": "string"},
+                                             "count": {"type": "integer", "minimum": 0},
+                                             "expected": {"type": "number", "minimum": 0}},
+                              "additionalProperties": False}},
         "flagged_lines": {"type": "array", "items": {
             "type": "object", "required": ["line", "text", "reason"],
             "properties": {"line": {"type": "integer", "minimum": 1}, "text": {"type": "string"},
@@ -374,7 +394,7 @@ lock = {
     "required": ["schema_version", "mode", "started", "heartbeat"],
     "properties": {
         "schema_version": ref("schemaVersion"),
-        "mode": {"enum": ["learn", "learn-edit", "interview", "forget", "rollback", "prune", "test"]},
+        "mode": {"enum": ["learn", "learn-edit", "interview", "forget", "rollback", "prune", "test", "migrate"]},
         "profile": ref("profileName"),
         "started": ref("dateTime"),
         "heartbeat": ref("dateTime"),

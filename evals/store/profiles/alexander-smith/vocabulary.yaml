@@ -1,4 +1,4 @@
-schema_version: 1
+schema_version: 2
 entries:
 - id: v-001
   text: to-day
@@ -8,10 +8,15 @@ entries:
   note: Hyphenated form, likewise to-morrow and to-night.
 - id: v-002
   text: nay
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Escalates a clause mid-sentence, as in 'nay, more' or 'nay, even'.
+  rate:
+    per_1k: 0.08
+    texts: 3
+    of: 9
+    measured: '2026-09-26'
 - id: v-003
   text: peculiar
   kind: term
@@ -32,8 +37,13 @@ entries:
   note: Used as a noun for ordinary life, which death or thought lifts out of.
 - id: v-006
   text: verily
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Archaic emphatic, also 'of a verity'.
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
 last_id: 6

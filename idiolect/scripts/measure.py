@@ -212,6 +212,26 @@ def profile_texts(entries, get_text, facet_names, profile):
     return out
 
 
+def phrase_pattern(phrase):
+    return re.compile(r"(?<!\w)" + re.escape(phrase.strip()) + r"(?!\w)", re.I)
+
+
+def phrase_rate(phrase, texts, today=None):
+    """A favoured phrase's rate over a profile's own texts (design: Lessons): uses per 1,000 words and
+    how many texts use it at least once. `texts` is a list of strings."""
+    pat = phrase_pattern(phrase)
+    uses = [len(pat.findall(t)) for t in texts]
+    n_words = sum(len(words(t)) for t in texts)
+    return {"per_1k": round(sum(uses) * 1000 / n_words, 2) if n_words else 0.0,
+            "texts": sum(1 for u in uses if u), "of": len(texts),
+            "measured": (today or utcnow().date().isoformat())}
+
+
+def own_texts(entries, get_text, facet_names, profile):
+    """Every text that feeds `profile` as its own, once each, whatever its slot."""
+    return [t for _, _, t, _ in profile_texts(entries, get_text, facet_names, profile)]
+
+
 def weighted(texts, since):
     """since=<year>: texts dated in or after that year count twice in the measurement."""
     if not since:

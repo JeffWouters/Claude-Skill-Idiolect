@@ -90,6 +90,38 @@
         "additionalProperties": false
       }
     },
+    "bunched": {
+      "type": "array",
+      "description": "Habits used far above the writer's rate in one paragraph (design: Guardrails, No caricature). A revision trigger, not a fail by itself.",
+      "items": {
+        "type": "object",
+        "required": [
+          "paragraph",
+          "habit",
+          "count",
+          "expected"
+        ],
+        "properties": {
+          "paragraph": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "1-based; 0 means the whole text."
+          },
+          "habit": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "expected": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "flagged_lines": {
       "type": "array",
       "items": {

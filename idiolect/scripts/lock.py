@@ -14,7 +14,7 @@ import sys
 from common import StoreError, atomic_write, check_schema, iso, parse_iso, utcnow
 
 ABANDONED_AFTER = dt.timedelta(hours=1)
-WRITING_MODES = ("learn", "learn-edit", "interview", "forget", "rollback", "prune", "test")
+WRITING_MODES = ("learn", "learn-edit", "interview", "forget", "rollback", "prune", "test", "migrate")
 
 
 class Locked(StoreError):

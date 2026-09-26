@@ -274,13 +274,14 @@ def rollback(store_root, profile, to=None):
             if rel.endswith(".examples.md"):
                 slot = rel[: -len(".examples.md")]
             if rel in ("vocabulary.yaml", "rulings.yaml"):
-                from common import dump_yaml, load_yaml_text
+                from common import dump_yaml, load_yaml_text, version_of
                 cur = load_yaml_text((pdir / rel).read_text(encoding="utf-8")) or {}
                 last = max([cur.get("last_id") or 0] + [int(x["id"].split("-")[1]) for x in cur.get("entries", [])])
                 pending.add("restore", "modify", f"profiles/{profile}/{rel}",
                             f"{rel} was created after {name}; emptied (ids stay used)",
                             {"restore": {f"profiles/{profile}/{rel}": dump_yaml(
-                                {"schema_version": 1, "last_id": last, "entries": []})}}, profile=profile)
+                                {"schema_version": version_of(rel.split(".")[0]), "last_id": last, "entries": []})}},
+                            profile=profile)
                 continue
             if slot:
                 # a page keeps its last_id when emptied, so ids created after the snapshot are never reused

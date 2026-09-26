@@ -114,10 +114,15 @@ lessons you did not re-propose. Evidence counts are the keys you list, checked t
 
 ## 7. Vocabulary and examples (model)
 
-- Vocabulary: terms, spellings and coinages the writer uses on purpose (`kind`: term, spelling,
-  coinage, keep). Mark anything personal or client-related `private: true`. Write a YAML list, e.g.
+- Vocabulary has two sorts. **Forms** (`kind`: term, spelling, coinage) fix how a word is written
+  whenever it is used: "organisation", a product name, the writer's own coinage. **Favoured phrases**
+  (`kind: phrase`) are habits: a hedge, an intensifier, a pet phrase. The script measures each
+  phrase's rate on the writer's own texts (per 1,000 words and in how many texts), and write uses it at
+  most at that rate; it is never required. A habit that is a pattern rather than a phrase belongs in a
+  lesson, not here. Mark anything personal or client-related `private: true`. Write a YAML list, e.g.
   `- {text: "slow tools", kind: coinage, note: "own term for deliberately limited software"}`, and run
-  `learn.py vocab-apply --profile P --file vocab.yaml`.
+  `learn.py vocab-apply --profile P --file vocab.yaml`. It also re-measures the rate of every phrase
+  already approved and proposes the new rates in the diff.
 - Examples, per exact slot: `learn.py examples-sample --profile P --slot K` gives candidates. Pick
   3 to 6 that show the voice best, each with a `habit` it illustrates. List every name of a person or
   organisation other than the writer under `names` with a placeholder (`[person]`, `[client]`,

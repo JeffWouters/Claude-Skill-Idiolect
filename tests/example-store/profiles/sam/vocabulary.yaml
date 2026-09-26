@@ -1,4 +1,7 @@
-schema_version: 1
+schema_version: 2
 entries:
   - {id: v-001, text: slow tools, kind: coinage, note: Sam's term for deliberately limited software, private: false, created: "2026-10-02"}
-  - {id: v-002, text: "[client]", kind: keep, private: true, created: "2026-10-02"}
+  - {id: v-002, text: "[client]", kind: term, private: true, created: "2026-10-02"}
+  - {id: v-003, text: to be fair, kind: phrase, note: concession before a turn, private: false, created: "2026-10-02",
+     rate: {per_1k: 0.8, texts: 6, of: 17, measured: "2026-10-02"}}
+last_id: 3

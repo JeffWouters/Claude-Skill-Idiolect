@@ -48,7 +48,10 @@ def test_kit_contents():
     assert k["slot"] == "en.essay" and k["lessons"] and len(k["examples"]) == 3
     assert k["targets"][0]["primary"]
     md = kit.markdown(k)
-    assert "## Observed lessons" in md and "## Example passages" in md
+    # examples lead; every lesson carries how many texts show it (decision log, run 1)
+    assert md.index("## Example passages") < md.index("## Habits the writer usually shows")
+    assert all(x["of"] == k["counts"]["texts"] and x["texts"] for x in k["lessons"])
+    assert "seen in " in md and "## Observed lessons" not in md
 
 
 @pytest.mark.parametrize("author", sorted(HOLD))

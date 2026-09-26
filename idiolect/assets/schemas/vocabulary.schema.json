@@ -8,7 +8,8 @@
   ],
   "properties": {
     "schema_version": {
-      "$ref": "common.schema.json#/$defs/schemaVersion"
+      "const": 2,
+      "description": "Version 2: kind keep became phrase, with a rate. migrate.py upgrades version 1."
     },
     "last_id": {
       "type": "integer",
@@ -39,8 +40,9 @@
               "term",
               "spelling",
               "coinage",
-              "keep"
-            ]
+              "phrase"
+            ],
+            "description": "term, spelling and coinage are forms: written exactly this way whenever used, never required. phrase is a favoured phrase: a habit with a measured rate, never required."
           },
           "note": {
             "type": "string"
@@ -61,6 +63,36 @@
           },
           "created": {
             "$ref": "common.schema.json#/$defs/date"
+          },
+          "rate": {
+            "type": "object",
+            "required": [
+              "per_1k",
+              "texts",
+              "of",
+              "measured"
+            ],
+            "description": "Phrases only: how often the profile's own texts use it, measured by script.",
+            "properties": {
+              "per_1k": {
+                "type": "number",
+                "minimum": 0
+              },
+              "texts": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Texts that use it at least once."
+              },
+              "of": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Texts measured."
+              },
+              "measured": {
+                "$ref": "common.schema.json#/$defs/date"
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

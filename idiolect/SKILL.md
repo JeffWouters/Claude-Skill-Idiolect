@@ -54,6 +54,9 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
      one (`learn.py init`, never inside a folder it learns from); any other mode says no store exists
      yet.
 3. Say which store (and later, which profile and slot) you are using.
+4. If a script says a file is an older schema version, tell the writer the store needs a format
+   upgrade, and with their go-ahead run `python3 scripts/migrate.py --store <store>` (it keeps the
+   originals in `.state/migrations/` and notes the upgrade in each profile's changelog).
 
 ## learn dry-run=true
 

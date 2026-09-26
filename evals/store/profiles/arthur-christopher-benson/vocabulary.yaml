@@ -1,4 +1,4 @@
-schema_version: 1
+schema_version: 2
 entries:
 - id: v-001
   text: sate
@@ -20,22 +20,37 @@ entries:
   note: Hyphenated, as are half-an-hour and similar phrases.
 - id: v-004
   text: tete-a-tete
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: French loan kept for an intimate two-person talk.
+  rate:
+    per_1k: 0.07
+    texts: 2
+    of: 14
+    measured: '2026-09-26'
 - id: v-005
   text: so to speak
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Recurring hedge inserted mid-sentence to soften a figure of speech.
+  rate:
+    per_1k: 0.11
+    texts: 4
+    of: 14
+    measured: '2026-09-26'
 - id: v-006
   text: the worst of it is
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Stock turn used to introduce the chief drawback of a situation.
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 14
+    measured: '2026-09-26'
 - id: v-007
   text: zest
   kind: term

@@ -71,8 +71,17 @@ def check_schema(name, data, where="data"):
     return data
 
 
+# Current schema_version per store file (design: Schemas and migrations); anything not listed is 1.
+VERSIONS = {"vocabulary": 2}
+
+
+def version_of(schema):
+    return VERSIONS.get(schema, 1)
+
+
 def read_store_file(path, schema):
-    """Read a JSON or YAML store file and validate it (spec §1.3)."""
+    """Read a JSON or YAML store file and validate it (spec §1.3). An older schema_version stops with a
+    message naming migrate.py: files are never upgraded silently."""
     path = pathlib.Path(path)
     try:
         text = path.read_text(encoding="utf-8")
@@ -82,6 +91,10 @@ def read_store_file(path, schema):
         data = json.loads(text) if path.suffix == ".json" or path.name == "lock" else load_yaml_text(text)
     except Exception as exc:  # noqa: BLE001 - any parse error stops the run
         raise StoreError(f"cannot parse {path}: {exc}")
+    have = data.get("schema_version") if isinstance(data, dict) else None
+    if isinstance(have, int) and have < version_of(schema):
+        raise StoreError(f"{path} is schema version {have}, this engine needs {version_of(schema)}: "
+                         f"run scripts/migrate.py --store <store> first")
     return check_schema(schema, data, str(path))
 
 

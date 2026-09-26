@@ -1,4 +1,4 @@
-schema_version: 1
+schema_version: 2
 entries:
 - id: v-001
   text: neighbour
@@ -20,14 +20,24 @@ entries:
   note: British term for a rented garden plot; keep rather than community garden.
 - id: v-004
   text: Here is the count.
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Signpost sentence introducing a tally.
+  rate:
+    per_1k: 0.43
+    texts: 2
+    of: 7
+    measured: '2026-09-26'
 - id: v-005
   text: than you think
-  kind: keep
+  kind: phrase
   private: false
   created: '2026-09-26'
   note: Rule-of-thumb phrasing aimed at the reader.
+  rate:
+    per_1k: 0.43
+    texts: 2
+    of: 7
+    measured: '2026-09-26'
 last_id: 5

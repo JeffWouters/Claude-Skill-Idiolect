@@ -21,7 +21,8 @@
         "forget",
         "rollback",
         "prune",
-        "test"
+        "test",
+        "migrate"
       ]
     },
     "profile": {

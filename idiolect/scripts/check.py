@@ -3,11 +3,13 @@
     python3 check.py --store S --file DRAFT [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
 
 Flags overshoot and shortfall per metric (the caricature guard: too much of a habit is flagged too),
-fails the draft when the fail count is reached, and lists lines that use a never-list phrase. Prints
+fails the draft when the fail count is reached, lists lines that use a never-list phrase, and names
+bunched habits: a paragraph using a countable habit far above the writer's rate. Prints
 the check report (check-report.schema.json) with --json, otherwise a readable summary.
 """
 import argparse
 import json
+import math
 import pathlib
 import re
 import sys
@@ -17,11 +19,67 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import detect  # noqa: E402
 import measure  # noqa: E402
 import resolve  # noqa: E402
-from common import StoreError, check_schema, count_words, read_store_file  # noqa: E402
+from common import StoreError, check_schema, count_words, read_store_file, words  # noqa: E402
 from kit import DESCRIBE  # noqa: E402
 from store import Store  # noqa: E402
 
 MIN_WORDS = 150
+# Bunched habits (design: Guardrails, No caricature): countable habits checked per paragraph.
+BUNCH_METRICS = ("hedges_per_1k", "semicolons_per_1k", "dashes_per_1k", "colons_per_1k", "contractions_per_1k")
+BUNCH_MIN_WORDS = 40
+BUNCH_MIN_COUNT = 3
+BUNCH_P = 0.01
+PHRASES_MIN_COUNT = 2      # whole text; calibrated on run 1 (design: decision log)
+
+
+def poisson_tail(k, lam):
+    """P(X >= k) for X ~ Poisson(lam)."""
+    if k <= 0:
+        return 1.0
+    term, below = math.exp(-lam), 0.0
+    for i in range(k):
+        below += term
+        term *= lam / (i + 1)
+    return max(0.0, 1.0 - below)
+
+
+def is_bunch(count, lam):
+    return count >= BUNCH_MIN_COUNT and poisson_tail(count, lam) < BUNCH_P
+
+
+def bunched(text, lang, fp_metrics, phrases=()):
+    """Paragraphs (1-based) that use a countable habit far above the writer's rate, and the favoured
+    phrases together overused in the whole text (paragraph 0). phrases: vocabulary entries of kind
+    phrase; those without a measured rate are skipped."""
+    out = []
+    rated = [v for v in phrases if v.get("rate")]
+    paras = measure.prepare(text)
+    for i, para in enumerate(paras, 1):
+        nw = len(words(para))
+        if nw < BUNCH_MIN_WORDS:
+            continue
+        vals = measure.metrics(para, lang)
+        for m in BUNCH_METRICS:
+            if m not in vals or m not in fp_metrics:
+                continue
+            count = round(vals[m] * nw / 1000)
+            lam = fp_metrics[m]["value"] * nw / 1000
+            if is_bunch(count, lam):
+                out.append({"paragraph": i, "habit": m, "count": count, "expected": round(lam, 2)})
+        if rated:
+            count = sum(len(measure.phrase_pattern(v["text"]).findall(para)) for v in rated)
+            lam = sum(v["rate"]["per_1k"] for v in rated) * nw / 1000
+            if is_bunch(count, lam):
+                out.append({"paragraph": i, "habit": "favoured phrases", "count": count, "expected": round(lam, 2)})
+    body = "\n\n".join(paras)
+    if rated:
+        # the favoured phrases together over the whole text: 2 uses can already be far too many
+        count = sum(len(measure.phrase_pattern(v["text"]).findall(body)) for v in rated)
+        lam = sum(v["rate"]["per_1k"] for v in rated) * len(words(body)) / 1000
+        if count >= PHRASES_MIN_COUNT and poisson_tail(count, lam) < BUNCH_P:
+            out.append({"paragraph": 0, "habit": "favoured phrases", "count": count, "expected": round(lam, 2)})
+    return out
+
 
 
 def flag_metric(name, draft, writer, fp_metric):
@@ -72,6 +130,8 @@ def check(store, text, profile=None, facets=None):
                 if re.search(r"(?<!\w)" + re.escape(mk) + r"(?!\w)", line, re.I):
                     lines.append({"line": i, "text": line.strip()[:200], "lesson": f"never: {mk}",
                                   "reason": f"uses \"{mk}\", which this writer never does"})
+    phrases = [v for v in resolve.merged(store, prof, "vocabulary") if v["kind"] == "phrase"]
+    bunches = bunched(text, lang, fp["metrics"], phrases)
     conf = fp["confidence"]["level"]
     if flagged >= threshold and n >= MIN_WORDS:
         status = "fail"
@@ -81,6 +141,8 @@ def check(store, text, profile=None, facets=None):
                    "fail_threshold": threshold, "metrics": rows})
     if lines:
         report["flagged_lines"] = lines
+    if bunches:
+        report["bunched"] = bunches
     notes = []
     if n < MIN_WORDS:
         notes.append(f"only {n} words: metric flags are hints, never a fail, below {MIN_WORDS} words")
@@ -102,6 +164,11 @@ def readable(r):
         name, fmt = DESCRIBE.get(m["name"], (m["name"], "{:.2f}"))
         L.append(f"- {m['flag']}: {name}: draft {fmt.format(m['draft'])}, writer {fmt.format(m['writer'])}"
                  + (" (primary)" if m["primary"] else ""))
+    for b in r.get("bunched", []):
+        name = DESCRIBE.get(b["habit"], (b["habit"], ""))[0]
+        where = "the whole text" if b["paragraph"] == 0 else f"paragraph {b['paragraph']}"
+        L.append(f"- bunched: {name} in {where}: {b['count']} uses where the writer's rate gives about "
+                 f"{b['expected']:g} (caricature: spread them out or cut)")
     for x in r.get("flagged_lines", []):
         L.append(f"- line {x['line']}: {x['reason']}")
     if r.get("message"):

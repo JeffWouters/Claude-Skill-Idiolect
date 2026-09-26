@@ -38,7 +38,7 @@ import pages  # noqa: E402
 import redact as redactmod  # noqa: E402
 import stage  # noqa: E402
 from adapters import extract  # noqa: E402
-from common import (StoreError, case_insensitive, content_hash, count_words, load_yaml_text,  # noqa: E402
+from common import (version_of, StoreError, case_insensitive, content_hash, count_words, load_yaml_text,  # noqa: E402
                     read_store_file, utcnow, words)
 from store import Store, path_rules, rule_depth, tag_rules  # noqa: E402
 
@@ -890,7 +890,7 @@ def vocab_apply(store_root, prof, file):
     run = Run(store_root)
     data = load_yaml_text(pathlib.Path(file).read_text(encoding="utf-8")) or []
     vf = run.store.root / "profiles" / prof / "vocabulary.yaml"
-    base = read_store_file(vf, "vocabulary") if vf.exists() else {"schema_version": 1, "entries": []}
+    base = read_store_file(vf, "vocabulary") if vf.exists() else {"schema_version": version_of("vocabulary"), "entries": []}
     have = {e["text"].lower() for e in base["entries"]}
     rejected = set()
     rf = run.store.root / "profiles" / prof / "rejected.yaml"
@@ -901,16 +901,34 @@ def vocab_apply(store_root, prof, file):
                 stage._plan_ids(run.pending, "vocab", prof)] + [int(e["id"].split("-")[1]) for e in base["entries"]])
     added, skipped = [], []
     today = utcnow().date().isoformat()
+    own = measure.own_texts(run.view(), run.text, run.store.facets, prof)
+    # favoured phrases already approved: re-measure their rate on the texts as staged now
+    for e in base["entries"]:
+        if e["kind"] != "phrase":
+            continue
+        rate = measure.phrase_rate(e["text"], own, today)
+        old_rate = {k: v for k, v in (e.get("rate") or {}).items() if k != "measured"}
+        if {k: v for k, v in rate.items() if k != "measured"} != old_rate:
+            upd = {**e, "rate": rate}
+            run.pending.add("vocabulary", "modify", f"profiles/{prof}/vocabulary.yaml",
+                            f"{e['id']} phrase: {e['text']}: rate now {rate['per_1k']} per 1,000 words, "
+                            f"in {rate['texts']} of {rate['of']} texts",
+                            {"vocab": {"profile": prof, "entry": upd}}, profile=prof, ref=e["id"])
     for v in data:
         t = v["text"].strip()
         if t.lower() in have or t.lower() in rejected:
             skipped.append(t)
             continue
         last += 1
-        entry = {"id": f"v-{last:03d}", "text": t, "kind": v.get("kind", "term"), "private": bool(v.get("private", False)),
+        kind = v.get("kind", "term")
+        if kind == "keep":
+            kind = "phrase"          # the version 1 name (design: Schemas and migrations)
+        entry = {"id": f"v-{last:03d}", "text": t, "kind": kind, "private": bool(v.get("private", False)),
                  "created": today}
         if v.get("note"):
             entry["note"] = v["note"]
+        if kind == "phrase":
+            entry["rate"] = measure.phrase_rate(t, own, today)
         run.pending.add("vocabulary", "add", f"profiles/{prof}/vocabulary.yaml",
                         f"{entry['id']} {entry['kind']}: {t}" + (" (private)" if entry["private"] else ""),
                         {"vocab": {"profile": prof, "entry": entry}}, profile=prof, ref=entry["id"])
