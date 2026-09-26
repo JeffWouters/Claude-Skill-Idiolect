@@ -5,15 +5,15 @@ anything; it is the single source of truth for behaviour, file formats and the b
 
 ## Current phase
 
-**Phases 1 (engine) and 2 (learning) are done.** Scripts in `idiolect/scripts/`, model procedures in
+**Phases 1 (engine), 2 (learning) and 3 (writing) are done.** Scripts in `idiolect/scripts/`, model procedures in
 `idiolect/references/modes/`, tests in `tests/`, the learned evaluation store in `evals/store/`
-(holdouts in `evals/holdouts.json`). **Phase 3 (writing) is built but not done:** write, rewrite,
-check, the kit and the evaluation harness exist. Runs 5 and 6 met the few-shot bar for the synthetic
-group and missed it for the real authors. The writer then decided (design: decision log): the real
-authors are the known-author group, reported but not gating; the check's bands follow the writer's own
-variation (writer bands); and the **writer's own profile, judged blind by the writer, is the deciding
-test** (`evals/eval-protocol.md`, last section). That test is what remains. Recognition from run 7 is
-forced choice with controls and a sensitivity test (`evals/recognition-study/`).
+(holdouts in `evals/holdouts.json`). Phase 3 (write, rewrite,
+check, the kit and the evaluation harness) was closed by the writer on the synthetic result (runs 5
+and 6); the real authors are the known-author group, reported but not gating, and the check uses
+writer bands (design: decision log). **Next is phase 4 (validation)**, which also carries phase 3's
+two open items: the writer's own blind test (`evals/eval-protocol.md`, last section) and the trigger
+tests. Recognition from run 7 is forced choice with controls and a sensitivity test
+(`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 
 Phase 0 deliverables, still the reference:

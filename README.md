@@ -6,11 +6,12 @@ text in that voice.
 Idiolect is an empty engine. The skill holds the method only. What it learns lives in a separate
 folder the writer chooses (the *store*), and nothing is learned without the writer approving a diff.
 
-> **Status: phase 2 (learning) done.** The skill finds or creates a store, learns a voice from
+> **Status: phase 3 (writing) done.** The skill finds or creates a store, learns a voice from
 > Markdown, PDF and Word files with the writer's approval (ownership, fingerprints, contrast with
-> neutral AI rewrites, lessons with stable ids, vocabulary, redacted examples), and supports
-> `forget`, `rollback`, `prune` and `status`. It does not write, rewrite or check yet: that is phase 3.
-> Six fixture authors are learned in `evals/store/`.
+> neutral AI rewrites, lessons with stable ids, vocabulary, redacted examples), supports
+> `forget`, `rollback`, `prune` and `status`, and writes, rewrites and checks text in a learned voice.
+> In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
+> a test on a real writer's own profile is part of phase 4. Fixture authors are learned in `evals/store/`.
 
 ## Try it
 

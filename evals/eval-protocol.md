@@ -224,9 +224,11 @@ Fixed seeds for holdout selection, passage cuts and label shuffling (`evals/runs
 Generators and judges are model calls and vary; a phase is only marked done on a pass that holds over
 **two separate runs**.
 
-## A writer's own profile: the deciding test for phase 3
+## A writer's own profile
 
-Decided after runs 5 and 6 (design: decision log). The same protocol with these changes:
+Decided after runs 5 and 6 as the deciding test for phase 3; the writer then closed phase 3 on the
+synthetic result, and this test moved to phase 4 (design: decision log). The same protocol with
+these changes:
 
 - **Holdout.** The writer picks at least 5 of their own texts of the kind the profile covers, enough
   for **at least 20 passages** of 300 to 500 words. They are set aside as holdouts before the profile
