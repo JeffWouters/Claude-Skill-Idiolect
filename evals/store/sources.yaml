@@ -1,0 +1,66 @@
+schema_version: 1
+sources:
+- path: alexander-smith
+  profile: alexander-smith
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 01-dreamthorp.md
+  - 10-geoffrey-chaucer.md
+  - 12-on-vagabonds.md
+  facets:
+    type: essay
+- path: alice-meynell
+  profile: alice-meynell
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 10-pathos.md
+  - 22-a-point-of-biography.md
+  - 32-the-illusion-of-historic-time.md
+  facets:
+    type: essay
+- path: arthur-christopher-benson
+  profile: arthur-christopher-benson
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 04-sociabilities.md
+  - 10-the-criticism-of-others.md
+  - 17-religion.md
+  facets:
+    type: essay
+- path: samuel-mcchord-crothers
+  profile: samuel-mcchord-crothers
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 05-the-difficulties-of-the-peacemakers.md
+  - 07-a-community-of-humorists.md
+  - 09-as-he-sees-himself.md
+  facets:
+    type: essay
+- path: synthetic-idris
+  profile: synthetic-idris
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 01-the-recurring-meeting.md
+  - 02-honest-estimates.md
+  - 07-the-deadline-as-fiction.md
+  - 08-learning-in-public.md
+  - 12-the-status-update.md
+  facets:
+    type: essay
+- path: synthetic-noor
+  profile: synthetic-noor
+  ownership: own
+  decided: '2026-09-26'
+  exclude:
+  - 01-the-kitchen-tap.md
+  - 03-the-7-42-train.md
+  - 09-the-list-on-the-fridge.md
+  - 10-bleeding-the-radiators.md
+  - 11-darning-a-sock.md
+  facets:
+    type: essay

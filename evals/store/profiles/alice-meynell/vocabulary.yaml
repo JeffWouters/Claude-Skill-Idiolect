@@ -1,0 +1,45 @@
+schema_version: 1
+entries:
+- id: v-001
+  text: decivilised
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Her own word for cultured decline; also decivilisation, decivilising.
+- id: v-002
+  text: multitudinous
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Favoured Latinate epithet, used repeatedly and approvingly.
+- id: v-003
+  text: habitualness
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Abstract noun for thoughtless routine in art and life.
+- id: v-004
+  text: phantasy
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Keeps the ph- spelling for fancy.
+- id: v-005
+  text: connexion
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Older British spelling.
+- id: v-006
+  text: robustious
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Archaic, mildly mocking word for crude vigour.
+- id: v-007
+  text: must needs
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Archaic construction for necessity.
+last_id: 7

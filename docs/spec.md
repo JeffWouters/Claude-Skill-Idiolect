@@ -324,8 +324,9 @@ Entries that do not feed the profile are never touched by its rollback.
    not varied there and stay starting values.
 2. Stability level: split the slot's texts (corpus texts and segments in the slot) into two halves
    five times, and measure the applicable global metrics (§17.1) on each half joined with blank lines.
-   - Seed: `int(sha256("<profile>/<slot key>").hexdigest()[:8], 16)`, stored as the fingerprint's
-     `seed`. RNG: Python `random.Random(seed)`; texts sorted by key first; each split is
+   - Seed: `int(sha256("<profile>/" + "|".join(sorted text keys)).hexdigest()[:8], 16)`, stored as
+     the fingerprint's `seed`. Basing it on the texts, not the slot name, gives a pooled slot that
+     holds exactly the texts of one exact slot the same confidence. RNG: Python `random.Random(seed)`; texts sorted by key first; each split is
      `order = rng.sample(texts, len(texts))`, halves `order[:n // 2]` and `order[n // 2:]`; the five
      splits draw from the same RNG in sequence.
    - With fewer than 2 texts no split is made and the stability level equals the count level.

@@ -206,6 +206,13 @@ def _decide(run, key, info):
     return decided, open_q
 
 
+def excluded_now(run, path):
+    """Excluded by an exclude glob of a stored or just-answered path rule (spec §5 row 1)."""
+    ci = case_insensitive(run.store.sources_root)
+    rules = list(run.store.sources["sources"]) + run.state["answers"]["rules"]
+    return any("path" in r and _under(r["path"], path, ci) and _excluded_by(r, path, ci) for r in rules)
+
+
 def _under(rule_path, path, ci):
     from store import under
     return under(rule_path, path, ci)
@@ -221,7 +228,7 @@ def _excluded_by(rule, path, ci):
 def questions(run):
     qs = []
     for key, info in sorted(run.state["texts"].items(), key=lambda kv: kv[1]["path"]):
-        if info["result"] not in LEARNABLE:
+        if info["result"] not in LEARNABLE or excluded_now(run, info["path"]):
             continue
         _, open_q = _decide(run, key, info)
         qs.extend(open_q)
@@ -283,7 +290,7 @@ def types(store_root):
     run = Run(store_root)
     out = []
     for key, info in sorted(run.state["texts"].items(), key=lambda kv: kv[1]["path"]):
-        if info["result"] in LEARNABLE and _type_for(run, key, info) in ("?", None):
+        if info["result"] in LEARNABLE and not excluded_now(run, info["path"]) and _type_for(run, key, info) in ("?", None):
             excerpt = " ".join(words(run.text(key))[:300])
             out.append({"key": key, "path": info["path"], "excerpt": excerpt})
     return {"allowed": run.store.config["types"], "texts": out}
@@ -342,7 +349,7 @@ def stage_texts(store_root):
         elif res == "skipped: holdout" and entry and entry.get("path") != info["path"]:
             pending.add("status", "modify", "corpus/manifest.json", f"{info['path']}: holdout moved",
                         {"manifest": [{"key": key, "set": {"path": info["path"]}}]}, ref=key, decision="approved")
-        if res not in LEARNABLE:
+        if res not in LEARNABLE or excluded_now(run, info["path"]):
             continue
         decided, _ = _decide(run, key, info)
         facets = {"lang": info["lang"], "type": _type_for(run, key, info)}
@@ -557,7 +564,7 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
                       "corpus_words_at_sample": sample["words_at_sample"], "fresh_context": bool(fresh)}
     pl["fingerprint"] = fp
     stage.atomic_write(run.pending.dir / "items" / f"{it['id']}.json", json.dumps(pl, ensure_ascii=False, indent=1) + "\n")
-    # never-list: word n-grams used in 2+ rewrites that the writer never uses in this slot
+    # never-list: 2- and 3-word phrases recurring across the rewrites that the writer never uses here
     corpus = "\n\n".join(t for _, t in slot_texts(run, prof, slot)).lower()
     cwords = " " + " ".join(words(corpus)) + " "
     sw = stage.stopwords(lang)
@@ -565,17 +572,18 @@ def contrast_apply(store_root, prof, slot, rewrites_dir, fresh=True):
     for _, t in ai:
         ws = [w.lower() for w in words(t)]
         grams = set()
-        for n in (1, 2, 3):
+        for n in (2, 3):   # single words are mostly content shared with the originals, not style
             for i in range(len(ws) - n + 1):
                 g = ws[i:i + n]
-                if all(x in sw for x in g) or (n == 1 and (len(g[0]) < 5 or g[0] in sw)):
+                if all(x in sw for x in g):
                     continue
                 grams.add(" ".join(g))
         counts.update(grams)
     ai_words = sum(len(words(t)) for _, t in ai)
+    min_rewrites = max(3, -(-3 * len(ai) // 10))   # in at least 3 rewrites, and at least 30% of them
     markers = []
     for g, c in counts.most_common():
-        if c < 2 or f" {g} " in cwords:
+        if c < min_rewrites or f" {g} " in cwords:
             continue
         if any(g in m["marker"] or m["marker"] in g for m in markers):
             continue
@@ -844,7 +852,7 @@ def _next(run):
     if q["undecided"] or q["new_profiles_need"]:
         return "answer the ownership questions (learn.py questions / answer)"
     unknown = [k for k, i in run.state["texts"].items() if i["result"] in LEARNABLE
-               and _type_for(run, k, i) in ("?", None)]
+               and not excluded_now(run, i["path"]) and _type_for(run, k, i) in ("?", None)]
     if unknown:
         return f"assign a type to {len(unknown)} texts (learn.py types / set-types)"
     if not st["texts"]:
@@ -853,6 +861,8 @@ def _next(run):
         return "learn.py measure"
     todo = []
     for s in run.state.get("slots", []):
+        if s.get("mirrors"):
+            continue
         key = f"{s['profile']}/{s['slot']}"
         if key not in st["contrast"]:
             todo.append(f"contrast {key}")

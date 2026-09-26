@@ -1,0 +1,51 @@
+schema_version: 1
+entries:
+- id: v-001
+  text: organisation
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British -isation spelling throughout (also recognise, familiarise)
+- id: v-002
+  text: judgement
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British spelling with the medial e
+- id: v-003
+  text: artefact
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British spelling, not artifact
+- id: v-004
+  text: I suspect
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Signature hedge, often parenthetical
+- id: v-005
+  text: arguably
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Recurring qualifier on claims
+- id: v-006
+  text: in some sense
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Softens a metaphor or generalisation
+- id: v-007
+  text: working life
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: Preferred phrase for the workplace in closing reflections
+- id: v-008
+  text: considerable
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Favoured intensifier (considerable, considerably)
+last_id: 8

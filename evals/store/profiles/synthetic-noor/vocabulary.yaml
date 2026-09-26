@@ -1,0 +1,33 @@
+schema_version: 1
+entries:
+- id: v-001
+  text: neighbour
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British spelling (also colour); keep -our forms.
+- id: v-002
+  text: centimetres
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British -re spelling for metric units (metres, litres).
+- id: v-003
+  text: allotment
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: British term for a rented garden plot; keep rather than community garden.
+- id: v-004
+  text: Here is the count.
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Signpost sentence introducing a tally.
+- id: v-005
+  text: than you think
+  kind: keep
+  private: false
+  created: '2026-09-26'
+  note: Rule-of-thumb phrasing aimed at the reader.
+last_id: 5

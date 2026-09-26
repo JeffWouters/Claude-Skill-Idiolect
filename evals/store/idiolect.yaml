@@ -1,0 +1,10 @@
+schema_version: 1
+sources_root: ../fixtures
+facets:
+- lang
+- type
+types:
+- essay
+default_profile: synthetic-noor
+defaults:
+  lang: en

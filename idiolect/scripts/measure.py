@@ -143,8 +143,12 @@ def count_level(n_texts, n_words):
     return "medium"
 
 
-def slot_seed(profile, slot):
-    return int(hashlib.sha256(f"{profile}/{slot}".encode("utf-8")).hexdigest()[:8], 16)
+def slot_seed(profile, slot, keys=None):
+    """Seed for a slot's splits and samples: from the profile and the slot's sorted text keys, so two
+    slots holding the same texts (a pooled slot that mirrors an exact one) get the same result.
+    Without keys (samples drawn before measuring), from the profile and the slot key."""
+    basis = f"{profile}/" + ("|".join(sorted(keys)) if keys else slot)
+    return int(hashlib.sha256(basis.encode("utf-8")).hexdigest()[:8], 16)
 
 
 def unstable_metrics(texts, lang, seed, splits=5):
@@ -235,7 +239,7 @@ def slot_texts(entries, get_text, facet_names, profile):
 def build_fingerprint(profile, slot, pooled, texts, since=None, primary=(), metric_list="global",
                       contrast=None, built=None):
     lang = slot.split(".")[0]
-    seed = slot_seed(profile, slot)
+    seed = slot_seed(profile, slot, [k for k, _, _ in texts])
     plain = [(k, t) for k, t, _ in texts]
     conf, unstable, n_words = confidence(plain, lang, seed)
     wt = weighted(texts, since)

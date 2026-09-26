@@ -1,0 +1,52 @@
+schema_version: 1
+entries:
+- id: v-001
+  text: indulgence
+  kind: term
+  private: false
+  created: '2026-09-26'
+  note: Recurring frame word for tolerant leniency toward human failings, borrowed
+    from the pardoner's trade.
+- id: v-002
+  text: to-day
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Hyphenated period spelling; likewise to-morrow.
+- id: v-003
+  text: Reënter
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Diaeresis marks the separate vowel.
+- id: v-004
+  text: mediæval
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: Ligature spelling kept; also archæologists, Cæsars.
+- id: v-005
+  text: Ne’er-do-wellness
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Abstract noun formed from a compound, paired with well-to-doness.
+- id: v-006
+  text: well-to-doness
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Paired with ne’er-do-wellness to contrast two conditions.
+- id: v-007
+  text: worth-ship
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Etymological play used to define worship.
+- id: v-008
+  text: imperfectnesses
+  kind: coinage
+  private: false
+  created: '2026-09-26'
+  note: Pluralised abstract noun used for playful emphasis.
+last_id: 8
