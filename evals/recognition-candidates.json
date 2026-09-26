@@ -1,0 +1,34 @@
+{
+ "about": "Forced-choice recognition (evals/eval-protocol.md, 'Recognition'). 'authors' names the real fixture authors (slug: display name and a one-line description for the named judge of the sensitivity test). 'pool' holds the distractors: essayists of about the same period and kind, so a candidate list never gives the true author away by standing out. 'controls' are the positive controls: passages by well-known writers the model should name.",
+ "authors": {
+  "katharine-fullerton-gerould": {"name": "Katharine Fullerton Gerould", "about": "American essayist and novelist, 1879-1944"},
+  "robert-cortes-holliday": {"name": "Robert Cortes Holliday", "about": "American essayist and editor, 1880-1947"},
+  "samuel-mcchord-crothers": {"name": "Samuel McChord Crothers", "about": "American essayist and minister, 1857-1927"}
+ },
+ "pool": [
+  "A. C. Benson",
+  "Agnes Repplier",
+  "Alice Meynell",
+  "Charles S. Brooks",
+  "Christopher Morley",
+  "Frank Moore Colby",
+  "G. K. Chesterton",
+  "Heywood Broun",
+  "Hilaire Belloc",
+  "E. V. Lucas",
+  "Katharine Fullerton Gerould",
+  "Leigh Hunt",
+  "Logan Pearsall Smith",
+  "Max Beerbohm",
+  "Robert Cortes Holliday",
+  "Robert Lynd",
+  "Samuel McChord Crothers",
+  "Simeon Strunsky",
+  "Stephen Leacock",
+  "William Hazlitt"
+ ],
+ "controls": [
+  {"file": "recognition-controls/lamb-dream-children.md", "name": "Charles Lamb",
+   "source": "Charles Lamb, 'Dream-Children: A Reverie', Essays of Elia (1823); Project Gutenberg #10343, public domain. The opening, about 360 words."}
+ ]
+}

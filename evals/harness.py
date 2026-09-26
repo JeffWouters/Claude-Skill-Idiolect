@@ -13,13 +13,23 @@ drafts, judgments and recognition answers into the run folder.
     python3 evals/harness.py lengths  --run R          draft lengths against targets
     python3 evals/harness.py shuffle  --run R          judge packets and key.json (balanced labels)
     python3 evals/harness.py export-judge --run R --scratch DIR   packets and passages, anonymous ids
-    python3 evals/harness.py import-judge --run R --scratch DIR   verdicts and recognition back, real ids
+    python3 evals/harness.py recognition --run R --scratch DIR    forced-choice recognition prompts, with
+                                                       the positive controls, under shuffled ids
+    python3 evals/harness.py sensitivity --run R --scratch DIR [--n 12]
+                                                       blind and author-named re-judging prompts for a
+                                                       seeded sample of real-author packets
+    python3 evals/harness.py import-judge --run R --scratch DIR   verdicts, recognition and sensitivity
+                                                       answers back, real ids
     python3 evals/harness.py score    --run R          results.md and results.json
     python3 evals/harness.py pool     --runs R1,R2     the pooled binomial check over runs
     python3 evals/harness.py spotcheck --run R         a seeded 10% of judgments for a person to mark
+    python3 evals/harness.py screen --scratch DIR --name "A. Writer" --files a.md,b.md,c.md,d.md
+    python3 evals/harness.py screen --scratch DIR      screen a candidate author: prompts, then the score
 
 Run layout: passages/<id>.md, briefs/<id>.md, drafts/<arm>/<id>.md, judge/<id>.md (packet) and
-judge/<id>.json (verdict), recognition/<id>.json, key.json, flags.json, results.md.
+judge/<id>.json (verdict), recognition/<id>.json, key.json, flags.json, results.md; forced-choice
+runs (run 7 on) add recognition-key.json, recognition/_controls.json, sensitivity-key.json and
+sensitivity/{blind,named}-<id>.json.
 
 Arms: plain, fewshot, idiolect (the full write procedure) and the ablations: lite (run 4: the kit
 without the measurable targets and without the check-and-revise loop; evals/ablation/write-lite.md) and
@@ -65,6 +75,13 @@ KINDS = ("plain", "fewshot", "idiolect")          # runs 1 to 3
 ALL_ARMS = ("plain", "fewshot", "idiolect", "lite", "bare")
 ABLATIONS = ("lite", "bare")
 LABELS = "ABCD"
+CANDIDATES = ROOT / "evals" / "recognition-candidates.json"
+N_CANDIDATES = 10                 # forced choice: ten writers and "none"
+BINS = ((0, 30, "under 30%"), (30, 60, "30-59%"), (60, 101, "60% or more"))
+POSITIVE_MIN = 60                 # a positive control must get at least this on its author
+NONE_MIN = 80                     # synthetic passages (negative controls) must average this on "none"
+SENS_N = 12
+SCREEN_MAX = 30                   # an author is usable when the mean on the true author is below this
 
 
 def run_dir(run):
@@ -148,7 +165,7 @@ def new_run(seed=SEED, run_id=None, per_author=PER_AUTHOR, arm_list=KINDS, avoid
     hold = holdout_files(source)
     caps = caps or {}
     m = {"run": run_id, "seed": seed, "arms": list(arm_list), "avoid": list(avoid), "source": source,
-         "fresh_only": fresh_only, "caps": caps, "passages": [], "reused": {}}
+         "fresh_only": fresh_only, "caps": caps, "recognition": "forced-choice", "passages": [], "reused": {}}
     for author, files in sorted(hold.items()):
         pool = []
         for f in files:
@@ -411,22 +428,198 @@ def export_judge(run, scratch):
     print(f"{len(anon)} packets in {out}")
 
 
-def import_judge(run, scratch):
-    """Verdicts and recognition answers back into the run under the real ids."""
+def forced_choice(m):
+    """Runs from run 7 on record "recognition": "forced-choice" (eval-protocol.md, Recognition). Older
+    runs keep the confidence label they were judged with, and their recorded exclusions."""
+    return m.get("recognition") == "forced-choice"
+
+
+def candidates_file():
+    return json.loads(CANDIDATES.read_text(encoding="utf-8"))
+
+
+def candidate_list(true_name, rng, pool, n=N_CANDIDATES):
+    """n writers in alphabetical order: the true author (when there is one) and seeded distractors from
+    the pool. A synthetic passage gets n distractors, so its right answer is "none"."""
+    others = sorted(x for x in pool if x != true_name)
+    picks = rng.sample(others, n - (1 if true_name else 0)) + ([true_name] if true_name else [])
+    return sorted(picks)
+
+
+def fc_prompt(passage, cands, out):
+    tmpl = (PROMPTS / "recognition.txt").read_text(encoding="utf-8")
+    return tmpl.format(PASSAGE=passage, CANDIDATES="; ".join(cands), OUT=out)
+
+
+def read_fc(f, cands):
+    """A forced-choice answer, checked and scaled to sum to 100. Raises SystemExit on a bad answer."""
+    v = json.loads(pathlib.Path(f).read_text())
+    p = v.get("p", {})
+    want = set(cands) | {"none"}
+    if set(p) != want:
+        raise SystemExit(f"{f}: probabilities must name exactly: {', '.join(sorted(want))}")
+    tot = sum(float(x) for x in p.values())
+    if not 95 <= tot <= 105:
+        raise SystemExit(f"{f}: probabilities add up to {tot:g}, not 100")
+    return {k: round(100 * float(x) / tot, 1) for k, x in p.items()}, v.get("cues", "")
+
+
+def recognition(run, scratch):
+    """Forced-choice recognition prompts: one per passage, plus the positive controls, all under
+    shuffled ids r01.. so no agent can tell a control from a passage. The key stays in the run folder."""
     d = run_dir(run)
+    m = meta(d)
+    if not forced_choice(m):
+        sys.exit(f"run {run} uses the confidence label; forced choice starts with runs that record it")
+    sc = pathlib.Path(scratch).resolve()
+    if (sc / "recognition-in").exists():
+        sys.exit(f"{sc / 'recognition-in'} exists")
+    cf = candidates_file()
+    rng = random.Random(m["seed"] + 4)
+    items = [{"kind": "passage", "id": p["id"], "file": d / "passages" / f"{p['id']}.md",
+              "truth": None if p["group"] == "synthetic" else cf["authors"][p["author"]]["name"]}
+             for p in m["passages"]]
+    items += [{"kind": "positive", "id": c["file"], "file": ROOT / "evals" / c["file"], "truth": c["name"]}
+              for c in cf["controls"]]
+    rng.shuffle(items)
+    for sub in ("recognition-in", "recognition-prompts", "recognition-out"):
+        (sc / sub).mkdir(parents=True, exist_ok=True)
+    key = {}
+    for i, it in enumerate(items, 1):
+        rid = f"r{i:02d}"
+        cands = candidate_list(it["truth"], rng, cf["pool"])
+        text = normalise_typography(it["file"].read_text(encoding="utf-8").strip())
+        (sc / "recognition-in" / f"{rid}.md").write_text(text + "\n", encoding="utf-8")
+        (sc / "recognition-prompts" / f"{rid}.txt").write_text(
+            fc_prompt(sc / "recognition-in" / f"{rid}.md", cands, sc / "recognition-out" / f"{rid}.json"), encoding="utf-8")
+        key[rid] = {"kind": it["kind"], "id": it["id"], "truth": it["truth"] or "none", "candidates": cands}
+    (d / "recognition-key.json").write_text(json.dumps(key, indent=1) + "\n")
+    print(f"{len(key)} recognition prompts in {sc / 'recognition-prompts'} "
+          f"({sum(1 for v in key.values() if v['kind'] == 'positive')} positive controls)")
+
+
+def sensitivity(run, scratch, n=SENS_N):
+    """The sensitivity test: a seeded sample of real-author packets judged again, once blind and once told
+    the author. Needs export-judge first (it reuses judge-in/). The key stays in the run folder."""
+    d = run_dir(run)
+    m = meta(d)
+    sc = pathlib.Path(scratch).resolve()
+    if not (sc / "judge-in" / "_judge.md").exists():
+        sys.exit("run export-judge first")
+    cf = candidates_file()
     anon = json.loads((d / "anon.json").read_text())["briefs"]
-    labels = sorted(LABELS[:len(arms(meta(d)))])
+    group = {p["id"]: p for p in m["passages"]}
+    real = sorted(aid for aid, pid in anon.items() if group[pid]["group"] == "real")
+    rng = random.Random(m["seed"] + 5)
+    pick = sorted(rng.sample(real, min(n, len(real))))
+    for sub in ("sensitivity-prompts", "sensitivity-out"):
+        (sc / sub).mkdir(parents=True, exist_ok=True)
+    for aid in pick:
+        a = cf["authors"][group[anon[aid]]["author"]]
+        for kind in ("blind", "named"):
+            tmpl = (PROMPTS / f"sens-{kind}.txt").read_text(encoding="utf-8")
+            (sc / "sensitivity-prompts" / f"{kind}-{aid}.txt").write_text(tmpl.format(
+                JUDGE=sc / "judge-in" / "_judge.md", PACKET=sc / "judge-in" / f"{aid}.md", NAME=a["name"],
+                ABOUT=a["about"], OUT=sc / "sensitivity-out" / f"{kind}-{aid}.json"), encoding="utf-8")
+    (d / "sensitivity-key.json").write_text(json.dumps({aid: anon[aid] for aid in pick}, indent=1) + "\n")
+    print(f"{len(pick)} packets, {2 * len(pick)} prompts in {sc / 'sensitivity-prompts'}")
+
+
+def import_judge(run, scratch):
+    """Verdicts, recognition answers and sensitivity verdicts back into the run under the real ids."""
+    d = run_dir(run)
+    m = meta(d)
+    anon = json.loads((d / "anon.json").read_text())["briefs"]
+    labels = sorted(LABELS[:len(arms(m))])
+    sc = pathlib.Path(scratch)
     n = collections.Counter()
-    for sub, dest in (("judge-out", "judge"), ("recognition-out", "recognition")):
+
+    def verdict(f):
+        v = json.loads(f.read_text())
+        if sorted(v.get("ranking", [])) != labels:
+            raise SystemExit(f"{f}: ranking must hold {', '.join(labels)} once each")
+        return v
+
+    subs = (("judge-out", "judge"),) + ((() if forced_choice(m) else (("recognition-out", "recognition"),)))
+    for sub, dest in subs:
         for aid, pid in anon.items():
-            f = pathlib.Path(scratch) / sub / f"{aid}.json"
+            f = sc / sub / f"{aid}.json"
             if f.exists():
-                v = json.loads(f.read_text())
-                if dest == "judge" and sorted(v.get("ranking", [])) != labels:
-                    raise SystemExit(f"{f}: ranking must hold {', '.join(labels)} once each")
+                v = verdict(f) if dest == "judge" else json.loads(f.read_text())
                 (d / dest / f"{pid}.json").write_text(json.dumps(v, indent=1, ensure_ascii=False) + "\n")
                 n[dest] += 1
+    if forced_choice(m) and (d / "recognition-key.json").exists():
+        key = json.loads((d / "recognition-key.json").read_text())
+        controls = {}
+        for rid, k in sorted(key.items()):
+            f = sc / "recognition-out" / f"{rid}.json"
+            if not f.exists():
+                continue
+            p, cues = read_fc(f, k["candidates"])
+            # a synthetic passage has no author to know: its answer is a negative control (p["none"])
+            rec = {"method": "forced-choice", "candidates": k["candidates"], "truth": k["truth"], "p": p,
+                   "p_true": None if k["truth"] == "none" else p[k["truth"]], "cues": cues}
+            if k["kind"] == "passage":
+                (d / "recognition" / f"{k['id']}.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
+                n["recognition"] += 1
+            else:
+                controls[k["id"]] = rec
+                n["controls"] += 1
+        if controls:
+            (d / "recognition" / "_controls.json").write_text(json.dumps(controls, indent=1, ensure_ascii=False) + "\n")
+    if (d / "sensitivity-key.json").exists():
+        (d / "sensitivity").mkdir(exist_ok=True)
+        for aid, pid in json.loads((d / "sensitivity-key.json").read_text()).items():
+            for kind in ("blind", "named"):
+                f = sc / "sensitivity-out" / f"{kind}-{aid}.json"
+                if f.exists():
+                    (d / "sensitivity" / f"{kind}-{pid}.json").write_text(
+                        json.dumps(verdict(f), indent=1, ensure_ascii=False) + "\n")
+                    n["sensitivity"] += 1
     print(json.dumps(dict(n)))
+
+
+# ---------- screening new authors ----------
+
+def screen(scratch, name=None, files=(), seed=SEED):
+    """Screen a candidate author (eval-protocol.md, Screening). With --name and --files (passages of
+    about 300 words, the author's and other people's names already removed): forced-choice prompts, one
+    per passage, plus the positive controls, under shuffled ids. Without them: score the answers."""
+    sc = pathlib.Path(scratch).resolve()
+    kf = sc / "screen-key.json"
+    if not files:
+        key = json.loads(kf.read_text())
+        rows = {"passages": [], "controls": []}
+        for sid, k in sorted(key["items"].items()):
+            p, _ = read_fc(sc / "screen-out" / f"{sid}.json", k["candidates"])
+            rows["passages" if k["kind"] == "passage" else "controls"].append(round(p[k["truth"]], 1))
+        mean = sum(rows["passages"]) / len(rows["passages"])
+        ok = all(x >= POSITIVE_MIN for x in rows["controls"])
+        out = {"author": key["name"], "p_true": rows["passages"], "mean": round(mean, 1),
+               "controls": rows["controls"], "detector_ok": ok,
+               "accept": ok and mean < SCREEN_MAX and len(rows["passages"]) >= 4}
+        print(json.dumps(out, indent=1))
+        return out
+    if kf.exists():
+        sys.exit(f"{kf} exists; use a new scratch folder")
+    cf = candidates_file()
+    rng = random.Random(seed)
+    items = [{"kind": "passage", "file": pathlib.Path(f), "truth": name} for f in files]
+    items += [{"kind": "positive", "file": ROOT / "evals" / c["file"], "truth": c["name"]} for c in cf["controls"]]
+    rng.shuffle(items)
+    for sub in ("screen-in", "screen-prompts", "screen-out"):
+        (sc / sub).mkdir(parents=True, exist_ok=True)
+    key = {"name": name, "items": {}}
+    for i, it in enumerate(items, 1):
+        sid = f"s{i:02d}"
+        cands = candidate_list(it["truth"], rng, cf["pool"])
+        text = normalise_typography(it["file"].read_text(encoding="utf-8").strip())
+        (sc / "screen-in" / f"{sid}.md").write_text(text + "\n", encoding="utf-8")
+        (sc / "screen-prompts" / f"{sid}.txt").write_text(
+            fc_prompt(sc / "screen-in" / f"{sid}.md", cands, sc / "screen-out" / f"{sid}.json"), encoding="utf-8")
+        key["items"][sid] = {"kind": it["kind"], "file": str(it["file"]), "truth": it["truth"], "candidates": cands}
+    kf.write_text(json.dumps(key, indent=1) + "\n")
+    print(f"{len(items)} screening prompts in {sc / 'screen-prompts'}")
 
 
 def spotcheck(run, share=0.10):
@@ -524,6 +717,73 @@ def cluster_ci(rows, a, b, cluster, n_boot=4000, seed=7):
             "clusters": len(keys), "briefs": sum(len(v) for v in by.values())}
 
 
+def familiarity(rows):
+    """Win rates by how sure a forced-choice agent was of the true author (p_true, 0 to 100): the
+    known-author result read beside how well the model knows each passage's author. Synthetic passages
+    have no author to know and are the negative controls instead (detector)."""
+    out = {}
+    for g in sorted({r["group"] for r in rows if r["group"] != "synthetic"}):
+        rs = [r for r in rows if r["group"] == g]
+        known = [r["familiarity"] for r in rs if r.get("familiarity") is not None]
+        v = {"mean_p_true": round(sum(known) / len(known), 1) if known else None, "bins": {}}
+        for lo, hi, label in BINS + ((None, None, "not run"),):
+            b = [r for r in rs if (r.get("familiarity") is None if lo is None
+                                   else r.get("familiarity") is not None and lo <= r["familiarity"] < hi)]
+            if b:
+                v["bins"][label] = {"briefs": len(b), "vs_plain": sum(r["win_plain"] for r in b),
+                                    "vs_fewshot": sum(r["win_fewshot"] for r in b)}
+        out[g] = v
+    return out
+
+
+def detector(d, rows):
+    """Does the recognition check work this run? The positive controls (well-known writers) must be named
+    with at least POSITIVE_MIN, and the synthetic passages (negative controls: no one to name) must
+    average at least NONE_MIN on "none"."""
+    f = d / "recognition" / "_controls.json"
+    pos = {k: v["p_true"] for k, v in json.loads(f.read_text()).items()} if f.exists() else {}
+    neg = [r["recognition"]["p"]["none"] for r in rows
+           if r["group"] == "synthetic" and r["recognition"].get("method") == "forced-choice"]
+    mean_none = round(sum(neg) / len(neg), 1) if neg else None
+    ok = bool(pos) and bool(neg) and all(x >= POSITIVE_MIN for x in pos.values()) and mean_none >= NONE_MIN
+    return {"positive": pos, "negatives": len(neg), "mean_none": mean_none, "ok": ok}
+
+
+def pair_agreement(r1, r2):
+    """The share of arm pairs two rankings put in the same order."""
+    ps = [(a, b) for i, a in enumerate(r1) for b in r1[i + 1:]]
+    return sum(beats(r2, a, b) for a, b in ps) / len(ps)
+
+
+def sensitivity_result(d, key, rows):
+    """Blind and author-named re-judgments of the sampled packets. If naming the author moves Idiolect's
+    wins over few-shot by at least max(3, a quarter of the sample), the known-author result is flagged
+    unreliable: the judge is then reading the author's reputation, not the passage."""
+    sd = d / "sensitivity"
+    if not sd.exists():
+        return None
+    orig = {r["id"]: r["rank"] for r in rows}
+    got = []
+    for f in sorted(sd.glob("blind-*.json")):
+        pid = f.stem[len("blind-"):]
+        g = sd / f"named-{pid}.json"
+        if not g.exists():
+            continue
+        blind = [key[pid][lab] for lab in json.loads(f.read_text())["ranking"]]
+        named = [key[pid][lab] for lab in json.loads(g.read_text())["ranking"]]
+        got.append((orig[pid], blind, named))
+    if not got:
+        return None
+    n = len(got)
+    w = lambda i: sum(beats(x[i], "idiolect", "fewshot") for x in got)  # noqa: E731
+    shift = abs(w(2) - w(1))
+    limit = max(3, math.ceil(n / 4))
+    return {"packets": n, "wins_vs_fewshot": {"original": w(0), "blind": w(1), "named": w(2)},
+            "agreement": {"original_blind": round(sum(pair_agreement(o, b) for o, b, _ in got) / n, 2),
+                          "original_named": round(sum(pair_agreement(o, nm) for o, _, nm in got) / n, 2)},
+            "shift": shift, "limit": limit, "unreliable": shift >= limit}
+
+
 def score(run):
     d = run_dir(run)
     m = meta(d)
@@ -536,18 +796,24 @@ def score(run):
         old_rows = {r["id"]: r for r in json.loads((d / "results.json").read_text())["rows"]}
     flags = draft_flags(run, d, old_rows)
     recognition_run = any((d / "recognition").glob("*.json"))
+    fc = forced_choice(m)
     rows = []
     for p in m["passages"]:
         v = json.loads((d / "judge" / f"{p['id']}.json").read_text())
         rank = [key[p["id"]][lab] for lab in v["ranking"]]
         rec_f = d / "recognition" / f"{p['id']}.json"
         rec = json.loads(rec_f.read_text()) if rec_f.exists() else {"confidence": "not run"}
-        rows.append({**p, "rank": rank, "agent": agents.get(p["id"]) or p["author"],
-                     "win_plain": beats(rank, "idiolect", "plain"),
-                     "win_fewshot": beats(rank, "idiolect", "fewshot"),
-                     "recognised": rec.get("confidence") in ("medium", "high"),
-                     "recognition": rec, "flags": flags[p["id"]]})
+        row = {**p, "rank": rank, "agent": agents.get(p["id"]) or p["author"],
+               "win_plain": beats(rank, "idiolect", "plain"),
+               "win_fewshot": beats(rank, "idiolect", "fewshot"),
+               # forced-choice runs exclude nothing: familiarity is reported, not screened out
+               "recognised": False if fc else rec.get("confidence") in ("medium", "high"),
+               "recognition": rec, "flags": flags[p["id"]]}
+        if fc:
+            row["familiarity"] = rec.get("p_true")
+        rows.append(row)
     res = {"run": run, "arms": list(arm_list), "recognition_checks": "run" if recognition_run else "not run",
+           "recognition_method": "forced-choice" if fc else "confidence",
            "authors": {}, "groups": {}, "pairs": {}}
     for level, keyf in (("authors", "author"), ("groups", "group")):
         for name in sorted({r[keyf] for r in rows}):
@@ -590,33 +856,83 @@ def score(run):
         v = json.loads((d / "judge" / f"{p['id']}.json").read_text())
         positions[v["ranking"][0]] += 1
     res["first_place_by_label"] = dict(sorted(positions.items()))
+    if fc:
+        res["familiarity"] = familiarity(rows)
+        res["detector"] = detector(d, rows)
+        res["sensitivity"] = sensitivity_result(d, key, rows)
+        if "real" in res["groups"]:
+            s = res["sensitivity"]
+            res["groups"]["real"]["reliable"] = None if s is None else not s["unreliable"]
     (d / "results.json").write_text(json.dumps({"summary": res, "rows": rows}, indent=1) + "\n")
     write_results_md(d, run, res)
     return res
 
 
+GROUP_NAMES = {"real": "known-author (real)", "synthetic": "unknown-author (synthetic)"}
+
+
 def write_results_md(d, run, res):
     pct = lambda x: "n/a" if x is None else f"{x:.0%}"  # noqa: E731
     arm_list = res["arms"]
-    excl = ("Counted briefs exclude those whose passage a separate agent recognised with medium or high confidence."
-            if res["recognition_checks"] == "run" else
-            "**Recognition checks were not run for this run: every brief is counted, none was screened.**")
-    L = [f"# Results, run {run}", "", excl,
-         "The last column (all briefs, recognised included) is reported for information and decides nothing.", "",
-         f"| Author | Briefs | Excluded (recognised) | vs plain | vs few-shot | Mean flags: {' / '.join(arm_list)} | All briefs: vs plain, vs few-shot |",
+    fc = res.get("recognition_method") == "forced-choice"
+    gname = (lambda g: GROUP_NAMES.get(g, g)) if fc else (lambda g: g)  # noqa: E731
+    if fc:
+        head = ["Every brief is counted. Familiarity is the probability a separate forced-choice agent gave the "
+                "true author (ten writers and \"none\"); it is reported beside the result and excludes nothing."]
+        col = "Mean familiarity"
+    else:
+        head = [("Counted briefs exclude those whose passage a separate agent recognised with medium or high confidence."
+                 if res["recognition_checks"] == "run" else
+                 "**Recognition checks were not run for this run: every brief is counted, none was screened.**"),
+                "The last column (all briefs, recognised included) is reported for information and decides nothing."]
+        col = "Excluded (recognised)"
+    L = [f"# Results, run {run}", ""] + head + ["",
+         f"| Author | Briefs | {col} | vs plain | vs few-shot | Mean flags: {' / '.join(arm_list)} | All briefs: vs plain, vs few-shot |",
          "| --- | --- | --- | --- | --- | --- | --- |"]
+    fam = {}
+    if fc:
+        rows = json.loads((d / "results.json").read_text())["rows"]
+        for a in res["authors"]:
+            xs = [r["familiarity"] for r in rows if r["author"] == a and r.get("familiarity") is not None]
+            fam[a] = f"{sum(xs) / len(xs):.0f}%" if xs else "not run"
     for a, v in res["authors"].items():
-        ex = v["excluded_recognised"] if res["recognition_checks"] == "run" else "not run"
+        ex = fam[a] if fc else (v["excluded_recognised"] if res["recognition_checks"] == "run" else "not run")
         L.append(f"| {a} | {v['briefs']} | {ex} | {v['wins_vs_plain']}/{v['counted']} "
                  f"({pct(v['rate_vs_plain'])}) | {v['wins_vs_fewshot']}/{v['counted']} ({pct(v['rate_vs_fewshot'])}) | "
                  f"{' / '.join(str(v['mean_flags'][k]) for k in arm_list)} | "
                  f"{v['all_briefs']['vs_plain']}/{v['briefs']}, {v['all_briefs']['vs_fewshot']}/{v['briefs']} |")
     L += ["", "| Group | Counted | vs plain (bar 70%) | vs few-shot (bar 60%) | Pass this run |", "| --- | --- | --- | --- | --- |"]
     for g, v in res["groups"].items():
-        L.append(f"| {g} | {v['counted']} | {pct(v['rate_vs_plain'])} | {pct(v['rate_vs_fewshot'])} | {'yes' if v['pass'] else 'no'} |")
+        mark = "yes" if v["pass"] else "no"
+        if v.get("reliable") is False:
+            mark += " (unreliable: sensitivity test)"
+        elif fc and g == "real" and v.get("reliable") is None:
+            mark += " (sensitivity test not run)"
+        L.append(f"| {gname(g)} | {v['counted']} | {pct(v['rate_vs_plain'])} | {pct(v['rate_vs_fewshot'])} | {mark} |")
+    if fc:
+        L += ["", "Win rates by familiarity (the probability given to the true author):", "",
+              "| Group | Familiarity | Briefs | vs plain | vs few-shot |", "| --- | --- | --- | --- | --- |"]
+        for g, v in res["familiarity"].items():
+            for label, b in v["bins"].items():
+                L.append(f"| {gname(g)} | {label} | {b['briefs']} | {b['vs_plain']}/{b['briefs']} | {b['vs_fewshot']}/{b['briefs']} |")
+        det = res["detector"]
+        pos = ", ".join(f"{k.rsplit('/', 1)[-1]} {x:.0f}%" for k, x in det["positive"].items()) or "none run"
+        L += ["", f"Detector check: positive controls {pos} (need {POSITIVE_MIN}%); "
+                  f"{det['negatives']} synthetic passages average {det['mean_none'] if det['mean_none'] is not None else 'n/a'}% "
+                  f"on \"none\" (need {NONE_MIN}%): **{'works' if det['ok'] else 'FAILED: the familiarity figures are not trustworthy this run'}**."]
+        sens = res["sensitivity"]
+        if sens is None:
+            L += ["", "Sensitivity test: **not run**."]
+        else:
+            w = sens["wins_vs_fewshot"]
+            L += ["", f"Sensitivity test ({sens['packets']} real-author packets judged again): Idiolect over few-shot "
+                      f"{w['original']} (original), {w['blind']} (blind), {w['named']} (author named); agreement with "
+                      f"the original {sens['agreement']['original_blind']:.2f} blind, {sens['agreement']['original_named']:.2f} named. "
+                      f"Shift {sens['shift']} against a limit of {sens['limit']}: "
+                      f"**{'unreliable' if sens['unreliable'] else 'within judge noise'}**."]
     L += ["", "Pairwise win rates with 95% intervals from resampling generator agents (one agent writes several "
           "drafts, so the agent, not the brief, is the unit):", "",
-          "| Comparison | All | " + " | ".join(g for g in res["groups"]) + " | By author |",
+          "| Comparison | All | " + " | ".join(gname(g) for g in res["groups"]) + " | By author |",
           "| --- | --- | " + " | ".join("---" for _ in res["groups"]) + " | --- |"]
     for name, v in res["pairs"].items():
         cell = lambda c: "n/a" if not c else f"{c['rate']:.0%} ({c['ci95'][0]:.0%}-{c['ci95'][1]:.0%}, {c['clusters']} agents)"  # noqa: E731
@@ -632,12 +948,15 @@ def pool(runs):
     since repeated passages are not independent briefs (review)."""
     seen = set()
     tot = collections.defaultdict(lambda: [0, 0, 0])
-    per_run, repeats = {}, 0
+    per_run, repeats, unreliable = {}, 0, {}
     for r in runs:
         d = run_dir(r)
         data = json.loads((d / "results.json").read_text())
         res, rows = data["summary"], data["rows"]
         per_run[r] = {g: v["pass"] for g, v in res["groups"].items()}
+        for g, v in res["groups"].items():
+            if v.get("reliable") is False:
+                unreliable.setdefault(g, []).append(r)
         for row in rows:
             k = text_key((d / "passages" / f"{row['id']}.md").read_text(encoding="utf-8"))
             if k in seen:
@@ -654,6 +973,8 @@ def pool(runs):
         out[g] = {"briefs": n, "p_vs_plain": round(binom_p(wp, n), 5), "p_vs_fewshot": round(binom_p(wf, n), 5),
                   "each_run_passed": all(per_run[r].get(g) for r in runs)}
         out[g]["pass"] = out[g]["each_run_passed"] and out[g]["p_vs_plain"] < 0.05 and out[g]["p_vs_fewshot"] < 0.05
+        if g in unreliable:
+            out[g]["unreliable_runs"] = unreliable[g]      # the sensitivity test flagged these runs
     print(json.dumps(out, indent=1))
     return out
 
@@ -661,7 +982,8 @@ def pool(runs):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("action", choices=["new", "overlap", "prepare", "collect", "lengths", "shuffle",
-                                       "export-judge", "import-judge", "score", "pool", "spotcheck"])
+                                       "export-judge", "import-judge", "recognition", "sensitivity", "score", "pool",
+                                       "spotcheck", "screen"])
     ap.add_argument("--run")
     ap.add_argument("--runs")
     ap.add_argument("--scratch")
@@ -673,6 +995,9 @@ def main():
     ap.add_argument("--source", default="authors", choices=["authors", "later"])
     ap.add_argument("--fresh-only", action="store_true")
     ap.add_argument("--cap", action="append", default=[], help="author=N: fewer passages for this author")
+    ap.add_argument("--n", type=int, default=SENS_N, help="sensitivity: packets to judge again")
+    ap.add_argument("--name", help="screen: the candidate author's name")
+    ap.add_argument("--files", default="", help="screen: comma-separated passage files, names removed")
     a = ap.parse_args()
     if a.action == "new":
         new_run(a.seed, per_author=a.per_author, arm_list=tuple(a.arms.split(",")) if a.arms else KINDS,
@@ -692,6 +1017,12 @@ def main():
         export_judge(a.run, a.scratch)
     elif a.action == "import-judge":
         import_judge(a.run, a.scratch)
+    elif a.action == "recognition":
+        recognition(a.run, a.scratch)
+    elif a.action == "sensitivity":
+        sensitivity(a.run, a.scratch, a.n)
+    elif a.action == "screen":
+        screen(a.scratch, a.name, [f for f in a.files.split(",") if f], a.seed)
     elif a.action == "spotcheck":
         spotcheck(a.run)
     elif a.action == "score":

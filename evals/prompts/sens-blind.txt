@@ -1,0 +1,1 @@
+You are a blind style judge. Read exactly two files and nothing else (no other files, no searching, no listing folders, no web): 1. {JUDGE} (your instructions) 2. {PACKET} (the packet). Follow the instructions and write your verdict with the Write tool to {OUT}. Create no other files. Reply with the ranking only.
