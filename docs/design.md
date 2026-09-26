@@ -506,7 +506,7 @@ Written down in `evals/eval-protocol.md` before any evaluation runs, and run in 
 
 - **Fixture authors.** Lesser-known public-domain authors, supplemented by synthetic authors (distinct invented writing personas, labelled as synthetic). Before use, the judge is asked whether it recognises the author from a held-out text; a recognised author is replaced. Living writers are not used, because that would need their consent.
 - **Two baselines per brief:** a plain draft, and a few-shot draft given the same three example passages but no profile.
-- **Briefs.** Topic-only briefs written without seeing the held-out text; the generating run never has the held-out text or its path in context.
+- **Briefs.** A separate brief-writer agent reads the held-out passage and writes a topic-only brief of at most 60 words in its own words; a script rejects any brief sharing a run of four or more words with the passage. The generating runs never have the held-out text or its path in context. Full procedure in `evals/eval-protocol.md`, including a person spot-checking 10% of judgments and a pass having to hold over two separate runs.
 - **Judge.** For fixtures, a separate agent using skill-creator's comparator sees a held-out text by the author and the shuffled drafts, and picks the closest; a person spot-checks its picks. For a writer's own profile, the writer judges, with drafts labelled A/B/C and a hidden key.
 - **The bar,** over at least 10 briefs per author: Idiolect is picked over the plain draft in at least 70% of cases and over the few-shot draft in at least 60%, **met separately on the synthetic authors and on the public-domain authors**. The model has a sense of the real authors' styles (phase 0 recognition check), so results on them alone could flatter Idiolect. Missing the few-shot bar means the machinery adds nothing, and the design changes.
 - **Clean runs.** Other voice skills are switched off by the tester during evaluation.
@@ -615,6 +615,7 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Never invent facts | A voice built to be believed makes invented details more harmful |
 | Caricature guard | Imitation overdoes habits |
 | `check` fails on 5+ flagged metrics, not on one | Measured in phase 0: single flags hit 95% of genuine passages; five flags separate genuine from AI (8% vs 87%) |
+| Brief writer may read the held-out passage; generators never do | A brief needs the topic; copied phrasing is blocked by an overlap check |
 | Evaluation bar met separately on synthetic and real fixture authors | The model recognises real authors' styles at low confidence, which can flatter results |
 | Redaction recorded per item | Export must be able to enforce it |
 | Consent recorded per profile | Voice imitation of others must be authorised |
