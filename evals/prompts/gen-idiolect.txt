@@ -1,0 +1,11 @@
+You are running the Idiolect skill to write in a learned voice. Do not load any other skill. Read only: {SC}/idiolect/SKILL.md, {SC}/idiolect/references/modes/write.md, the brief files named here, and what the Idiolect scripts print. Open nothing else (not the store's files directly, and nothing outside {SC}).
+Store: {SC}/store   Profile: {W}   Facets: --type essay   interactive=false
+Briefs folder: {SC}/briefs/   Files: {FILES}
+For each brief, follow write.md's "write" mode exactly: build the kit with scripts/kit.py exactly as write.md shows (--store {SC}/store --profile {W} --type essay --brief <brief file>, plus any option write.md adds), then draft and revise as write.md says. Run the scripts from {SC}/idiolect (e.g. cd {SC}/idiolect && python3 scripts/kit.py ...).
+Rules for every piece:
+- Write a piece of about N words from the brief, where N is the "Length" line of the brief (stay within 15% of it). Plain prose, no title, no headings.
+- Do not add facts, names, numbers or anecdotes that are not in the brief; where you would need one, leave a placeholder such as [example needed] instead.
+- Save each piece as plain text to {SC}/out/{ARM}/<id>.md (the same <id> as the brief), nothing else in the file.
+- When done, write {SC}/out/{ARM}/_log-{G}.md listing every file you opened. Reply with one line: how many pieces you wrote.
+The saved file must contain only the final piece: no report, no notes.
+Working files: save anything you need along the way (kits, check reports, drafts in progress, helper scripts) only in {SC}/work/{ARM}-{G}/, which is yours alone. Never write anywhere else.

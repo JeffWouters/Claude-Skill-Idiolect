@@ -681,6 +681,7 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Fixture authors screened per passage; kept only when at most one passage in four is recognised at medium or higher | A single-passage check per author missed that 27 of 37 real-author passages in run 1 were recognised. Alexander Smith, Alice Meynell and A. C. Benson were retired; Robert Cortes Holliday and Katharine Fullerton Gerould were added |
 | Evaluation generators: one fresh agent per author and kind, each with its own working folder | Run 1 used one agent per author and kind (the protocol said one per brief; the difference applies to all three kinds alike and is now written down), and shared a working folder, so kits were overwritten between agents. From run 2 each generator has its own folder |
 | The lock's mode list gained `migrate` without a version bump | A lock lives for one run; an older engine reads an unknown mode as a damaged lock and waits, which is the safe outcome (spec §10.7) |
+| Run 4 is a diagnostic run with a fourth arm (kit without targets and without the revise loop), several generators per author, balanced labels and normalised typography | The review of runs 1 to 3 found shared passages, generator batch effects and typographic tells, and no arm could say which part of Idiolect hurts |
 
 ## Open questions
 

@@ -6,14 +6,14 @@ its reasons), with a style rubric in place of a task rubric.
 
 ## What you get
 
-A packet with one passage by an author and three drafts, A, B and C. All three drafts were written
+A packet with one passage by an author and three or four drafts (A, B, C and perhaps D). All drafts were written
 from the same short brief of that passage's content, so they cover roughly the same ground. You do
 not know who the author is and you are not told how the drafts were made. Do not try to find out:
 read only the packet you were given.
 
 ## The question
 
-**Which draft reads most as if the author of the passage wrote it?** Rank all three, best first. No
+**Which draft reads most as if the author of the passage wrote it?** Rank all of them, best first. No
 ties: if two feel equal, decide on the rubric's first line where they differ.
 
 ## Judge voice, not content
@@ -23,7 +23,8 @@ The drafts share their content by design, so content says nothing. Ignore:
 - which facts, events or images a draft includes, and whether it follows the passage closely;
 - placeholders such as `[example needed]` or `[number needed]` (every method was told to use them);
 - length, within the ±15% every draft was held to;
-- spacing and typography (runs of spaces have been normalised);
+- spacing and typography (spaces, quote marks and dash glyphs have been normalised; whether a draft
+  uses dashes at all is still voice);
 - quality as such: a better essay is not a better match.
 
 Do not reward a draft for reusing the passage's own words or phrases. Borrowed phrasing is copying,
@@ -57,4 +58,4 @@ Write `judge-out/<id>.json` (the id is the packet's) and nothing else:
 }
 ```
 
-`ranking` holds A, B and C once each, best match first. Reasons are about voice, one line each.
+`ranking` holds every label in the packet once, best match first. Reasons are about voice, one line each.

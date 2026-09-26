@@ -178,8 +178,9 @@ def markdown(kit):
         L += [f"- {v['text']}" + (f" ({v['note']})" if v.get("note") else "") for v in kit["forms"]]
     if kit["never"]:
         L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
-    L += ["", "## Measurable targets (the check compares against these)",
-          "Primary metrics first: they separate this writer most from neutral text."]
+    if kit["targets"]:
+        L += ["", "## Measurable targets (the check compares against these)",
+              "Primary metrics first: they separate this writer most from neutral text."]
     for t in kit["targets"]:
         L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}")
     return "\n".join(L) + "\n"
@@ -194,6 +195,8 @@ def main(argv=None):
     ap.add_argument("--facet", action="append", default=[])
     ap.add_argument("--brief")
     ap.add_argument("--examples", type=int, default=3)
+    ap.add_argument("--omit", action="append", default=[], choices=["targets"],
+                    help="leave a section out of the Markdown kit (targets: the measurable targets)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     facets = {"lang": a.lang, "type": a.type}
@@ -209,6 +212,8 @@ def main(argv=None):
     except StoreError as e:
         print(json.dumps({"status": "no_store" if "idiolect.yaml" in str(e) else "error", "message": str(e)}))
         return 2
+    if "targets" in a.omit:
+        kit["targets"] = []
     print(json.dumps(kit, indent=2, ensure_ascii=False) if a.json else markdown(kit))
     return 0
 
