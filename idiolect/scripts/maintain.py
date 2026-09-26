@@ -129,7 +129,10 @@ def forget(store_root, source, profile=None, ownership=None):
             else:
                 remaining = [p for p in e["profiles"] if p not in profs]
                 if remaining:
-                    patch = {"key": key, "profiles": {p: None for p in profs}}
+                    # an `exclude` record per file, not a removed record: it outranks the folder rule, so
+                    # the next learn does not give the text back to this profile (spec §7.1)
+                    patch = {"key": key, "profiles": {p: {"ownership": "exclude", "decided": today,
+                                                          "decided_by": "writer"} for p in profs}}
                     after_own = any(e["profiles"][p]["ownership"] == "own" for p in remaining)
                     pl = {"manifest": [patch]}
                     summary = f"{e.get('path') or key}: forgotten for {', '.join(profs)}, kept for {', '.join(remaining)}"
@@ -270,6 +273,15 @@ def rollback(store_root, profile, to=None):
                 and rel != "changelog.md" and "/" not in rel else None
             if rel.endswith(".examples.md"):
                 slot = rel[: -len(".examples.md")]
+            if rel in ("vocabulary.yaml", "rulings.yaml"):
+                from common import dump_yaml, load_yaml_text
+                cur = load_yaml_text((pdir / rel).read_text(encoding="utf-8")) or {}
+                last = max([cur.get("last_id") or 0] + [int(x["id"].split("-")[1]) for x in cur.get("entries", [])])
+                pending.add("restore", "modify", f"profiles/{profile}/{rel}",
+                            f"{rel} was created after {name}; emptied (ids stay used)",
+                            {"restore": {f"profiles/{profile}/{rel}": dump_yaml(
+                                {"schema_version": 1, "last_id": last, "entries": []})}}, profile=profile)
+                continue
             if slot:
                 # a page keeps its last_id when emptied, so ids created after the snapshot are never reused
                 pl = stage.retire_slot_payload(store, profile, slot)
@@ -283,7 +295,9 @@ def rollback(store_root, profile, to=None):
                         {"delete": [f"profiles/{profile}/{rel}"]}, profile=profile)
         then = read_store_file(sdir / "manifest-entries.json", "manifest-entries")["texts"]
         for key, e in sorted(store.manifest["texts"].items()):
-            others = [p for p in set(e["profiles"]) | set((then.get(key) or {}).get("profiles", {})) if p != profile]
+            # a forgotten text is used by nobody, whatever records it still carries (review I5)
+            others = [] if e["status"] == "forgotten" else \
+                [p for p in e["profiles"] if p != profile and e["profiles"][p]["ownership"] == "own"]
             if key in then:
                 old = then[key]
                 want = {"status": old["status"], "holdout": old.get("holdout", False)}
@@ -310,7 +324,10 @@ def rollback(store_root, profile, to=None):
                         and e["profiles"].get(profile) == rec)
                 if same:
                     continue
-                patch = {"key": key, "set": want, "profiles": {profile: rec}}
+                if e["status"] == "forgotten" and rec:
+                    patch = {"key": key, "set": want, "replace_profiles": {profile: rec}}
+                else:
+                    patch = {"key": key, "set": want, "profiles": {profile: rec}}
                 pl = {"manifest": [patch]}
                 summary = f"{e.get('path') or key}: back to {old['status']}"
                 corpus = store.root / "corpus" / (key.replace("#", "-") + ".txt")
@@ -348,6 +365,27 @@ def rollback(store_root, profile, to=None):
                     summary = f"{e.get('path') or key}: added after {name}; removed from the ledger"
                 pending.add("deletion" if "delete" in pl else "status", "modify", "corpus/manifest.json",
                             summary, pl, profile=profile, ref=key)
+        # entries the snapshot had that the manifest no longer has (e.g. removed by an earlier rollback)
+        for key, old in sorted(then.items()):
+            if key in store.manifest["texts"] or profile not in old["profiles"]:
+                continue
+            entry = json.loads(json.dumps(old))
+            entry["profiles"] = {profile: old["profiles"][profile]}
+            patch = {"key": key, "create": entry}
+            pl = {"manifest": [patch]}
+            summary = f"{old.get('path') or key}: back as {old['status']}"
+            owned = entry["profiles"][profile]["ownership"] == "own" and old["status"] != "forgotten"
+            if owned:
+                text = _reextract(store, entry, key)
+                if text is not None:
+                    pl["corpus"] = {key: text}
+                    patch["cache"] = True
+                    summary += "; text re-extracted"
+                elif old["status"] == "active":
+                    entry["status"] = "unreachable"
+                    summary += "; source changed or gone, restored as unreachable without text"
+            entry.pop("superseded_by", None) if entry["status"] != "superseded" else None
+            pending.add("status", "add", "corpus/manifest.json", summary, pl, profile=profile, ref=key)
         return {"proposed": len(pending.plan["items"]), "snapshot": name, "next": "stage.py diff, decide, commit"}
     except Exception:
         stage.discard(store_root)

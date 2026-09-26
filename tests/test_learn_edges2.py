@@ -198,3 +198,129 @@ def test_rejecting_a_new_type_rejects_the_texts_of_that_type(tmp_path):
     learn.do_measure(st)
     approve_all(st, [i["id"] for i, pl in items(st) if pl.get("types_add")])
     assert Store(st).manifest["texts"] == {}
+
+
+# ---------- third review ----------
+
+def _two_profiles(tmp_path, st, idris_ownership="own"):
+    learn.start(st, targets=["noor"], profile="noor")
+    a = tmp_path / "a.yaml"
+    a.write_text("folders:\n  - {path: noor, profile: noor, ownership: own, facets: {type: essay}}\n"
+                 f"  - {{path: noor, profile: idris, ownership: {idris_ownership}, facets: {{type: essay}}}}\n"
+                 "profiles:\n  - {name: noor, subject: s, consent: self}\n  - {name: idris, subject: t, consent: self}\n")
+    learn.answer(st, a)
+    learn.stage_texts(st)
+    learn.do_measure(st)
+
+
+def _consistent(st, prof):
+    s = Store(st)
+    usable = [k for k, e in s.manifest["texts"].items() if e["profiles"].get(prof, {}).get("ownership") == "own"
+              and e["status"] in ("active", "unreachable") and e["cached"]]
+    fp = json.loads((st / f"profiles/{prof}/en.essay.json").read_text())
+    return fp["counts"]["texts"] == len(usable), (fp["counts"]["texts"], len(usable))
+
+
+def test_rollback_of_a_rollback_restores_the_ledger(tmp_path):
+    st = make_store(tmp_path)
+    full_learn(tmp_path, st, "noor", "noor")
+    shutil.copy(sorted(glob.glob(str(FIX / "synthetic-noor" / "[0-9]*.md")))[10], tmp_path / "Writing" / "noor")
+    learn.start(st, targets=["noor"], profile="noor")
+    learn.stage_texts(st)
+    learn.do_measure(st)
+    approve_all(st)
+    maintain.rollback(st, "noor")
+    approve_all(st)
+    assert _consistent(st, "noor")[0]
+    maintain.rollback(st, "noor")
+    approve_all(st)
+    ok, got = _consistent(st, "noor")
+    assert ok and got[0] == 11, got
+
+
+def test_vocabulary_ids_survive_a_rollback(tmp_path):
+    st = make_store(tmp_path)
+    full_learn(tmp_path, st, "noor", "noor")
+    maintain.rollback(st, "noor", to=maintain._snapshots(Store(st), "noor")[0])
+    approve_all(st)
+    full_learn(tmp_path, st, "noor", "noor")
+    vocab = load_yaml_text((st / "profiles/noor/vocabulary.yaml").read_text())
+    assert [e["id"] for e in vocab["entries"]] == ["v-002"]
+
+
+def test_rollback_of_a_shared_changed_text_is_relearned(tmp_path):
+    st = make_store(tmp_path)
+    _two_profiles(tmp_path, st)
+    approve_all(st)
+    path = sorted(e["path"] for e in Store(st).manifest["texts"].values())[0]
+    f = tmp_path / "Writing" / path
+    f.write_text(f.read_text().replace(" the ", " a ", 1))
+    learn.start(st, targets=["noor"], profile="noor")
+    learn.stage_texts(st)
+    learn.do_measure(st)
+    approve_all(st)
+    maintain.rollback(st, "noor")
+    approve_all(st)
+    learn.start(st, targets=["noor"], profile="noor")
+    learn.stage_texts(st)
+    learn.do_measure(st)
+    approve_all(st)
+    cur = [e for e in Store(st).manifest["texts"].values() if e["path"] == path and e["status"] == "active"]
+    assert len(cur) == 1 and set(cur[0]["profiles"]) == {"noor", "idris"}
+    assert _consistent(st, "noor")[0] and _consistent(st, "idris")[0]
+
+
+def test_rejected_examples_leave_no_passage_behind(tmp_path):
+    st = make_store(tmp_path)
+    basic_learn(tmp_path, st)
+    c = learn.examples_sample(st, "noor", "en.essay")["candidates"][0]
+    (tmp_path / "ex.yaml").write_text(yaml.safe_dump({"examples": [{"key": c["key"], "text": c["text"], "habit": "x"}]}))
+    learn.examples_apply(st, "noor", "en.essay", tmp_path / "ex.yaml")
+    approve_all(st, [i["id"] for i, _ in items(st) if i["kind"] == "example"])
+    rej = (st / "profiles/noor/rejected.yaml").read_text()
+    assert c["text"][:40] not in rej and "sha256:" in rej
+    learn.start(st, targets=["noor"], profile="noor")
+    learn.stage_texts(st)
+    learn.do_measure(st)
+    learn.examples_apply(st, "noor", "en.essay", tmp_path / "ex.yaml")
+    assert not [i for i, _ in items(st) if i["kind"] == "example"]     # the rejected passage stays out
+    stage.discard(st)
+
+
+def test_rollback_of_forgetting_a_shared_text(tmp_path):
+    st = make_store(tmp_path)
+    _two_profiles(tmp_path, st)
+    approve_all(st)
+    key = sorted(Store(st).manifest["texts"])[0]
+    path = Store(st).manifest["texts"][key]["path"]
+    maintain.forget(st, path)
+    approve_all(st)
+    maintain.rollback(st, "noor")
+    approve_all(st)
+    e = Store(st).manifest["texts"][key]
+    assert e["status"] == "active" and e["cached"] and list(e["profiles"]) == ["noor"]
+    assert _consistent(st, "noor")[0]
+
+
+def test_forget_for_one_profile_is_not_undone_by_the_next_learn(tmp_path):
+    st = make_store(tmp_path)
+    _two_profiles(tmp_path, st)
+    approve_all(st)
+    key = sorted(Store(st).manifest["texts"])[0]
+    maintain.forget(st, Store(st).manifest["texts"][key]["path"], profile="idris")
+    approve_all(st)
+    learn.start(st, targets=["noor"], profile="noor")
+    learn.stage_texts(st)
+    assert not [i for i, _ in items(st) if i["kind"] == "ownership"]
+    stage.discard(st)
+    assert Store(st).manifest["texts"][key]["profiles"]["idris"]["ownership"] == "exclude"
+
+
+def test_rejecting_one_of_two_new_profiles_keeps_the_other(tmp_path):
+    st = make_store(tmp_path)
+    _two_profiles(tmp_path, st, idris_ownership="assisted")
+    approve_all(st, [i["id"] for i, pl in items(st) if i["kind"] == "profile" and pl["profile_yaml"]["name"] == "idris"])
+    s = Store(st)
+    assert len(s.manifest["texts"]) == 10 and all(list(e["profiles"]) == ["noor"] for e in s.manifest["texts"].values())
+    assert _consistent(st, "noor")[0]
+    assert not (st / "profiles" / "idris").exists()

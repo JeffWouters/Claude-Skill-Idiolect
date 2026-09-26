@@ -209,7 +209,7 @@ by an approved `forget`.
 
 | Change | Effect on the entry |
 | --- | --- |
-| `forget <source>` (by path: the current version and its segments; by key: that text) for one profile of several | That profile's record is removed from `profiles`; status unchanged |
+| `forget <source>` (by path: the current version and its segments; by key: that text) for one profile of several | That profile's record becomes `exclude`, decided by the writer, so no folder rule gives the text back; status unchanged |
 | `forget <source>` for its only (or last) profile | Status `forgotten`; text deleted |
 | `forget <source> ownership=assisted` or `exclude` | Record changed; if no profile is `own` any more, text deleted and `cached: false` |
 | `forget <source> ownership=own` | Record changed; text extracted and cached if it was not (`cached: true`) |
@@ -249,8 +249,9 @@ Entries that do not feed the profile are never touched by its rollback.
 4. **Decisions carry through.** The writer's own decisions are kept apart; effective decisions are
    recomputed from them every time, so approving an item again undoes the knock-on rejections it
    caused, and only the writer's own rejections are recorded in `rejected.yaml`:
-   - An item may *require* others: anything of a new profile requires the profile item; a text
-     decided by a new rule requires that rule; a text of a new type requires the item adding the
+   - An item may *require* others: anything of a new profile requires the profile item; each
+     profile record a text would get stands on that profile's item and on the new rule that decided
+     it, and is dropped when one of them is rejected (the text itself only when all its records go); a text of a new type requires the item adding the
      type; a lesson, example or never-list of a new slot requires that slot's fingerprint. When a
      required item is rejected, so is the item.
    - At commit, a slot removal whose slot still has texts (the change that emptied it was rejected)
@@ -317,7 +318,12 @@ Entries that do not feed the profile are never touched by its rollback.
    2. Restores the profile's files from the snapshot and removes profile files created after it.
    3. Restores manifest entries as set out in §8 (Rollback).
    A profile's first commit takes an empty snapshot (no files, no entries), so the first learn can be
-   rolled back too.
+   rolled back too. Entries in the snapshot that the manifest no longer has (an earlier rollback
+   removed them) are put back with this profile's record, re-extracted when the file still gives the
+   same text. Files created after the snapshot are removed, except the lessons and examples pages,
+   `vocabulary.yaml` and `rulings.yaml`, which are emptied so their `last_id` survives.
+   A known text that a rule now gives to a profile without a record for it (a new rule, or a record a
+   rollback removed) gets that record at the next learn.
    4. Goes through the pending area and approval like any change.
 3. `prune` keeps the newest `keep` snapshots (default 10) and deletes the rest.
 4. Only `forget`, `rollback` and `prune` delete, always after an approved diff. Where the environment

@@ -11,7 +11,8 @@ time and say why.
 python3 scripts/maintain.py --store S forget --source <path or key> [--profile P] [--ownership own|assisted|exclude]
 ```
 
-- Without `--ownership`: removes the text from `--profile` (or from every profile). When no profile
+- Without `--ownership`: removes the text from `--profile` (recorded as `exclude` for that profile, so
+  its folder rule does not give it back) or from every profile. When no profile
   owns it any more, its cached text is deleted; with no profile left it becomes `forgotten`, and
   later learns skip it.
 - With `--ownership`: reclassifies it. `own` extracts and caches it again, also for a forgotten text,
@@ -30,7 +31,7 @@ python3 scripts/maintain.py --store S rollback --profile P [--to <snapshot name>
 Restores the profile's files from the snapshot (latest by default), removes files created after it,
 and restores that profile's ownership records, statuses and holdout flags. Other profiles are never
 touched: a text that another profile also uses keeps its status, and only this profile's record
-changes (this profile may then lack that text until the next learn; say so). The commit takes a new
+changes (the next learn gives this profile the current version again, through its rule; say so). The commit takes a new
 snapshot first, so a rollback can itself be rolled back: a plain `rollback` straight after a rollback
 undoes it. A profile's first learn has an empty snapshot, so rolling back to it removes everything
 that learn added, including the profile itself; a later `learn` asks for the profile again and sees

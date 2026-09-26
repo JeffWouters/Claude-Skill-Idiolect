@@ -194,7 +194,8 @@ class Pending:
                 fp_items[(fp["profile"], fp["slot"])] = i["id"]
         for i in plan["items"]:
             pl = payloads[i["id"]]
-            profs = {i.get("profile")} - {None}
+            # ledger items name a profile only for grouping; their records carry their own needs
+            profs = set() if pl.get("manifest") else ({i.get("profile")} - {None})
             for field in ("lesson", "example", "never", "fingerprint"):
                 if pl.get(field):
                     profs.add(pl[field]["profile"])
@@ -204,8 +205,8 @@ class Pending:
             for r in pl.get("sources_rules") or []:
                 profs.add(r["profile"])
             for p in pl.get("manifest") or []:
-                profs |= set(((p.get("create") or {}).get("profiles") or {}))
-                profs |= set(p.get("profiles") or {}) | set(p.get("replace_profiles") or {})
+                # a text's records for a rejected new profile are dropped at render time instead
+                # (review M2); the text itself needs a new profile only through `cascade`
                 if new_types and ((p.get("create") or {}).get("facets") or {}).get("type") in new_types:
                     req[i["id"]].add(types_item)
             for prof in profs:
@@ -242,11 +243,14 @@ class Pending:
             if x in by_id:
                 by_id[x]["decision"] = "rejected"
         req = self._implicit_requires(plan, payloads)
+        new_profiles = {payloads[i["id"]]["profile_yaml"]["name"]: i["id"] for i in plan["items"]
+                        if i["kind"] == "profile" and i["op"] == "add"}
         changed = True
         while changed:
             changed = False
             rejected_keys = {i.get("ref") for i in plan["items"] if i["decision"] == "rejected"
                              and i["kind"] in ("corpus-text", "ownership")}
+            gone_profiles = {n for n, iid in new_profiles.items() if by_id[iid]["decision"] == "rejected"}
             for i in plan["items"]:
                 pl = payloads[i["id"]]
                 want = None
@@ -260,6 +264,10 @@ class Pending:
                 elif pl.get("lesson") and pl["lesson"].get("evidence_keys") and \
                         not set(pl["lesson"]["evidence_keys"]) - rejected_keys:
                     want = "rejected"
+                elif pl.get("record_needs") and all(
+                        any(by_id.get(n, {}).get("decision") == "rejected" for n in needs)
+                        for needs in pl["record_needs"].values()):
+                    want = "rejected"       # every profile record it would add stands on something rejected
                 if want and i["decision"] != want:
                     i["decision"] = want
                     changed = True
@@ -339,6 +347,30 @@ def rejected_keys(pending):
             and i["kind"] in ("corpus-text", "ownership") and i.get("ref")}
 
 
+def gone_records(pending, pl):
+    """Profiles whose record in this payload stands on a rejected item (review M2)."""
+    dec = {i["id"]: i["decision"] for i in pending.plan["items"]}
+    return {p for p, needs in (pl.get("record_needs") or {}).items() if any(dec.get(n) == "rejected" for n in needs)}
+
+
+def strip_profiles(patches, gone):
+    """Manifest patches without the records of `gone` profiles."""
+    if not gone:
+        return patches
+    out = []
+    for p in patches:
+        p = copy.deepcopy(p)
+        if "create" in p:
+            p["create"]["profiles"] = {k: v for k, v in p["create"]["profiles"].items() if k not in gone}
+            if not p["create"]["profiles"]:
+                continue
+        for f in ("profiles", "replace_profiles"):
+            if f in p:
+                p[f] = {k: v for k, v in p[f].items() if k not in gone}
+        out.append(p)
+    return out
+
+
 def render(store, pending, include, final=False):
     """{store-relative path: new content, or None to delete} for the included items. `final` marks the
     commit rendering: approved examples are marked reviewed, and lesson evidence drops rejected texts."""
@@ -347,9 +379,17 @@ def render(store, pending, include, final=False):
     gone = rejected_keys(pending)
     out = {}
 
+    # manifest first, so corpus texts are written only for entries that end up cached
+    patches = [p for it, pl in items for p in strip_profiles(pl.get("manifest") or [], gone_records(pending, pl))]
+    texts = copy.deepcopy(store.manifest["texts"])
+    for p in patches:
+        _apply_manifest_patch(texts, p)
+
     # corpus texts, deletions and restores
     for it, pl in items:
         for key, text in (pl.get("corpus") or {}).items():
+            if not (texts.get(key) or {}).get("cached"):
+                continue
             out["corpus/" + key.replace("#", "-") + ".txt"] = text if text.endswith("\n") else text + "\n"
         for rel, content in (pl.get("restore") or {}).items():
             out[rel] = content
@@ -357,11 +397,7 @@ def render(store, pending, include, final=False):
             out[rel] = None
 
     # manifest
-    patches = [p for it, pl in items for p in pl.get("manifest") or []]
     if patches:
-        texts = copy.deepcopy(store.manifest["texts"])
-        for p in patches:
-            _apply_manifest_patch(texts, p)
         man = {"schema_version": 1, "texts": dict(sorted(texts.items()))}
         check_schema("manifest", man, "rendered manifest")
         out["corpus/manifest.json"] = json.dumps(man, indent=2, ensure_ascii=False) + "\n"
@@ -540,8 +576,15 @@ def render_rejections(store, pending):
         text = body.get("text", "")
         slot = it.get("slot") or (pl.get("lesson") or pl.get("example") or {}).get("slot") or "_"
         lang = slot.split(".")[0]
+        if kind == "example":
+            # never keep a passage in rejected.yaml: a hash of it is enough to recognise it again
+            import hashlib
+            digest = hashlib.sha256(" ".join(text.lower().split()).encode("utf-8")).hexdigest()
+            text, normalised = f"example passage from text {body.get('source', '')[:12]}", f"sha256:{digest}"
+        else:
+            normalised = normalise_lesson(text, lang) or text.lower()[:200]
         per[it["profile"]].append({"slot": it.get("slot"), "kind": kind, "text": text[:500],
-                                   "normalised": normalise_lesson(text, lang) or text.lower()[:200],
+                                   "normalised": normalised,
                                    "rejects": body.get("id") if re.match(r"^(l|d|v|e)-\d{3,6}$", body.get("id", "")) else None,
                                    "rejected": today})
     out = {}
@@ -629,6 +672,7 @@ def affected_profiles(store, pending, include):
         if not include(it):
             continue
         pl = pending.payload(it["id"])
+        gone = gone_records(pending, pl)
         for body in (pl.get("lesson"), pl.get("example"), pl.get("never"), pl.get("fingerprint")):
             if body:
                 profs.add(body["profile"])
@@ -640,7 +684,7 @@ def affected_profiles(store, pending, include):
         for rel in list(pl.get("restore") or {}) + list(pl.get("delete") or []):
             if rel.startswith("profiles/"):
                 profs.add(rel.split("/")[1])
-        for p in pl.get("manifest") or []:
+        for p in strip_profiles(pl.get("manifest") or [], gone):
             profs.update((p.get("profiles") or {}).keys())
             profs.update((p.get("replace_profiles") or {}).keys())
             profs.update(((p.get("create") or {}).get("profiles") or {}).keys())
@@ -662,7 +706,7 @@ def rederive_fingerprints(store, pending):
     texts = {}
     for it in approved:
         pl = pending.payload(it["id"])
-        for p in pl.get("manifest") or []:
+        for p in strip_profiles(pl.get("manifest") or [], gone_records(pending, pl)):
             _apply_manifest_patch(view, p)
         texts.update(pl.get("corpus") or {})
 

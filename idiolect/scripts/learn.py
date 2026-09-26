@@ -429,6 +429,25 @@ def stage_texts(store_root):
         elif res == "skipped: holdout" and entry and entry.get("path") != info["path"]:
             pending.add("status", "modify", "corpus/manifest.json", f"{info['path']}: holdout moved",
                         {"manifest": [{"key": key, "set": {"path": info["path"]}}]}, ref=key, decision="approved")
+        if res in ("unchanged", "moved") and entry and entry["status"] in ("active", "unreachable") \
+                and not excluded_now(run, info["path"]):
+            # a rule now gives this known text to a profile that has no record for it (a new rule, or a
+            # record a rollback removed): add the record, never touching existing ones (review I3)
+            decided, _ = _decide(run, key, info)
+            add = {p: {"ownership": o, "decided": today, "decided_by": by}
+                   for p, (o, by) in decided.items() if p not in entry["profiles"]}
+            if add:
+                patch = {"key": key, "profiles": add}
+                pl = {"manifest": [patch], "record_needs": _record_needs(
+                    {p: decided[p] for p in add}, info, profile_items, rule_items, st, ci)}
+                if any(r["ownership"] == "own" for r in add.values()) and not store.corpus_path(key).exists():
+                    text = run.text_from_source(key, info["path"])
+                    if text is not None:
+                        pl["corpus"] = {key: text}
+                        patch["cache"] = True
+                who = ", ".join(f"{r['ownership']} for {p}" for p, r in sorted(add.items()))
+                pending.add("ownership", "modify", "corpus/manifest.json", f"{info['path']}: {who}", pl,
+                            profile=sorted(add)[0], ref=key)
         if res not in LEARNABLE or excluded_now(run, info["path"]):
             continue
         decided, _ = _decide(run, key, info)
@@ -453,14 +472,12 @@ def stage_texts(store_root):
                      and e["status"] in ("active", "unreachable") and k not in st["texts"]]
         for k in olds:
             patches.append({"key": k, "set": {"status": "superseded", "superseded_by": key}})
-        requires = [profile_items[p] for p in decided if p in profile_items and p in st["answers"]["profiles"]]
-        requires += [iid for r, iid in rule_items if r["profile"] in decided and _covers(r, info["path"], ci)
-                     and decided[r["profile"]][1] == "path-rule"]
+        record_needs = _record_needs(decided, info, profile_items, rule_items, st, ci)
         who = ", ".join(f"{o} for {p}" for p, (o, _) in sorted(decided.items()))
         summ = f"{info['path']}{' (segment ' + key.split('#')[1] + ')' if '#' in key else ''}: {res}, {info['words']} words, {facets['lang']}.{facets['type']}; {who}"
         if olds:
             summ += "; supersedes the earlier version"
-        payload = {"manifest": patches, "requires": requires}
+        payload = {"manifest": patches, "record_needs": record_needs}
         if owned:
             payload["corpus"] = {key: run.text(key)}
             pending.add("corpus-text", "add", f"corpus/{key.replace('#', '-')}.txt", summ, payload,
@@ -475,6 +492,20 @@ def stage_texts(store_root):
     st["steps"]["texts"] = True
     run.save()
     return {"items": len(pending.plan["items"]), "next": _next(run)}
+
+
+def _record_needs(decided, info, profile_items, rule_items, st, ci):
+    """Per profile record: the items of this run it stands on (a new profile, the new rule that decided
+    it). A record whose need is rejected is dropped; a text with no records left is rejected."""
+    out = {}
+    for p, (o, by) in decided.items():
+        needs = []
+        if p in profile_items and p in st["answers"]["profiles"]:
+            needs.append(profile_items[p])
+        if by == "path-rule":
+            needs += [iid for r, iid in rule_items if r["profile"] == p and _covers(r, info["path"], ci)]
+        out[p] = needs
+    return out
 
 
 def _date(d):
@@ -548,7 +579,8 @@ def do_measure(store_root):
             run.pending.add("deletion", "remove", f"profiles/{prof}/{slot}.json",
                             f"slot {slot} has no texts left: fingerprint and never-list removed, lessons and "
                             f"examples emptied (edit lessons are kept)",
-                            stage.retire_slot_payload(run.store, prof, slot), profile=prof, slot=slot)
+                            stage.retire_slot_payload(run.store, prof, slot), profile=prof, slot=slot,
+                            decision="approved")
     # a pooled slot with exactly the texts of one exact slot mirrors it: contrast and lessons are shared
     for o in out:
         if not o["pooled"]:
@@ -926,17 +958,19 @@ def examples_apply(store_root, prof, slot, file):
     last = max([meta.get("last_id") or 0, _rejected_ids(run.store, prof, slot, "e"),
                 stage._plan_ids(run.pending, "example", prof, slot)] + [int(e["id"].split("-")[1]) for e in cur])
     have = {_norm_ws(e["text"]) for e in cur}
+    rejected_hashes = set()
     rf = run.store.root / "profiles" / prof / "rejected.yaml"
     if rf.exists():
-        have |= {_norm_ws(e["text"]) for e in read_store_file(rf, "rejected")["entries"]
-                 if e["kind"] == "example" and e.get("slot") == slot}
+        rejected_hashes = {e["normalised"] for e in read_store_file(rf, "rejected")["entries"]
+                           if e["kind"] == "example" and e.get("slot") == slot}
     problems, added = [], []
     for ex in items:
         if ex["key"] not in texts or _norm_ws(ex["text"]) not in _norm_ws(texts[ex["key"]]):
             problems.append(f"passage not found in text {ex['key'][:12]}: {ex['text'][:50]}")
             continue
         red, repl = redactmod.redact(ex["text"].strip(), names)
-        if _norm_ws(red) in have:
+        import hashlib
+        if _norm_ws(red) in have or "sha256:" + hashlib.sha256(_norm_ws(red).encode("utf-8")).hexdigest() in rejected_hashes:
             continue
         last += 1
         e = {"profile": prof, "slot": slot, "id": f"e-{last:03d}", "source": ex["key"],

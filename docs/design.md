@@ -646,6 +646,9 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Rollback never restores rejections and never lowers id counters | Rejections are permanent until lifted; ids must not be reused |
 | Rolling back past a text's first learn removes its entry | The entry did not exist then; "forgotten" would block every later learn of a text the writer never forgot |
 | A slot left without texts keeps its lessons and examples pages, emptied | Their id counters must survive |
+| Forget for one profile records `exclude`, not a missing record | A per-file answer outranks the folder rule, so the next learn does not undo the forget |
+| Profile records stand on their own profile and rule; a text goes only when all its records go | Rejecting one of two new profiles must not take the other profile's texts with it |
+| Rejected examples are remembered by hash, never by passage | A rejected or forgotten text must not survive as a quote in rejected.yaml |
 | Rollback keeps the status of a text another profile uses | Status belongs to the text; a rollback of one profile must never change another |
 | A profile's first learn gets an empty snapshot | Every approved change can be rolled back, including the first |
 | Lesson evidence is the model's list of texts, checked by script | A script cannot find a style pattern; it can check the texts and the quote exist |
