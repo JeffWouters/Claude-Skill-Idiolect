@@ -204,6 +204,9 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None)
         kit["warnings"].append(f"no exact slot; using the pooled slot {slot}")
     if fp["confidence"]["level"] == "low":
         kit["warnings"].append("confidence is low: say so with the draft")
+    caveat = measure.pack_warning(slot.split(".")[0])
+    if caveat:
+        kit["warnings"].append(caveat)
     page = base / f"{slot}.md"
     n_texts = fp["counts"]["texts"]
     kit["lessons"] = [with_share(x, n_texts) for x in

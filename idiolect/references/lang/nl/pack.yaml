@@ -1,0 +1,8 @@
+code: nl
+name: Dutch
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, contractions and stop words for Dutch. The global thresholds were
+  calibrated on English and are applied unchanged; slots in Dutch carry that caveat until Dutch
+  fixture authors calibrate them.

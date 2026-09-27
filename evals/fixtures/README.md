@@ -12,6 +12,7 @@ in `idiolect.skill`.
 | `samuel-mcchord-crothers` | S. M. Crothers (d. 1927) | *The Pardoner's Wallet* (1905), Gutenberg 73172 | 11 | ~57,000 | 2 of 10 (evaluation run 1) |
 | `synthetic-noor` | Noor Vale (invented) | Written for this project, CC0 | 12 | ~8,000 | Not applicable |
 | `synthetic-idris` | Idris Holloway (invented) | Written for this project, CC0 | 12 | ~9,000 | Not applicable |
+| `synthetic-sanne` | Sanne Verhoef (invented), Dutch | Written for this project, CC0; tests the Dutch language pack | 6 | ~1,200 | Not applicable |
 
 All real authors died before 1956 and the books were published before 1929, so the texts are in the
 public domain in both the US and the EU. Each essay file carries its source in frontmatter. Texts

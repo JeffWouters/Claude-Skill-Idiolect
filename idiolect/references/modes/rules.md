@@ -7,7 +7,7 @@ the diff. Run scripts from the skill folder.
 
 ## The starter set
 
-`assets/starter-rules/en.yaml` holds common signs of machine-written text (em dashes, chatbot talk,
+`assets/starter-rules/en.yaml` (English) and `nl.yaml` (Dutch, the same rules in Dutch) hold common signs of machine-written text (em dashes, chatbot talk,
 "delve", "a testament to", stacked hedges, filler, stock openers and conclusions, emojis, bold labels),
 each as a ruling with a test and a category. It is **never applied by itself**. The writer loads it,
 whole or by category, and approves each rule; from then on the rules are theirs, to edit or remove.
@@ -27,7 +27,7 @@ tells", "no em dashes unless I use them"):
 
 ```
 python3 scripts/rules.py starter [--lang en]                    # show the set, if they want to see it first
-python3 scripts/rules.py --store S defaults [--profile P] [--lang en] [--category C ...]
+python3 scripts/rules.py --store S defaults [--profile P] [--lang en|nl] [--category C ...]
 ```
 
 Categories: `punctuation`, `chatbot`, `vocabulary`, `inflation`, `structure`, `framing`, `filler`,

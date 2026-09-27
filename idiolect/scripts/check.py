@@ -192,6 +192,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None):
         notes.append(f"only {n} words: metric flags are hints, never a fail, below {MIN_WORDS} words")
     if fp["pooled"]:
         notes.append(f"measured against the pooled slot {slot}")
+    caveat = measure.pack_warning(lang)
+    if caveat:
+        notes.append(caveat)
     if notes:
         report["message"] = "; ".join(notes)
     return check_schema("check-report", report, "check report")

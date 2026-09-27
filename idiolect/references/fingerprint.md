@@ -79,8 +79,10 @@ implements this.
 ## Language applicability
 
 The engine supports languages that separate words with spaces and end sentences with `.`, `!` or
-`?`. For those, the first eleven metrics apply as defined. The last three need word lists in
-`references/lang/<lang>/`:
+`?`. For those, the first eleven metrics apply as defined. The last three need word lists in a
+**language pack**, `references/lang/<lang>/` (spec §32). A pack also holds `pack.yaml`: `code`, `name`,
+`version` and `calibrated` (true when the global thresholds were calibrated on this language).
+`scripts/langpack.py list` shows the packs, `check` validates them. The lists:
 
 | File | Used by | Format |
 | --- | --- | --- |
@@ -98,5 +100,10 @@ The engine supports languages that separate words with spaces and end sentences 
 - Languages written without spaces between words (Chinese, Japanese, Thai and others) are out of
   scope for v1: `learn` reports their texts as "Skipped: language not supported" and never builds a
   slot for them.
-- v1 ships English lists only. Adding a language is adding its folder; the thresholds were
-  calibrated on English and are applied unchanged, which is recorded as a caveat on the slot page.
+- Two packs ship: **English** (`en`, calibrated; the lists used since phase 0, unchanged) and **Dutch**
+  (`nl`, not calibrated). Dutch contractions are the clitics `'t`, `'n`, `'s`, `m'n`, `z'n`, `d'r` and
+  `zo'n`, with straight or curly apostrophes.
+- Adding a language is adding its pack and running `langpack.py check`. The thresholds were calibrated
+  on English and are applied unchanged elsewhere: for a pack that is not calibrated, the kit and the
+  check report say so. A language with no pack is measured on the eleven list-free metrics, also with a
+  warning.

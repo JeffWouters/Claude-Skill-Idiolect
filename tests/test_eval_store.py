@@ -10,7 +10,10 @@ from store import Store
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STORE = ROOT / "evals" / "store"
-AUTHORS = sorted(p.name for p in (ROOT / "evals" / "fixtures").iterdir() if p.is_dir())
+# The evaluation store holds the English evaluation authors. A pack fixture (synthetic-sanne, Dutch)
+# tests its language pack end to end in tests/test_lang_packs.py and is not an evaluation author.
+PACK_FIXTURES = {"synthetic-sanne"}
+AUTHORS = sorted(p.name for p in (ROOT / "evals" / "fixtures").iterdir() if p.is_dir() and p.name not in PACK_FIXTURES)
 
 
 @pytest.mark.parametrize("author", AUTHORS)

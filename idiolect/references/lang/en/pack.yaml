@@ -1,0 +1,7 @@
+code: en
+name: English
+version: "1.0"
+calibrated: true
+notes: >-
+  The lists the engine has used since phase 0. The global thresholds were calibrated on English
+  (evals/spike/).

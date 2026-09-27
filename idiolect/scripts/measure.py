@@ -49,6 +49,26 @@ def lang_lists(lang):
     return _lists[lang]
 
 
+def pack_info(lang):
+    """The language pack's pack.yaml (spec §32), or None when the language has no pack."""
+    f = LANG_DIR / (lang or "_") / "pack.yaml"
+    if not lang or not f.exists():
+        return None
+    from common import load_yaml_text
+    return load_yaml_text(f.read_text(encoding="utf-8")) or {}
+
+
+def pack_warning(lang):
+    """The caveat for a slot in this language, or None."""
+    info = pack_info(lang)
+    if info is None:
+        return (f"no language pack for '{lang}': measured on the {len(applicable(lang))} metrics that need no "
+                f"word list")
+    if not info.get("calibrated"):
+        return f"the thresholds were calibrated on English, not on {info.get('name', lang)}"
+    return None
+
+
 def applicable(lang):
     lists = lang_lists(lang)
     return [m for m in METRICS if m not in NEEDS_LIST or m in lists]

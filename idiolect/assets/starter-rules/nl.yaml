@@ -1,0 +1,123 @@
+# Startregels voor het Nederlands (spec §27, §32). Never applied by itself: `rules.py defaults --lang nl`
+# copies the rules the writer approves into their own rulings.yaml. No writer data. Same ids and
+# categories as en.yaml, so a writer with both languages can compare them.
+#
+# unless_writer_uses: false  applies whatever the writer's texts do.
+# unless_writer_uses: true   applies only as far as the writer's own texts of the slot do not do it.
+version: "1.0"
+lang: nl
+source: >-
+  Dutch counterparts of the common signs of machine-written text collected in Wikipedia's "Signs of AI
+  writing" (WikiProject AI Cleanup) and open-source humanizer skills, written for Idiolect. Only
+  patterns a script can test are here; each is a ruling the writer can edit, narrow or remove.
+rules:
+  - id: s-001
+    category: punctuation
+    text: "Gebruik geen gedachtestreepje (—) of kastlijntje (–) in lopende tekst: gebruik een komma, een dubbele punt, haakjes of een punt. Een streepje in een reeks getallen (2019–2021) mag."
+    test: {pattern: '—|(?<!\d)\s*–|–\s*(?!\d)'}
+    unless_writer_uses: true
+  - id: s-002
+    category: chatbot
+    text: "Laat geen chatbottaal in de tekst staan: \"Ik hoop dat dit helpt\", \"Ik help je graag\", \"Als AI\", \"als taalmodel\"."
+    test: {phrases: ["Ik hoop dat dit helpt", "hoop dat dit je helpt", "Ik help je graag verder", "Ik help u graag verder", "Wil je dat ik", "Als AI", "als taalmodel", "Laat het me weten als je wilt dat ik"]}
+    unless_writer_uses: false
+  - id: s-003
+    category: chatbot
+    text: "Prijs de vraag niet en geef niet voor de vorm gelijk: \"Goede vraag\", \"Je hebt helemaal gelijk\"."
+    test: {phrases: ["Goede vraag", "Wat een goede vraag", "Uitstekende vraag", "Je hebt helemaal gelijk", "U hebt helemaal gelijk", "U heeft helemaal gelijk", "Je hebt volkomen gelijk"]}
+    unless_writer_uses: false
+  - id: s-004
+    category: chatbot
+    text: "Schrijf niet over de grenzen van je kennis: \"tot mijn laatste update\", \"op basis van de beschikbare informatie\"."
+    test: {phrases: ["tot mijn laatste update", "sinds mijn laatste update", "mijn kennis loopt tot", "mijn trainingsdata", "op basis van de beschikbare informatie", "hoewel specifieke details beperkt zijn", "ik heb geen toegang tot realtime"]}
+    unless_writer_uses: false
+  - id: s-005
+    category: chatbot
+    text: "Schrijf niet over de tekst zelf: \"Hier is de herziene versie\", \"In deze bijgewerkte versie\"."
+    test: {phrases: ["hier is de herziene", "hier is een herziene", "hier is de bijgewerkte", "hier is een bijgewerkte", "in deze herziene versie", "in deze bijgewerkte versie", "ik heb de tekst herschreven"]}
+    unless_writer_uses: false
+  - id: s-006
+    category: vocabulary
+    text: "Gebruik de woorden niet die machinetekst te vaak gebruikt: cruciaal, naadloos, baanbrekend, holistisch, synergie, robuust."
+    test: {words: [cruciaal, cruciale, naadloos, naadloze, baanbrekend, baanbrekende, holistisch, holistische, synergie, robuust, robuuste]}
+    unless_writer_uses: true
+  - id: s-007
+    category: vocabulary
+    text: "Vermijd modewoorden: essentieel, transformatief, innovatief, impactvol, next level, gamechanger."
+    test: {words: [essentieel, essentiële, transformatief, transformatieve, innovatief, innovatieve, impactvol, impactvolle, gamechanger]}
+    unless_writer_uses: true
+  - id: s-008
+    category: inflation
+    text: "Blaas het belang niet op: \"een bewijs van\", \"speelt een cruciale rol\", \"legt de basis voor\", \"in het huidige digitale landschap\", \"in de snel veranderende wereld\"."
+    test: {phrases: ["is een bewijs van", "vormt een bewijs van", "speelt een cruciale rol", "speelt een sleutelrol", "speelt een essentiële rol", "legt de basis voor", "het huidige digitale landschap", "in de snel veranderende wereld", "in de huidige snelle wereld", "een blijvende indruk", "een onuitwisbare indruk", "onderstreept het belang"]}
+    unless_writer_uses: true
+  - id: s-009
+    category: inflation
+    text: "Schrijf niet als een folder: \"gelegen in het hart van\", \"adembenemend\", \"van wereldklasse\", \"een divers scala aan\"."
+    test: {phrases: ["gelegen in het hart van", "in het hart van", "adembenemend", "adembenemende", "van wereldklasse", "een divers scala aan", "een rijk scala aan", "een must voor"]}
+    unless_writer_uses: true
+  - id: s-010
+    category: inflation
+    text: "Leun niet op naamloze autoriteiten: \"experts zeggen\", \"onderzoek toont aan\", \"velen geloven\". Noem de bron of laat het weg."
+    test: {phrases: ["experts zeggen", "experts zijn het erover eens", "deskundigen zeggen", "deskundigen zijn het erover eens", "onderzoek toont aan", "studies tonen aan", "velen geloven", "critici stellen"]}
+    unless_writer_uses: true
+  - id: s-011
+    category: structure
+    text: "Zeg \"is\" als je is bedoelt: niet \"dient als\", \"fungeert als\"."
+    test: {pattern: '\b(dient|diende|fungeert|fungeerde|functioneert|functioneerde) als\b'}
+    unless_writer_uses: true
+  - id: s-012
+    category: structure
+    text: "Plak geen commentaar aan een zin met \", wat ... benadrukt\" of \", waarmee ... onderstreept\": maak er een eigen zin van of schrap het."
+    test: {pattern: ',\s+(wat|hetgeen|waarmee)\b[^.!?]{0,40}\b(benadrukt|onderstreept|illustreert|weerspiegelt|benadrukken|onderstrepen)\b'}
+    unless_writer_uses: true
+  - id: s-013
+    category: framing
+    text: "Kondig niet aan wat er komt: \"Laten we erin duiken\", \"Laten we eens kijken naar\", \"Zonder verder oponthoud\"."
+    test: {phrases: ["laten we erin duiken", "laten we er dieper in duiken", "duiken we dieper in", "laten we eens kijken naar", "zonder verder oponthoud", "hier is wat je moet weten", "laten we eerlijk zijn"]}
+    unless_writer_uses: true
+  - id: s-014
+    category: framing
+    text: "Zoek geen diepgang met een stoplap: \"Laat dat even bezinken\", \"Lees dat nog eens\", \"In de kern\", \"De echte vraag is\"."
+    test: {phrases: ["laat dat even bezinken", "lees dat nog eens", "in de kern", "de echte vraag is", "waar het echt om gaat", "de kern van de zaak"]}
+    unless_writer_uses: true
+  - id: s-015
+    category: framing
+    text: "Spreek geen lezer tegen die niets tegensprak: \"Begrijp me niet verkeerd\", \"Ik zeg niet dat\", \"Dat wil niet zeggen dat\"."
+    test: {phrases: ["begrijp me niet verkeerd", "ik zeg niet dat", "dat wil niet zeggen dat", "je zou denken dat", "het zou verleidelijk zijn om"]}
+    unless_writer_uses: true
+  - id: s-016
+    category: structure
+    text: "Bouw geen zin op \"niet alleen X, maar ook Y\" of \"het gaat niet om X, het gaat om Y\": zeg Y."
+    test: {pattern: "\\bniet (alleen|slechts|enkel)\\b[^.!?]{1,60}?\\bmaar( ook)?\\b|\\bhet gaat niet (alleen |zozeer )?om\\b[^.!?]{1,60}?\\bhet gaat om\\b"}
+    unless_writer_uses: true
+  - id: s-017
+    category: filler
+    text: "Schrap vulling: \"het is belangrijk om op te merken dat\", \"met betrekking tot\" (over), \"op dit moment in de tijd\" (nu), \"in het kader van\"."
+    test: {phrases: ["het is belangrijk om op te merken dat", "het is vermeldenswaard dat", "met betrekking tot", "op dit moment in de tijd", "in het kader van", "ten behoeve van", "in de tussentijd"]}
+    unless_writer_uses: true
+  - id: s-018
+    category: filler
+    text: "Begin een zin niet met een standaardverbinding: Bovendien, Daarnaast, Tevens, Kortom, Al met al, Uiteindelijk."
+    test: {pattern: '(^|[.!?:]\s+)(bovendien|daarnaast|tevens|kortom|al met al|uiteindelijk|concluderend|samenvattend)\b'}
+    unless_writer_uses: true
+  - id: s-019
+    category: filler
+    text: "Stapel geen voorbehouden: \"zou mogelijk kunnen\", \"zou eventueel kunnen\", \"wellicht mogelijk\". Eén voorbehoud, of geen."
+    test: {phrases: ["zou mogelijk kunnen", "zou eventueel kunnen", "zou wellicht kunnen", "zou misschien kunnen", "wellicht mogelijk", "mogelijk eventueel"]}
+    unless_writer_uses: true
+  - id: s-020
+    category: filler
+    text: "Eindig niet met een standaardslot: \"Concluderend\", \"De toekomst ziet er rooskleurig uit\", \"De tijd zal het leren\"."
+    test: {phrases: ["concluderend", "samenvattend", "de toekomst ziet er rooskleurig uit", "de tijd zal het leren", "een stap in de goede richting", "de mogelijkheden zijn eindeloos"]}
+    unless_writer_uses: true
+  - id: s-021
+    category: decoration
+    text: "Versier niet met emoji's."
+    test: {pattern: '[\U0001F300-\U0001FAFF☀-➿⭐✅]'}
+    unless_writer_uses: true
+  - id: s-022
+    category: decoration
+    text: "Begin een alinea of lijstpunt niet met een vetgedrukt label (\"**Belangrijk:** ...\")."
+    test: {pattern: '^\s*([-*+]|\d+[.)])?\s*\*\*[^*\n]{1,60}(:\*\*|\*\*:)'}
+    unless_writer_uses: true
