@@ -21,7 +21,8 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > It flags texts that measure unlike the rest of their slot while learning, says whether a text reads
 > like the writer's own (`verify`), writes a voice guide or house style guide for people (`guide`),
 > imports a style guide as rulings, and leans a draft warmer, firmer, more formal and so on within the
-> writer's own range (`tone=`).
+> writer's own range (`tone=`; with two tones, the first named decides any measure they pull both
+> ways).
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
 > a writer's own blind test is available but has not been run. Fixture authors are learned in `evals/store/`.
 
