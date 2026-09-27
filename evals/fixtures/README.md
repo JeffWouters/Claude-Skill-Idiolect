@@ -13,6 +13,16 @@ in `idiolect.skill`.
 | `synthetic-noor` | Noor Vale (invented) | Written for this project, CC0 | 12 | ~8,000 | Not applicable |
 | `synthetic-idris` | Idris Holloway (invented) | Written for this project, CC0 | 12 | ~9,000 | Not applicable |
 | `synthetic-sanne` | Sanne Verhoef (invented), Dutch | Written for this project, CC0; tests the Dutch language pack | 6 | ~1,200 | Not applicable |
+| `native-de` | Kurt Tucholsky, Karl Kraus, Carl von Ossietzky, Ludwig Bauer; German | de.wikisource.org, 1905–1928 | 34 | ~31,000 | Not screened: false-alarm test only |
+| `native-fr` | Alain, Remy de Gourmont, Charles Péguy, Octave Mirbeau; French | fr.wikisource.org, 1886–1925 | 42 | ~45,000 | Not screened: false-alarm test only |
+| `native-es` | Miguel de Unamuno, José Martí, Ángel Ganivet, José Ortega y Gasset, Rubén Darío; Spanish | es.wikisource.org, 1882–1920 | 45 | ~88,000 | Not screened: false-alarm test only |
+
+The `native-*` folders are native prose for the language-flavour detectors' false-alarm test (spec
+§34.2, `tests/test_flavour.py`); they are never learned or used in an evaluation run. They were built
+with `tools/build_native_fixtures.py` from Wikisource (sources listed at the top of the script; a rerun
+moves the previous files to `evals/_to_delete/`). Some texts keep the spelling of their time ("daß",
+Unamuno's "á"), and a few `book` and `first_published` values for Spanish pieces were filled in from
+the pieces themselves where Wikisource gives none.
 
 All real authors died before 1956 and the books were published before 1929, so the texts are in the
 public domain in both the US and the EU. Each essay file carries its source in frontmatter. Texts

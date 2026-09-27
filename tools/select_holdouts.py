@@ -24,7 +24,8 @@ def main():
            "how": ("authors present since phase 2 were drawn in one pass with random.Random(seed) over the "
                    "six original authors in name order; authors added later use random.Random('<seed>/<author>')"),
            "authors": {}}
-    for d in sorted(p for p in FIX.iterdir() if p.is_dir()):
+    # native-* folders are the flavour detectors' false-alarm test, never learned (evals/fixtures/README.md)
+    for d in sorted(p for p in FIX.iterdir() if p.is_dir() and not p.name.startswith("native-")):
         if d.name in old:
             missing = [f for f in old[d.name] if not (d / f).exists()]
             if missing:

@@ -1,0 +1,19 @@
+---
+author: Alain
+author_died: 1951
+book: "Propos sur le bonheur"
+first_published: 1925
+title: "De l’irrésolution"
+source: https://fr.wikisource.org/wiki/Propos_sur_le_Bonheur/De_l%E2%80%99irr%C3%A9solution
+licence: public domain (US and EU)
+words: 645
+lang: fr
+---
+
+Descartes dit que l’irrésolution est le plus grand des maux. Il le dit plus d’une fois, il ne l’explique jamais. Je ne connais point de plus grande lumière sur la nature de l’homme. Toutes les passions, tout leur stérile mouvement s’expliquent par là. Les jeux de hasard, si mal connus en leur puissance, qui est sur le haut de l’âme, plaisent parce qu’ils entretiennent le pouvoir de décider. C’est comme un défi à la nature des choses, qui met tout presque égal, et qui nourrit sans fin nos moindres délibérations. Dans le jeu, tout est égal à la rigueur et il faut choisir. Ce risque abstrait est comme une insulte à la réflexion ; il faut sauter le pas. Le jeu répond aussitôt ; et l’on ne peut avoir de ces repentirs qui empoisonnent nos pensées ; on n’en peut avoir parce qu’il n’y avait pas de raison. On ne dit point : « Si j’avais su », puisque la règle est qu’on ne peut savoir. Je ne m’étonne pas que le jeu soit le seul remède à l’ennui ; car l’ennui est principalement de délibérer, tout en sachant bien qu’il est inutile de délibérer.
+
+On peut se demander de quoi souffre un homme amoureux qui ne dort point, ou bien l’ambitieux déçu. Ce genre de mal est tout dans la pensée, quoiqu’on puisse dire aussi qu’il est tout dans le corps. Cette agitation qui chasse le sommeil ne vient que de ces vaines résolutions qui ne décident rien, et qui sont lancées à chaque fois dans le corps, et qui le font sauter comme poisson sur l’herbe. Il y a de la violence dans l’irrésolution. « C’est dit ; je romprai tout » ; mais la pensée offre aussitôt des moyens d’accommoder. Les effets paraissent, d’un parti et de l’autre, sans jamais aucun progrès. Le bénéfice de l’action réelle est que le parti que l’on n’a point pris est oublié, et, à parler proprement, n’a plus lieu, parce que l’action a changé tous les rapports. Mais agir en idée, ce n’est rien, et tout reste en l’état. Il y a du jeu dans toute action ; car il faut bien terminer les pensées avant qu’elles aient épuisé leur sujet.
+
+J’ai souvent pensé que la peur, qui est la passion nue, et la plus pénible, n’est autre chose que le sentiment d’une irrésolution, si je puis dire, musculaire. L’on se sent sommé d’agir et incapable. Le vertige offre un visage de la peur encore mieux nettoyé, puisque le mal ne vient ici que d’un doute qu’on ne peut surmonter. Et c’est toujours par trop d’esprit que l’on souffre de peur. Certainement le pire dans les maux de ce genre, comme aussi dans l’ennui, est que l’on se juge incapable de s’en délivrer. L’on se pense machine et l’on se méprise. Tout Descartes est rassemblé en ce jugement souverain où les causes se montrent et aussi le remède. Vertu militaire ; et je comprends que Descartes ait voulu servir. Turenne remuait toujours, et ainsi se guérissait du mal d’irrésolution, et le donnait à l’ennemi.
+
+Descartes en ses pensées est tout de même. Hardi en ses pensées et toujours se mouvant par son décret ; toujours décidant. L’irrésolution d’un géomètre serait profondément comique, car elle serait sans fin. Combien de points dans une ligne ? Et sait-on ce que l’on pense lorsque l’on pense deux parallèles ? Mais le génie du géomètre décide qu’on le sait et jure seulement de ne point changer ni revenir. On ne verra rien d’autre en une théorie, si l’on regarde bien, que des erreurs définies et jurées. Toute la force de l’esprit dans ce jeu est de ne jamais croire qu’il constate, alors qu’il a seulement décidé. Là se trouve le secret d’être toujours assuré sans jamais rien croire. Il a résolu, voilà un beau mot, et deux sens en un.

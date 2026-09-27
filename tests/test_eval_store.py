@@ -12,8 +12,10 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 STORE = ROOT / "evals" / "store"
 # The evaluation store holds the English evaluation authors. A pack fixture (synthetic-sanne, Dutch)
 # tests its language pack end to end in tests/test_lang_packs.py and is not an evaluation author.
+# The native-* folders are the language-flavour detectors' false-alarm test (tests/test_flavour.py).
 PACK_FIXTURES = {"synthetic-sanne"}
-AUTHORS = sorted(p.name for p in (ROOT / "evals" / "fixtures").iterdir() if p.is_dir() and p.name not in PACK_FIXTURES)
+AUTHORS = sorted(p.name for p in (ROOT / "evals" / "fixtures").iterdir()
+                 if p.is_dir() and p.name not in PACK_FIXTURES and not p.name.startswith("native-"))
 
 
 @pytest.mark.parametrize("author", AUTHORS)

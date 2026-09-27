@@ -132,7 +132,7 @@ def pearson(x, y):
 
 
 def main():
-    authors = sorted(p.name for p in FIX.iterdir() if p.is_dir() and not p.name.startswith("_"))
+    authors = sorted(p.name for p in FIX.iterdir() if p.is_dir() and not p.name.startswith(("_", "native-")))
     corp = {a: load_author(a) for a in authors}
     ch = {a: chunks(corp[a], 250) for a in authors}
     cm = {a: [metrics(c) for c in ch[a]] for a in authors}

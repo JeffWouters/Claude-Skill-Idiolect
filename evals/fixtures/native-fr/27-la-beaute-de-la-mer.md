@@ -1,0 +1,33 @@
+---
+author: Remy de Gourmont
+author_died: 1915
+book: "Promenades littéraires"
+first_published: 1906
+title: "La beauté de la mer"
+source: https://fr.wikisource.org/wiki/Promenades_Litt%C3%A9raires_(Gourmont)/La_beaut%C3%A9_de_la_mer
+licence: public domain (US and EU)
+words: 1122
+lang: fr
+---
+
+Si l’on demandait quelle est la plus originale création du xixe siècle, il faudrait peut-être répondre : c’est la mer.
+
+Cette eau verte et bleue, dont les vagues sont le sourire ou la colère, ces blondes plaines de sable, ces rochers gris ou jaunes, tout cela existait il y a cent ans, et personne ne le regardait. Devant un spectacle qui enchante jusqu’à l’enivrement les sensibilités d’aujourd’hui, les sensibilités d’hier restaient froides, ennuyées ou mêmes peureuses. Le paysage marin, loin d’être recherché par les hommes, était fui comme un danger ou comme une laideur. Tous les villages anciens, le long des côtes de France, sont situés assez loin de la mer toutes les vieilles maisons, dans les villes maritimes, tournent le dos à la mer. Les marins eux-mêmes et les pêcheurs s’écartaient de la mer, quand ils n’avaient plus besoin d’elle. Quant à l’homme des terres, il ne s’approchait de la mer qu’avec terreur. Jusque vers 1850, le mont Saint-Michel fut considéré comme à peine bon à loger des prisonniers : on n’y envoyait que ceux dont on redoutait l’évasion.
+
+À quel moment le paysage marin a-t-il commencé à être aimé, à être senti comme une chose émouvante et belle ? C’est ce qu’il est très difficile de dire d’une façon exacte. Le goût de la mer s’est développé sous le second empire, grâce aux chemins de fer : mais les poètes, bien avant cette époque, avaient chanté la mer. En somme, les plages d’Europe ont été créées et peuplées par Byron et Chateaubriand. Le tommbeau de Chateaubriand, accroché au rocher du Grand Bé, à Saint-Malo, est rigoureusement symbolique de cette évolution de notre sensibilité, et il est juste que dorme là celui sans lequel les rivages de la mer de France ne seraient peut-être visités que par les pêcheurs et les oiseaux.
+
+Au xviiie siècle, la mer était encore, comme source de plaisir, absolument inconnue. On voyageait déjà cependant ; on faisait, de Paris, des voyages bien plus longs que le trajet vers Dieppe ou le Havre ; on commençait même, sous le règne de Louis XVI, à goûter la campagne, la montagne ; on ignorait la mer ; Je ne sais quel est l’écrivain, de ce temps-là qui s’indignait contre le mouvement de l’océan, ces absurdes marées, disait-il qui empêchent les bateaux de pouvoir accoster à leur gré, et aussi qui créent le long des côtes une large bande de terre improductive. À la rigueur, on tolérait la Méditerranée, parce que c’est un lac plutôt qu’une mer ; on lui savait gré de son immobilité, de la constance du spectacle uniforme qu’elle offre aux regards rassurés :
+
+Voici l’usage que les Parisiens faisaient de la mer, au temps de Louis XIV : ils envoyaient au Havre les personnes mordues par un chien enragé et là, on les jetait dans la mer du haut d’un rocher. C’était le grand remède de la rage. Mme de Sévigné parle d’une de ses amies que l’on a ainsi précipitée dans la mer. Et sans doute qu’une personne saine, si elle avait eu l’idée d’entrer volontairement dans cette eau redoutée, de prendre un bain de mer, eût été tenue pour folle ou, tout au moins, un peu simple d’esprit. On n’allait à la mer, en ce temps-là, que lorsqu’on était enragé. L’idée de la mer était liée, dans l’esprit de Mme de Sévigné, avec l’idée d’une des plus redoutables maladies.
+
+Quel est le premier Anglais ou le premier Français qui osa venir passer l’été au bord de la mer, qui fit construire, près du flot, la première maison de plaisance ? Car il y eut un commencement à cette mode, comme à toutes les modes. Était-ce un poète ou un savant, un grand seigneur ou un petit rentier ? Lui aussi mériterait, sinon une statue, du moins, une plaque au coin d’une rue. Quelle que fût sa profession, c’était à coup sûr une âme originale, un esprit hardi. Un jour peut-être on écrira son histoire, et peut-être aussi que les poètes le chanteront, comme Horace a chanté le premier navigateur.
+
+On a réellement peine à comprendre comment la beauté de la mer a été si longtemps méconnue. Mais à l’inverse, il est peut-être encore plus difficile de comprendre comment notre sensibilité a si vite évolué, comment les hommes d’aujourd’hui trouvent tant de plaisir dans un spectacle qui jadis leur eût semblé absurde ou ennuyeux. Il faut bien l’admettre, la sensibilité humaine obéit à la mode. Elle vibre selon la note qu’on lui donne. Cependant, quand une de ces notes a été éveillée, elle ne s’endort plus tout à fait. La sensibilité a fait une conquête qui ne peut plus périr entièrement ; elles est annexé une province nouvelle dont elle gardera éternellement les principaux territoires. Il se peut que le goût du paysage marin n’augmente plus guère, il se peut même qu’il diminue légèrement, il ne disparaîtra jamais. Il est entré en nous, il fait partie de nos besoins esthétiques et même sentimentaux, comme la musique ou la littérature. Sans doute, il n’est pas universel. Beaucoup de personnes se passent de la mer ; mais ceux qui l’ont aimée une fois l’aimeront toujours. Elle est la maîtresse dont on ne se lasse pas et dont la voix, dès qu’elle est entendue, se fait doucement obéir.
+
+Peut-être bien que la mer fût indifférente ou hostile aux générations d’autrefois, y a-t-il dans l’amour que lui portent aujourd’hui certains hommes, d’obscures influences héréditaires. Un déraciné, — ou un transplanté — dont la famille a toujours vécu au bord de la mer, se sentira peut-être, plus qu’un autre, attiré par les grèves et par les vagues. Peut-être aussi que s’il ne s’était pas déraciné, il regarderait avec indifférence le paysage qu’il contemple avec ferveur. Il y a des spectacles de beauté que l’on goûte mal lorsqu’on y est soi-même acteur ; il faut sortir, il faut s’éloigner pour en sentir vraiment le charme.
+
+La mer nous plaît donc pour l’une de ces deux causes : ou parce que c’est une chose toute nouvelle, toute fraîche dans notre sensibilité ; ou bien parce que c’est une chose très ancienne, un vieux souvenir atavique retrouvé tout au fond de nous-mêmes.
+
+Mais que la mer devait être belle, quand elle était inconnue, quand elle était solitaire ! Maintenant, elle a trop d’amants ; princesse trop adorée, elle a une cour trop nombreuse. Très peu d’hommes et quelques femmes seulement embellissent les paysages. La nature s’accommode mal d’une foule hébétée qui vient à la mer comme on vient à la foire. On peut s’abstraire. Il faut s’abstraire, tel un fidèle qui, à l’église, oublie ses voisins, et parle avec Dieu.
+
+Dieu ne répond pas à tout le monde — la mer non plus.

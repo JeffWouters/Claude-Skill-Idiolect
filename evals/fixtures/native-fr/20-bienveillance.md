@@ -1,0 +1,17 @@
+---
+author: Alain
+author_died: 1951
+book: "Propos sur le bonheur"
+first_published: 1925
+title: "Bienveillance"
+source: https://fr.wikisource.org/wiki/Propos_sur_le_Bonheur/Bienveillance
+licence: public domain (US and EU)
+words: 583
+lang: fr
+---
+
+« Qu’il est difficile d’être content de quelqu’un ! » Cette sévère parole de La Bruyère doit déjà nous rendre prudents. Car le bon sens veut que chacun s’adapte aux conditions réelles de la vie en société et il n’est point juste de condamner l’homme moyen ; c’est folie de misanthrope. Donc, sans chercher les causes, je me garde de considérer mes semblables comme si j’étais un spectateur qui a payé sa place et qui veut qu’on lui plaise. Mais au contraire, repassant en moi-même l’ordinaire de cette difficile existence, je mets d’avance tout au pire ; je suppose que l’interlocuteur a un mauvais estomac ou la migraine, ou bien des soucis d’argent ou des querelles domestiques. Ciel douteux, me dis-je, ciel de mars, gris et bleu mêlés, éclairs de soleil et bise aigre ; j’ai ma fourrure et mon parapluie.
+
+Bon. Mais il y a mieux à penser là-dessus, si l’on songe à cet instable corps humain, frémissant à la moindre touche, toujours penchant, bientôt emporté, produisant gestes et discours selon sa forme, selon la fatigue, et selon les actions étrangères ; c’est pourtant ce corps humain qui doit m’apporter, comme un bouquet de fête, les sentiments constants, les égards et les agréables propos auxquels il me semble que j’ai droit. Cependant moi-même, qui suis si attentif à l’autre, je ne le suis guère à moi ; je lance des messages que j’ignore, par un geste machinal, par un froncement de sourcil ; le soleil et le vent composent mon visage. J’offre ainsi à l’autre justement ce que je m’étonne de trouver en lui, un homme, c’est-à-dire un animal qui a charge d’esprit, que l’on prend toujours trop haut, et puis trop bas, qui ne peut faire un signe sans en faire dix, bien plutôt qui fait signe de toute sa personne, sans pouvoir choisir. En ce mélange je dois, comme un chercheur d’or, négliger le gravier et le sable, et reconnaître la plus petite paillette ; c’est à moi de chercher ; aucun homme ne crible les discours qu’il lance, comme il fait de ceux qu’il entend. Me voilà donc disposé selon la politesse, et encore mieux ; j’ouvre un large crédit à l’autre ; je laisse les scories, j’attends sa vraie pensée. Mais ici je remarque un autre effet auquel on ne s’attend jamais assez. Cette bienveillance, que je fais voir, délie aussitôt ce timide qui s’avance en armes et tout hérissé. Bref, de ces deux humeurs qui roulent l’une vers l’autre comme des nuages, il faut que l’une commence à sourire ; si ce n’est point vous qui commencez, vous n’êtes qu’un sot.
+
+Il n’est point d’homme dont on ne puisse dire et penser beaucoup de mal ; il n’est point d’homme dont on ne puisse dire et penser beaucoup de bien. Et la nature humaine est ainsi faite qu’elle n’a point peur de déplaire ; car l’irritation, qui donne courage, suit la timidité de bien près ; et le sentiment que l’on a d’être désagréable rend aussitôt pire. Mais c’est à vous, qui avez compris ces choses, de ne point entrer dans ce jeu. C’est une expérience étonnante que celle-ci et que je vous prie de faire une fois ; il est plus facile de gouverner directement l’humeur des autres que la sienne propre ; et qui manie avec précaution l’humeur de l’interlocuteur est médecin de la sienne propre par ce moyen ; car, dans la conversation ainsi que dans la danse, chacun est le miroir de l’autre.
