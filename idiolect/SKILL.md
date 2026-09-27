@@ -56,8 +56,9 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
    `references/runtime.md` (bridged route) for where the scripts run.
 2. Find the store (never remembered between sessions):
    - `store=<path>` wins; if it has no valid `idiolect.yaml`, stop and say so.
-   - Otherwise look for `idiolect.yaml` in the folders you can reach, at most three levels deep,
-     skipping hidden folders, `node_modules` and `_to_delete`. One hit: use it and name it. Several:
+   - Otherwise run `python3 scripts/store.py discover <folders you can reach>`: it finds valid
+     `idiolect.yaml` markers at most three levels deep, skipping hidden folders, `node_modules` and
+     `_to_delete`. One hit: use it and name it. Several:
      list them and ask. None: a dry run continues without a store (below); `learn` offers to create
      one (`learn.py init`, never inside a folder it learns from); any other mode says no store exists
      yet.

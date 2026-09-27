@@ -1,4 +1,10 @@
-"""Store discovery and loading (spec §2, §3), sources.yaml rules, globs and facet order (§12.1)."""
+"""Store discovery and loading (spec §2, §3), sources.yaml rules, globs and facet order (§12.1).
+
+    python3 store.py discover [ROOT ...] [--depth 3]
+
+prints JSON: the stores (folders with a valid idiolect.yaml) found under the roots, at most three
+levels deep, skipping hidden folders, node_modules and _to_delete. No roots: the current folder.
+"""
 import collections
 import fnmatch
 import pathlib
@@ -185,3 +191,21 @@ def resolve_facets(facet_names, command=None, entry=None, rule=None, front=None,
                 break
         out[f] = val if val is not None else unknown
     return out
+
+
+def main(argv=None):
+    import argparse
+    import json
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("action", choices=["discover"])
+    ap.add_argument("roots", nargs="*")
+    ap.add_argument("--depth", type=int, default=3)
+    a = ap.parse_args(argv)
+    found = [str(f) for f in discover(a.roots or ["."], a.depth)]
+    print(json.dumps({"stores": found, "count": len(found)}, indent=1, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())
