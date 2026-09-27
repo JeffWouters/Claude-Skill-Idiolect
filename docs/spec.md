@@ -730,7 +730,8 @@ the house style guide.
 1. Tones and the metrics each moves (+ up, − down): `warm` contractions +, short sentences +, long
    words −; `cool` the opposite; `firm` hedges −, sentence length −, short sentences +; `soft` hedges +,
    sentence length +; `formal` contractions −, long words +, conjunction openers −, sentence length +;
-   `casual` the opposite. Two tones may be combined unless they move one metric both ways.
+   `casual` the opposite. Two tones may be combined; where they move one metric both ways, the tone
+   named first decides it (`firm,formal`: shorter sentences), and the kit lists each such metric.
 2. For each moved metric, the target for this piece (after the blend with the examples) becomes the
    25th (−) or 75th (+) percentile of the metric over the slot's texts, only when that lies further in
    the asked direction; otherwise it stays. The slot needs 5 texts.
