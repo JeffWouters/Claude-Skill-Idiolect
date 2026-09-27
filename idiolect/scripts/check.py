@@ -140,7 +140,7 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None):
     n = count_words(measured)
     picks = kitmod.pick_examples(kitmod.slot_examples(store, prof, slot), text if brief is None else brief, lang)
     targets, t_words, t_weight = kitmod.blend(fp["metrics"], [e["text"] for e in picks], lang)
-    targets, _ = kitmod.apply_tone(store, prof, slot, targets, tone)     # the same targets as the kit
+    targets, _, _ = kitmod.apply_tone(store, prof, slot, targets, tone)     # the same targets as the kit
     vals = measure.metrics(measured, lang)
     rows, flagged = [], 0
     for m, v in fp["metrics"].items():

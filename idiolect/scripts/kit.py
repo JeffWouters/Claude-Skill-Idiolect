@@ -134,29 +134,38 @@ TONE_WORDS = {"warm": "warmer", "cool": "cooler, more reserved", "firm": "firmer
 
 
 def parse_tone(tone):
-    """'firm' or 'warm,firm' -> ['warm', 'firm']; refuses unknown tones and tones that pull a
-    measure both ways."""
+    """'firm' or 'firm,formal' -> ['firm', 'formal']; refuses unknown tones. The order matters: see
+    tone_pulls."""
     if not tone:
         return []
     names = [t.strip().lower() for t in (tone if isinstance(tone, (list, tuple)) else str(tone).split(",")) if t.strip()]
     bad = [t for t in names if t not in TONES]
     if bad:
         raise StoreError(f"unknown tone {', '.join(bad)}; tones: {', '.join(TONES)}")
-    pull = {}
+    return sorted(set(names), key=names.index)
+
+
+def tone_pulls(names):
+    """({metric: (direction, tone)}, [conflicts]). Where two tones pull a measure both ways, the tone
+    named first decides (the writer's decision): firm,formal gives shorter sentences, formal,firm longer."""
+    pulls, conflicts = {}, []
     for t in names:
         for m, d in TONES[t].items():
-            if pull.get(m, d) != d:
-                raise StoreError(f"{' and '.join(names)} pull {DESCRIBE.get(m, (m,))[0]} both ways; choose one")
-            pull[m] = d
-    return sorted(set(names), key=names.index)
+            if m not in pulls:
+                pulls[m] = (d, t)
+            elif pulls[m][0] != d:
+                conflicts.append({"metric": m, "describe": DESCRIBE.get(m, (m,))[0], "decided_by": pulls[m][1],
+                                  "overruled": t})
+    return pulls, conflicts
 
 
 def apply_tone(store, prof, slot, targets, tone):
     """targets with each toned metric moved to the writer's own quartile (25th or 75th percentile of
-    their texts of this slot) when that lies further in the asked direction. Returns (targets, moved)."""
+    their texts of this slot) when that lies further in the asked direction.
+    Returns (targets, moved, conflicts)."""
     names = parse_tone(tone)
     if not names:
-        return targets, []
+        return targets, [], []
     lang = slot.split(".")[0]
     own = measure.slot_texts(store.manifest["texts"], store.corpus_text, store.facets, prof).get(slot, {})
     texts = [t for _, t, _ in own.get("texts", [])]
@@ -164,21 +173,21 @@ def apply_tone(store, prof, slot, targets, tone):
         raise StoreError(f"a tone needs at least {TONE_MIN_TEXTS} texts in {prof}/{slot} to know the writer's range; "
                          f"it has {len(texts)}")
     vals = [measure.metrics(t, lang) for t in texts]
+    pulls, conflicts = tone_pulls(names)
     out, moved = dict(targets), []
-    for t in names:
-        for m, d in TONES[t].items():
-            if m not in out or any(m not in v for v in vals):
-                continue
-            xs = [v[m] for v in vals]
-            lo, hi = measure.quantile(xs, 0.25), measure.quantile(xs, 0.75)
-            to = hi if d > 0 else lo
-            if (d > 0 and to > out[m]) or (d < 0 and to < out[m]):
-                fmt = DESCRIBE.get(m, (m, "{:.2f}"))[1]
-                moved.append({"metric": m, "tone": t, "describe": DESCRIBE.get(m, (m,))[0],
-                              "from": out[m], "to": to, "shown": f"{fmt.format(out[m])} -> {fmt.format(to)}",
-                              "range": f"{fmt.format(lo)} to {fmt.format(hi)}"})
-                out[m] = to
-    return out, moved
+    for m, (d, t) in pulls.items():
+        if m not in out or any(m not in v for v in vals):
+            continue
+        xs = [v[m] for v in vals]
+        lo, hi = measure.quantile(xs, 0.25), measure.quantile(xs, 0.75)
+        to = hi if d > 0 else lo
+        if (d > 0 and to > out[m]) or (d < 0 and to < out[m]):
+            fmt = DESCRIBE.get(m, (m, "{:.2f}"))[1]
+            moved.append({"metric": m, "tone": t, "describe": DESCRIBE.get(m, (m,))[0],
+                          "from": out[m], "to": to, "shown": f"{fmt.format(out[m])} -> {fmt.format(to)}",
+                          "range": f"{fmt.format(lo)} to {fmt.format(hi)}"})
+            out[m] = to
+    return out, moved, conflicts
 
 
 def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None):
@@ -218,8 +227,8 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None)
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
     local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
-    local, moved = apply_tone(store, prof, slot, local, tone)
-    kit["tone"] = {"asked": parse_tone(tone), "moved": moved}
+    local, moved, conflicts = apply_tone(store, prof, slot, local, tone)
+    kit["tone"] = {"asked": parse_tone(tone), "moved": moved, "conflicts": conflicts}
     kit["blend"] = {"examples": [e["id"] for e in kit["examples"]], "words": n_words, "weight": weight}
     targets = []
     for m, v in fp["metrics"].items():
@@ -278,6 +287,9 @@ def markdown(kit, notes="brief"):
         L += [f"- {m['describe']}: {m['shown']} (the writer's texts range {m['range']})" for m in tone["moved"]]
         if not tone["moved"]:
             L.append("- The targets already lean this way; no measure moved.")
+        for c in tone.get("conflicts", []):
+            L.append(f"- {c['decided_by']} and {c['overruled']} pull {c['describe']} both ways: {c['decided_by']}, "
+                     f"named first, decides.")
     if kit["never"]:
         L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
     if kit["forms"]:
@@ -321,7 +333,7 @@ def main(argv=None):
     ap.add_argument("--facet", action="append", default=[])
     ap.add_argument("--brief")
     ap.add_argument("--examples", type=int, default=3)
-    ap.add_argument("--tone", help="warm, cool, firm, soft, formal or casual; two may be combined: warm,firm")
+    ap.add_argument("--tone", help="warm, cool, firm, soft, formal or casual; two may be combined, and where they pull a measure both ways the first named decides: firm,formal")
     ap.add_argument("--notes", choices=NOTES, default="brief",
                     help="how much of the observed lessons the Markdown kit shows (default brief)")
     ap.add_argument("--omit", action="append", default=[], choices=["targets"],

@@ -12,8 +12,9 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    ```
 
    - **Tone.** When the writer asks for a lean ("warmer", "firmer", "more formal", "more casual",
-     "softer", "cooler"), pass `--tone warm|cool|firm|soft|formal|casual` (two that agree may be
-     combined, `warm,firm`), and pass the same `--tone` to `check.py`. The kit's Tone section says
+     "softer", "cooler"), pass `--tone warm|cool|firm|soft|formal|casual`, and pass the same `--tone`
+     to `check.py`. Two may be combined in the order the writer gave them (`firm,formal`); where they
+     pull a measure both ways, the first decides and the kit says so. The kit's Tone section says
      which targets moved and the writer's range: stay inside it and get the rest of the tone from word
      choice and stance, never by exaggerating. A slot with fewer than 5 texts cannot take a tone: say so
      and write without it.

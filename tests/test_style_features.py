@@ -226,16 +226,17 @@ def test_guide_text_on_the_command_line_numbers_lines_and_reads_plain_text(tmp_p
 
 # ---------- tone ----------
 
-def test_tones_parse_combine_and_refuse_conflicts():
-    assert kit.parse_tone(None) == [] and kit.parse_tone("Warm, firm") == ["warm", "firm"]
-    with pytest.raises(StoreError, match="firm and formal pull average sentence length both ways"):
-        kit.parse_tone("firm,formal")
+def test_tones_parse_and_the_first_named_decides_a_conflict():
+    assert kit.parse_tone(None) == [] and kit.parse_tone("Firm, formal") == ["firm", "formal"]
     with pytest.raises(StoreError, match="unknown tone loud"):
         kit.parse_tone("loud")
-    with pytest.raises(StoreError, match="pull contractions per 1,000 words both ways"):
-        kit.parse_tone("warm,formal")
-    with pytest.raises(StoreError, match="both ways"):
-        kit.parse_tone("firm,soft")
+    pulls, conflicts = kit.tone_pulls(["firm", "formal"])
+    assert pulls["sentence_length_mean"] == (-1, "firm")               # named first: shorter sentences
+    assert pulls["contractions_per_1k"] == (-1, "formal") and pulls["hedges_per_1k"] == (-1, "firm")
+    assert conflicts == [{"metric": "sentence_length_mean", "describe": "average sentence length",
+                          "decided_by": "firm", "overruled": "formal"}]
+    assert kit.tone_pulls(["formal", "firm"])[0]["sentence_length_mean"] == (1, "formal")
+    assert kit.tone_pulls(["warm", "firm"])[1] == []
 
 
 def test_a_tone_moves_targets_to_the_writers_own_quartile_never_beyond(st):
@@ -257,6 +258,12 @@ def test_a_tone_moves_targets_to_the_writers_own_quartile_never_beyond(st):
         assert all(after[x] == before[x] for x in untouched)
     k = kit.build(s, "idris", {"type": "essay"}, PLAIN, tone="firm")
     assert "## Tone: firmer, more direct" in kit.markdown(k)
+    md = kit.markdown(kit.build(s, "idris", {"type": "essay"}, PLAIN, tone="firm,formal"))
+    assert "## Tone: firmer, more direct, more formal" in md
+    assert "firm and formal pull average sentence length both ways: firm, named first, decides." in md
+    ff = {t["metric"]: t["value"] for t in kit.build(s, "idris", {"type": "essay"}, PLAIN, tone="firm,formal")["targets"]}
+    fo = {t["metric"]: t["value"] for t in kit.build(s, "idris", {"type": "essay"}, PLAIN, tone="formal,firm")["targets"]}
+    assert ff["sentence_length_mean"] <= before["sentence_length_mean"] <= fo["sentence_length_mean"]
 
 
 def test_check_measures_against_the_same_toned_targets_as_the_kit(st):

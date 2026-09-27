@@ -46,7 +46,7 @@ Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request
 | `depth` | `voice`, `edit`, `full` (rewrite) | `voice` |
 | `report`, `explain` | `true`: return the check report; annotate choices with lesson ids | — |
 | `include_parent` | `true` (export, guide): allow a slot that resolves to a parent profile | — |
-| `tone` | `warm`, `cool`, `firm`, `soft`, `formal`, `casual`, or two that agree (`warm,firm`); write, rewrite and check | none |
+| `tone` | `warm`, `cool`, `firm`, `soft`, `formal`, `casual`, or two (`firm,formal`: where they pull a measure both ways, the first named decides); write, rewrite and check | none |
 | `rulings-only` | `true` (guide): the house style guide | — |
 | `judge` | `true` (test): also a plain and a few-shot draft, ranked blind by the writer | — |
 | `since` | a year: writing from then on counts more (saved in the profile) | — |
