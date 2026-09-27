@@ -32,7 +32,7 @@ def test_inheritance_prefers_own_general_slot_over_parent(tmp_path):
     (st / "profiles/child").mkdir()
     (st / "profiles/child/profile.yaml").write_text("schema_version: 1\nsubject: c\nconsent: self\nextends: synthetic-noor\n")
     (st / "profiles/child/rulings.yaml").write_text(
-        "schema_version: 1\nentries:\n  - {id: r-001, text: Never use the word very., origin: stated, created: '2026-10-01', personal_data: none}\n")
+        "schema_version: 2\nentries:\n  - {id: r-001, text: Never use the word very., origin: stated, created: '2026-10-01', personal_data: none}\n")
     s = Store(st)
     assert resolve.resolve(s, "child", {"type": "essay"})[:2] == ("synthetic-noor", "en.essay")
     shutil.copy(st / "profiles/synthetic-noor/en._.json", st / "profiles/child/en._.json")

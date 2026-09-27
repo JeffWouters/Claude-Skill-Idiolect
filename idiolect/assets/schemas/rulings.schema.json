@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/rulings.schema.json",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v2/rulings.schema.json",
   "type": "object",
   "required": [
     "schema_version",
@@ -8,7 +8,8 @@
   ],
   "properties": {
     "schema_version": {
-      "$ref": "common.schema.json#/$defs/schemaVersion"
+      "const": 2,
+      "description": "Version 2: rulings may carry a test (spec §27). migrate.py upgrades version 1."
     },
     "last_id": {
       "type": "integer",
@@ -28,7 +29,7 @@
         ],
         "properties": {
           "id": {
-            "$ref": "common.schema.json#/$defs/id"
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/id"
           },
           "text": {
             "type": "string",
@@ -37,7 +38,7 @@
           "slot": {
             "oneOf": [
               {
-                "$ref": "common.schema.json#/$defs/slotKey"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/slotKey"
               },
               {
                 "type": "null"
@@ -48,7 +49,7 @@
           "overrides": {
             "oneOf": [
               {
-                "$ref": "common.schema.json#/$defs/id"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/id"
               },
               {
                 "type": "null"
@@ -59,7 +60,8 @@
           "origin": {
             "enum": [
               "stated",
-              "promoted"
+              "promoted",
+              "starter"
             ]
           },
           "promoted_from": {
@@ -68,13 +70,161 @@
             "description": "The observed or edit lesson this ruling was promoted from."
           },
           "created": {
-            "$ref": "common.schema.json#/$defs/date"
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
           },
           "personal_data": {
             "const": "none"
+          },
+          "test": {
+            "description": "What check looks for (spec §27). One form per ruling.",
+            "oneOf": [
+              {
+                "type": "object",
+                "title": "characters",
+                "required": [
+                  "chars"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "chars": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 1
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "title": "whole words",
+                "required": [
+                  "words"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "words": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^\\S+$"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "title": "phrases",
+                "required": [
+                  "phrases"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phrases": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 2
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "title": "pattern",
+                "required": [
+                  "pattern"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "pattern": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Python regular expression, case insensitive, per line."
+                  }
+                }
+              }
+            ]
+          },
+          "lang": {
+            "oneOf": [
+              {
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/langValue"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ruling applies only to slots in this language; null: every slot."
+          },
+          "unless_writer_uses": {
+            "type": "boolean",
+            "description": "When the writer's own texts of the slot show the test, a draft is flagged only above twice their rate."
+          },
+          "starter": {
+            "type": "object",
+            "required": [
+              "id",
+              "version"
+            ],
+            "additionalProperties": false,
+            "description": "Loaded from the starter set: which rule, at which set version.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^s-[0-9]{3}$"
+              },
+              "version": {
+                "type": "string",
+                "pattern": "^[0-9]+\\.[0-9]+$"
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{16}$",
+                "description": "Of the text, test and unless_writer_uses as loaded; a ruling that no longer matches it was edited by the writer."
+              }
+            }
           }
         },
         "additionalProperties": false
+      }
+    },
+    "declined": {
+      "type": "array",
+      "description": "Starter rules the writer rejected; not proposed again at the same set version.",
+      "items": {
+        "type": "object",
+        "required": [
+          "starter",
+          "version",
+          "date"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "starter": {
+            "type": "string",
+            "pattern": "^s-[0-9]{3}$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+$"
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$",
+            "description": "Of the rule as declined; offered again only when the set changes it."
+          },
+          "date": {
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
+          }
+        }
       }
     }
   },

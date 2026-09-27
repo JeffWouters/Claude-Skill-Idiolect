@@ -1,4 +1,5 @@
-schema_version: 1
+schema_version: 2
+last_id: 2
 entries:
   - id: r-001
     text: Never use semicolons.
@@ -7,3 +8,15 @@ entries:
     promoted_from: l-002
     created: "2026-10-02"
     personal_data: none
+    test: {chars: [";"]}
+  - id: r-002
+    text: "Never use an em dash or an en dash (— –): use a comma, a colon or a full stop."
+    slot: null
+    origin: starter
+    created: "2026-10-03"
+    personal_data: none
+    test: {chars: ["—", "–"]}
+    unless_writer_uses: false
+    starter: {id: s-001, version: "1.0"}
+declined:
+  - {starter: s-002, version: "1.0", date: "2026-10-03"}

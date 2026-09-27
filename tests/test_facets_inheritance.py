@@ -89,7 +89,7 @@ def test_rulings_inherited_from_a_profile_not_the_writers_own_are_marked(tmp_pat
     house.mkdir()
     (house / "profile.yaml").write_text(dump_yaml({"schema_version": 1, "subject": "Acme house style",
                                                    "consent": "authorised by Acme on 2026-10-02"}))
-    (house / "rulings.yaml").write_text(dump_yaml({"schema_version": 1, "last_id": 1, "entries": [
+    (house / "rulings.yaml").write_text(dump_yaml({"schema_version": 2, "last_id": 1, "entries": [
         {"id": "r-001", "text": "Never use exclamation marks.", "slot": None, "origin": "stated",
          "created": "2026-10-02", "personal_data": "none"}]}))
     py = st / "profiles" / "noor" / "profile.yaml"

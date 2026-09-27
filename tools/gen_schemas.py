@@ -3,7 +3,7 @@
 
 Run from the repo root:  python3 tools/gen_schemas.py
 Writes idiolect/assets/schemas/*.schema.json. Edit this file, not the output.
-Every schema is draft 2020-12 and describes schema_version 1, except vocabulary (2).
+Every schema is draft 2020-12 and describes schema_version 1, except vocabulary and rulings (2).
 """
 import json
 import pathlib
@@ -244,12 +244,46 @@ rulings = entry_list("rulings.schema.json", {
     "text": {"type": "string", "minLength": 1},
     "slot": {"oneOf": [ref("slotKey"), {"type": "null"}], "description": "null = applies to every slot."},
     "overrides": {"oneOf": [ref("id"), {"type": "null"}], "description": "Id of a parent profile's ruling this replaces."},
-    "origin": {"enum": ["stated", "promoted"]},
+    "origin": {"enum": ["stated", "promoted", "starter"]},
     "promoted_from": {"type": "string", "pattern": "^(l|d)-[0-9]{3,6}$",
                       "description": "The observed or edit lesson this ruling was promoted from."},
     "created": ref("date"),
-    "personal_data": {"const": "none"}
+    "personal_data": {"const": "none"},
+    "test": {"description": "What check looks for (spec §27). One form per ruling.",
+             "oneOf": [
+                 {"type": "object", "title": "characters", "required": ["chars"], "additionalProperties": False,
+                  "properties": {"chars": {"type": "array", "minItems": 1, "uniqueItems": True,
+                                           "items": {"type": "string", "minLength": 1, "maxLength": 1}}}},
+                 {"type": "object", "title": "whole words", "required": ["words"], "additionalProperties": False,
+                  "properties": {"words": {"type": "array", "minItems": 1, "uniqueItems": True,
+                                           "items": {"type": "string", "pattern": "^\\S+$"}}}},
+                 {"type": "object", "title": "phrases", "required": ["phrases"], "additionalProperties": False,
+                  "properties": {"phrases": {"type": "array", "minItems": 1, "uniqueItems": True,
+                                             "items": {"type": "string", "minLength": 2}}}},
+                 {"type": "object", "title": "pattern", "required": ["pattern"], "additionalProperties": False,
+                  "properties": {"pattern": {"type": "string", "minLength": 1,
+                                             "description": "Python regular expression, case insensitive, per line."}}}]},
+    "lang": {"oneOf": [ref("langValue"), {"type": "null"}],
+             "description": "The ruling applies only to slots in this language; null: every slot."},
+    "unless_writer_uses": {"type": "boolean",
+                           "description": "When the writer's own texts of the slot show the test, a draft is flagged only above twice their rate."},
+    "starter": {"type": "object", "required": ["id", "version"], "additionalProperties": False,
+                "description": "Loaded from the starter set: which rule, at which set version.",
+                "properties": {"id": {"type": "string", "pattern": "^s-[0-9]{3}$"},
+                               "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+$"},
+                               "digest": {"type": "string", "pattern": "^[0-9a-f]{16}$",
+                                          "description": "Of the text, test and unless_writer_uses as loaded; "
+                                                         "a ruling that no longer matches it was edited by the writer."}}}
 }, ["id", "text", "origin", "created", "personal_data"], {"title": "profiles/<name>/rulings.yaml"})
+# version 2 (spec §27): tests, lang, unless_writer_uses, starter, declined
+rulings["properties"]["declined"] = {
+    "type": "array", "description": "Starter rules the writer rejected; not proposed again at the same set version.",
+    "items": {"type": "object", "required": ["starter", "version", "date"], "additionalProperties": False,
+              "properties": {"starter": {"type": "string", "pattern": "^s-[0-9]{3}$"},
+                             "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+$"},
+                             "digest": {"type": "string", "pattern": "^[0-9a-f]{16}$",
+                                        "description": "Of the rule as declined; offered again only when the set changes it."},
+                             "date": ref("date")}}}
 
 vocabulary = entry_list("vocabulary.schema.json", {
     "id": ref("id"),
@@ -281,6 +315,9 @@ def absolute_refs(node):
 
 
 vocabulary = absolute_refs(vocabulary)
+rulings = absolute_refs(rulings)
+rulings["$id"] = BASE.replace("/v1/", "/v2/") + "rulings.schema.json"
+rulings["properties"]["schema_version"] = {"const": 2, "description": "Version 2: rulings may carry a test (spec §27). migrate.py upgrades version 1."}
 vocabulary["$id"] = BASE.replace("/v1/", "/v2/") + "vocabulary.schema.json"
 vocabulary["properties"]["schema_version"] = {"const": 2, "description": "Version 2: kind keep became phrase, with a rate. migrate.py upgrades version 1."}
 

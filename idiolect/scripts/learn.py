@@ -1053,7 +1053,7 @@ def examples_apply(store_root, prof, slot, file):
 def add_rule(store_root, prof, text, slot=None, from_lesson=None):
     run = Run(store_root)
     rf = run.store.root / "profiles" / prof / "rulings.yaml"
-    base = read_store_file(rf, "rulings") if rf.exists() else {"schema_version": 1, "entries": []}
+    base = read_store_file(rf, "rulings") if rf.exists() else {"schema_version": version_of("rulings"), "entries": []}
     last = max([base.get("last_id") or 0] + [int(e["id"].split("-")[1]) for e in base["entries"]])
     for it in run.pending.plan["items"]:
         if it["kind"] == "ruling" and it.get("profile") == prof:

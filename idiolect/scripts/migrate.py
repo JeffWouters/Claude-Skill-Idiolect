@@ -12,6 +12,8 @@ Steps so far:
   measured on the profile's own cached texts. Copies inside snapshots/ are upgraded too, without a
   rate (it would describe today's corpus, not the snapshot's), so a rollback never restores a file
   this engine cannot read.
+- rulings.yaml 1 -> 2: only the version changes; version 2 adds optional tests (spec §27). Snapshots
+  too.
 """
 import argparse
 import json
@@ -39,6 +41,21 @@ def check_vocabulary_1(data, where):
         raise StoreError(f"{where} is not a valid version 1 vocabulary file; nothing was upgraded")
 
 
+def check_rulings_1(data, where):
+    ok = isinstance(data, dict) and isinstance(data.get("entries"), list) and all(
+        isinstance(e, dict) and isinstance(e.get("id"), str) and isinstance(e.get("text"), str)
+        for e in data["entries"])
+    if not ok:
+        raise StoreError(f"{where} is not a valid version 1 rulings file; nothing was upgraded")
+
+
+CHECK_1 = {"vocabulary": check_vocabulary_1, "rulings": check_rulings_1}
+
+
+def rulings_1_to_2(data, own_texts=None, today=None):
+    return {**data, "schema_version": 2}
+
+
 def vocabulary_1_to_2(data, own_texts=None, today=None):
     """Version 1 -> 2. own_texts=None, or no text to measure on, leaves phrases without a rate."""
     out = {**data, "schema_version": 2, "entries": []}
@@ -54,7 +71,7 @@ def vocabulary_1_to_2(data, own_texts=None, today=None):
     return out
 
 
-STEPS = {"vocabulary": {1: vocabulary_1_to_2}}
+STEPS = {"vocabulary": {1: vocabulary_1_to_2}, "rulings": {1: rulings_1_to_2}}
 
 
 def plan(store):
@@ -64,11 +81,12 @@ def plan(store):
     if not root.exists():
         return todo
     for prof_dir in sorted(p for p in root.iterdir() if p.is_dir()):
-        for f in sorted(prof_dir.rglob("vocabulary.yaml")):
-            data = load_yaml_text(f.read_text(encoding="utf-8")) or {}
-            v = data.get("schema_version", 1)
-            if v < version_of("vocabulary"):
-                todo.append((f, "vocabulary", v, prof_dir.name, "snapshots" in f.relative_to(prof_dir).parts))
+        for schema in STEPS:
+            for f in sorted(prof_dir.rglob(f"{schema}.yaml")):
+                data = load_yaml_text(f.read_text(encoding="utf-8")) or {}
+                v = data.get("schema_version", 1)
+                if v < version_of(schema):
+                    todo.append((f, schema, v, prof_dir.name, "snapshots" in f.relative_to(prof_dir).parts))
     return todo
 
 
@@ -90,9 +108,10 @@ def migrate(store_root, dry_run=False, now=None):
         own, converted, touched = {}, [], {}
         for f, schema, v, prof, is_snap in todo:
             data = load_yaml_text(f.read_text(encoding="utf-8"))
-            check_vocabulary_1(data, str(f))
+            if v == 1:
+                CHECK_1[schema](data, str(f))
             texts = None
-            if not is_snap:
+            if not is_snap and schema == "vocabulary":
                 if prof not in own:
                     own[prof] = measure.own_texts(store.manifest["texts"], store.corpus_text, store.facets, prof)
                 texts = own[prof]
