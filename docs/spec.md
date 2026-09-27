@@ -645,3 +645,35 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    run changed, in batches of at most 50, to write back; deletions need the writer's delete permission.
    `bridge.py record --listing L` updates `.state/bridge.json` after a successful write-back.
 
+## 27. Rulings with tests, and the starter set
+
+1. **A ruling may carry a test** (rulings schema version 2), one of:
+   `{chars: ["—", "–"]}` (any of these characters), `{words: [delve, tapestry]}` (whole words, case
+   insensitive), `{phrases: ["I hope this helps"]}` (whole phrases, case insensitive, curly and straight
+   quotes alike) or `{pattern: "<regex>"}` (Python syntax, case insensitive, per line). Optional:
+   `lang` (the ruling applies only to slots in that language; none: every slot), and
+   `unless_writer_uses: true`.
+2. **`check`** runs the test of every ruling that applies to the slot (merged down the chain, §12.5; `slot`
+   null or equal; `lang` null or equal), on the text without placeholders, line by line. Each hit is a
+   flagged line naming the ruling (`lesson: r-004`). A ruling with `unless_writer_uses` first counts its
+   test in the writer's own texts of the slot (the cached corpus, holdouts left out): at zero it applies
+   as usual; above zero a draft is flagged only when its hits are at least two and above twice the
+   writer's rate per 1,000 words, and the reason says so. **Any flagged ruling fails the draft**
+   (`status: fail`), whatever the metrics say, because rulings outrank everything (design: Lessons).
+3. **The kit** lists every applicable ruling as now; a ruling with `unless_writer_uses` whose test the
+   writer's texts do show says "(your texts do this about N times per 1,000 words: never more)".
+4. **The starter set** is `assets/starter-rules/<lang>.yaml`: a version, a source note and rules with a
+   stable id (`s-001`), a category, the ruling text, the test and `unless_writer_uses`. It holds no writer
+   data. It is never applied by itself.
+5. **Loading** (`rules.py --store S defaults --profile P [--lang L] [--category C]`, lock mode `learn`):
+   one `ruling` item per starter rule, each `add` with the next `r-` id and `starter: {id, version}`, or
+   `modify` when the profile already holds that starter rule at an older set version whose text or test
+   changed. Skipped: a rule the profile holds unchanged; a rule the profile holds with a different text
+   (the writer edited it: never overwritten); a rule in the profile's `declined` list at the same set
+   version. A starter rule the writer rejects in the diff is added to `declined` (`{starter, version,
+   date}`) in `rulings.yaml` at commit.
+6. **Adding one** (`rules.py --store S add --profile P --text T [--chars C…] [--words W…] [--phrases P…]
+   [--pattern R] [--unless-writer-uses] [--slot K] [--lang L]`): one `ruling` item for approval.
+7. **Editing and removing** a ruling is the writer's own edit of `rulings.yaml` (it is theirs); the next
+   run validates it and stops with a message if a test is malformed.
+
