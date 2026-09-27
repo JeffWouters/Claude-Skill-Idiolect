@@ -512,6 +512,22 @@ def render_commit(store, pending, view, get_text, recount=(), staged=None):
 
 # ---------- using it: kit and check (spec §34.8-9) ----------
 
+LANG_NAMES = {"en": "English", "nl": "Dutch", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian",
+              "pt": "Portuguese", "pl": "Polish"}
+
+
+def lang_name(code):
+    return LANG_NAMES.get(base_lang(code), code)
+
+
+def n_of(n, word):
+    return f"{n} {word}" + ("" if n == 1 else "s")
+
+
+def times(n):
+    return "once" if n == 1 else "twice" if n == 2 else f"{n} times"
+
+
 def piece_words(brief, words=None):
     if words:
         return int(words)
@@ -528,15 +544,15 @@ def kit_lines(fl, words=None, mode="keep"):
     if not fl or not fl.get("markers"):
         return []
     r = fl["rate"]
-    origins = ", ".join(fl["origins"]) or "unknown"
+    origins = ", ".join(lang_name(o) for o in fl["origins"]) or "unknown"
     if mode == "off":
         L = ["", f"## Language flavour: off",
-             f"The writer's {fl['lang']} carries traces of another language ({origins}). This piece is asked for "
+             f"The writer's {lang_name(fl['lang'])} carries traces of another language ({origins}). This piece is asked for "
              "without them: write standard language and avoid these:"]
         L += [f"- {m['name']}: {m['how']}" for m in fl["markers"]]
         return L
     L = ["", f"## Language flavour: {fl['strength']} ({origins})",
-         f"The writer's {fl['lang']} carries traces of another language: {r['per_1k']:g} per 1,000 words over "
+         f"The writer's {lang_name(fl['lang'])} carries traces of another language: {r['per_1k']:g} per 1,000 words over "
          f"{r['of']} texts ({describe_rate(r['per_1k'])}), in {r['texts']} of them, never more than "
          f"{r['max_per_1k']:g} per 1,000 words in one text. Use them at that rate, never more: spread out, "
          "each where it reads naturally, never as spelling mistakes, and never several in one paragraph."]
@@ -554,7 +570,7 @@ def kit_lines(fl, words=None, mode="keep"):
     for m in fl["markers"]:
         c = m["count"]
         ex = f" For example: \"{m['examples'][0]}\"" if m.get("examples") else ""
-        L.append(f"- {m['name']} ({m['origin']}; {c['per_1k']:g} per 1,000 words, in {c['texts']} texts): {m['how']}{ex}")
+        L.append(f"- {m['name']} ({m['origin']}; {c['per_1k']:g} per 1,000 words, in {n_of(c['texts'], 'text')}): {m['how']}{ex}")
     return L
 
 
@@ -602,8 +618,8 @@ def readable(fl):
          f"at most {fl['rate']['max_per_1k']:g} in one text."]
     for m in fl["markers"]:
         c = m["count"]
-        L.append(f"- [{m['id']}] {m['name']} ({m['origin']}): {c['per_1k']:g} per 1,000 words, {c['hits']} times in "
-                 f"{c['texts']} texts, counted by {c['measured']}. {m['how']}")
+        L.append(f"- [{m['id']}] {m['name']} ({m['origin']}): {c['per_1k']:g} per 1,000 words, {times(c['hits'])} in "
+                 f"{n_of(c['texts'], 'text')}, counted by {c['measured']}. {m['how']}")
         L += [f"    e.g. \"{e}\"" for e in m.get("examples", [])]
     for r in fl.get("rejected", []):
         L.append(f"- rejected {r['id']}: {r['name']}")

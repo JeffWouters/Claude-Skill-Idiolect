@@ -249,7 +249,7 @@ def test_the_kit_gives_the_rate_and_a_count_for_the_piece(learned, tmp_path):
     assert k["words"] == 2000
     md = kitmod.markdown(k)
     sec = md[md.index("## Language flavour"):]
-    assert "## Language flavour: light (de)" in md and "never more" in sec and "never as spelling mistakes" in sec
+    assert "## Language flavour: light (German)" in md and "never more" in sec and "never as spelling mistakes" in sec
     assert re.search(r"For this piece of about 2000 words: about \d+ \(at most \d+\)", sec)
     assert "'Else,' opens a sentence" in sec and "For example:" in sec
     off = kitmod.markdown(kitmod.build(Store(learned), "noor", {"lang": "en", "type": "essay"}, "", flavour_mode="off"))
