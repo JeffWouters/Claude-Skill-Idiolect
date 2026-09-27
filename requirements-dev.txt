@@ -1,0 +1,7 @@
+# What the skill's scripts need (scripts/check_env.py names anything missing), plus pytest.
+PyYAML>=6.0
+jsonschema>=4.18
+markdown-it-py>=3.0
+pdfminer.six>=20231228
+lingua-language-detector>=2.0
+pytest>=8.0

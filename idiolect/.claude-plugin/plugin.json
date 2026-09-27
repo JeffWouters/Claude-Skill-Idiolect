@@ -1,0 +1,15 @@
+{
+  "name": "idiolect",
+  "displayName": "Idiolect",
+  "version": "1.0.0",
+  "description": "Learns a writer's voice from their own texts and writes, rewrites and checks text in that voice. Nothing is learned without the writer's approval.",
+  "author": {
+    "name": "Claude-Skill-Idiolect contributors",
+    "url": "https://github.com/JeffWouters/Claude-Skill-Idiolect"
+  },
+  "homepage": "https://github.com/JeffWouters/Claude-Skill-Idiolect",
+  "repository": "https://github.com/JeffWouters/Claude-Skill-Idiolect",
+  "license": "MIT",
+  "keywords": ["writing", "voice", "style", "stylometry", "idiolect"],
+  "skills": ["./"]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "jeffops",
+  "owner": {
+    "name": "JeffOps",
+    "url": "https://github.com/JeffWouters/Claude-Skill-Idiolect"
+  },
+  "metadata": {
+    "description": "Idiolect: a Claude skill that learns a writer's voice from their own texts and writes, rewrites and checks text in it."
+  },
+  "plugins": [
+    {
+      "name": "idiolect",
+      "source": "./idiolect",
+      "description": "Learns a writer's voice from their own texts (Markdown, PDF, Word, mail, web pages, transcripts) and writes, rewrites and checks text in that voice. Nothing is learned without the writer's approval.",
+      "category": "writing",
+      "homepage": "https://github.com/JeffWouters/Claude-Skill-Idiolect"
+    }
+  ]
+}
