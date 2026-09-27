@@ -27,7 +27,10 @@ A slot's value is measured on its texts joined with blank lines, not averaged pe
 - **Sentences.** Collapse all whitespace to single spaces, then split after `.`, `!` or `?`
   (optionally followed by closing quotes or brackets `"` `'` `)` `]`) when the next non-space
   character, optionally after an opening quote or bracket, is an upper-case letter or a digit.
-  Empty pieces are dropped.
+  Empty pieces are dropped. Upper-case letters are those of Latin-1 and, since the Polish, Russian,
+  Ukrainian and Turkish packs, of Latin Extended, Greek and Cyrillic (U+0100 to U+052F: `Ł`, `Ş`,
+  `İ`, `Д`); before that, text in those scripts was barely split into sentences. English and Dutch
+  values did not change.
 - **Words.** Maximal runs that start with a letter and continue with letters, `'` or `-`
   (Python: `[^\W\d_](?:[^\W\d_]|['-])*`); digits and `_` end a word. The phase 0
   script used ASCII letters only; `measure.py` uses Unicode letters, so accented words count. For
@@ -105,8 +108,13 @@ The engine supports languages that separate words with spaces and end sentences 
 - Languages written without spaces between words (Chinese, Japanese, Thai and others) are out of
   scope for v1: `learn` reports their texts as "Skipped: language not supported" and never builds a
   slot for them.
-- Five packs ship: **English** (`en`, calibrated; the lists used since phase 0, unchanged), **Dutch**
-  (`nl`), **German** (`de`), **French** (`fr`) and **Spanish** (`es`), the last four not calibrated.
+- Fourteen packs ship: **English** (`en`, calibrated; the lists used since phase 0, unchanged), **Dutch**
+  (`nl`), **German** (`de`), **French** (`fr`), **Spanish** (`es`), **Italian** (`it`), **Portuguese** (`pt`),
+  **Polish** (`pl`), **Russian** (`ru`), **Ukrainian** (`uk`), **Turkish** (`tr`), **Swedish** (`sv`),
+  **Norwegian Bokmål** (`nb`, the code language detection gives) and **Danish** (`da`), all but English
+  not calibrated. Italian, Polish, Russian, Ukrainian, Turkish, Norwegian and Danish have no
+  contractions list (informal contractions are rare in their written prose), so they are measured on
+  13 metrics; Portuguese counts `pra`, `tá`, `tô`, `cê`, `né`, Swedish `nån`, `nåt`, `mej`, `dej`.
   Dutch contractions are the clitics `'t`, `'n`, `'s`, `m'n`, `z'n`, `d'r` and `zo'n`. German, French and
   Spanish count only informal contractions (`gibt's`, `'ne`, `hab'`; `t'as`, `j'sais`, `y'a`; `pa'`,
   `'tá`), since their standard ones (`l'`, `qu'`, `al`, `del`, `im`, `zum`) are grammar that every writer

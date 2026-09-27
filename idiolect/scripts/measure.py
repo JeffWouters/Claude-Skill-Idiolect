@@ -27,7 +27,10 @@ NEEDS_LIST = {"hedges_per_1k": "hedges.txt", "conjunction_opener_share": "opener
 
 # Exactly the phase 0 splitter (curly double quotes are deliberately not treated as quotes: the
 # thresholds were calibrated this way), plus accented capitals for other Latin-script languages.
-SENT_SPLIT = re.compile(r"(?<=[.!?])[\"')\]]*\s+(?=[\"'(\[]?[A-Z0-9À-ÖØ-Þ])")
+# Capitals beyond Latin-1 (Latin Extended, Greek, Cyrillic: Ł, Ş, İ, Д ...) start a sentence too, so
+# Polish, Turkish, Russian and Ukrainian split into sentences; no English or Dutch text changes.
+UPPER_EXTRA = "".join(c for c in map(chr, range(0x100, 0x530)) if c.isupper())
+SENT_SPLIT = re.compile(r"(?<=[.!?])[\"')\]]*\s+(?=[\"'(\[]?[A-Z0-9À-ÖØ-Þ" + UPPER_EXTRA + r"])")
 HEADING_END = re.compile(r"[.!?:;][\"'”’)\]]*$")
 
 
