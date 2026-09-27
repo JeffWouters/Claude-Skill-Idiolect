@@ -39,10 +39,11 @@ def test_the_changelog_has_an_entry_for_the_current_version():
 
 
 def test_the_package_leaves_the_plugin_manifest_out(tmp_path):
-    p = subprocess.run([sys.executable, str(ROOT / "tools" / "build_package.py"), "--out", str(tmp_path)],
+    out = tmp_path / "dist"                                         # a folder that does not exist yet, as in CI
+    p = subprocess.run([sys.executable, str(ROOT / "tools" / "build_package.py"), "--out", str(out)],
                        capture_output=True, text=True, check=True)
     assert f"version {manifest()['version']}" in p.stdout
-    names = zipfile.ZipFile(tmp_path / "idiolect.skill").namelist()
+    names = zipfile.ZipFile(out / "idiolect.skill").namelist()
     assert "idiolect/SKILL.md" in names and not any(".claude-plugin" in n for n in names)
     assert not any("__pycache__" in n for n in names)
 

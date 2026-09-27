@@ -23,6 +23,7 @@ def main():
     assert len(desc) < 1024 and "<" not in desc and ">" not in desc, "description breaks the frontmatter rules"
     version = json.loads((SKILL / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))["version"]
     assert re.match(r"^\d+\.\d+\.\d+$", version), f"plugin.json version {version!r} is not x.y.z"
+    pathlib.Path(a.out).mkdir(parents=True, exist_ok=True)
     out = pathlib.Path(a.out) / "idiolect.skill"
     files = sorted(p for p in SKILL.rglob("*") if p.is_file() and not (set(p.parts) & SKIP)
                    and not p.name.endswith((".pyc", ".tmp")))
