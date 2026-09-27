@@ -38,6 +38,7 @@ import measure  # noqa: E402
 import pages  # noqa: E402
 import redact as redactmod  # noqa: E402
 import stage  # noqa: E402
+import verify  # noqa: E402
 from adapters import extract  # noqa: E402
 from common import (version_of, StoreError, case_insensitive, content_hash, count_words, load_yaml_text,  # noqa: E402
                     read_store_file, utcnow, words)
@@ -622,10 +623,32 @@ def do_measure(store_root):
                 fpl["follows"] = lead["id"]
                 stage.atomic_write(run.pending.dir / "items" / f"{follower['id']}.json",
                                    json.dumps(fpl, ensure_ascii=False, indent=1) + "\n")
+    outliers = _outliers(run, out)
     run.state["steps"]["measure"] = True
     run.state["slots"] = out
+    run.state["outliers"] = outliers
     run.save()
-    return {"slots": out, "next": _next(run)}
+    res = {"slots": out, "next": _next(run)}
+    if outliers:
+        res["outliers"] = outliers
+    return res
+
+
+def _outliers(run, slots):
+    """Texts that measure unlike the rest of their exact slot (spec §28): shown to the writer, who says
+    whether each is theirs. Pooled slots repeat their exact slots and are skipped."""
+    found = []
+    for o in slots:
+        if o["pooled"]:
+            continue
+        texts = slot_texts(run, o["profile"], o["slot"])
+        for x in verify.slot_outliers(texts, o["slot"].split(".")[0]):
+            info = run.state["texts"].get(x["key"])
+            path = info["path"] if info else (run.store.manifest["texts"].get(x["key"]) or {}).get("path")
+            found.append({"profile": o["profile"], "slot": o["slot"], "path": path, "key": x["key"],
+                          "new": info is not None, "distance": x["distance"], "threshold": x["threshold"],
+                          "off": [f"{y['describe']}: {y['text']}, typically {y['typical']}" for y in x["off"]]})
+    return found
 
 
 # ---------- slot helpers ----------

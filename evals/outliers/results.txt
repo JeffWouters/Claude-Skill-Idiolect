@@ -1,0 +1,11 @@
+k       false flags  own texts judged  detected / intruders
+3       14           923               43 / 60
+3.5     8            923               41 / 60
+4       8            923               41 / 60   <- chosen
+5       3            923               37 / 60
+
+synthetic-noor: 12 texts, median distance 0.165, max 0.237, threshold 0.295
+synthetic-idris: 12 texts, median distance 0.230, max 0.469, threshold 0.532
+katharine-fullerton-gerould: 12 texts, median distance 0.258, max 0.319, threshold 0.582
+robert-cortes-holliday: 24 texts, median distance 0.379, max 0.540, threshold 1.184
+samuel-mcchord-crothers: 11 texts, median distance 0.213, max 0.351, threshold 0.393

@@ -86,6 +86,13 @@ python3 scripts/learn.py --store S measure
 `measure` lists the affected slots with counts and confidence. A pooled slot that holds exactly the
 same texts as one exact slot **mirrors** it: its contrast and lessons are copied automatically.
 
+**Outliers.** When `measure` returns `outliers`, show each one to the writer before going on: its path,
+its slot and the measures furthest off (`off`), and say plainly that it measures unlike their other
+texts there, which may be a guest post, a ghostwritten or heavily edited piece, or simply an unusual
+text of theirs. Ask whether it is theirs. Keep it if they say so. Otherwise answer for that file
+(`files: [{path: ..., profile: P, ownership: assisted}]`, or `exclude`) with `learn.py answer`, then run
+`stage-texts` and `measure` again. Never decide for the writer, and never call a text "not theirs".
+
 ## 5. Contrast (model, in a fresh context)
 
 For each slot `next` names: `learn.py contrast-sample --profile P --slot K`. If it answers
