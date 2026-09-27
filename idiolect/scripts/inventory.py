@@ -13,12 +13,13 @@ import datetime as dt
 import json
 import os
 import pathlib
+import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 from adapters import extract as adapter_extract  # noqa: E402
-from common import StoreError, case_insensitive, check_schema, content_hash, rel, words  # noqa: E402
+from common import StoreError, case_insensitive, check_schema, content_hash, count_words, rel, words  # noqa: E402
 import detect  # noqa: E402
 from store import MARKER, Store, globally_excluded, path_rules, resolve_facets, rule_facets, under  # noqa: E402
 
@@ -92,10 +93,55 @@ def _doc_date(extract, path):
     return dt.datetime.fromtimestamp(os.path.getmtime(path), dt.timezone.utc)
 
 
+# ---------- short mails joined (spec §6.4.1) ----------
+
+JOINED = "_joined"
+REPLY_PREFIX = re.compile(r"^\s*(?:(?:re|fw|fwd|aw|antw|wg|sv|vs|tr)\s*(?:\[\d+\])?\s*:\s*)+", re.I)
+
+
+def thread_subject(subject):
+    return " ".join(REPLY_PREFIX.sub("", subject or "").split()).lower()
+
+
+def joined_groups(folder, members):
+    """[(pseudo path, Extract, member paths)] for the short mails of one folder: first per thread (the
+    subject without Re:/Fwd: prefixes, two or more mails), then what is left per ISO week; a group
+    counts when it reaches MIN_WORDS together. members: [(relpath, Extract, datetime)]."""
+    import hashlib
+    from adapters import Extract
+    members = sorted(members, key=lambda m: (m[2], m[0]))
+    base = f"{folder}/{JOINED}" if folder not in (".", "") else JOINED
+    out, left = [], []
+    threads = collections.defaultdict(list)
+    for m in members:
+        subj = thread_subject(m[1].meta.get("subject"))
+        (threads[subj] if subj else left).append(m)
+    def emit(gid, ms):
+        blocks = [b for _, e, _ in ms for b in e.blocks]
+        ex = Extract(blocks=blocks, date=max(d for _, _, d in ms).isoformat(),
+                     meta={"origin": "mail", "members": [r for r, _, _ in ms]})
+        out.append((f"{base}/{gid}", ex, [r for r, _, _ in ms]))
+    for subj, ms in sorted(threads.items()):
+        if len(ms) >= 2 and sum(count_words(e.text) for _, e, _ in ms) >= MIN_WORDS:
+            emit("thread-" + hashlib.sha1(subj.encode("utf-8")).hexdigest()[:8], ms)
+        else:
+            left += ms
+    weeks = collections.defaultdict(list)
+    for m in left:
+        y, w, _ = m[2].isocalendar()
+        weeks[f"week-{y}-W{w:02d}"].append(m)
+    for gid, ms in sorted(weeks.items()):
+        if sum(count_words(e.text) for _, e, _ in ms) >= MIN_WORDS:
+            emit(gid, sorted(ms, key=lambda m: (m[2], m[0])))
+    return out
+
+
 # ---------- the inventory ----------
 
 def inventory(store=None, sources_root=None, targets=None, tags=None, command=None, dry_run=True,
-              command_line=None):
+              command_line=None, joined_out=None):
+    """joined_out: a dict that receives {pseudo path: Extract} for the joined short mails (spec §6.4.1),
+    so a learn run can stage their text without joining them a second time."""
     command = {k: v for k, v in (command or {}).items() if v}
     if store:
         sources_root = store.sources_root
@@ -145,6 +191,7 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
         if e.get("path"):
             paths_by_entry[norm(e["path"])].append((key, e))
 
+    items, short_mail = [], collections.defaultdict(list)
     for f in walk(roots, sources_root, store_root, not_listed):
         relpath = rel(f, sources_root)
         if store and (globally_excluded(store, relpath, ci)
@@ -152,6 +199,21 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
             not_listed.append(f"{relpath} (excluded glob)")
             continue
         ex = adapter_extract(f)
+        items.append((relpath, f, ex))
+        if ex is not None and ex.meta.get("origin") == "mail" and count_words(ex.text) < MIN_WORDS \
+                and ex.text.strip() and in_scope(relpath):
+            folder = relpath.rsplit("/", 1)[0] if "/" in relpath else "."
+            short_mail[folder].append((relpath, ex, _doc_date(ex, f)))
+    joined = {}
+    for folder, members in sorted(short_mail.items()):
+        for pseudo, gex, names in joined_groups(folder, members):
+            joined[pseudo] = names
+            items.append((pseudo, None, gex))
+            if joined_out is not None:
+                joined_out[pseudo] = gex
+    member_of = {m: pseudo for pseudo, names in joined.items() for m in names}
+
+    for relpath, f, ex in items:
         if ex is None:
             if tags and not in_scope(relpath):
                 continue
@@ -216,9 +278,17 @@ def inventory(store=None, sources_root=None, targets=None, tags=None, command=No
                 continue
             row["result"] = "new"
             row["_text"] = t.text
-            row["_date"] = _doc_date(ex, f)
+            row["_date"] = _doc_date(ex, f or relpath)
             rows.append(row)
             candidates.append(row)
+
+    for r in rows:
+        if r["path"] in member_of and r["result"] == "skipped: too short":
+            r["note"] = f"joined into {member_of[r['path']]}"
+        elif r["path"] in joined:
+            n = len(joined[r["path"]])
+            r["note"] = (r.get("note", "") + "; " if r.get("note") else "") + f"{n} short mails joined: " + ", ".join(
+                x.rsplit("/", 1)[-1] for x in joined[r["path"]])
 
     # cache consistency (spec §5)
     cached = {}

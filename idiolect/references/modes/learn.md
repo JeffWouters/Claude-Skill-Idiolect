@@ -72,9 +72,10 @@ are worth relaying as well.
 **Mail first.** If the run has mail texts (`.eml`, `.msg`), read them and list the names of people
 and organisations other than the writer's own (`- {name: Jane Doe, placeholder: "[person]"}`, or
 `[client]`, `[employer]`, `[organisation]`; an empty list if there are none), then run
-`learn.py --store S mail-names --file names.yaml`. Mail is kept in the corpus redacted. Say that
-mails under about 150 words are skipped as too short, like any text, and that quoted replies and
-signatures are left out. A `.msg` file needs the optional `extract-msg` package; without it the
+`learn.py --store S mail-names --file names.yaml`. Mail is kept in the corpus redacted. Short mails
+(under 150 words) in one folder are joined per thread and then per week into texts of at least 150
+words; rows under `_joined/` are those groups and name their mails. A short mail that joins no group
+stays skipped. Quoted replies and signatures are always left out. A `.msg` file needs the optional `extract-msg` package; without it the
 inventory says so.
 
 ```

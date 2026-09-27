@@ -143,8 +143,9 @@ def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=No
     profile = profile or store.config["default_profile"]
     store, pending, got = stage.begin(store_root, "learn", [profile])
     try:
+        joined = {}
         report = inv.inventory(store, targets=targets, tags=tags, command={"lang": lang, "type": type_},
-                               dry_run=False, command_line="learn")
+                               dry_run=False, command_line="learn", joined_out=joined)
     except Exception:
         stage.discard(store_root)
         raise
@@ -159,7 +160,7 @@ def start(store_root, targets=None, tags=None, profile=None, lang=None, type_=No
              "types": {}, "steps": {"texts": False, "measure": False, "contrast": [], "lessons": [],
                                      "vocab": [], "examples": []}}
     for path, rows in texts.items():
-        ex = extract(store.sources_root / path)
+        ex = joined[path] if path in joined else extract(store.sources_root / path)
         parts = {t.key: t for t in detect.split(ex.blocks)} if ex else {}
         ftags = ex.meta.get("tags") or [] if ex else []
         ftags = [ftags] if isinstance(ftags, str) else [str(t).lstrip("#") for t in ftags]

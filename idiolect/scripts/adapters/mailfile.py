@@ -64,7 +64,8 @@ def extract_eml(path):
     else:
         part = msg.get_body(preferencelist=("html",))
         body = _html_to_text(part.get_content()) if part is not None else ""
-    return Extract(blocks=strip_mail(body), date=_date(msg["Date"]), meta={"origin": "mail"})
+    return Extract(blocks=strip_mail(body), date=_date(msg["Date"]),
+                   meta={"origin": "mail", "subject": str(msg["Subject"] or "")})
 
 
 def extract_msg(path):
@@ -76,6 +77,7 @@ def extract_msg(path):
     try:
         body = m.body or (_html_to_text(m.htmlBody.decode("utf-8", "replace")) if m.htmlBody else "")
         date = m.date.isoformat() if hasattr(m.date, "isoformat") else _date(m.date)
+        subject = m.subject or ""
     finally:
         m.close()
-    return Extract(blocks=strip_mail(body or ""), date=date, meta={"origin": "mail"})
+    return Extract(blocks=strip_mail(body or ""), date=date, meta={"origin": "mail", "subject": subject})
