@@ -1,0 +1,9 @@
+schema_version: 1
+profile: sam
+lang: en
+built: 2026-10-02T21:40:00Z
+last_id: 1
+origins: [Dutch]
+strength: light
+rate: {per_1k: 0.37, texts: 4, of: 9, words: 16420, max_per_1k: 1.9}
+markers: []

@@ -51,6 +51,7 @@ VALID = [
     ("vocabulary", STORE / "profiles" / "sam" / "vocabulary.yaml"),
     ("rejected", STORE / "profiles" / "sam" / "rejected.yaml"),
     ("fingerprint", STORE / "profiles" / "sam" / "en.essay.json"),
+    ("flavour", STORE / "profiles" / "sam" / "en.flavour.yaml"),
     ("edit-pair", STORE / "profiles" / "sam" / "edits" / "p-001" / "pair.yaml"),
     ("manifest-entries", STORE / "profiles" / "sam" / "snapshots" / "2026-10-02T214100Z" / "manifest-entries.json"),
     ("lock", STORE / ".state" / "lock"),

@@ -76,6 +76,11 @@ def test_next_is_clear_after_a_contrast_reuse(tmp_path):
     v = tmp_path / "v.yaml"
     v.write_text("[]\n")
     learn.vocab_apply(st, "noor", v)
+    assert learn.next_step(st)["next"] == "model steps left: flavour noor/en"     # always asked (spec §34.3)
+    fl = tmp_path / "fl.yaml"
+    fl.write_text("markers: []\n")
+    import flavour
+    flavour.apply(st, "noor", "en", fl)
     assert learn.next_step(st)["next"].startswith("show the diff")
     stage.discard(st)
 

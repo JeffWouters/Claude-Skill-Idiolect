@@ -65,4 +65,4 @@ recipients.
 ## 3. Learn and approve
 
 Continue with `references/modes/learn.md` from **measurement** (`learn.py measure`): contrast,
-lessons, vocabulary, examples, the diff and the commit.
+lessons, vocabulary, examples, the language flavour, the diff and the commit.

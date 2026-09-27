@@ -3,7 +3,9 @@
     python3 langpack.py list
     python3 langpack.py check [CODE]
 
-A pack is references/lang/<code>/ with pack.yaml and the word lists of references/fingerprint.md.
+A pack is references/lang/<code>/ with pack.yaml, the word lists of references/fingerprint.md and,
+optionally, flavours.yaml: the language flavour detectors (spec §34.2), each checked against its
+examples and counter-examples.
 `check` prints the problems found (none: status ok) and exits 1 when there are any.
 """
 import argparse
@@ -58,6 +60,9 @@ def check(code):
                     re.compile(raw)
                 except re.error as e:
                     problems.append(f"{code}/{name} line {n}: not a valid pattern ({e})")
+    if (d / "flavours.yaml").exists():
+        import flavour
+        problems += flavour.check_detectors(code)
     return problems
 
 
@@ -67,7 +72,8 @@ def listing():
         info = measure.pack_info(code) or {}
         out.append({"code": code, "name": info.get("name"), "version": info.get("version"),
                     "calibrated": info.get("calibrated"), "metrics": len(measure.applicable(code)),
-                    "lists": [n for n in LISTS if (LANG_DIR / code / n).exists()]})
+                    "lists": [n for n in LISTS if (LANG_DIR / code / n).exists()],
+                    "flavour_detectors": len(__import__("flavour").detectors(code))})
     return out
 
 

@@ -23,7 +23,8 @@ with tests, `rules.py` (`defaults`, `add`, `show`), the optional starter set
 draft that breaks a ruling. Then: outliers at learn and `verify.py` (§28, threshold from `evals/outliers/`),
 `guide.py` (§29), `rules.py guide-text`/`import` (§30) and `tone=` in `kit.py`/`check.py` (§31). Then: language packs (`references/lang/<code>/pack.yaml`,
 `langpack.py`, Dutch with `starter-rules/nl.yaml`, fixture `synthetic-sanne`, §32) and `published.py`
-(kept drafts, scan, edit queue, §33). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
+(kept drafts, scan, edit queue, §33). Then: language flavour (`flavour.py`, `flavours.yaml` detectors in the packs,
+`<lang>.flavour.yaml`, learn step 7b, kit and check, §34). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
 (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 

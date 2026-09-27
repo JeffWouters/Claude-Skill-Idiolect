@@ -8,7 +8,7 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
 2. Build the kit for the requested profile and facets:
 
    ```
-   python3 scripts/kit.py --store S [--profile P] [--lang L] [--type T] [--facet channel=x] --brief <brief or text file> [--tone T]
+   python3 scripts/kit.py --store S [--profile P] [--lang L] [--type T] [--facet channel=x] --brief <brief or text file> [--tone T] [--words N] [--flavour off]
    ```
 
    - **Tone.** When the writer asks for a lean ("warmer", "firmer", "more formal", "more casual",
@@ -19,6 +19,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      choice and stance, never by exaggerating. A slot with fewer than 5 texts cannot take a tone: say so
      and write without it.
 
+   - **Language flavour.** Pass `--words N` with the piece's length (the kit also reads "N words" from
+     the brief) so the kit says how many traces of the writer's flavour this piece gets. When the writer
+     asks for it without ("clean English", "no accent", `flavour=off`), pass `--flavour off` to both
+     `kit.py` and `check.py`.
+
    - `no_slot`: ask which profile or type to use (with `interactive=false`, return `status: no_slot`
      and the message). `no_store`: say nothing has been learned yet and offer `learn`.
    - Name the profile and slot you use in your answer, and repeat any warning the kit gives (a parent
@@ -28,7 +33,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    of phrase. **Rulings** always apply; **edit lessons** (the writer's own corrections) come next. The
    **targets** are set for this piece from the writer's texts and these examples, and they are what
    `check` measures: aim at them, primary metrics first. Never use a **never-list** phrase. A **form**
-   fixes how a word is written when you use it; it never asks you to use it.
+   fixes how a word is written when you use it; it never asks you to use it. The **language
+   flavour**, when the writer has one, is traces of another language in their prose, at a measured
+   rate: use about the number the kit gives for this piece, each where it reads naturally, spread
+   over the text and never two in one paragraph. They are the writer's grammar and idiom, never
+   spelling mistakes. Fewer is fine; more is a caricature, and `check` fails it.
    - The **background** at the end describes what most of the writer's texts show. It is not a
      checklist: the examples already show these habits at the right density. Never add a habit
      because it is listed, and never stack habits. A caricature (every habit, each one more often
@@ -45,9 +54,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      question, an archaic word, an exclamation, a signature phrase) appears more often per paragraph
      than in the examples, cut it back.
 5. Save the draft to a file and run
-   `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] --json`,
+   `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] [same --flavour] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them
    plainly. A line that breaks a ruling (`lesson: r-...`) fails the draft outright: fix every one.
+   Too many language-flavour traces (`lesson: f-...`, the report's `flavour`) fail it too: remove
+   traces until `hits` is within `allowed`.
    If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
    names, in the direction it names (overshoot or a bunch means too much of a habit: pull back, do not
    exaggerate the voice). At most two check-driven revisions; then return the best draft with its
@@ -83,7 +94,8 @@ python3 scripts/check.py --store S --file <text> [--profile P] [--lang L] [--typ
 ```
 
 Relay the verdict in one line, then the flagged metrics in plain words (both directions), any
-bunched habits (where, how many uses against the writer's rate) and any never-list lines. A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
+bunched habits (where, how many uses against the writer's rate), any never-list lines, and the
+language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
 
 ## interactive=false (calling skills)
 

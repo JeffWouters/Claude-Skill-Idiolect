@@ -787,3 +787,95 @@ the house style guide.
    can run as a scheduled task; the task reports the matches and unmatched texts and asks the writer to
    process the queue.
 
+
+## 34. Language flavour
+
+1. **What it is.** Traces of another language in how a writer writes this one: word order, a
+   preposition or tense carried over, a false friend, a plural on an uncountable noun, an idiom
+   translated word for word. Not spelling mistakes, and not a regional variety (British or American
+   spelling is a form, kept in the vocabulary). Kept per profile and language in
+   `profiles/<p>/<lang>.flavour.yaml` (schema flavour v1):
+
+   ```yaml
+   schema_version: 1
+   profile: sam
+   lang: en
+   built: 2026-09-27T18:00:00Z
+   last_id: 3
+   origins: [de]                 # languages the markers come from, most hits first
+   strength: light               # light < 1, moderate < 4, strong >= 4 per 1,000 words
+   rate: {per_1k: 0.92, texts: 10, of: 15, words: 23848, max_per_1k: 2.4}
+   markers:
+     - id: f-001
+       name: Adverb before the object
+       origin: de
+       how: "An adverb such as already or also sits between the verb and its object, as German orders it."
+       pattern: '\b(?:know|have)\s+(?:already|also)\s+(?:the|a|an)\b'   # optional
+       detector: adverb-before-object                                   # when it came from the pack
+       examples: ["You know already the name of the cmdlet you need"]   # redacted, verbatim
+       count: {hits: 4, texts: 3, per_1k: 0.17, measured: pattern}      # or measured: examples
+   rejected:
+     - {id: f-004, name: "...", normalised: "...", rejected: 2026-09-27}
+   ```
+
+   `rate.max_per_1k` is the highest rate in one text of at least 300 words (every text when none is
+   that long); `texts` counts texts with at least one hit. Ids are `f-NNN`, never reused (`last_id`
+   covers rejected ones).
+2. **Detectors.** A pack may hold `flavours.yaml`: `version` and `detectors`, each `{id, name, origins,
+   how, pattern, examples, not}`. Patterns are case-insensitive and multi-line. `langpack.py check` fails
+   a detector whose pattern does not compile, misses one of its `examples`, or matches one of its `not`
+   lines, and an id used twice. English ships detectors for Dutch, German, French, Spanish and Italian
+   writers; Dutch for English writers.
+3. **Always.** `learn.py next` names `flavour P/L` for every profile and language whose slots the run
+   measured, until `flavour-apply` has run for it.
+4. **Sample** (`learn.py flavour-sample --profile P --lang L`): every pack detector (the pack of the
+   language's base code) runs over every own text of the profile in that language, whatever the slot
+   (the run's texts as staged): per detector the hits, the texts with a hit, the rate and up to three
+   matches with 60 characters of context each; `origins` ranks the origin languages by hits. It writes
+   a sample for the model (as the lessons sample, at most 20,000 words, across all types) and lists the
+   existing markers and rejected ones.
+5. **Model.** Confirms each detector whose matches are the writer's own flavour (not a quotation, code
+   or native usage), and adds markers no detector covers, for any origin language: `name`, `how` (what
+   to look for, one or two sentences), `origin` (a language code, or `unknown`), at least one verbatim
+   example with its text key, and a `pattern` when one can be written that matches the examples and
+   little else. Spelling mistakes are left out. No flavour: `markers: []`.
+
+   ```yaml
+   markers:
+     - {detector: since-duration}
+     - name: Else to open a sentence
+       origin: de
+       how: "'Else,' opens a sentence where English says 'Otherwise,' (German sonst)."
+       pattern: '(?:^|[.!?]\s+)else,'
+       examples: [{key: <text key>, quote: "Else, the script stops."}]
+   ```
+6. **Apply** (`learn.py flavour-apply --profile P --lang L --file flavour.yaml [--names names.yaml]`):
+   an unknown detector id, a pattern that does not compile or misses one of the marker's examples, or
+   one matching more than 10 per 1,000 words is reported as a problem and the pattern dropped; an
+   example not found in its text is dropped; a marker left without a pattern or an example is dropped.
+   Examples are redacted (spec §15) and a detector's examples are its first three matches, whole
+   sentences cut to 25 words. Every marker is counted over all own texts in the language: by its
+   pattern (`measured: pattern`), or else by its verified examples (`measured: examples`, a lower
+   bound). A marker matching a rejected one (same detector, or same normalised name) is dropped. Ids
+   are kept for the same detector or normalised name; one item per new or changed marker (kind
+   `flavour`, add or modify), and a remove item for each existing marker not proposed again.
+7. **Commit.** The file is rendered from the approved markers; rejected new markers go to `rejected`.
+   Every marker is recounted over the approved corpus (a rejected text never counts), markers with no
+   hit left are dropped, and `rate`, `origins` and `strength` are computed. Every commit that changes a
+   profile's texts (learn, `forget`, rollback) recounts that profile's flavour files, and an example
+   from a text the profile no longer has is dropped with it. `rollback` of a
+   flavour file created after the snapshot leaves it empty with its `last_id` and `rejected`.
+8. **Kit** (`kit.py [--words N] [--flavour keep|off]`). The slot's language's flavour file of the
+   profile, or the nearest in its chain that has one, gives a section after the forms: strength and
+   origins, the overall rate, and per marker its name, `how`, one example and its rate. With the
+   piece's length (`--words`, or the first "N words" in the brief) it says how many traces to use:
+   about rate × words / 1,000 rounded, at most the allowance below; without it, per 1,000 words.
+   Always: never as spelling mistakes, spread out, and none if the rate gives fewer than half a trace.
+   `off`: the section asks for standard language and lists the markers to avoid.
+9. **Check** (`check.py [--flavour keep|off]`). Counts the markers with a pattern in the text
+   (placeholders stripped). Allowance: max(1, round(`max_per_1k` × words / 1,000)). The report's
+   `flavour` holds `{mode, hits, allowed, expected, markers: [{id, name, count}]}`; the draft fails
+   when hits exceed the allowance (`keep`) or any hit is found (`off`), with the lines named.
+   Fewer hits than expected is never a fail: some markers cannot be counted.
+10. **Guide and export** include the flavour section (examples are redacted; nothing private is kept
+   in the file).

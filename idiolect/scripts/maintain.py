@@ -179,7 +179,20 @@ def _keep_last_id(content, current_path):
                     return "---\n" + dump_yaml(meta_new).rstrip() + "\n---\n" + body
         elif current_path.suffix == ".yaml":
             new, old = load_yaml_text(content) or {}, load_yaml_text(cur) or {}
-            if "entries" in new:
+            if "markers" in new:                      # a flavour file (spec §34)
+                # rejections are permanent until the writer lifts them, as rejected.yaml is not rolled back
+                ids = [int(e["id"].split("-")[1]) for e in old.get("markers", []) + old.get("rejected", [])]
+                n = max([new.get("last_id") or 0, old.get("last_id") or 0] + ids)
+                have = {r["id"] for r in new.get("rejected", [])}
+                extra = [r for r in old.get("rejected", []) if r["id"] not in have]
+                gone = {r["id"] for r in extra}
+                if n != new.get("last_id") or extra:
+                    new["last_id"] = n
+                    if extra:
+                        new["rejected"] = new.get("rejected", []) + extra
+                        new["markers"] = [m for m in new.get("markers", []) if m["id"] not in gone]
+                    return dump_yaml(new)
+            elif "entries" in new:
                 ids = [int(e["id"].split("-")[1]) for e in old.get("entries", [])]
                 n = max([new.get("last_id") or 0, old.get("last_id") or 0] + ids)
                 if n != new.get("last_id"):
@@ -273,6 +286,16 @@ def rollback(store_root, profile, to=None):
                 and rel != "changelog.md" and "/" not in rel else None
             if rel.endswith(".examples.md"):
                 slot = rel[: -len(".examples.md")]
+            if rel.endswith(".flavour.yaml") and "/" not in rel:
+                from common import dump_yaml, load_yaml_text
+                cur = load_yaml_text((pdir / rel).read_text(encoding="utf-8")) or {}
+                last = max([cur.get("last_id") or 0] + [int(x["id"].split("-")[1]) for x in cur.get("markers", [])])
+                empty = {**cur, "last_id": last, "markers": [], "origins": [], "strength": "none",
+                         "rate": {**cur.get("rate", {}), "per_1k": 0, "texts": 0, "max_per_1k": 0}}
+                pending.add("restore", "modify", f"profiles/{profile}/{rel}",
+                            f"{rel} was created after {name}; emptied (ids and rejections stay)",
+                            {"restore": {f"profiles/{profile}/{rel}": dump_yaml(empty)}}, profile=profile)
+                continue
             if rel in ("vocabulary.yaml", "rulings.yaml"):
                 from common import dump_yaml, load_yaml_text, version_of
                 cur = load_yaml_text((pdir / rel).read_text(encoding="utf-8")) or {}

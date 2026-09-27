@@ -52,9 +52,13 @@ Claude will ask three things:
 3. **What kind of texts they are** (essay, post, email), when it cannot tell.
 
 It then measures your texts, compares them with neutral AI rewrites of the same paragraphs, and
-English and Dutch are fully supported; other languages that separate words with spaces are measured
-on 11 of the 14 measures, and Claude says so.
-writes down what sets you apart.
+writes down what sets you apart. English and Dutch are fully supported; other languages that separate
+words with spaces are measured on 11 of the 14 measures, and Claude says so.
+
+Every learn also listens for a **language flavour**: traces of another language in how you write
+this one, such as German word order in English or a Dutch preposition. Each trace is shown with how
+it is recognised, examples from your texts and how often you use it ("about once every 1,100 words, in
+10 of 15 texts"). Approve the ones that are you; drafts then carry them at that rate, never more.
 
 If a text measures unlike the rest (a guest post, a ghostwritten piece, or just an unusual one of
 yours), Claude shows it with what is different and asks whether it is yours. Keep it, or set it aside
@@ -85,6 +89,7 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | "Check this post against my Idiolect profile." | Pass or fail, with what is off: too many dashes, sentences too long, a phrase you never use. |
 | "Here is the draft Idiolect wrote and the version I published. Learn from my edits." | Your corrections become edit lessons, which outrank everything learned from your texts. |
 | "Write it with Idiolect, a bit firmer." | The same voice leaning one way: `warm`, `cool`, `firm`, `soft`, `formal` or `casual`. It moves only as far as your own texts go, never into a caricature. You can combine two, such as "firm and formal": where they pull something in opposite directions, the one you name first decides. Firm wants shorter sentences and formal longer ones, so "firm and formal" gives shorter sentences and "formal and firm" longer ones. |
+| "Write it with Idiolect, but without my Dutch accent." | `flavour=off`: standard language, and the check fails any trace of your language flavour. By default a draft carries your flavour at your own rate. |
 | "Does this read like me? Check it with Idiolect." | How close the text measures to your own texts, and what differs most. A measure of style, not proof of who wrote it. |
 | "Make an Idiolect voice guide for my editor." | A document a person can follow: your rules, the shape of your sentences, your habits and words, and a few example passages with names removed. `rulings-only=true` gives just the rules, as a house style guide. |
 | "Import our house style guide into my Idiolect profile." | Claude reads the guide and proposes each rule it states, quoting the line it came from; you approve each one. Rules a script can test are checked in every draft. |
@@ -113,6 +118,7 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | Voice guides and house style guides | [`modes/guide.md`](../idiolect/references/modes/guide.md), [spec §29](spec.md#29-voice-guide) |
 | Tone within your voice | [`modes/write.md`](../idiolect/references/modes/write.md), [spec §31](spec.md#31-tone) |
 | Learning from what you publish, and the scheduled scan | [`modes/published.md`](../idiolect/references/modes/published.md), [spec §33](spec.md#33-learning-from-what-the-writer-publishes) |
+| Language flavour: how traces of another language are found, counted and used | [`modes/learn.md`](../idiolect/references/modes/learn.md) (7b), [spec §34](spec.md#34-language-flavour) |
 | Languages: English, Dutch, adding another | [`references/fingerprint.md`](../idiolect/references/fingerprint.md) (Language applicability), [spec §32](spec.md#32-language-packs) |
 | Rulings, tests, the starter set and importing a style guide | [`modes/rules.md`](../idiolect/references/modes/rules.md), [spec §27](spec.md#27-rulings-with-tests-and-the-starter-set) |
 | Exporting your voice as one prompt for another tool | [`modes/export.md`](../idiolect/references/modes/export.md) |

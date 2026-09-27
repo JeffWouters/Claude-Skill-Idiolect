@@ -155,6 +155,52 @@ examples: [{key: <key>, text: "<exact passage>", habit: "long-then-short rhythm"
 remove: [e-002]        # optional: retire examples that no longer fit
 ```
 
+## 7b. Language flavour (model, every learn)
+
+Traces of another language in how the writer writes this one: German word order in English, a
+Dutch preposition, a French false friend, an idiom translated word for word, a plural on an
+uncountable noun. `next` asks for it for every profile and language the run measured; never skip it,
+also not for a writer you expect to write natively (then the answer is `markers: []`).
+
+`learn.py flavour-sample --profile P --lang L` runs the language pack's detectors over every own text
+in that language (all types together) and returns `detected` (per detector: hits, texts, rate and
+matches in context), `origins` ranked by hits, a sample to read, and the existing and rejected
+markers. Then:
+
+- **Confirm detectors** whose matches are the writer's own flavour: `{detector: <id>, origin: de}`
+  (name the origin language when the detector lists several). Leave out one whose matches are
+  quotations, code, a name or ordinary native usage.
+- **Read the sample** for traces no detector covers, for any origin language: a word order, a
+  preposition, a tense, a false friend ('eventually' for 'possibly', 'actual' for 'current'), a
+  translated idiom, a characteristic sentence opener. For each give `name`, `how` (one or two
+  sentences on how to recognise it, naming the source construction), `origin` (a language code, or
+  `unknown`), verbatim `examples` with their text keys, and a `pattern` (case-insensitive regular
+  expression) when one can match the examples and little else. Without a pattern, list every
+  instance you saw: the count is the examples.
+- **Not flavour:** spelling mistakes and typos, a regional variety (British or American spelling is a
+  form, in the vocabulary), and deliberate style. A trace seen once is still worth recording; its
+  count says it is rare.
+- A trace the writer's lessons already describe belongs here, not in a lesson: propose removing such a
+  lesson at the next lessons step.
+
+```yaml
+markers:
+  - {detector: else-opener, origin: de}
+  - name: "'only' for 'not until'"
+    origin: de
+    how: "'only' before a time where English says 'not until' (German erst): 'it arrives only in March'."
+    examples: [{key: <key>, quote: "The fix arrives only in version 3."}]
+```
+
+`learn.py flavour-apply --profile P --lang L --file flavour.yaml [--names names.yaml]` verifies every
+example and pattern (reported under `problems`; a pattern that misses an example or matches more
+than 10 per 1,000 words is dropped and the marker counted by its examples), counts each marker over
+all own texts in the language, keeps ids, drops rejected markers, and proposes removing markers not
+proposed again. `if_all_approved` gives the strength, origins and overall rate: tell the writer in
+one line ("a light German flavour, about once every 1,100 words, in 10 of 15 texts"), and that
+`write` will use it at that rate. The writer can reject any marker, or all of them if they do not
+want their flavour imitated; `flavour=off` writes without it for one piece.
+
 ## 8. Diff and approval (writer)
 
 `stage.py --store S diff` shows every item grouped per profile and slot. Show it (shorten long

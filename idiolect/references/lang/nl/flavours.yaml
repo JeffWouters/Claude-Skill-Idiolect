@@ -1,0 +1,97 @@
+# Language flavour detectors for Dutch (spec §34.2): traces of another language in Dutch prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Dutch is worse than none.
+version: "1.0"
+detectors:
+  - id: maakt-sense
+    name: "'sense maken'"
+    origins: [en]
+    how: "'Dat maakt (geen) sense' naar het Engelse 'that makes sense', waar Nederlands 'dat klopt' of 'dat is logisch' zegt."
+    pattern: '\bma(?:ak|akt|ken|akte|akten)\s+(?:(?:geen|veel|wel|meer|weinig|totaal|echt|helemaal)\s+)?sense\b'
+    examples:
+      - "Dat maakt helemaal sense."
+      - "Het maakt geen sense om dit te automatiseren."
+    not:
+      - "Dat is logisch."
+      - "Dat klopt helemaal."
+
+  - id: niet-zeker
+    name: "'ik ben niet zeker'"
+    origins: [en]
+    how: "'Ik ben niet zeker' naar 'I'm not sure', waar Nederlands 'ik weet het niet zeker' of 'ik ben er niet zeker van' zegt."
+    pattern: '\b(?:ik ben|ben ik|je bent|ben je|we zijn|zijn we|hij is|zij is|ze zijn)\s+niet\s+zeker\b(?![^.!?\n]{0,40}\bvan\b)'
+    examples:
+      - "Ik ben niet zeker of dit werkt."
+      - "Ik ben niet zeker."
+    not:
+      - "Ik weet niet zeker of dit werkt."
+      - "Ik ben er niet zeker van."
+      - "Ik ben niet zeker van mijn zaak."
+
+  - id: dit-is-waarom
+    name: "'dit is waarom'"
+    origins: [en]
+    how: "'Dit is waarom' naar 'this is why', waar Nederlands 'daarom' of 'dat is de reden' zegt."
+    pattern: '\b(?:dit|dat) is waarom\b'
+    examples:
+      - "Dit is waarom ik scripts schrijf."
+    not:
+      - "Daarom schrijf ik scripts."
+      - "Dat is de reden waarom ik scripts schrijf."
+
+  - id: gezegd-hebbende
+    name: "'dat gezegd hebbende'"
+    origins: [en]
+    how: "'Dat gezegd hebbende' naar 'that being said', waar Nederlands 'toch' of 'desondanks' zegt."
+    pattern: '\bdat gezegd hebbende\b'
+    examples:
+      - "Dat gezegd hebbende, het werkt prima."
+    not:
+      - "Toch werkt het prima."
+
+  - id: in-termen-van
+    name: "'in termen van'"
+    origins: [en]
+    how: "'In termen van' naar 'in terms of', waar Nederlands 'wat betreft' of 'qua' zegt."
+    pattern: '\bin termen van\b'
+    examples:
+      - "In termen van snelheid is dit beter."
+    not:
+      - "Qua snelheid is dit beter."
+      - "Wat snelheid betreft is dit beter."
+
+  - id: op-een-basis
+    name: "'op een dagelijkse basis'"
+    origins: [en]
+    how: "'Op een dagelijkse (wekelijkse, regelmatige) basis' naar 'on a daily basis', waar Nederlands 'dagelijks' of 'geregeld' zegt."
+    pattern: '\bop (?:een )?(?:dagelijkse|wekelijkse|maandelijkse|jaarlijkse|regelmatige) basis\b'
+    examples:
+      - "Ik gebruik het op een dagelijkse basis."
+      - "We draaien dit op regelmatige basis."
+    not:
+      - "Ik gebruik het dagelijks."
+      - "Op basis van de cijfers besloten we het."
+
+  - id: punt-maken
+    name: "'een punt maken'"
+    origins: [en]
+    how: "'Een punt maken' naar 'make a point', waar Nederlands 'iets duidelijk maken' of 'een punt hebben' zegt."
+    pattern: '\been (?:goed |sterk |duidelijk )?punt (?:maken|maakt|maak|maakte|maakten|gemaakt)\b'
+    examples:
+      - "Hij wilde een punt maken."
+      - "Ze heeft een goed punt gemaakt."
+    not:
+      - "Daar heeft hij een punt."
+      - "Hij wilde iets duidelijk maken."
+
+  - id: goede-tijd-hebben
+    name: "'een goede tijd hebben'"
+    origins: [en]
+    how: "'Een goede tijd hebben' naar 'have a good time', waar Nederlands 'het naar je zin hebben' of 'je vermaken' zegt."
+    pattern: '\been (?:goede|fijne|leuke|geweldige) tijd (?:hebben|gehad|hebt|heb|had|hadden)\b'
+    examples:
+      - "We hebben een geweldige tijd gehad."
+      - "Ik hoop dat jullie een leuke tijd hebben."
+    not:
+      - "We hebben het erg naar ons zin gehad."
+      - "Een goede tijd om te beginnen."

@@ -20,7 +20,8 @@ import kit as kitmod  # noqa: E402
 from common import StoreError, read_store_file, utcnow  # noqa: E402
 from store import Store  # noqa: E402
 
-LANGS = {"en": "English", "nl": "Dutch", "de": "German", "fr": "French", "es": "Spanish"}
+LANGS = {"en": "English", "nl": "Dutch", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian",
+         "pt": "Portuguese", "pl": "Polish"}
 
 
 def _plural(word):
@@ -94,6 +95,17 @@ def build(store, profile=None, facets=None, n_examples=3, rulings_only=False, in
     if phrases:
         L += ["", "## Favoured phrases", "", "Part of the voice, sparingly: never more often than the writer."]
         L += [f"- \"{v['text']}\": at most {kitmod.phrase_rate_text(v)}" for v in phrases]
+    fl = k.get("flavour")
+    if fl and fl.get("markers"):
+        r = fl["rate"]
+        L += ["", "## Language flavour", "",
+              f"The writer's {LANGS.get(fl['lang'], fl['lang'])} carries a {fl['strength']} trace of "
+              f"{', '.join(LANGS.get(o, o) for o in fl['origins']) or 'another language'}: {r['per_1k']:g} per 1,000 "
+              f"words, in {r['texts']} of {r['of']} texts, never more than {r['max_per_1k']:g} per 1,000 words in one "
+              "text. Keep it at that rate or leave it out; never add more, and never as spelling mistakes."]
+        for m in fl["markers"]:
+            ex = f" For example: \"{m['examples'][0]}\"" if m.get("examples") else ""
+            L.append(f"- {m['name']}: {m['how']}{ex}")
     if k["never"]:
         L += ["", "## Never written", "", "Phrases common in machine-written text that this writer does not use."]
         L += [f"- \"{m}\"" for m in k["never"]]

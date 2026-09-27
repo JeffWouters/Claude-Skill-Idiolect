@@ -1,12 +1,13 @@
 """check: compare a text with the writer's fingerprint (spec §17). Read-only; takes no lock.
 
-    python3 check.py --store S --file DRAFT [--brief FILE] [--tone T] [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
+    python3 check.py --store S --file DRAFT [--brief FILE] [--tone T] [--flavour keep|off] [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
 
 Measures against the targets for this piece: the slot's fingerprint blended with the example passages
 the brief selects, exactly as kit.py does with the same brief (without --brief, the text itself picks
 them). Flags overshoot and shortfall per metric only when the text is outside the band around both the
 target and the slot's value (the caricature guard: too much of a habit is flagged too),
-fails the draft when the fail count is reached or a ruling's test is broken (spec §27), lists lines
+fails the draft when the fail count is reached, a ruling's test is broken (spec §27) or the language
+flavour goes beyond the writer's highest rate (spec §34), lists lines
 that use a never-list phrase or break a ruling, and names
 bunched habits: a paragraph using a countable habit far above the writer's rate. Prints
 the check report (check-report.schema.json) with --json, otherwise a readable summary.
@@ -121,7 +122,7 @@ def flag_metric(name, draft, writer, fp_metric):
     return "ok", ratio
 
 
-def check(store, text, profile=None, facets=None, brief=None, tone=None):
+def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour_mode="keep"):
     report = {"schema_version": 1}
     try:
         prof, slot, _ = resolve.resolve(store, profile, facets)
@@ -168,10 +169,15 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None):
     applicable = rules.applicable(store, prof, slot)
     ruling_lines = rules.flag(measured, applicable, rules.writer_rates(store, prof, slot, applicable), n)
     lines += ruling_lines
+    # language flavour (spec §34.9): more traces than the writer's highest rate fails; fewer never does
+    import flavour
+    fl = flavour.for_profile(store, prof, lang)
+    fl_part, fl_lines = (flavour.check_text(fl, measured, flavour_mode) if fl and fl.get("markers") else (None, []))
+    lines += fl_lines
     phrases = [v for v in resolve.merged(store, prof, "vocabulary") if v["kind"] == "phrase"]
     bunches = bunched(measured, lang, fp["metrics"], phrases, targets)
     conf = fp["confidence"]["level"]
-    if ruling_lines or (flagged >= threshold and n >= MIN_WORDS):
+    if ruling_lines or fl_lines or (flagged >= threshold and n >= MIN_WORDS):
         status = "fail"
     else:
         status = "low_confidence" if conf == "low" else "pass"
@@ -180,6 +186,8 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None):
                    "fail_threshold": threshold, "metrics": rows,
                    "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight,
                                **({"tone": kitmod.parse_tone(tone)} if tone else {})}})
+    if fl_part:
+        report["flavour"] = fl_part
     if lines:
         report["flagged_lines"] = lines
     if bunches:
@@ -188,6 +196,10 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None):
     if broken:
         notes.append(f"breaks {len(broken)} ruling{'s' if len(broken) > 1 else ''} ({', '.join(broken)}): "
                      f"a ruling fails the draft whatever the metrics say")
+    if fl_lines:
+        notes.append(f"language flavour: {fl_part['hits']} traces where the writer's highest rate allows "
+                     f"{fl_part['allowed']}" if flavour_mode == "keep" else
+                     f"language flavour: {fl_part['hits']} traces in a piece asked for without them")
     if n < MIN_WORDS:
         notes.append(f"only {n} words: metric flags are hints, never a fail, below {MIN_WORDS} words")
     if fp["pooled"]:
@@ -216,6 +228,11 @@ def readable(r):
         where = "the whole text" if b["paragraph"] == 0 else f"paragraph {b['paragraph']}"
         L.append(f"- bunched: {name} in {where}: {b['count']} uses where the writer's rate gives about "
                  f"{b['expected']:g} (caricature: spread them out or cut)")
+    fl = r.get("flavour")
+    if fl:
+        L.append(f"- language flavour ({fl['mode']}): {fl['hits']} counted, about {fl['expected']:g} expected, "
+                 f"at most {fl['allowed']} allowed"
+                 + (" (fewer is fine: not every trace can be counted)" if fl["hits"] <= fl["allowed"] else ""))
     for x in r.get("flagged_lines", []):
         L.append(f"- line {x['line']}: {x['reason']}")
     if r.get("message"):
@@ -233,6 +250,7 @@ def main(argv=None):
     ap.add_argument("--type")
     ap.add_argument("--facet", action="append", default=[])
     ap.add_argument("--tone", help="the same tone given to kit.py")
+    ap.add_argument("--flavour", choices=["keep", "off"], default="keep", help="the same flavour given to kit.py")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     facets = {"lang": a.lang, "type": a.type}
@@ -244,7 +262,8 @@ def main(argv=None):
             raise StoreError("no store given (discover one first, see SKILL.md)")
         store = Store(a.store)
         brief = pathlib.Path(a.brief).read_text(encoding="utf-8") if a.brief else None
-        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets, brief, a.tone)
+        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets, brief, a.tone,
+                  a.flavour)
     except StoreError as e:
         r = {"schema_version": 1, "status": "no_store" if ("idiolect.yaml" in str(e) or "no store" in str(e)) else "error",
              "message": str(e)}

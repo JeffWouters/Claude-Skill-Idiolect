@@ -19,6 +19,8 @@ done by Claude following references/modes/learn.md, and their results come back 
     learn.py --store S vocab-apply --profile P --file vocab.yaml
     learn.py --store S examples-sample --profile P --slot K
     learn.py --store S examples-apply --profile P --slot K --file examples.yaml
+    learn.py --store S flavour-sample --profile P --lang L      language flavour (spec §34)
+    learn.py --store S flavour-apply --profile P --lang L --file flavour.yaml [--names names.yaml]
     learn.py --store S rule --profile P --text "..." [--slot K] [--from l-002]
     learn.py --store S next                          what is left to do
 """
@@ -1144,6 +1146,10 @@ def _next(run):
     for p in {s["profile"] for s in run.state.get("slots", [])}:
         if p not in st["vocab"]:
             todo.append(f"vocabulary {p}")
+    import flavour
+    for p, lang in flavour.run_langs(run):
+        if f"{p}/{lang}" not in st.get("flavour", []):
+            todo.append(f"flavour {p}/{lang}")
     if todo:
         return "model steps left: " + "; ".join(todo[:6]) + (f" (+{len(todo) - 6} more)" if len(todo) > 6 else "")
     return "show the diff (stage.py diff), then decide and commit"
@@ -1210,6 +1216,13 @@ def main(argv=None):
             out = examples_sample(s, a.profile, a.slot)
         elif act == "examples-apply":
             out = examples_apply(s, a.profile, a.slot, a.file)
+        elif act == "flavour-sample":
+            import flavour
+            out = flavour.sample(s, a.profile, a.lang)
+        elif act == "flavour-apply":
+            import flavour
+            names = load_yaml_text(pathlib.Path(a.names).read_text(encoding="utf-8")) if a.names else None
+            out = flavour.apply(s, a.profile, a.lang, a.file, names)
         elif act == "rule":
             out = add_rule(s, a.profile, a.text, a.slot, a.from_lesson)
         elif act == "next":

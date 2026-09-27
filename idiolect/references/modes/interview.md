@@ -35,7 +35,7 @@ worth measuring; say that fewer give `low` confidence.
 ## 3. Learn and approve
 
 Then continue with `references/modes/learn.md` from **measurement** (`learn.py measure`) through
-contrast, lessons, vocabulary, examples, the diff and the commit: the answers are ordinary texts of
+contrast, lessons, vocabulary, examples, the language flavour, the diff and the commit: the answers are ordinary texts of
 the slot with `origin: interview`.
 
 ## interactive=false

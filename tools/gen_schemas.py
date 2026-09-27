@@ -430,6 +430,18 @@ check_report = {
                                              "count": {"type": "integer", "minimum": 0},
                                              "expected": {"type": "number", "minimum": 0}},
                               "additionalProperties": False}},
+        "flavour": {"type": "object", "description": "Language flavour in the text (spec §34.9).",
+                    "required": ["mode", "hits", "allowed", "expected", "markers"],
+                    "properties": {"mode": {"enum": ["keep", "off"]},
+                                   "hits": {"type": "integer", "minimum": 0},
+                                   "allowed": {"type": "integer", "minimum": 0},
+                                   "expected": {"type": "number", "minimum": 0},
+                                   "markers": {"type": "array", "items": {
+                                       "type": "object", "required": ["id", "name", "count"],
+                                       "properties": {"id": {"type": "string"}, "name": {"type": "string"},
+                                                      "count": {"type": "integer", "minimum": 0}},
+                                       "additionalProperties": False}}},
+                    "additionalProperties": False},
         "flagged_lines": {"type": "array", "items": {
             "type": "object", "required": ["line", "text", "reason"],
             "properties": {"line": {"type": "integer", "minimum": 1}, "text": {"type": "string"},
@@ -499,7 +511,7 @@ pending = {
                 "id": {"type": "string", "pattern": "^i-[0-9]{3,6}$"},
                 "kind": {"enum": ["corpus-text", "ownership", "rule", "profile", "status", "lesson", "edit-pair", "edit-lesson",
                                   "ruling", "vocabulary", "example", "fingerprint", "never-list", "slot-page",
-                                  "rejection", "holdout", "deletion", "restore", "snapshot-prune"]},
+                                  "rejection", "holdout", "deletion", "restore", "snapshot-prune", "flavour"]},
                 "op": {"enum": ["add", "modify", "remove"]},
                 "profile": ref("profileName"),
                 "slot": ref("slotKey"),
@@ -710,6 +722,62 @@ edit_queue = {
     "additionalProperties": False,
 }
 
+flavour = {
+    "$schema": DRAFT, "$id": BASE + "flavour.schema.json",
+    "title": "profiles/<name>/<lang>.flavour.yaml — the writer's language flavour in one language (spec §34)",
+    "type": "object",
+    "required": ["schema_version", "profile", "lang", "built", "last_id", "origins", "strength", "rate", "markers"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "profile": ref("profileName"),
+        "lang": ref("langValue"),
+        "built": ref("dateTime"),
+        "last_id": {"type": "integer", "minimum": 0,
+                    "description": "Highest f- number ever used in this file, rejected markers included (spec §14.2)."},
+        "origins": {"type": "array", "items": {"type": "string", "pattern": "^([a-z]{2,3}|unknown)$"},
+                    "description": "Languages the markers come from, most hits first."},
+        "strength": {"enum": ["none", "light", "moderate", "strong"],
+                     "description": "From rate.per_1k: light under 1, moderate under 4, strong from 4; none without markers."},
+        "rate": {"type": "object", "required": ["per_1k", "texts", "of", "words", "max_per_1k"],
+                 "properties": {"per_1k": {"type": "number", "minimum": 0},
+                                "texts": {"type": "integer", "minimum": 0, "description": "Texts with at least one trace."},
+                                "of": {"type": "integer", "minimum": 0, "description": "Own texts in this language."},
+                                "words": {"type": "integer", "minimum": 0},
+                                "max_per_1k": {"type": "number", "minimum": 0,
+                                               "description": "Highest rate in one text of at least 300 words (every text when none is)."}},
+                 "additionalProperties": False},
+        "markers": {"type": "array", "items": {
+            "type": "object", "required": ["id", "name", "origin", "how", "examples", "count"],
+            "properties": {
+                "id": {"type": "string", "pattern": "^f-[0-9]{3,6}$"},
+                "name": {"type": "string", "minLength": 1},
+                "origin": {"type": "string", "pattern": "^([a-z]{2,3}|unknown)$"},
+                "how": {"type": "string", "minLength": 1, "description": "How to recognise it."},
+                "pattern": {"type": "string", "minLength": 1,
+                            "description": "Case-insensitive, multi-line regular expression; present when the marker can be counted."},
+                "detector": {"type": "string", "pattern": "^[a-z0-9-]+$", "description": "The pack detector it came from."},
+                "examples": {"type": "array", "items": {"type": "string", "minLength": 1}, "maxItems": 5,
+                             "description": "Verbatim from the writer's texts, redacted."},
+                "sources": {"type": "array", "items": ref("textKey"), "maxItems": 5,
+                            "description": "The text each example comes from, in the same order; a marker counted by its examples is recounted on these."},
+                "count": {"type": "object", "required": ["hits", "texts", "per_1k", "measured"],
+                          "properties": {"hits": {"type": "integer", "minimum": 0},
+                                         "texts": {"type": "integer", "minimum": 0},
+                                         "per_1k": {"type": "number", "minimum": 0},
+                                         "measured": {"enum": ["pattern", "examples"],
+                                                      "description": "examples: counted by verified examples only, a lower bound."}},
+                          "additionalProperties": False}},
+            "additionalProperties": False}},
+        "rejected": {"type": "array", "items": {
+            "type": "object", "required": ["id", "name", "normalised", "rejected"],
+            "properties": {"id": {"type": "string", "pattern": "^f-[0-9]{3,6}$"},
+                           "name": {"type": "string"}, "detector": {"type": "string"},
+                           "normalised": {"type": "string"}, "rejected": ref("date")},
+            "additionalProperties": False}}
+    },
+    "additionalProperties": False
+}
+
 SCHEMAS = {
     "inventory-report": inventory_report,
     "global-metrics": global_metrics,
@@ -717,7 +785,7 @@ SCHEMAS = {
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,
     "fingerprint": fingerprint, "manifest-entries": manifest_entries, "check-report": check_report, "lock": lock,
     "progress": progress, "pending": pending, "edit-pair": edit_pair, "bridge": bridge,
-    "publish": publish, "drafts": drafts, "edit-queue": edit_queue,
+    "publish": publish, "drafts": drafts, "edit-queue": edit_queue, "flavour": flavour,
 }
 
 if __name__ == "__main__":

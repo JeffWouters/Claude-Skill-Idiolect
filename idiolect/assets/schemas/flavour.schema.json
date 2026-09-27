@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/flavour.schema.json",
+  "title": "profiles/<name>/<lang>.flavour.yaml — the writer's language flavour in one language (spec §34)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile",
+    "lang",
+    "built",
+    "last_id",
+    "origins",
+    "strength",
+    "rate",
+    "markers"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "lang": {
+      "$ref": "common.schema.json#/$defs/langValue"
+    },
+    "built": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "last_id": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Highest f- number ever used in this file, rejected markers included (spec §14.2)."
+    },
+    "origins": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^([a-z]{2,3}|unknown)$"
+      },
+      "description": "Languages the markers come from, most hits first."
+    },
+    "strength": {
+      "enum": [
+        "none",
+        "light",
+        "moderate",
+        "strong"
+      ],
+      "description": "From rate.per_1k: light under 1, moderate under 4, strong from 4; none without markers."
+    },
+    "rate": {
+      "type": "object",
+      "required": [
+        "per_1k",
+        "texts",
+        "of",
+        "words",
+        "max_per_1k"
+      ],
+      "properties": {
+        "per_1k": {
+          "type": "number",
+          "minimum": 0
+        },
+        "texts": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Texts with at least one trace."
+        },
+        "of": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Own texts in this language."
+        },
+        "words": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_per_1k": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Highest rate in one text of at least 300 words (every text when none is)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "markers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "origin",
+          "how",
+          "examples",
+          "count"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^f-[0-9]{3,6}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "type": "string",
+            "pattern": "^([a-z]{2,3}|unknown)$"
+          },
+          "how": {
+            "type": "string",
+            "minLength": 1,
+            "description": "How to recognise it."
+          },
+          "pattern": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Case-insensitive, multi-line regular expression; present when the marker can be counted."
+          },
+          "detector": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "The pack detector it came from."
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "maxItems": 5,
+            "description": "Verbatim from the writer's texts, redacted."
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/textKey"
+            },
+            "maxItems": 5,
+            "description": "The text each example comes from, in the same order; a marker counted by its examples is recounted on these."
+          },
+          "count": {
+            "type": "object",
+            "required": [
+              "hits",
+              "texts",
+              "per_1k",
+              "measured"
+            ],
+            "properties": {
+              "hits": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "texts": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "per_1k": {
+                "type": "number",
+                "minimum": 0
+              },
+              "measured": {
+                "enum": [
+                  "pattern",
+                  "examples"
+                ],
+                "description": "examples: counted by verified examples only, a lower bound."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "normalised",
+          "rejected"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^f-[0-9]{3,6}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "detector": {
+            "type": "string"
+          },
+          "normalised": {
+            "type": "string"
+          },
+          "rejected": {
+            "$ref": "common.schema.json#/$defs/date"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

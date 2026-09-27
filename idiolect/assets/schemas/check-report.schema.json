@@ -169,6 +169,62 @@
         "additionalProperties": false
       }
     },
+    "flavour": {
+      "type": "object",
+      "description": "Language flavour in the text (spec §34.9).",
+      "required": [
+        "mode",
+        "hits",
+        "allowed",
+        "expected",
+        "markers"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "keep",
+            "off"
+          ]
+        },
+        "hits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "allowed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "expected": {
+          "type": "number",
+          "minimum": 0
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "count"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "flagged_lines": {
       "type": "array",
       "items": {

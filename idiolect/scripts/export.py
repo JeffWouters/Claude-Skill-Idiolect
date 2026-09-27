@@ -65,6 +65,9 @@ def build(store, profile=None, facets=None, include_parent=False):
     if phrases:
         L += ["", "## Favoured phrases (never required)"]
         L += [f"- \"{v['text']}\": at most {kitmod.phrase_rate_text(v)}" for v in phrases]
+    if k.get("flavour"):
+        import flavour
+        L += flavour.kit_lines(k["flavour"])
     notes = [x for x in k["lessons"] if x["default"]]
     if notes:
         L += ["", "## Habits most of the writer's texts show (background, not a checklist)"]

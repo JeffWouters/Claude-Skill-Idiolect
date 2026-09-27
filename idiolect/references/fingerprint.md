@@ -97,6 +97,11 @@ The engine supports languages that separate words with spaces and end sentences 
 - `check` and the stability rule always use all applicable metrics. The contrast pass marks
   **primary** metrics, which steer drafting and order the hints, but never shortens the list.
 - A language with no `stopwords.txt` matches rejections without stop-word removal.
+- A pack may also hold `flavours.yaml`: detectors for traces of other languages in this one (spec
+  §34.2). They are not metrics: they feed the writer's language flavour, which is kept and checked
+  separately at the writer's own rate. English has detectors for Dutch, German, French, Spanish and
+  Italian writers; Dutch for English writers. Without the file, the model still finds a flavour; its
+  counts are then its verified examples.
 - Languages written without spaces between words (Chinese, Japanese, Thai and others) are out of
   scope for v1: `learn` reports their texts as "Skipped: language not supported" and never builds a
   slot for them.

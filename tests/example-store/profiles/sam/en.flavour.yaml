@@ -1,0 +1,27 @@
+schema_version: 1
+profile: sam
+lang: en
+built: 2026-10-02T21:40:00Z
+last_id: 3
+origins: [nl]
+strength: light
+rate: {per_1k: 0.61, texts: 5, of: 9, words: 16420, max_per_1k: 1.9}
+markers:
+  - id: f-001
+    name: "'in the weekend'"
+    origin: nl
+    how: "'in the weekend' where British English says 'at the weekend' and American 'on the weekend' (Dutch in het weekend)."
+    pattern: '\bin the weekend\b'
+    detector: in-the-weekend
+    examples: ["We shipped it in the weekend, which nobody at [employer] noticed."]
+    sources: ["76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa"]
+    count: {hits: 6, texts: 4, per_1k: 0.37, measured: pattern}
+  - id: f-002
+    name: Present tense with 'since'
+    origin: nl
+    how: "A present tense with 'since' where English uses the present perfect."
+    examples: ["I work with this team since the spring."]
+    sources: ["76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa"]
+    count: {hits: 1, texts: 1, per_1k: 0.06, measured: examples}
+rejected:
+  - {id: f-003, name: "'more easy'", detector: more-plus-short-adjective, normalised: more easy, rejected: 2026-10-02}

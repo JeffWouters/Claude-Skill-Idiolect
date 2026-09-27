@@ -199,7 +199,7 @@ class Pending:
             for field in ("lesson", "example", "never", "fingerprint", "edit_lesson", "edit_pair"):
                 if pl.get(field):
                     profs.add(pl[field]["profile"])
-            for field in ("vocab", "ruling"):
+            for field in ("vocab", "ruling", "flavour"):
                 if pl.get(field):
                     profs.add(pl[field]["profile"])
             for r in pl.get("sources_rules") or []:
@@ -746,6 +746,8 @@ def affected_profiles(store, pending, include):
                 profs.add(pl[field]["profile"])
         if pl.get("profile_yaml"):
             profs.add(pl["profile_yaml"]["name"])
+        if pl.get("flavour"):
+            profs.add(pl["flavour"]["profile"])
         for rel in list(pl.get("restore") or {}) + list(pl.get("delete") or []):
             if rel.startswith("profiles/"):
                 profs.add(rel.split("/")[1])
@@ -830,6 +832,23 @@ def rederive_fingerprints(store, pending):
     return extra
 
 
+def approved_view(store, pending):
+    """The manifest after the approved items, and the text of any key in it (staged or cached)."""
+    view = copy.deepcopy(store.manifest["texts"])
+    texts = {}
+    for it in pending.plan["items"]:
+        if it["decision"] != "approved":
+            continue
+        pl = pending.payload(it["id"])
+        for p in strip_profiles(pl.get("manifest") or [], gone_records(pending, pl)):
+            _apply_manifest_patch(view, p)
+        texts.update(pl.get("corpus") or {})
+
+    def get_text(k):
+        return texts[k] if k in texts else store.corpus_text(k)
+    return view, get_text
+
+
 def prepare_commit(store, pending):
     """Render approved items into .state/pending/commit/ and write the journal (spec §9.5 steps 1-2)."""
     plan = pending.plan
@@ -846,6 +865,10 @@ def prepare_commit(store, pending):
     files = render(store, pending, approved, final=True)
     files.update(render_rejections(store, pending))
     files.update(render_declined(store, pending, files))
+    import flavour
+    view, get_text = approved_view(store, pending)
+    files.update(flavour.render_commit(store, pending, view, get_text,
+                                       affected_profiles(store, pending, approved), files))
     any_approved = any(approved(i) for i in plan["items"])
     now = utcnow()
     steps = []

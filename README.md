@@ -68,6 +68,9 @@ what this skill learns, and nothing else.
   facts.
 - **Check** a draft against the writer's measured style, flagging both too little and too much of a
   habit.
+- **Hear an accent in writing**: traces of another language in the writer's prose (German word order
+  in English, a Dutch preposition), how each is recognised and how often the writer shows it, so a
+  draft carries it at the writer's rate and never more.
 - **Prove itself** in blind tests against a plain draft and against a draft given the same examples.
 
 ## Repository layout

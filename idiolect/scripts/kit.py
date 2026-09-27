@@ -2,11 +2,12 @@
 step by step). Never the corpus, never the whole example bank.
 
     python3 kit.py --store S [--profile P] [--lang L] [--type T] [--brief FILE] [--examples 3]
-                   [--notes brief|full|none] [--json]
+                   [--notes brief|full|none] [--words N] [--flavour keep|off] [--json]
 
 Prints a Markdown kit (or JSON with --json): profile and slot used (and why), confidence, the example
 passages best matching the brief (first: they show the voice), rulings, edit lessons, the measurable
-targets for this piece, the never-list and forms, then the observed lessons as background.
+targets for this piece, the never-list and forms, the language flavour with a count for this piece
+(spec §34), then the observed lessons as background.
 
 --notes brief (default): background shows only habits seen in at least half the texts.
 --notes full: every lesson, split into usual and optional habits, and the favoured phrases.
@@ -190,7 +191,7 @@ def apply_tone(store, prof, slot, targets, tone):
     return out, moved, conflicts
 
 
-def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None):
+def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None, words=None, flavour_mode="keep"):
     prof, slot, tried = resolve.resolve(store, profile, facets)
     base = store.root / "profiles" / prof
     fp = read_store_file(base / f"{slot}.json", "fingerprint")
@@ -227,6 +228,10 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None)
     phrases = [v for v in vocab if v["kind"] == "phrase"][:VOCAB_CAP]
     kit["phrases"] = phrases
     kit["forms"] = [v for v in vocab if v["kind"] != "phrase"][:VOCAB_CAP - len(phrases)]
+    import flavour
+    kit["flavour"] = flavour.for_profile(store, prof, lang)
+    kit["flavour_mode"] = flavour_mode
+    kit["words"] = flavour.piece_words(brief, words)
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
     local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
@@ -298,6 +303,9 @@ def markdown(kit, notes="brief"):
     if kit["forms"]:
         L += ["", "## Forms (when you use one of these words, write it exactly so; never required)"]
         L += [f"- {v['text']}" + (f" ({v['note']})" if v.get("note") else "") for v in kit["forms"]]
+    if kit.get("flavour"):
+        import flavour
+        L += flavour.kit_lines(kit["flavour"], kit.get("words"), kit.get("flavour_mode", "keep"))
     if notes == "none" or not kit["lessons"] and not (notes == "full" and kit["phrases"]):
         return "\n".join(L) + "\n"
     defaults = [x for x in kit["lessons"] if x["default"]]
@@ -341,6 +349,9 @@ def main(argv=None):
                     help="how much of the observed lessons the Markdown kit shows (default brief)")
     ap.add_argument("--omit", action="append", default=[], choices=["targets"],
                     help="leave a section out of the Markdown kit (targets: the measurable targets)")
+    ap.add_argument("--words", type=int, help="the piece's length, for the language flavour's count (default: from the brief)")
+    ap.add_argument("--flavour", choices=["keep", "off"], default="keep",
+                    help="keep: the writer's language flavour at their rate (default); off: standard language")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     facets = {"lang": a.lang, "type": a.type}
@@ -349,7 +360,7 @@ def main(argv=None):
         facets[k] = v
     brief = pathlib.Path(a.brief).read_text(encoding="utf-8") if a.brief else ""
     try:
-        kit = build(Store(a.store), a.profile, facets, brief, a.examples, a.tone)
+        kit = build(Store(a.store), a.profile, facets, brief, a.examples, a.tone, a.words, a.flavour)
     except resolve.NoSlot as e:
         print(json.dumps({"status": "no_slot", "message": str(e)}))
         return 3

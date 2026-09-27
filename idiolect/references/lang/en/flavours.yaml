@@ -1,0 +1,232 @@
+# Language flavour detectors for English (spec §34.2): traces of another language in English prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native English is worse than none.
+# origins: ISO 639-1 codes of the languages the trace usually comes from.
+version: "1.0"
+detectors:
+  - id: since-duration
+    name: "'since' with a length of time"
+    origins: [de, nl, fr, es, it]
+    how: "'since' before a length of time where English says 'for' (German seit, Dutch sinds, French depuis)."
+    pattern: '\bsince\s+(?:\d+|a|one|two|three|four|five|six|seven|eight|nine|ten|twelve|twenty|many|several|a few|some)\s+(?:years?|months?|weeks?|days?|hours?|decades?)\b(?!\s+(?:ago|now|before|earlier|back))'
+    examples:
+      - "I have used this module since five years."
+      - "We work with it since 3 months."
+    not:
+      - "I have used this module since 2019."
+      - "since five years ago"
+      - "for five years"
+
+  - id: present-since
+    name: "Present tense with 'since'"
+    origins: [de, nl, fr, es, it]
+    how: "A present tense with 'since' where English uses the present perfect ('I am here since 2010' for 'I have been here since 2010')."
+    pattern: '\b(?:I am|I''m|we are|we''re|he is|she is|they are|I work|we work|I live|we live|I know|we know)\s+(?:(?:here|there|in \w+|at \w+|with \w+|him|her|them|it)\s+)?since\b'
+    examples:
+      - "I am here since 2010."
+      - "We work with PowerShell since version 2."
+      - "I know him since the first conference."
+    not:
+      - "I have been here since 2010."
+      - "I have known him since the first conference."
+
+  - id: uncountable-plural
+    name: "Plural of an uncountable noun"
+    origins: [de, nl, fr, es, it]
+    how: "A plural on a noun English does not count: informations, advices, feedbacks, softwares, trainings, furnitures."
+    pattern: '\b(?:informations|advices|feedbacks|softwares|hardwares|equipments|furnitures|knowledges|homeworks|luggages|trainings)\b'
+    examples:
+      - "Here are some more informations about the cmdlet."
+      - "Thanks for all the feedbacks."
+      - "We give trainings in the Netherlands."
+    not:
+      - "Here is some more information about the cmdlet."
+      - "Thanks for all the feedback."
+      - "We run training courses."
+
+  - id: else-opener
+    name: "'Else,' to open a sentence"
+    origins: [de, nl]
+    how: "'Else,' opens a sentence where English says 'Otherwise,' (German sonst, Dutch anders)."
+    pattern: '(?:^|[.!?]\s+)else,\s'
+    examples:
+      - "Make sure you run it as administrator. Else, the call fails."
+      - "Else, you get an error."
+    not:
+      - "Do it now, or else, well, you know."
+      - "What else, then?"
+      - "Otherwise, the call fails."
+
+  - id: adverb-before-object
+    name: "Adverb between verb and object"
+    origins: [de, nl]
+    how: "An adverb (already, also, still, often, always, never, really, now) sits between the verb and its object, as German and Dutch order it: 'you know already the name' for 'you already know the name'."
+    pattern: '\b(?:know|knows|have|has|use|uses|need|needs|see|sees|find|finds|like|likes|want|wants|read|reads|get|gets|call|calls|run|runs|love|loves)\s+(?:already|also|still|often|always|never|really|now)\s+(?:the|a|an|this|that|these|those|your|my|his|her|its|our|their|some)\b'
+    examples:
+      - "You know already the name of the cmdlet you need."
+      - "We have also a module for that."
+      - "I use often the pipeline for this."
+    not:
+      - "You already know the name of the cmdlet you need."
+      - "We have just a few minutes."
+      - "I have also been there."
+      - "We have now been told."
+
+  - id: become-get
+    name: "'become' for 'get'"
+    origins: [de]
+    how: "'become' where English says 'get' or 'receive' (German bekommen): 'you become an error'."
+    pattern: '\b(?:I|you|we|they|he|she|it|will|would|can|may|might|should|to)\s+becomes?\s+(?:a|an|the|this|that|no)\s+(?:error|message|mail|e-?mail|answer|warning|notification|result|reply|response|letter|call|present|gift|exception)\b'
+    examples:
+      - "If you run this, you become an error."
+      - "You will become a warning."
+    not:
+      - "It will become a habit."
+      - "You get an error."
+
+  - id: explain-me
+    name: "'explain me'"
+    origins: [de, nl, fr, es, it]
+    how: "'explain' followed directly by the person, without 'to': 'explain me how'."
+    pattern: '\bexplain(?:s|ed|ing)?\s+(?:me|us)\b'
+    examples:
+      - "Can you explain me how this works?"
+      - "He explained us the idea."
+    not:
+      - "Can you explain to me how this works?"
+      - "He explained the idea to us."
+
+  - id: discuss-about
+    name: "'discuss about'"
+    origins: [fr, es, it, nl, de]
+    how: "'discuss about' where English discusses a thing directly (French discuter de)."
+    pattern: '\bdiscuss(?:es|ed|ing)?\s+about\b'
+    examples:
+      - "Let us discuss about the options."
+    not:
+      - "Let us discuss the options."
+      - "Let us talk about the options."
+
+  - id: depend-of
+    name: "'depend of'"
+    origins: [fr, es, it, nl]
+    how: "'depend of' where English says 'depend on' (French dépendre de, Dutch afhangen van)."
+    pattern: '\bdepend(?:s|ed|ing|ent)?\s+of\b'
+    examples:
+      - "It depends of the version you use."
+    not:
+      - "It depends on the version you use."
+      - "It works independent of the version."
+
+  - id: be-agree
+    name: "'be agree'"
+    origins: [fr, es, it]
+    how: "'am agree' or 'are agree' (French être d'accord, Spanish estar de acuerdo)."
+    pattern: '\b(?:am|are|is|I''m|we''re|you''re|they''re)\s+(?:not\s+)?agree\b'
+    examples:
+      - "I am agree with you."
+      - "We're not agree on this."
+    not:
+      - "I agree with you."
+      - "We are agreed on this."
+
+  - id: have-age
+    name: "'have' for age"
+    origins: [fr, es, it]
+    how: "'have' with a number of years for age (French avoir 30 ans): 'I have 30 years'."
+    pattern: '\b(?:I|he|she|we|they|you)\s+(?:have|has|had)\s+(?:\d{1,2}|twenty|thirty|forty|fifty|sixty|seventy)\s+years\b(?!\s+(?:of|ago|to|in|left|before|since|experience|behind|ahead))'
+    examples:
+      - "When I had 20 years I moved to Paris."
+      - "She has 40 years."
+    not:
+      - "I have 20 years of experience."
+      - "We have 30 years to pay it back."
+
+  - id: assist-to
+    name: "'assist to' for 'attend'"
+    origins: [fr, es, it]
+    how: "'assist to' or 'assist at' for attending an event (French assister à)."
+    pattern: '\bassist(?:s|ed|ing)?\s+(?:to|at)\s+(?:a|an|the|this|that|our|my)\s+(?:meeting|conference|session|course|class|talk|event|presentation|lecture|workshop)'
+    examples:
+      - "I assisted to the conference in Lyon."
+    not:
+      - "I attended the conference in Lyon."
+      - "I assisted the team at the conference."
+
+  - id: learn-for-teach
+    name: "'learn' for 'teach'"
+    origins: [nl]
+    how: "'learn someone to' where English says 'teach' (Dutch iemand iets leren)."
+    pattern: '\blearn(?:s|ed|t|ing)?\s+(?:me|you|him|her|us|them)\s+(?:to|how)\b'
+    examples:
+      - "My father learned me how to solder."
+      - "This book will learn you to write better scripts."
+    not:
+      - "My father taught me how to solder."
+      - "You learn how to write better scripts."
+
+  - id: in-the-weekend
+    name: "'in the weekend'"
+    origins: [nl]
+    how: "'in the weekend' where British English says 'at the weekend' and American 'on the weekend' (Dutch in het weekend). New Zealand English says it too."
+    pattern: '\bin the weekend\b'
+    examples:
+      - "I worked on it in the weekend."
+    not:
+      - "I worked on it at the weekend."
+      - "I worked on it over the weekend."
+
+  - id: own-risk
+    name: "'on your own risk'"
+    origins: [de, nl]
+    how: "'on your own risk' for 'at your own risk' (Dutch op eigen risico, German auf eigene Gefahr)."
+    pattern: '\bon (?:your|my|our|their|his|her|its) own risk\b'
+    examples:
+      - "Use this on your own risk."
+    not:
+      - "Use this at your own risk."
+
+  - id: in-the-internet
+    name: "'in the internet'"
+    origins: [de, nl]
+    how: "'in the internet' for 'on the internet' (German im Internet)."
+    pattern: '\bin the internet\b(?!\s+(?:age|era|of))'
+    examples:
+      - "You find many examples in the internet."
+    not:
+      - "You find many examples on the internet."
+      - "Life in the internet age"
+
+  - id: actual-for-current
+    name: "'actual' for 'current'"
+    origins: [de, nl, fr, es, it]
+    how: "'actual' meaning current or latest (German aktuell, Dutch actueel, French actuel): 'the actual version'."
+    pattern: '\bthe actual (?:version|release|edition|build|trends?)\b'
+    examples:
+      - "Download the actual version from the gallery."
+    not:
+      - "Download the current version from the gallery."
+      - "The actual code is shorter."
+
+  - id: make-a-photo
+    name: "'make a photo'"
+    origins: [de, nl, es, it]
+    how: "'make a photo' for 'take a photo' (German ein Foto machen, Dutch een foto maken)."
+    pattern: '\b(?:make|makes|making|made)\s+(?:a|some|the|this|that|a few)\s+(?:photos?|pictures?)\b'
+    examples:
+      - "I made a photo of the whiteboard."
+    not:
+      - "I took a photo of the whiteboard."
+
+  - id: more-plus-short-adjective
+    name: "'more' with a short adjective"
+    origins: [de, nl, fr, es, it]
+    how: "'more' before a short adjective that English compares with -er: 'more easy', 'more fast'."
+    pattern: '(?<!and )\bmore (?:easy|fast|quick|cheap|big|small|short|long|nice|hard)\b(?=\s*(?:than\b|to\b|[.,;:!?)]|$))'
+    examples:
+      - "This way it is more easy to read."
+      - "The new version is more fast."
+    not:
+      - "This way it is easier to read."
+      - "It became more and more easy."
+      - "We need more short sentences."
