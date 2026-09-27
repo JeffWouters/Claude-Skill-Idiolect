@@ -31,10 +31,22 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 
 **New here? Start with the [quickstart](docs/quickstart.md):** install, a first learn, and the everyday requests.
 
-## Try it
+## Install
+
+- **Claude Code:** `/plugin marketplace add JeffWouters/Claude-Skill-Idiolect`, then
+  `/plugin install idiolect@jeffops`.
+- **Claude app and claude.ai:** download `idiolect.skill` from the
+  [latest release](https://github.com/JeffWouters/Claude-Skill-Idiolect/releases/latest) and add it as a
+  skill in your settings.
+
+The scripts need Python 3.10 or later with `PyYAML`, `jsonschema`, `markdown-it-py`, `pdfminer.six`
+and `lingua-language-detector`; Claude checks this first and names anything missing. What changed
+between versions is in the [changelog](CHANGELOG.md).
+
+## Develop
 
 ```
-python3 -m pip install PyYAML jsonschema markdown-it-py pdfminer.six lingua-language-detector
+python3 -m pip install -r requirements-dev.txt
 python3 idiolect/scripts/check_env.py
 python3 idiolect/scripts/inventory.py --sources ~/Writing --dry-run      # no store needed
 python3 -m pytest tests -q                                               # the test suite

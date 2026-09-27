@@ -6,9 +6,19 @@ language; Claude runs the scripts. The examples use Sam, a fictional writer with
 
 ## 1. Install
 
-- **Claude Code on your computer:** copy the `idiolect` folder to `~/.claude/skills/idiolect`.
-- **The Claude app:** add `idiolect.skill` as a skill in your account. A cloud session reaches the
-  files on your computer only when it is linked to that computer ([runtime](../idiolect/references/runtime.md)).
+- **Claude Code:** add the marketplace and install the plugin, once:
+
+  ```
+  /plugin marketplace add JeffWouters/Claude-Skill-Idiolect
+  /plugin install idiolect@jeffops
+  ```
+
+  Updates arrive with `/plugin marketplace update jeffops`, or by themselves if you turn on
+  auto-update for the marketplace.
+- **The Claude app and claude.ai:** download `idiolect.skill` from the latest
+  [release](https://github.com/JeffWouters/Claude-Skill-Idiolect/releases/latest) and add it as a skill
+  in your settings. For a new version, download and add it again. A cloud session reaches the files on
+  your computer only when it is linked to that computer ([runtime](../idiolect/references/runtime.md)).
 
 The scripts need Python 3.10 or later and five packages:
 

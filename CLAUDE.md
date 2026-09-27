@@ -47,12 +47,15 @@ Reviewed twice before phase 1 started.
   needs a decision-log entry first. Never let them drift silently.
 - **No real people in the package.** Nothing under `idiolect/` may contain a real person's name,
   text, employer or phrasing. Real texts live only in `evals/fixtures/` and are public domain. The
-  repository URL in schema `$id` values names the repository, not a writer, and is allowed.
+  repository URL in schema `$id` values and in the plugin manifest names the repository, not a
+  writer, and is allowed.
 - **Generic core.** The skill holds no writer data. Examples use the fictional writer Sam, the
   company Acme and the house style `house`.
 - **Schemas are versioned.** Any change to a store file format bumps `schema_version` and ships with
   a migration.
 - **Commit per change**, with a message that says what behaviour changed and why.
 - **Never delete.** Move retired material to `_to_delete/` and say so.
+- **Release.** Bump `version` in `idiolect/.claude-plugin/plugin.json`, add its entry to `CHANGELOG.md`,
+  commit, then push a tag `vX.Y.Z`; the release workflow tests, builds and publishes `idiolect.skill`.
 - **Package, don't install.** A session cannot save a skill to an account. Build `idiolect.skill`
   from the `idiolect/` folder and deliver it; never report it as saved.
