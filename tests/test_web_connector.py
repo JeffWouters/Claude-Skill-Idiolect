@@ -106,3 +106,12 @@ def test_web_and_mail_texts_join_a_learn_run_with_the_writers_ownership(site, tm
     (mk, me), = by_origin["mail"]
     assert me["redaction"]["reviewed"] and "Kind regards" not in s.corpus_text(mk) and "Jane" not in s.corpus_text(mk)
     assert (st / "profiles" / "noor" / "en.essay.json").exists()
+
+
+def test_code_blocks_are_not_prose_but_inline_code_stays():
+    page = ("<html><body><article><p>You manage the current path with the <code>Set-Location</code> cmdlet, "
+            "which most people know as cd.</p><pre tabindex=0><code>PS&gt; Set-Location -Path $home\n"
+            "PS&gt; Get-Location</code></pre><p>That is all there is to it.</p></article></body></html>")
+    text = "\n\n".join(web.main_text(page))
+    assert "PS>" not in text and "$home" not in text
+    assert "the Set-Location cmdlet" in text and "That is all there is to it." in text

@@ -23,7 +23,8 @@ from common import StoreError, count_words  # noqa: E402
 TIMEOUT = 20
 MIN_WORDS = 150
 AGENT = "Idiolect/1 (+learning a writer's own pages)"
-DROP = ("script", "style", "noscript", "nav", "header", "footer", "aside", "form", "svg", "template", "title")
+DROP = ("script", "style", "noscript", "nav", "header", "footer", "aside", "form", "svg", "template", "title",
+        "pre")        # code blocks are not the writer's prose (the Markdown adapter drops fenced code too)
 BLOCK = r"p|div|section|article|main|li|ul|ol|h[1-6]|blockquote|pre|tr|table|br|hr|figure|figcaption|dd|dt"
 
 

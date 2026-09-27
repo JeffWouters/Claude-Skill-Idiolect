@@ -608,7 +608,7 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    timeout), never through a summarising tool. A sitemap gives its page URLs, an RSS or Atom feed its
    item links and dates, anything else is one page; at most `--max` pages. From each page the main
    text: `<article>`, else `<main>`, else `<body>`, without `script`, `style`, `nav`, `header`,
-   `footer`, `aside`, `form` and the title; paragraphs from block elements. The date from
+   `footer`, `aside`, `form`, the title and code blocks (`<pre>`, as the Markdown adapter drops fenced code); paragraphs from block elements. The date from
    `article:published_time`, a `<time datetime>` or the feed. Writes `DIR/NNN.txt` and `DIR/index.json`
    (url, date, words) for `connector.py add`.
 3. **Microsoft 365 mail** (model adapter): through the Microsoft 365 connector, the writer's own sent
