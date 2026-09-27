@@ -638,6 +638,78 @@ bridge = {
     "additionalProperties": False,
 }
 
+publish = {
+    "$schema": DRAFT, "$id": BASE + "publish.schema.json",
+    "title": "publish.yaml — keep drafts, and where the writer publishes (spec §33)",
+    "type": "object", "required": ["schema_version", "keep_drafts", "sources"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "keep_drafts": {"type": "boolean", "description": "write and rewrite keep each returned draft in drafts/."},
+        "last_scan": {"oneOf": [ref("dateTime"), {"type": "null"}]},
+        "sources": {"type": "array", "items": {
+            "type": "object", "required": ["id", "profile"],
+            "properties": {
+                "id": {"type": "string", "pattern": "^pub-[0-9]{3,6}$"},
+                "folder": {"type": "string", "minLength": 1, "pattern": "^(/|~|[A-Za-z]:)",
+                           "description": "Absolute, or starting with ~: the writer's published folder or vault folder."},
+                "feed": {"type": "string", "pattern": "^https?://", "description": "An RSS or Atom feed, or a sitemap."},
+                "profile": ref("profileName"),
+                "type": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,39}$"},
+                "lang": ref("langValue")},
+            "oneOf": [{"required": ["folder"], "not": {"required": ["feed"]}},
+                      {"required": ["feed"], "not": {"required": ["folder"]}}],
+            "additionalProperties": False}},
+    },
+    "additionalProperties": False,
+}
+
+drafts = {
+    "$schema": DRAFT, "$id": BASE + "drafts.schema.json",
+    "title": "drafts/index.json — drafts Idiolect wrote, kept to match against what is published (spec §33)",
+    "type": "object", "required": ["schema_version", "entries"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "last_id": {"type": "integer", "minimum": 0},
+        "entries": {"type": "array", "items": {
+            "type": "object", "required": ["id", "file", "profile", "slot", "mode", "created", "words", "status"],
+            "properties": {
+                "id": {"type": "string", "pattern": "^dr-[0-9]{3,6}$"},
+                "file": {"type": "string", "pattern": "^dr-[0-9]{3,6}\\.md$"},
+                "profile": ref("profileName"),
+                "slot": ref("slotKey"),
+                "mode": {"enum": ["write", "rewrite"]},
+                "created": ref("dateTime"),
+                "words": {"type": "integer", "minimum": 0},
+                "status": {"enum": ["open", "matched", "expired"]},
+                "matched": {"type": "string", "pattern": "^q-[0-9]{3,6}$"}},
+            "additionalProperties": False}},
+    },
+    "additionalProperties": False,
+}
+
+edit_queue = {
+    "$schema": DRAFT, "$id": BASE + "edit-queue.schema.json",
+    "title": ".state/edit-queue/q-NNN.json — a published text matched to a kept draft (spec §33)",
+    "type": "object",
+    "required": ["schema_version", "id", "draft", "draft_file", "final_file", "source", "found", "profile", "slot",
+                 "share", "status"],
+    "properties": {
+        "schema_version": ref("schemaVersion"),
+        "id": {"type": "string", "pattern": "^q-[0-9]{3,6}$"},
+        "draft": {"type": "string", "pattern": "^dr-[0-9]{3,6}$"},
+        "draft_file": {"type": "string", "minLength": 1, "description": "Relative to the store."},
+        "final_file": {"type": "string", "minLength": 1, "description": "Relative to the store: the published text as found."},
+        "source": {"type": "string", "minLength": 1, "description": "The published file's path or the item's URL."},
+        "found": ref("dateTime"),
+        "profile": ref("profileName"),
+        "slot": ref("slotKey"),
+        "share": {"type": "number", "minimum": 0, "maximum": 1,
+                  "description": "Share of the draft's words found, in order, in the published text."},
+        "status": {"enum": ["waiting", "done", "skipped"]},
+    },
+    "additionalProperties": False,
+}
+
 SCHEMAS = {
     "inventory-report": inventory_report,
     "global-metrics": global_metrics,
@@ -645,6 +717,7 @@ SCHEMAS = {
     "profile": profile, "rulings": rulings, "vocabulary": vocabulary, "rejected": rejected,
     "fingerprint": fingerprint, "manifest-entries": manifest_entries, "check-report": check_report, "lock": lock,
     "progress": progress, "pending": pending, "edit-pair": edit_pair, "bridge": bridge,
+    "publish": publish, "drafts": drafts, "edit-queue": edit_queue,
 }
 
 if __name__ == "__main__":

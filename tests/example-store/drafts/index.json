@@ -1,0 +1,10 @@
+{
+ "schema_version": 1,
+ "last_id": 2,
+ "entries": [
+  {"id": "dr-001", "file": "dr-001.md", "profile": "sam", "slot": "en.essay", "mode": "write",
+   "created": "2026-10-03T09:12:00Z", "words": 412, "status": "matched", "matched": "q-001"},
+  {"id": "dr-002", "file": "dr-002.md", "profile": "sam", "slot": "en.essay", "mode": "rewrite",
+   "created": "2026-10-04T15:40:00Z", "words": 380, "status": "open"}
+ ]
+}

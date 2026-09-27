@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/edit-queue.schema.json",
+  "title": ".state/edit-queue/q-NNN.json — a published text matched to a kept draft (spec §33)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "draft",
+    "draft_file",
+    "final_file",
+    "source",
+    "found",
+    "profile",
+    "slot",
+    "share",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^q-[0-9]{3,6}$"
+    },
+    "draft": {
+      "type": "string",
+      "pattern": "^dr-[0-9]{3,6}$"
+    },
+    "draft_file": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Relative to the store."
+    },
+    "final_file": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Relative to the store: the published text as found."
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The published file's path or the item's URL."
+    },
+    "found": {
+      "$ref": "common.schema.json#/$defs/dateTime"
+    },
+    "profile": {
+      "$ref": "common.schema.json#/$defs/profileName"
+    },
+    "slot": {
+      "$ref": "common.schema.json#/$defs/slotKey"
+    },
+    "share": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Share of the draft's words found, in order, in the published text."
+    },
+    "status": {
+      "enum": [
+        "waiting",
+        "done",
+        "skipped"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

@@ -766,8 +766,9 @@ the house style guide.
    and listed in `drafts/index.json` (`{id, file, profile, slot, mode, created, words, status: open}`).
    Placeholders stay in the kept draft. Without it, `keep` does nothing and says so.
 3. **Scan** (`published.py scan [--since DATE]`): refuses while another run holds the lock. For each
-   source: a folder gives its Markdown, Word, PDF and text files changed since `last_scan` (every file
-   on the first scan); a feed gives its items (web.py). Texts under 150 words are skipped. Each text is
+   source: a folder gives its Markdown, Word, PDF and text files changed after the second in which the
+   last scan started (`last_scan`, kept to the second; every file on the first scan), leaving out hidden
+   folders such as `.obsidian`, `node_modules` and `_to_delete`; a feed gives its items (web.py). Texts under 150 words are skipped. Each text is
    compared with every open kept draft of the source's profile: the share of the draft's words, in
    order, found in the text (difflib over lower-cased words, matched words ÷ draft words). The best
    draft at 0.40 or more is a **match**: the published text is saved as `.state/edit-queue/q-NNN.final.md`

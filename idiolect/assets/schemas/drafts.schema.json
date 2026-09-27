@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/drafts.schema.json",
+  "title": "drafts/index.json — drafts Idiolect wrote, kept to match against what is published (spec §33)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "last_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "file",
+          "profile",
+          "slot",
+          "mode",
+          "created",
+          "words",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^dr-[0-9]{3,6}$"
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^dr-[0-9]{3,6}\\.md$"
+          },
+          "profile": {
+            "$ref": "common.schema.json#/$defs/profileName"
+          },
+          "slot": {
+            "$ref": "common.schema.json#/$defs/slotKey"
+          },
+          "mode": {
+            "enum": [
+              "write",
+              "rewrite"
+            ]
+          },
+          "created": {
+            "$ref": "common.schema.json#/$defs/dateTime"
+          },
+          "words": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "status": {
+            "enum": [
+              "open",
+              "matched",
+              "expired"
+            ]
+          },
+          "matched": {
+            "type": "string",
+            "pattern": "^q-[0-9]{3,6}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,6 @@
+schema_version: 1
+keep_drafts: true
+last_scan: "2026-10-05T07:00:00Z"
+sources:
+  - {id: pub-001, folder: ~/Writing/Published, profile: sam, type: essay}
+  - {id: pub-002, feed: "https://example.com/feed.xml", profile: sam, type: post, lang: en}

@@ -1,0 +1,4 @@
+schema_version: 1
+keep_drafts: true
+sources:
+  - {id: pub-001, folder: ~/Writing, feed: "https://example.com/feed.xml", profile: sam}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/publish.schema.json",
+  "title": "publish.yaml — keep drafts, and where the writer publishes (spec §33)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "keep_drafts",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "common.schema.json#/$defs/schemaVersion"
+    },
+    "keep_drafts": {
+      "type": "boolean",
+      "description": "write and rewrite keep each returned draft in drafts/."
+    },
+    "last_scan": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/dateTime"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "profile"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^pub-[0-9]{3,6}$"
+          },
+          "folder": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(/|~|[A-Za-z]:)",
+            "description": "Absolute, or starting with ~: the writer's published folder or vault folder."
+          },
+          "feed": {
+            "type": "string",
+            "pattern": "^https?://",
+            "description": "An RSS or Atom feed, or a sitemap."
+          },
+          "profile": {
+            "$ref": "common.schema.json#/$defs/profileName"
+          },
+          "type": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,39}$"
+          },
+          "lang": {
+            "$ref": "common.schema.json#/$defs/langValue"
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "folder"
+            ],
+            "not": {
+              "required": [
+                "feed"
+              ]
+            }
+          },
+          {
+            "required": [
+              "feed"
+            ],
+            "not": {
+              "required": [
+                "folder"
+              ]
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
