@@ -156,7 +156,7 @@ from it and takes it out of the fingerprints (re-measured at commit); rejecting 
 rejects what depends on it; items on a pooled slot with the same texts follow the exact slot.
 Knock-on rejections are undone when their cause is approved again, and only the writer's own
 rejections are remembered for later learns. Rulings: when the writer says a lesson is "always" or "never", add
-`learn.py rule --profile P --text "..." --from l-002`. Apply decisions with
+`learn.py rule --profile P --text "..." --from l-002`. Rules with a test, and the optional starter set, are the `rules` mode (`rules.md`). Apply decisions with
 `stage.py decide --approve all` or `--reject i-004,i-009` (then `--approve all` for the rest), and
 `stage.py commit`. Say what was learned in two lines: slots, confidence, lessons added, rejected.
 

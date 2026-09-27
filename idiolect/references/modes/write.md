@@ -39,7 +39,8 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
 5. Save the draft to a file and run
    `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them
-   plainly. If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
+   plainly. A line that breaks a ruling (`lesson: r-...`) fails the draft outright: fix every one.
+   If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
    names, in the direction it names (overshoot or a bunch means too much of a habit: pull back, do not
    exaggerate the voice). At most two check-driven revisions; then return the best draft with its
    report. Removing an invented fact is not a check revision: always do it, and check again.
