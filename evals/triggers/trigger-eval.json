@@ -134,5 +134,33 @@
  {
   "query": "What's the difference between an em dash and an en dash, and when should I use each?",
   "should_trigger": false
+ },
+ {
+  "query": "Does this LinkedIn post read like me? Check it against my Idiolect profile before I post it.",
+  "should_trigger": true
+ },
+ {
+  "query": "Make a voice guide from my Idiolect profile that I can hand to my editor.",
+  "should_trigger": true
+ },
+ {
+  "query": "Import our house style guide (house-style.docx) into my Idiolect profile as rules.",
+  "should_trigger": true
+ },
+ {
+  "query": "Write this week's newsletter intro with Idiolect, but a bit warmer than usual.",
+  "should_trigger": true
+ },
+ {
+  "query": "Does this essay sound like it was written by AI?",
+  "should_trigger": false
+ },
+ {
+  "query": "Write a style guide for our company blog: tone, headings, numbers and links.",
+  "should_trigger": false
+ },
+ {
+  "query": "Make this email a bit warmer, it sounds too stiff.",
+  "should_trigger": false
  }
 ]
