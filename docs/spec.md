@@ -739,3 +739,47 @@ the house style guide.
    the targets it was written to. The kit adds a Tone section listing each moved target and the
    writer's range; the check report records `targets.tone`.
 
+## 32. Language packs
+
+1. A pack is `references/lang/<code>/` holding `pack.yaml` (`code`, `name`, `version`, `calibrated`: true
+   when the global thresholds were calibrated on this language, `notes`) and the lists of
+   `references/fingerprint.md` (Language applicability): `hedges.txt`, `openers.txt`,
+   `contractions.txt`, `stopwords.txt`. A list may be left out; its metric is then not applicable.
+2. `langpack.py list` prints every pack with its applicable metric count; `langpack.py check [code]`
+   fails on a missing `pack.yaml`, a code that differs from the folder, a list line with capitals or
+   leading or trailing spaces, a duplicate line, or a contraction pattern that does not compile.
+3. A slot in a language without a pack is measured on the 11 metrics that need no list; a slot whose
+   pack is not `calibrated` gets the warning "the thresholds were calibrated on English, not on
+   <name>" in the kit, and the check report's `message` notes it.
+4. English (`en`, calibrated) keeps the lists it has always had. Dutch (`nl`, not calibrated) ships
+   with its lists and `assets/starter-rules/nl.yaml`.
+
+## 33. Learning from what the writer publishes
+
+1. **Settings** (`publish.yaml`, schema publish v1): `keep_drafts` (bool), `sources`: `[{id: pub-NNN,
+   folder | feed, profile, type?, lang?}]` (a folder is an absolute path or one starting with `~`; a
+   feed is an http(s) URL), `last_scan` (date-time or null). `published.py --store S add-source
+   (--folder F | --feed URL) --profile P [--type T] [--lang L]`, `remove-source --id`, `keep-drafts
+   on|off`, `show`.
+2. **Keeping drafts.** With `keep_drafts: true`, `write` and `rewrite` end with `published.py keep
+   --file DRAFT --profile P --slot K --mode write|rewrite`: the draft is copied to `drafts/<dr-NNN>.md`
+   and listed in `drafts/index.json` (`{id, file, profile, slot, mode, created, words, status: open}`).
+   Placeholders stay in the kept draft. Without it, `keep` does nothing and says so.
+3. **Scan** (`published.py scan [--since DATE]`): refuses while another run holds the lock. For each
+   source: a folder gives its Markdown, Word, PDF and text files changed since `last_scan` (every file
+   on the first scan); a feed gives its items (web.py). Texts under 150 words are skipped. Each text is
+   compared with every open kept draft of the source's profile: the share of the draft's words, in
+   order, found in the text (difflib over lower-cased words, matched words ÷ draft words). The best
+   draft at 0.40 or more is a **match**: the published text is saved as `.state/edit-queue/q-NNN.final.md`
+   beside `q-NNN.json` (`{id, draft, draft_file, final_file, source, found, profile, slot, share,
+   status: waiting}`) and the draft becomes `matched`. A text matching no draft is listed as
+   `unmatched` with its path or URL, a candidate for `learn`. Open drafts older than 90 days become
+   `expired`. `last_scan` is set at the end. The scan prints `{matched, unmatched, expired, queue}`.
+4. **Processing the queue** (`published.py queue` lists waiting items): for each, `learn-edit` runs with
+   the kept draft and the saved final version (spec §20), and after its commit, or the writer's
+   decision to skip it, `published.py done --id q-NNN [--skipped]` moves the item's files to
+   `.state/edit-queue/done/`.
+5. **Unattended.** The scan changes no lessons, vocabulary or fingerprints and needs no approval, so it
+   can run as a scheduled task; the task reports the matches and unmatched texts and asks the writer to
+   process the queue.
+
