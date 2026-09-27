@@ -18,6 +18,10 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > Rulings can carry a test that `check` enforces, and an optional starter set of rules against the
 > common signs of AI writing (em dashes, "delve", chatbot leftovers and the like) can be loaded into
 > a profile; rules about habits apply only where the writer's own texts do not show them.
+> It flags texts that measure unlike the rest of their slot while learning, says whether a text reads
+> like the writer's own (`verify`), writes a voice guide or house style guide for people (`guide`),
+> imports a style guide as rulings, and leans a draft warmer, firmer, more formal and so on within the
+> writer's own range (`tone=`).
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
 > a writer's own blind test is available but has not been run. Fixture authors are learned in `evals/store/`.
 
@@ -75,7 +79,7 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 | 4 | Validation: `test` |
 | 5 | Feedback: learn-edit, interview, more facets, inheritance |
 | 6 | Reach: cloud route, export, more adapters, use from other skills |
-| after 6 | Rulings with tests and an optional starter set (spec §27) |
+| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31) |
 
 ## Licence
 

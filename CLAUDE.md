@@ -20,7 +20,8 @@ the writer's own (§12.6). Phase 6 added `export` (§22), web and connector text
 §26). Short mails are joined per thread, then per week (spec §6.4). After phase 6: rulings schema v2
 with tests, `rules.py` (`defaults`, `add`, `show`), the optional starter set
 `idiolect/assets/starter-rules/en.yaml` and `references/modes/rules.md` (spec §27); `check` fails a
-draft that breaks a ruling. Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
+draft that breaks a ruling. Then: outliers at learn and `verify.py` (§28, threshold from `evals/outliers/`),
+`guide.py` (§29), `rules.py guide-text`/`import` (§30) and `tone=` in `kit.py`/`check.py` (§31). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
 (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 

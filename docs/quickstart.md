@@ -44,6 +44,10 @@ Claude will ask three things:
 It then measures your texts, compares them with neutral AI rewrites of the same paragraphs, and
 writes down what sets you apart.
 
+If a text measures unlike the rest (a guest post, a ghostwritten piece, or just an unusual one of
+yours), Claude shows it with what is different and asks whether it is yours. Keep it, or set it aside
+as `assisted` so it does not colour the profile.
+
 ## 4. Approve the diff
 
 Nothing is saved until you approve. The diff lists every proposal as its own item:
@@ -68,6 +72,10 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | "Rewrite draft.md with Idiolect, depth=edit." | Your meaning and facts kept; sentences (and with `edit`, trimming) in your voice. |
 | "Check this post against my Idiolect profile." | Pass or fail, with what is off: too many dashes, sentences too long, a phrase you never use. |
 | "Here is the draft Idiolect wrote and the version I published. Learn from my edits." | Your corrections become edit lessons, which outrank everything learned from your texts. |
+| "Write it with Idiolect, a bit firmer." | The same voice leaning one way: `warm`, `cool`, `firm`, `soft`, `formal` or `casual`. It moves only as far as your own texts go, never into a caricature. |
+| "Does this read like me? Check it with Idiolect." | How close the text measures to your own texts, and what differs most. A measure of style, not proof of who wrote it. |
+| "Make an Idiolect voice guide for my editor." | A document a person can follow: your rules, the shape of your sentences, your habits and words, and a few example passages with names removed. `rulings-only=true` gives just the rules, as a house style guide. |
+| "Import our house style guide into my Idiolect profile." | Claude reads the guide and proposes each rule it states, quoting the line it came from; you approve each one. Rules a script can test are checked in every draft. |
 | "Load the Idiolect starter rules into my profile." | Optional rules against common signs of AI writing (em dashes, "delve", chatbot phrases, filler). Rules about habits apply only if your own texts don't have that habit, so if you use dashes, you keep them. You approve each rule. |
 
 ## 6. When something is off
@@ -88,7 +96,10 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | What the store holds and how to back it up | [design: The store](design.md#the-store) |
 | Testing your profile against a text it has not seen | [`modes/test.md`](../idiolect/references/modes/test.md) |
 | Interviews, mail, web pages and talk transcripts | [`modes/interview.md`](../idiolect/references/modes/interview.md), [`modes/connector.md`](../idiolect/references/modes/connector.md) |
-| Rulings, tests and the starter set | [`modes/rules.md`](../idiolect/references/modes/rules.md), [spec §27](spec.md#27-rulings-with-tests-and-the-starter-set) |
+| Outliers at learn, and "does this read like me" | [`modes/verify.md`](../idiolect/references/modes/verify.md), [spec §28](spec.md#28-outliers-and-verify) |
+| Voice guides and house style guides | [`modes/guide.md`](../idiolect/references/modes/guide.md), [spec §29](spec.md#29-voice-guide) |
+| Tone within your voice | [`modes/write.md`](../idiolect/references/modes/write.md), [spec §31](spec.md#31-tone) |
+| Rulings, tests, the starter set and importing a style guide | [`modes/rules.md`](../idiolect/references/modes/rules.md), [spec §27](spec.md#27-rulings-with-tests-and-the-starter-set) |
 | Exporting your voice as one prompt for another tool | [`modes/export.md`](../idiolect/references/modes/export.md) |
 | What the metrics measure, and which languages are supported | [`references/fingerprint.md`](../idiolect/references/fingerprint.md) |
 | Running from a cloud session on files on your computer | [`references/runtime.md`](../idiolect/references/runtime.md) |
