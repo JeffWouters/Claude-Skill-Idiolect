@@ -1,6 +1,6 @@
 ---
 name: idiolect
-description: Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, asks to test their profile against a held-out text of their own, to learn from their edits to a draft, to be interviewed to build a slot, to learn from their web pages, sent mail or talk transcripts, to export their voice as a prompt or a voice guide, to add rules, load the default (starter) rules or import a style guide into their profile, to ask whether a text reads like their profile, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as "rewrite this in my voice" or "tighten this" without those.
+description: Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, asks to test their profile against a held-out text of their own, to learn from their edits to a draft, to be interviewed to build a slot, to learn from web pages, sent mail or talk transcripts, to export their voice as a prompt or a voice guide, to add rules, load the default (starter) rules or import a style guide into their profile, to ask whether a text reads like their profile, to learn from what they publish, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as "rewrite this in my voice" or "tighten this" without those.
 compatibility: Runs where a shell reaches the files (Claude Code on the machine, or a cloud session bridged to it; see references/runtime.md). Needs Python 3.10+ with PyYAML, jsonschema, markdown-it-py, pdfminer.six and lingua-language-detector; scripts/check_env.py names anything missing.
 ---
 
@@ -25,6 +25,7 @@ a **store** outside this skill, and writes, rewrites and checks text in that voi
 | `rules` (rulings with tests; optional starter set; import a style guide) | **Available** | `references/modes/rules.md` |
 | `verify` (does a text read like the writer's texts) | **Available** | `references/modes/verify.md` |
 | `guide` (a voice guide or house style guide for people) | **Available** | `references/modes/guide.md` |
+| `published` (keep drafts; match what the writer publishes to them for learn-edit) | **Available** | `references/modes/published.md` |
 
 For a mode that is not built yet, say so plainly and offer what is available. Never imitate a mode
 by hand. Load a mode's procedure file before running it.

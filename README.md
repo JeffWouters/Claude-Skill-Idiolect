@@ -23,6 +23,9 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > imports a style guide as rulings, and leans a draft warmer, firmer, more formal and so on within the
 > writer's own range (`tone=`; with two tones, the first named decides any measure they pull both
 > ways).
+> English and Dutch ship as language packs (Dutch with its own starter rules), and Idiolect can keep
+> its drafts and learn from the edited versions the writer publishes (`published`, scan by hand or
+> as a scheduled task).
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
 > a writer's own blind test is available but has not been run. Fixture authors are learned in `evals/store/`.
 
@@ -80,7 +83,7 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 | 4 | Validation: `test` |
 | 5 | Feedback: learn-edit, interview, more facets, inheritance |
 | 6 | Reach: cloud route, export, more adapters, use from other skills |
-| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31) |
+| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31); language packs, learning from what is published (spec §32–33) |
 
 ## Licence
 

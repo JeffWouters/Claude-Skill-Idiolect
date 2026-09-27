@@ -4,6 +4,13 @@ Learns from how the writer edited a draft: the draft (usually one Idiolect wrote
 version the writer published or approved (spec §20). Store-writing: nothing changes until the writer
 approves the diff. Neither version enters the corpus; only the changes are kept, redacted.
 
+## From the edit queue
+
+When the writer asks to process their edit queue, or a scan left items waiting (`published.md`), take
+the draft and final version from each waiting item of `published.py queue` and run the steps below;
+close each item with `published.py done --id q-NNN` after the commit, or with `--skipped` when the
+writer skips it.
+
 ## 1. Start
 
 Ask for the draft and the final version if the request does not give both (files, or text you save to

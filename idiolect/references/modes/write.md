@@ -55,6 +55,10 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
 6. Return the text. With `report=true`, also the final check report (JSON). With `explain=true`,
    annotate the choices with the lesson or ruling ids behind them, after the text. Say so when
    confidence is low.
+   - **Keeping the draft.** If the store has `publish.yaml` with `keep_drafts: true`, save the returned
+     draft to a file and run `python3 scripts/published.py --store S keep --file draft.md --profile P
+     --slot K --mode write` (`--mode rewrite` for a rewrite), so the version the writer publishes can later
+     be matched to it (`published.md`). Without `publish.yaml` skip this.
 
 ## rewrite
 
