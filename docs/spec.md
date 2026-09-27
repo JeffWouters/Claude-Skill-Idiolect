@@ -666,12 +666,16 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    stable id (`s-001`), a category, the ruling text, the test and `unless_writer_uses`. It holds no writer
    data. It is never applied by itself.
 5. **Loading** (`rules.py --store S defaults --profile P [--lang L] [--category C]`, lock mode `learn`):
-   one `ruling` item per starter rule, each `add` with the next `r-` id and `starter: {id, version}`, or
-   `modify` when the profile already holds that starter rule at an older set version whose text or test
-   changed. Skipped: a rule the profile holds unchanged; a rule the profile holds with a different text
-   (the writer edited it: never overwritten); a rule in the profile's `declined` list at the same set
-   version. A starter rule the writer rejects in the diff is added to `declined` (`{starter, version,
-   date}`) in `rulings.yaml` at commit.
+   one `ruling` item per starter rule, each `add` with the next `r-` id, `origin: starter`, the set's
+   `lang` and `starter: {id, version, digest}`, where the digest (16 hex digits of SHA-256) covers the
+   text, test and `unless_writer_uses` as loaded; or `modify` (same id) when the profile holds that
+   starter rule, still matching its digest, and the set now words or tests it differently. Skipped: a
+   rule the profile holds unchanged; a rule that no longer matches its digest (the writer edited it:
+   never overwritten); a rule in the profile's `declined` list that the set has not changed since (same
+   digest). The proposals
+   join the learn run waiting in the pending area, or open one; with nothing to propose no run is left
+   open. A starter rule the writer rejects in the diff is added to `declined` (`{starter, version,
+   digest, date}`) in `rulings.yaml` at commit; its `r-` id stays used (`last_id`).
 6. **Adding one** (`rules.py --store S add --profile P --text T [--chars C…] [--words W…] [--phrases P…]
    [--pattern R] [--unless-writer-uses] [--slot K] [--lang L]`): one `ruling` item for approval.
 7. **Editing and removing** a ruling is the writer's own edit of `rulings.yaml` (it is theirs); the next

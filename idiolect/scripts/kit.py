@@ -142,7 +142,10 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
                            if not x["seen_once"]] if edits.exists() else []
     never = base / f"{slot}.never.md"
     kit["never"] = [m["marker"] for m in pages.parse_never(never.read_text(encoding="utf-8"))[1]] if never.exists() else []
-    rulings = [r for r in resolve.merged(store, prof, "rulings") if r.get("slot") in (None, slot)]
+    import rules
+    rulings = rules.applicable(store, prof, slot)
+    rates = rules.writer_rates(store, prof, slot, rulings)
+    rulings = [{**r, "note": rules.note(r, rates)} for r in rulings]
     kit["rulings"] = rulings[:RULINGS_CAP]
     vocab = resolve.merged(store, prof, "vocabulary")
     # one cap for the whole vocabulary (design: capped in size); phrases first, forms fill the rest
@@ -187,7 +190,7 @@ def markdown(kit, notes="brief"):
         for e in kit["examples"]:
             L += ["", f"### {e['id']}", "", e["text"]]
     if kit["rulings"]:
-        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
+        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + r.get("note", "") + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
                                                 for r in kit["rulings"]]
     if kit["edit_lessons"]:
         L += ["", "## Edit lessons (from the writer's own corrections)"] + [

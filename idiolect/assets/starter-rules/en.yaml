@@ -1,0 +1,125 @@
+# Starter rules for English (spec §27). Never applied by itself: `rules.py defaults` copies the rules
+# the writer approves into their own rulings.yaml. No writer data.
+#
+# unless_writer_uses: false  applies whatever the writer's texts do (leftovers no writer means to keep).
+# unless_writer_uses: true   applies only as far as the writer's own texts of the slot do not do it:
+#                            a writer who uses dashes keeps them, at about their own rate.
+# A loaded rule records a digest of its text and test; a profile's rule that no longer matches its
+# digest was edited by the writer and is never overwritten by a later set version.
+version: "1.0"
+lang: en
+source: >-
+  Collected from well-known lists of signs of machine-written text: Wikipedia's "Signs of AI writing"
+  (WikiProject AI Cleanup) and open-source humanizer skills built on it. Only patterns a script can
+  test are here; each is a ruling the writer can edit, narrow or remove.
+rules:
+  - id: s-001
+    category: punctuation
+    text: "Never use an em dash (—) or an en dash (–) in running text: use a comma, a colon, brackets or a full stop. An en dash in a number range (2019–2021) is fine."
+    test: {pattern: '—|(?<!\d)\s*–|–\s*(?!\d)'}
+    unless_writer_uses: true
+  - id: s-002
+    category: chatbot
+    text: "Never leave chatbot talk in the text: \"I hope this helps\", \"Would you like me to\", \"I'd be happy to help\", \"Feel free to ask\", \"As an AI\"."
+    test: {phrases: ["I hope this helps", "hope this helps!", "Would you like me to", "I'd be happy to help", "I would be happy to help", "Happy to help!", "Feel free to ask", "Let me know if you'd like me to", "As an AI", "as a language model"]}
+    unless_writer_uses: false
+  - id: s-003
+    category: chatbot
+    text: "Never praise the question or agree for effect: \"Great question\", \"You're absolutely right\", \"What a great point\"."
+    test: {phrases: ["Great question", "Excellent question", "You're absolutely right", "You are absolutely right", "What a great point", "Excellent point!"]}
+    unless_writer_uses: false
+  - id: s-004
+    category: chatbot
+    text: "Never write about the limits of what you know: \"as of my last update\", \"based on available information\", \"while specific details are limited\"."
+    test: {phrases: ["as of my last update", "as of my last training", "my last training update", "my knowledge cutoff", "my training data", "while specific details are limited", "based on available information", "I don't have access to real-time", "I do not have access to real-time"]}
+    unless_writer_uses: false
+  - id: s-005
+    category: chatbot
+    text: "Never write about the draft itself: \"Here is the revised version\", \"In this updated version\", \"I've rewritten\"."
+    test: {phrases: ["here is the revised", "here's the revised", "here is the updated", "here's the updated", "here is a revised", "here's a revised", "in this revised version", "in this updated version", "I've rewritten the", "I have rewritten the"]}
+    unless_writer_uses: false
+  - id: s-006
+    category: vocabulary
+    text: "Never use the words machine text overuses: delve, tapestry, testament, underscore, showcase, pivotal, meticulous, intricate, interplay, garner, bolster, foster, vibrant."
+    test: {words: [delve, delves, delved, delving, tapestry, tapestries, testament, underscore, underscores, underscored, underscoring, showcase, showcases, showcased, showcasing, pivotal, meticulous, meticulously, intricate, intricacies, interplay, garner, garners, garnered, bolster, bolsters, bolstered, foster, fosters, fostered, fostering, vibrant]}
+    unless_writer_uses: true
+  - id: s-007
+    category: vocabulary
+    text: "Avoid buzzwords: crucial, robust, landscape, realm, seamless, holistic, synergy, elevate, empower, unlock, unleash, game-changer."
+    test: {words: [crucial, robust, landscape, landscapes, realm, realms, seamless, seamlessly, holistic, synergy, synergies, elevate, elevates, elevating, empower, empowers, empowering, unlock, unlocks, unlocking, unleash, unleashes, unleashing, game-changer, game-changing]}
+    unless_writer_uses: true
+  - id: s-008
+    category: inflation
+    text: "Never inflate significance: \"a testament to\", \"plays a pivotal role\", \"setting the stage for\", \"the evolving landscape\", \"an indelible mark\", \"a lasting legacy\", \"in today's fast-paced world\"."
+    test: {phrases: ["a testament to", "stands as a testament", "serves as a testament", "plays a pivotal role", "plays a crucial role", "plays a key role", "plays a vital role", "a pivotal moment", "a crucial moment", "setting the stage for", "sets the stage for", "evolving landscape", "ever-evolving", "ever-changing landscape", "indelible mark", "enduring legacy", "lasting legacy", "reflects a broader", "underscores the importance", "highlights the importance", "in today's fast-paced", "in today's digital age", "in today's world"]}
+    unless_writer_uses: true
+  - id: s-009
+    category: inflation
+    text: "Never write like a brochure: \"nestled in\", \"in the heart of\", \"boasts a\", \"breathtaking\", \"must-visit\", \"a diverse array of\", \"rich tapestry\"."
+    test: {phrases: ["nestled in", "nestled among", "in the heart of", "boasts a", "boasts an", "breathtaking", "must-visit", "must-see", "diverse array", "rich tapestry", "natural beauty", "stunning views", "world-class"]}
+    unless_writer_uses: true
+  - id: s-010
+    category: inflation
+    text: "Never lean on unnamed authorities: \"experts say\", \"studies show\", \"observers have noted\", \"industry reports suggest\". Name the source or drop the claim."
+    test: {phrases: ["experts say", "experts argue", "experts agree", "experts believe", "studies show", "research shows", "observers have noted", "observers have cited", "industry reports suggest", "industry reports show", "some critics argue", "many believe"]}
+    unless_writer_uses: true
+  - id: s-011
+    category: structure
+    text: "Say \"is\" where you mean is: not \"serves as a\", \"stands as a\", \"functions as a\"."
+    test: {pattern: '\b(serves|served|stands|stood|functions|operates) as (a|an|the)\b'}
+    unless_writer_uses: true
+  - id: s-012
+    category: structure
+    text: "Never tack a comment on with a comma and an -ing verb (\", highlighting the need for\", \", ensuring that\", \", reflecting\"): make it its own sentence or cut it."
+    test: {pattern: ',\s+(highlighting|underscoring|emphasizing|emphasising|ensuring|reflecting|symbolizing|symbolising|contributing to|cultivating|fostering|encompassing|showcasing|solidifying|reinforcing)\b'}
+    unless_writer_uses: true
+  - id: s-013
+    category: framing
+    text: "Never announce what comes next: \"Let's dive in\", \"Let's break this down\", \"Here's what you need to know\", \"Without further ado\", \"Here's the thing\"."
+    test: {phrases: ["let's dive in", "let's dive into", "let's dive deeper", "dive deep into", "let's explore", "let's break this down", "let's break it down", "here's what you need to know", "here is what you need to know", "without further ado", "here's the thing", "let's be honest", "real talk", "buckle up"]}
+    unless_writer_uses: true
+  - id: s-014
+    category: framing
+    text: "Never reach for depth with a stock line: \"Let that sink in\", \"Read that again\", \"At its core\", \"The real question is\", \"Make no mistake\"."
+    test: {phrases: ["let that sink in", "read that again", "at its core", "the heart of the matter", "what really matters is", "the real question is", "the deeper issue", "here's the kicker", "make no mistake", "and that's the point"]}
+    unless_writer_uses: true
+  - id: s-015
+    category: framing
+    text: "Never argue with a reader who did not object: \"Don't get me wrong\", \"I'm not saying\", \"This is not to say\", \"You might think\", \"One might be tempted to\"."
+    test: {phrases: ["don't get me wrong", "I'm not saying", "I am not saying", "this is not to say", "this isn't to say", "you might think", "one might be tempted to", "a tempting approach would be", "it would be easy to just"]}
+    unless_writer_uses: true
+  - id: s-016
+    category: structure
+    text: "Never build a sentence on \"not just X but Y\" or \"it isn't about X, it's about Y\": say Y."
+    test: {pattern: "\\bnot (just|only|merely|simply)\\b[^.!?]{1,60}?\\bbut( also)?\\b|\\b(isn't|is not|wasn't|was not) (just |only |merely |really )?about\\b[^.!?]{1,60}?\\b(it's|it is|it was) about\\b"}
+    unless_writer_uses: true
+  - id: s-017
+    category: filler
+    text: "Cut filler: \"in order to\" (to), \"due to the fact that\" (because), \"at this point in time\" (now), \"it is important to note that\" (cut)."
+    test: {phrases: ["in order to", "due to the fact that", "at this point in time", "in the event that", "has the ability to", "it is important to note that", "it's important to note that", "it is worth noting that", "it's worth noting that", "needless to say"]}
+    unless_writer_uses: true
+  - id: s-018
+    category: filler
+    text: "Never open a sentence with a stock connective: Moreover, Furthermore, Additionally, That being said, Ultimately, Moving forward, When it comes to."
+    test: {pattern: '(^|[.!?:]\s+)(moreover|furthermore|additionally|in addition|that said|that being said|consequently|ultimately|moving forward|when it comes to)\b'}
+    unless_writer_uses: true
+  - id: s-019
+    category: filler
+    text: "Never stack hedges: \"could potentially\", \"might possibly\", \"may potentially\". One hedge, or none."
+    test: {phrases: ["could potentially", "might potentially", "may potentially", "might possibly", "could possibly", "might arguably", "could arguably", "may arguably", "it's also possible that", "in some cases it may"]}
+    unless_writer_uses: true
+  - id: s-020
+    category: filler
+    text: "Never end on a stock conclusion: \"In conclusion\", \"The future looks bright\", \"Only time will tell\", \"A step in the right direction\"."
+    test: {phrases: ["in conclusion", "in summary", "to sum up", "the future looks bright", "exciting times ahead", "only time will tell", "a step in the right direction", "the possibilities are endless"]}
+    unless_writer_uses: true
+  - id: s-021
+    category: decoration
+    text: "Never decorate with emojis."
+    test: {pattern: '[\U0001F300-\U0001FAFF☀-➿⭐✅]'}
+    unless_writer_uses: true
+  - id: s-022
+    category: decoration
+    text: "Never start a paragraph or list item with a bold label (\"**Key point:** ...\")."
+    test: {pattern: '^\s*([-*+]|\d+[.)])?\s*\*\*[^*\n]{1,60}(:\*\*|\*\*:)'}
+    unless_writer_uses: true

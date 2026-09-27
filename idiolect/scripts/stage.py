@@ -587,6 +587,35 @@ def normalise_lesson(text, lang):
     return " ".join(w for w in t.split() if w not in sw)
 
 
+def render_declined(store, pending, files):
+    """Starter rules the writer rejected go into the profile's `declined` list, so the same set version
+    is not proposed again (spec §27.5). Merged into rulings.yaml as already rendered for this commit."""
+    writer = pending.writer_decisions()
+    today = utcnow().date().isoformat()
+    per = collections.defaultdict(dict)
+    for it in pending.plan["items"]:
+        if it["kind"] != "ruling" or writer.get(it["id"]) != "rejected":
+            continue
+        body = pending.payload(it["id"]).get("ruling") or {}
+        st = (body.get("entry") or {}).get("starter")
+        if st:
+            per[body["profile"]][st["id"]] = st
+    out = {}
+    for prof, rows in per.items():
+        rel = f"profiles/{prof}/rulings.yaml"
+        base = load_yaml_text(files.get(rel) or _read(store, rel) or "") \
+            or {"schema_version": version_of("rulings"), "entries": []}
+        kept = [d for d in base.get("declined", []) if d["starter"] not in rows]
+        base["declined"] = sorted(kept + [{"starter": sid, "version": st["version"],
+                                           **({"digest": st["digest"]} if st.get("digest") else {}), "date": today}
+                                          for sid, st in rows.items()], key=lambda d: d["starter"])
+        base.setdefault("last_id", max([0] + [int(e["id"].split("-")[1]) for e in base["entries"]]))
+        base["last_id"] = max(base["last_id"], _plan_ids(pending, "ruling", prof))
+        check_schema("rulings", base, rel)
+        out[rel] = dump_yaml(base)
+    return out
+
+
 def render_rejections(store, pending):
     """Only the writer's own rejections become permanent; knock-on rejections do not (spec §9.4)."""
     plan = pending.plan
@@ -816,6 +845,7 @@ def prepare_commit(store, pending):
     pending.save(plan)
     files = render(store, pending, approved, final=True)
     files.update(render_rejections(store, pending))
+    files.update(render_declined(store, pending, files))
     any_approved = any(approved(i) for i in plan["items"])
     now = utcnow()
     steps = []

@@ -6,7 +6,8 @@ Measures against the targets for this piece: the slot's fingerprint blended with
 the brief selects, exactly as kit.py does with the same brief (without --brief, the text itself picks
 them). Flags overshoot and shortfall per metric only when the text is outside the band around both the
 target and the slot's value (the caricature guard: too much of a habit is flagged too),
-fails the draft when the fail count is reached, lists lines that use a never-list phrase, and names
+fails the draft when the fail count is reached or a ruling's test is broken (spec §27), lists lines
+that use a never-list phrase or break a ruling, and names
 bunched habits: a paragraph using a countable habit far above the writer's rate. Prints
 the check report (check-report.schema.json) with --json, otherwise a readable summary.
 """
@@ -23,6 +24,7 @@ import detect  # noqa: E402
 import kit as kitmod  # noqa: E402
 import measure  # noqa: E402
 import resolve  # noqa: E402
+import rules  # noqa: E402
 from common import StoreError, check_schema, count_words, read_store_file, words  # noqa: E402
 from kit import DESCRIBE  # noqa: E402
 
@@ -161,13 +163,18 @@ def check(store, text, profile=None, facets=None, brief=None):
                 if re.search(r"(?<!\w)" + re.escape(mk) + r"(?!\w)", line, re.I):
                     lines.append({"line": i, "text": line.strip()[:200], "lesson": f"never: {mk}",
                                   "reason": f"uses \"{mk}\", which this writer never does"})
+    # rulings with a test (spec §27): any flagged ruling fails the draft
+    applicable = rules.applicable(store, prof, slot)
+    ruling_lines = rules.flag(measured, applicable, rules.writer_rates(store, prof, slot, applicable), n)
+    lines += ruling_lines
     phrases = [v for v in resolve.merged(store, prof, "vocabulary") if v["kind"] == "phrase"]
     bunches = bunched(measured, lang, fp["metrics"], phrases, targets)
     conf = fp["confidence"]["level"]
-    if flagged >= threshold and n >= MIN_WORDS:
+    if ruling_lines or (flagged >= threshold and n >= MIN_WORDS):
         status = "fail"
     else:
         status = "low_confidence" if conf == "low" else "pass"
+    broken = sorted({x["lesson"] for x in ruling_lines})
     report.update({"status": status, "profile": prof, "slot": slot, "confidence": conf, "flagged": flagged,
                    "fail_threshold": threshold, "metrics": rows,
                    "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight}})
@@ -176,6 +183,9 @@ def check(store, text, profile=None, facets=None, brief=None):
     if bunches:
         report["bunched"] = bunches
     notes = []
+    if broken:
+        notes.append(f"breaks {len(broken)} ruling{'s' if len(broken) > 1 else ''} ({', '.join(broken)}): "
+                     f"a ruling fails the draft whatever the metrics say")
     if n < MIN_WORDS:
         notes.append(f"only {n} words: metric flags are hints, never a fail, below {MIN_WORDS} words")
     if fp["pooled"]:

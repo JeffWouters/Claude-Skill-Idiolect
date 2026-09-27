@@ -48,7 +48,7 @@ def build(store, profile=None, facets=None, include_parent=False):
          "Never use a phrase from the never-list. The notes on habits describe what the examples show; they are",
          "not a checklist, and a draft that uses every habit reads less like the writer than a plain one."]
     if k["rulings"]:
-        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" for r in k["rulings"]]
+        L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + r.get("note", "").replace("your texts", "the writer's texts") for r in k["rulings"]]
     if k["edit_lessons"]:
         L += ["", "## Edit lessons (the writer's own corrections)"] + [f"- {x['text']}" for x in k["edit_lessons"]]
     L += ["", "## Targets (measured on the writer's texts)"]
