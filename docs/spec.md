@@ -681,3 +681,60 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 7. **Editing and removing** a ruling is the writer's own edit of `rulings.yaml` (it is theirs); the next
    run validates it and stops with a message if a test is malformed.
 
+## 28. Outliers and verify
+
+1. **Distance.** A text's distance to a set of texts is the mean over the applicable metrics of
+   |ln(a / b)|, where a is the text's value and b the median of the set's per-text values; a value below
+   the metric's floor counts as the floor.
+2. **At learn** (`learn.py measure`): for each exact slot with at least 5 texts, every text's distance to
+   the others (leave one out). A text is an outlier when its distance exceeds
+   max(median + 4 × 1.4826 × MAD, 1.5 × median) of the slot's distances. `measure` returns
+   `outliers: [{profile, slot, path, key, new, distance, threshold, off}]`, `off` naming up to three
+   measures furthest from the typical text (at least 1.25 times off). Pooled slots are skipped. Nothing
+   is changed: the writer keeps the text, answers `assisted` or `exclude` for it (`learn.py answer`, then
+   `stage-texts` and `measure` again), or rejects it in the diff.
+3. **verify** (`verify.py --store S --file F [facets] [--json]`, read-only): the text's distance to the
+   slot's texts, the median and threshold of the slot's own leave-one-out distances, the share of the
+   writer's texts further out, a verdict (at most the median: looks like the writer's texts; at most the
+   threshold: within their range; beyond: unlike them) and `off`. It needs 5 texts in the slot, and
+   always notes that one text is weak evidence; below 300 words it says to read the verdict loosely.
+4. The threshold was fixed on the fixture authors before use (`evals/outliers/`).
+
+## 29. Voice guide
+
+`guide.py --store S [--profile P] [facets] [--examples N] [--rulings-only] [--include-parent]
+[--out FILE]`, read-only. Resolves like `write`; a slot of a parent profile needs `include_parent`.
+Sections, each only when it has content: always and never (the rulings, with "(checked)" for a test and
+the writer's rate for `unless_writer_uses`), corrections (confirmed edit lessons), the shape of the
+writing (every target, in words, with the writer band's range), habits (default lessons with their
+share), words and spellings (forms), favoured phrases (with their rate), never written (never-list),
+example passages (default 3). Left out: private vocabulary, lesson quotes, the corpus, and any example
+without a reviewed redaction record (counted in `left_out`). `--rulings-only`: the rulings alone, as
+the house style guide.
+
+## 30. Importing a style guide
+
+1. `rules.py guide-text --source G` prints the guide as numbered lines (Markdown, Word and PDF through
+   the adapters; other files as plain text).
+2. The model writes `rules: [{text, quote, test?, unless_writer_uses?, slot?, lang?}]`: one rule per
+   instruction a script or a writer can follow, `quote` copied from the guide.
+3. `rules.py --store S import --profile P --source G --file proposals.yaml` checks every proposal
+   first: text present, the quote found in the guide (lower case, quotes and whitespace normalised,
+   Markdown emphasis ignored), a valid test, `unless_writer_uses` only with a test. One failure stages
+   nothing. Then one `ruling` item per rule (`origin: stated`, the next `r-` id), joining a waiting
+   learn run or opening one; a rule whose wording the profile already holds, or that repeats one
+   earlier in the file, is skipped.
+
+## 31. Tone
+
+1. Tones and the metrics each moves (+ up, − down): `warm` contractions +, short sentences +, long
+   words −; `cool` the opposite; `firm` hedges −, sentence length −, short sentences +; `soft` hedges +,
+   sentence length +; `formal` contractions −, long words +, conjunction openers −, sentence length +;
+   `casual` the opposite. Two tones may be combined unless they move one metric both ways.
+2. For each moved metric, the target for this piece (after the blend with the examples) becomes the
+   25th (−) or 75th (+) percentile of the metric over the slot's texts, only when that lies further in
+   the asked direction; otherwise it stays. The slot needs 5 texts.
+3. `kit.py --tone T` and `check.py --tone T` apply the same change, so a toned draft is checked against
+   the targets it was written to. The kit adds a Tone section listing each moved target and the
+   writer's range; the check report records `targets.tone`.
+
