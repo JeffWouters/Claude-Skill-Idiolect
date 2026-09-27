@@ -32,8 +32,11 @@ sources stay on the computer.
    the computer names them. Nothing is copied; source text stays on the computer. Model steps
    (contrast rewrites, lessons, examples) read the samples the scripts write into the store's pending
    area through the same shell.
-4. The writer approves the diff as usual. Deleting (`forget`, `rollback`, `prune`) may need the
-   writer's delete permission on that folder; ask for it at commit time and say why.
+4. The writer approves the diff as usual. Every commit ends by removing the store's own pending area
+   (`.state/pending`) and its lock, and `forget`, `rollback` and `prune` delete more; the bridged shell
+   may refuse deletes until the writer allows them on that folder. Ask for delete permission on the
+   store's folder before the first commit and say why. If a commit stopped at "Operation not
+   permitted", its changes are already written: after permission, `stage.py resume` finishes it.
 
 ### Without a usable shell (file bridge)
 
