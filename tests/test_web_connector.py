@@ -115,3 +115,42 @@ def test_code_blocks_are_not_prose_but_inline_code_stays():
     text = "\n\n".join(web.main_text(page))
     assert "PS>" not in text and "$home" not in text
     assert "the Set-Location cmdlet" in text and "That is all there is to it." in text
+
+
+def _guest_run(tmp_path, st):
+    out = connector.start(st, "guest", "en", "essay", subject="A guest writer", consent="agreed by mail on 2026-09-27")
+    for i, text in enumerate(essays(3, start=0)):
+        f = tmp_path / f"p{i}.txt"
+        f.write_text(text)
+        connector.add(st, f, "web", "own", note=f"https://example.com/{i}")
+    return out
+
+
+def test_a_profile_learned_only_from_web_pages_is_created_in_the_diff_with_its_consent(tmp_path):
+    import shutil
+    from common import StoreError, read_store_file
+    from store import Store
+    st = make_store(tmp_path)
+    with pytest.raises(StoreError, match="give --subject .* and --consent"):
+        connector.start(st, "guest", "en", "essay")
+    with pytest.raises(StoreError, match="lower case letters"):
+        connector.start(st, "Guest", "en", "essay", subject="A guest writer", consent="agreed by mail")
+    other = tmp_path / "other"
+    shutil.copytree(st, other)
+    assert _guest_run(tmp_path, st)["new_profile"] is True
+    p = stage.Pending(Store(st))
+    [prof] = [i for i in p.plan["items"] if i["kind"] == "profile"]
+    assert "consent: agreed by mail on 2026-09-27" in prof["summary"]
+    p.decide(all_decision="approved")
+    stage.commit(st)
+    data = read_store_file(st / "profiles" / "guest" / "profile.yaml", "profile")
+    assert data["subject"] == "A guest writer" and data["consent"] == "agreed by mail on 2026-09-27"
+    assert sum(1 for e in Store(st).manifest["texts"].values() if "guest" in e["profiles"]) == 3
+    # rejecting the new profile learns nothing for it: its records are dropped at commit
+    _guest_run(tmp_path, other)
+    p = stage.Pending(Store(other))
+    [prof] = [i for i in p.plan["items"] if i["kind"] == "profile"]
+    p.decide(reject=[prof["id"]], all_decision="approved")
+    stage.commit(other)
+    assert not (other / "profiles" / "guest").exists()
+    assert not any("guest" in e["profiles"] for e in Store(other).manifest["texts"].values())

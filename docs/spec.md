@@ -598,7 +598,10 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
 ## 23. Web and connector texts
 
 1. **Connector run** (`connector.py start --profile P --lang L --type T`, lock mode `learn`): a learn
-   run with no inventory, as §21. `connector.py add --file F --origin web|mail --ownership O [--date D]
+   run with no inventory, as §21. For a profile that does not exist yet, `--subject S --consent C
+   [--description D]` stages it as a `profile` item, exactly as `learn` stages a new profile; each text
+   added in the run records that its profile record needs that item, so rejecting the profile learns
+   nothing for it. Without both, a new profile is refused. `connector.py add --file F --origin web|mail --ownership O [--date D]
    [--note N] [--strip]` adds one text: `path: null`; the ownership the writer gave (web and connector
    texts start undecided and are never assumed `own`, §7.5); `--strip` removes quotes and a signature
    as §6.4; `mail` texts are redacted (§15, names from `learn.py mail-names`); under 150 words refused;

@@ -2,6 +2,7 @@
 has no inventory. After the texts, the learn pipeline continues from `learn.py measure`.
 
     python3 connector.py --store S start --profile P --lang L --type T [--facet k=v]
+                                       [--subject S --consent C [--description D]]   # a new profile
     python3 connector.py --store S add --file F --origin web|mail --ownership own|assisted|exclude
                                      [--date YYYY-MM-DD] [--note "URL or subject"] [--strip]
     python3 connector.py --store S list
@@ -26,13 +27,24 @@ from store import Store  # noqa: E402
 
 MIN_WORDS = 150
 ORIGINS = ("web", "mail")
+PROFILE_NAME = re.compile(r"^[a-z][a-z0-9-]{0,39}$")
 OWNERSHIP = ("own", "assisted", "exclude")
 
 
-def start(store_root, profile, lang, type_, facets=None):
+def start(store_root, profile, lang, type_, facets=None, subject=None, consent=None, description=None):
     store = Store(store_root)
+    new = None
     if not (store.root / "profiles" / profile / "profile.yaml").exists():
-        raise StoreError(f"no profile {profile}; a profile is created by learn, with its consent recorded")
+        if not (subject and consent):
+            raise StoreError(f"no profile {profile}: to create it, give --subject (who the voice is) and --consent "
+                             f"('self' for the writer's own voice, else how that person gave permission)")
+        new = {"schema_version": 1, "subject": subject, "consent": consent}
+        if description:
+            new["description"] = description
+        from common import check_schema
+        check_schema("profile", new, f"profile {profile}")
+        if not PROFILE_NAME.match(profile):
+            raise StoreError(f"a profile name is lower case letters, digits and hyphens: {profile!r}")
     if type_ not in store.config.get("types", []):
         raise StoreError(f"type {type_} is not one of the store's types: {', '.join(store.config.get('types', []))}")
     values = {"lang": lang, "type": type_}
@@ -44,8 +56,14 @@ def start(store_root, profile, lang, type_, facets=None):
              "tags": [], "texts": {}, "answers": {"files": {}, "rules": [], "profiles": {}}, "types": {},
              "steps": {"texts": False, "measure": False, "contrast": [], "lessons": [], "vocab": [], "examples": []},
              "connector": {"slot": slot, "facets": values, "texts": []}}
+    if new:
+        # staged like learn's new profiles: every text of the run depends on it (stage.cascade)
+        state["answers"]["profiles"][profile] = new
+        pending.add("profile", "add", f"profiles/{profile}/profile.yaml",
+                    f"new profile {profile}: {subject} (consent: {consent})",
+                    {"profile_yaml": {"name": profile, "data": new}}, profile=profile)
     pending.work("state.json").write_text(json.dumps(state, indent=1, ensure_ascii=False), encoding="utf-8")
-    return {"profile": profile, "slot": slot, "lock_taken_over": got["taken_over"],
+    return {"profile": profile, "slot": slot, "lock_taken_over": got["taken_over"], "new_profile": bool(new),
             "next": "connector.py add for each text, with the writer's ownership; then learn.py measure"}
 
 
@@ -78,6 +96,11 @@ def add(store_root, file, origin, ownership, date=None, note=None, strip=False):
               "facets": cn["facets"], "words": n, "holdout": False, "status": "active", "cached": owned}
     summary = f"{origin} text{' (' + note + ')' if note else ''}, {n} words, {cn['slot']}; {ownership} for {prof}"
     payload = {"manifest": [{"key": key, "create": create, "cache": owned}]}
+    new_prof = [i["id"] for i in run.pending.plan["items"] if i["kind"] == "profile" and i["op"] == "add"
+                and i.get("profile") == prof]
+    if new_prof:
+        # the text's record stands on the new profile: rejecting the profile drops it (stage.cascade)
+        payload["record_needs"] = {prof: new_prof}
     if owned:
         if origin == "mail":
             names = st.get("mail_names")
@@ -116,11 +139,14 @@ def main(argv=None):
     ap.add_argument("--date")
     ap.add_argument("--note")
     ap.add_argument("--strip", action="store_true")
+    ap.add_argument("--subject", help="start, new profile: who the voice is")
+    ap.add_argument("--consent", help="start, new profile: 'self', or how that person gave permission")
+    ap.add_argument("--description")
     a = ap.parse_args(argv)
     try:
         if a.action == "start":
             out = start(a.store, a.profile or Store(a.store).config["default_profile"], a.lang or "en", a.type,
-                        dict(f.split("=", 1) for f in a.facet))
+                        dict(f.split("=", 1) for f in a.facet), a.subject, a.consent, a.description)
         elif a.action == "add":
             out = add(a.store, a.file, a.origin, a.ownership, a.date, a.note, a.strip)
         else:

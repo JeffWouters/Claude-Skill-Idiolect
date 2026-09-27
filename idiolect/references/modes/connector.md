@@ -12,6 +12,16 @@ python3 scripts/connector.py --store S start --profile P --lang L --type T [--fa
 
 One slot per run: pages of one kind (`type=post`), or mail (`type=email`).
 
+For a **new profile** (the voice has no profile yet), add who it is and the consent, as `learn` asks:
+
+```
+python3 scripts/connector.py --store S start --profile P --lang L --type T --subject "Who the voice is" --consent "self"
+```
+
+`--consent` is `self` for the writer's own voice; for anyone else, how that person gave permission
+("agreed by mail on 2026-09-27"). Never create a profile of someone else without it. The profile is
+part of the diff: rejecting it rejects what this run would learn for it.
+
 ## 2a. Web pages
 
 Fetch raw, never through a summarising web tool (those rewrite the text):
