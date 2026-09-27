@@ -23,7 +23,7 @@ the first run (`runs/2026-09-26-parallel-invalid.json`, 10 workers) scored 10 of
 should-trigger query missed; the same set run serially scored 20 of 20.
 
 **Bar, set before the first run:** at least 90% of the queries on the right side of a 50% trigger
-rate (18 of 20; 22 of 24 from phase 5; 27 of 30 from phase 6; 31 of 34 with the rules mode; 37 of 41 with verify, guide, import and tone), and no general "in my voice" or editing request triggering at
+rate (18 of 20; 22 of 24 from phase 5; 27 of 30 from phase 6; 31 of 34 with the rules mode; 37 of 41 with verify, guide, import and tone; 42 of 46 with published and Dutch), and no general "in my voice" or editing request triggering at
 all.
 Results of each run go in `runs/<date>.json`.
 
@@ -34,8 +34,9 @@ Results of each run go in `runs/<date>.json`.
 | 2026-09-27 (phase 6: 30 queries, adds export, web feeds and transcripts, with near misses for exporting a document, transcribing a meeting and summarising a blog) | claude-opus-5-5 | 30 of 30 | 15 of 15 at 3/3 | 15 of 15 at 0/3 |
 | 2026-09-27 (rules: 34 queries, adds loading the starter rules and adding a ruling, with near misses for humanizing a paragraph and a dash question) | claude-opus-5-5 | 34 of 34 | 17 of 17 at 3/3 | 17 of 17 at 0/3 |
 | 2026-09-27 (style features: 41 queries, adds verify, a voice guide, a style-guide import and a warmer draft, with near misses for "does this sound like AI", a company style guide and "make this email warmer") | claude-opus-5-5 | 40 of 41 | 20 of 21 at 3/3 | 20 of 20 at 0/3 |
+| 2026-09-27 (published and Dutch: 46 queries, adds setting up learning from what is published, processing the edit queue and a request in Dutch, with near misses for publishing a post and translating one into Dutch) | claude-opus-5-5 | 45 of 46 | 22 of 23 at 3/3 | 23 of 23 at 0/3 |
 
-The one miss in the style-features run is the first query, `/idiolect learn ...`, at 0 of 3 (0 of 5 on a
+The one miss in the style-features run, and again in the published-and-Dutch run, is the first query, `/idiolect learn ...`, at 0 of 3 (0 of 5 on a
 recheck), which passed in every earlier run. Idiolect was installed in the account at 08:27 that day,
 between the two runs, so a typed `/idiolect` most likely now calls the installed skill instead of the
 copy under test, which the harness cannot count. The description is not the cause; run the trigger

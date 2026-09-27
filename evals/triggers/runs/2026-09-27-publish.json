@@ -1,0 +1,379 @@
+{
+  "skill_name": "idiolect",
+  "description": "Learns a writer's voice from files they point it at (Markdown, PDF, Word; a file, folder or tag) and keeps what it learns in a separate store with profiles and slots per language and text type. Use when the user invokes Idiolect or /idiolect by name, asks to learn or add their voice from specific files or folders, asks about their voice profile, slots, confidence or store, asks to test their profile against a held-out text of their own, to learn from their edits to a draft, to be interviewed to build a slot, to learn from web pages, sent mail or talk transcripts, to export their voice as a prompt or a voice guide, to add rules, load the default (starter) rules or import a style guide into their profile, to ask whether a text reads like their profile, to learn from what they publish, or asks to check, write or rewrite text with an explicit Idiolect profile, slot or store. Not for general requests such as \"rewrite this in my voice\" or \"tighten this\" without those.",
+  "results": [
+    {
+      "query": "/idiolect learn ~/Documents/Blog and pick up everything I published last year",
+      "should_trigger": true,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": false
+    },
+    {
+      "query": "Can you use Idiolect to learn my writing voice from the markdown files in my Obsidian vault, folder Writing/Newsletters? Do a dry run first so I can see what it would pick up.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "What does my idiolect profile say about my sentence length? Which slots do I have by now and how confident is each one?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Check this LinkedIn post against my Idiolect profile before I publish it and tell me what's off: 'Most cloud cost overruns aren't technical. They're a meeting nobody scheduled. Here's the alert I set on every subscription now.'",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Write a 300-word intro for this week's newsletter about Azure cost alerts with my idiolect profile, slot en.newsletter. Points: budgets are too late, alerts per resource group, one owner per alert.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "I want to test my voice profile properly: hold out my post 'why I stopped using ARM templates', have it write a draft from a short brief and let me judge blind whether it reads like me.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "rewrite the paragraph below with idiolect, depth=edit, profile jeff: 'In today's fast-paced world, leveraging automation is key to unlocking value across your organisation's cloud estate.'",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Forget drafts/old-rant.md from my voice store, I co-wrote that one and it shouldn't count as my style.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Roll my idiolect profile back to the snapshot from before yesterday's learn, the new lessons it picked up are wrong.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Add these three Word documents to my voice profile so it learns from them: reports/q1-report.docx, reports/q2-report.docx and talks/keynote.docx",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Here's the draft Idiolect wrote for my newsletter and the version I actually sent. Learn from what I changed so the next drafts need fewer edits.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "I don't have many LinkedIn posts yet. Can Idiolect interview me with a few open questions so it can build my en.post slot from my answers?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Export my Idiolect voice profile as one prompt I can paste into another AI tool for my LinkedIn posts.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Have Idiolect learn my voice from my blog's RSS feed at https://example.com/feed.xml, only the posts I wrote myself.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "I have transcripts of my conference talks as .vtt files. Can Idiolect build a spoken-voice profile from them?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Rewrite this in my voice: 'We are pleased to announce that the new PowerShell module is now available on the gallery. It offers numerous improvements.'",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Tighten this paragraph, it's too wordy: 'It is important to note that, in many cases, the configuration of the environment may, depending on circumstances, require additional steps that should be taken into account.'",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "What is an idiolect in linguistics, and how does it differ from a dialect or a sociolect? Give a few examples.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Make this email to my client sound more professional but still warm: 'hey, the migration slipped a week, sorry, the vendor was late again.'",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Analyse the writing style of Hemingway's short stories and summarise the techniques he uses at sentence level.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Draft a friendly LinkedIn post announcing my new open-source PowerShell module for Azure landing zones, about 150 words.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Proofread this blog post for typos and grammar, keep my wording otherwise: 'Their are three ways to scope a Bicep deployment, and most teams only ever uses one.'",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Create brand voice guidelines for my consultancy from our website copy and the last five proposals.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Summarise the notes I added to my Obsidian vault last week and list the open to-dos.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Here are two versions of my essay intro. Which one reads better and why? A: 'Nobody asked for another framework.' B: 'Frameworks multiply because nobody deletes one.'",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Compare these two versions of my paragraph and list every word that changed, as a table.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Interview me about my career so far and turn it into a short bio for a conference page.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Export this Word document to PDF and keep the headings as bookmarks.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Transcribe this meeting recording and summarise the decisions.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Summarise the last ten posts on https://example.com/blog in a table.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Load Idiolect's starter rules into my essays profile, but let me keep em dashes if my own essays use them.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Add a ruling to my Idiolect profile: never write 'going forward', and have the check fail any draft that does.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Humanize this paragraph: take out the AI tells like 'delve' and the em dashes.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "What's the difference between an em dash and an en dash, and when should I use each?",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Does this LinkedIn post read like me? Check it against my Idiolect profile before I post it.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Make a voice guide from my Idiolect profile that I can hand to my editor.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Import our house style guide (house-style.docx) into my Idiolect profile as rules.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Write this week's newsletter intro with Idiolect, but a bit warmer than usual.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Does this essay sound like it was written by AI?",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Write a style guide for our company blog: tone, headings, numbers and links.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Make this email a bit warmer, it sounds too stiff.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Set up Idiolect to learn from what I publish: my final posts end up in ~/Vault/Published.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Process my Idiolect edit queue.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Leer mijn schrijfstijl met Idiolect uit de Nederlandse blogposts in ~/Blog/NL.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Publish this post to my blog and share it on LinkedIn.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    },
+    {
+      "query": "Translate this blog post into Dutch.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 46,
+    "passed": 45,
+    "failed": 1
+  }
+}

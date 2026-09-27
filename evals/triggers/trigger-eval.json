@@ -162,5 +162,25 @@
  {
   "query": "Make this email a bit warmer, it sounds too stiff.",
   "should_trigger": false
+ },
+ {
+  "query": "Set up Idiolect to learn from what I publish: my final posts end up in ~/Vault/Published.",
+  "should_trigger": true
+ },
+ {
+  "query": "Process my Idiolect edit queue.",
+  "should_trigger": true
+ },
+ {
+  "query": "Leer mijn schrijfstijl met Idiolect uit de Nederlandse blogposts in ~/Blog/NL.",
+  "should_trigger": true
+ },
+ {
+  "query": "Publish this post to my blog and share it on LinkedIn.",
+  "should_trigger": false
+ },
+ {
+  "query": "Translate this blog post into Dutch.",
+  "should_trigger": false
  }
 ]
