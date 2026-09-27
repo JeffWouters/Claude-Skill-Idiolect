@@ -15,6 +15,9 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > exported mail (`.eml`, `.msg`), web pages, Microsoft 365 sent mail and talk transcripts, exports a
 > voice as one prompt for another tool, gates other skills' publishing through `check`, and runs from a
 > cloud session bridged to the writer's computer. It can add a facet such as `channel` to a store.
+> Rulings can carry a test that `check` enforces, and an optional starter set of rules against the
+> common signs of AI writing (em dashes, "delve", chatbot leftovers and the like) can be loaded into
+> a profile; rules about habits apply only where the writer's own texts do not show them.
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
 > a writer's own blind test is available but has not been run. Fixture authors are learned in `evals/store/`.
 
@@ -70,6 +73,7 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 | 4 | Validation: `test` |
 | 5 | Feedback: learn-edit, interview, more facets, inheritance |
 | 6 | Reach: cloud route, export, more adapters, use from other skills |
+| after 6 | Rulings with tests and an optional starter set (spec §27) |
 
 ## Licence
 
