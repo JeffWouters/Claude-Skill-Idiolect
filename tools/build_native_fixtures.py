@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Build the native-prose fixtures for the language-flavour false-alarm test.
 
-Fetches public-domain essays, articles, feuilletons and letters in German, French and Spanish
-from Wikisource and writes one Markdown file per piece to evals/fixtures/native-<lang>/.
+Fetches public-domain essays, articles, feuilletons, letters and narrative prose in German, French,
+Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian (Bokmål/Riksmål,
+code nb, from no.wikisource.org) and Danish from Wikisource and writes one Markdown file per piece to
+evals/fixtures/native-<lang>/.
 
 Every text in SOURCES is by an author who died before 1956 and was first published before 1929,
 so it is in the public domain in the US and the EU.
@@ -37,6 +39,12 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "evals" / "fixtures"
 UA = "IdiolectFixtureBuilder/1.0 (https://github.com/JeffWouters/Claude-Skill-Idiolect)"
 LICENCE = "public domain (US and EU)"
+LANGS = ["de", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "nb", "da"]
+# fixture language code -> Wikisource subdomain, where they differ
+HOST = {"nb": "no"}
+# languages whose fixtures were built and reviewed before the cleaning rules below were added;
+# paragraphs() keeps their original behaviour so that a rebuild gives the same files
+LEGACY = {"de", "fr", "es"}
 
 # (lang, page title, author, died, book, first published, display title or None)
 # The display title defaults to the last part of the page title without a disambiguator.
@@ -165,6 +173,122 @@ SOURCES: list[tuple[str, str, str, int, str, int, str | None]] = [
     ("es", "Visiones pasadas", "Rubén Darío", 1916, "Cuentos y crónicas", 1918, None),
     ("es", "Primavera apolínea", "Rubén Darío", 1916, "Cuentos y crónicas", 1918, None),
     ("es", "Curiosidades literarias", "Rubén Darío", 1916, "Cuentos y crónicas", 1918, None),
+    # ---------------------------------------------------------------- Italian
+    ("it", "Novelle rusticane/La roba", "Giovanni Verga", 1922, "Novelle rusticane", 1880, None),
+    ("it", "Novelle rusticane/Malaria", "Giovanni Verga", 1922, "Novelle rusticane", 1883, None),
+    ("it", "Novelle rusticane/Libertà", "Giovanni Verga", 1922, "Novelle rusticane", 1882, None),
+    ("it", "Novelle rusticane/Il Reverendo", "Giovanni Verga", 1922, "Novelle rusticane", 1883, None),
+    ("it", "La giara (Novella, 1928)", "Luigi Pirandello", 1936, "Novelle per un anno", 1909, None),
+    ("it", "La paura del sonno", "Luigi Pirandello", 1936, "Novelle per un anno", 1900, None),
+    ("it", "Pensaci, Giacomino! (Novella, 1928)", "Luigi Pirandello", 1936, "Novelle per un anno", 1910, None),
+    ("it", "Non è una cosa seria", "Luigi Pirandello", 1936, "Novelle per un anno", 1910, None),
+    ("it", "La lega disciolta", "Luigi Pirandello", 1936, "Novelle per un anno", 1910, None),
+    ("it", "La novella del buon vecchio e della bella fanciulla ed altri scritti/Vino generoso", "Italo Svevo", 1928,
+     "La novella del buon vecchio e della bella fanciulla ed altri scritti", 1927, None),
+    # ---------------------------------------------------------------- Portuguese
+    ("pt", "A Cartomante", "Machado de Assis", 1908, "Várias histórias", 1884, None),
+    ("pt", "Uns Braços", "Machado de Assis", 1908, "Várias histórias", 1885, None),
+    ("pt", "Um homem célebre", "Machado de Assis", 1908, "Várias histórias", 1888, None),
+    ("pt", "Conto de Escola", "Machado de Assis", 1908, "Várias histórias", 1884, None),
+    ("pt", "O Enfermeiro", "Machado de Assis", 1908, "Várias histórias", 1884, None),
+    ("pt", "A causa secreta", "Machado de Assis", 1908, "Várias histórias", 1885, None),
+    ("pt", "Missa do galo", "Machado de Assis", 1908, "Páginas recolhidas", 1894, None),
+    ("pt", "Os Bruzundangas/I", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "Um grande financeiro"),
+    ("pt", "Os Bruzundangas/II", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "A nobreza da Bruzundanga"),
+    ("pt", "Os Bruzundangas/III", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "A outra nobreza da Bruzundanga"),
+    ("pt", "Os Bruzundangas/IV", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "A política e os políticos da Bruzundanga"),
+    ("pt", "Os Bruzundangas/VII", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "A diplomacia da Bruzundanga"),
+    ("pt", "Os Bruzundangas/VIII", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "A Constituição"),
+    ("pt", "Os Bruzundangas/IX", "Lima Barreto", 1922, "Os Bruzundangas", 1923, "Um mandachuva"),
+    # ---------------------------------------------------------------- Polish (pre-1936 spelling: -ja, -ji)
+    ("pl", "Kamizelka", "Bolesław Prus", 1912, "Szkice i obrazki", 1882, None),
+    ("pl", "Katarynka", "Bolesław Prus", 1912, "Szkice i obrazki", 1880, None),
+    ("pl", "Cienie (Prus)", "Bolesław Prus", 1912, "Szkice i obrazki", 1885, None),
+    ("pl", "Z legend dawnego Egiptu", "Bolesław Prus", 1912, "Opowiadania wieczorne", 1888, None),
+    ("pl", "Siłaczka (Żeromski, 1945)", "Stefan Żeromski", 1925, "Opowiadania", 1891, None),
+    ("pl", "Zmierzch (Żeromski, 1945)", "Stefan Żeromski", 1925, "Opowiadania", 1892, None),
+    ("pl", "Rozdziobią nas kruki, wrony (1927)", "Stefan Żeromski", 1925, "Opowiadania", 1895, None),
+    ("pl", "Sachem (1928)", "Henryk Sienkiewicz", 1916, "Orso. Sachem", 1889, None),
+    # ---------------------------------------------------------------- Russian (modern orthography)
+    ("ru", "Студент (Чехов)", "Антон Чехов", 1904, "Русские ведомости", 1894, None),
+    ("ru", "Тоска (Чехов)", "Антон Чехов", 1904, "Петербургская газета", 1886, None),
+    ("ru", "Спать хочется (Чехов)", "Антон Чехов", 1904, "Петербургская газета", 1888, None),
+    ("ru", "Смерть чиновника (Чехов)", "Антон Чехов", 1904, "Осколки", 1883, None),
+    ("ru", "Злоумышленник (Чехов)", "Антон Чехов", 1904, "Петербургская газета", 1885, None),
+    ("ru", "Крыжовник (Чехов)", "Антон Чехов", 1904, "Русская мысль", 1898, None),
+    ("ru", "Человек в футляре (Чехов)", "Антон Чехов", 1904, "Русская мысль", 1898, None),
+    ("ru", "Душечка (Чехов)", "Антон Чехов", 1904, "Семья", 1899, None),
+    ("ru", "Четыре дня (Гаршин)", "Всеволод Гаршин", 1888, "Отечественные записки", 1877, None),
+    ("ru", "Сигнал (Гаршин)", "Всеволод Гаршин", 1888, "Северный вестник", 1887, None),
+    ("ru", "Красный цветок (Гаршин)", "Всеволод Гаршин", 1888, "Отечественные записки", 1883, None),
+    ("ru", "Лёгкое дыхание (Бунин)", "Иван Бунин", 1953, "Русское слово", 1916, None),
+    # ---------------------------------------------------------------- Ukrainian (1955-62 editions, modern orthography)
+    ("uk", "Твори (Коцюбинський, 1955)/2/Intermezzo", "Михайло Коцюбинський", 1913, "Літературно-науковий вістник", 1909, None),
+    ("uk", "Твори (Коцюбинський, 1955)/2/Сміх", "Михайло Коцюбинський", 1913, "Твори (1955)", 1906, None),
+    ("uk", "Твори (Коцюбинський, 1955)/2/Він іде", "Михайло Коцюбинський", 1913, "Твори (1955)", 1906, None),
+    ("uk", "Твори (Коцюбинський, 1955)/1/Цвіт яблуні", "Михайло Коцюбинський", 1913, "Твори (1955)", 1902, None),
+    ("uk", "Твори (Коцюбинський, 1955)/1/На камені", "Михайло Коцюбинський", 1913, "Твори (1955)", 1902, None),
+    ("uk", "Твори (Коцюбинський, 1955)/2/Невідомий", "Михайло Коцюбинський", 1913, "Твори (1955)", 1907, None),
+    ("uk", "Твори (Франко, 1956–1962)/2/Грицева шкільна наука", "Іван Франко", 1916, "Діло", 1883, None),
+    ("uk", "Твори (Франко, 1956–1962)/2/Олівець", "Іван Франко", 1916, "Правда", 1879, None),
+    ("uk", "Твори (Франко, 1956–1962)/2/Малий Мирон", "Іван Франко", 1916, "Галицькі образки", 1885, None),
+    ("uk", "Твори (Франко, 1956–1962)/2/Під оборогом", "Іван Франко", 1916, "На лоні природи", 1905, None),
+    ("uk", "Твори (Франко, 1956–1962)/2/Моя стріча з Олексою", "Іван Франко", 1916, "Дзвін", 1878, None),
+    # ---------------------------------------------------------------- Turkish (Latin-script transcriptions)
+    ("tr", "Pembe İncili Kaftan", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Başını Vermeyen Şehit", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Kütük", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Topuz", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Teke Tek", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Vire", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1917, None),
+    ("tr", "Diyet", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1918, None),
+    ("tr", "Bahar ve Kelebekler", "Ömer Seyfettin", 1920, "Genç Kalemler", 1911, None),
+    ("tr", "Forsa", "Ömer Seyfettin", 1920, "Büyük Mecmua", 1919, None),
+    ("tr", "Nâdan", "Ömer Seyfettin", 1920, "Vakit", 1918, None),
+    ("tr", "Yuf Borusu Seni Bekliyor", "Ömer Seyfettin", 1920, "İfham", 1919, None),
+    ("tr", "Kesik Bıyık", "Ömer Seyfettin", 1920, "Diken", 1918, None),
+    ("tr", "Yalnız Efe", "Ömer Seyfettin", 1920, "Yeni Mecmua", 1919, None),
+    # ---------------------------------------------------------------- Swedish (post-1906 spelling)
+    ("sv", "Samtidsnoveller/Det blå ankaret", "Hjalmar Söderberg", 1941, "Främlingarna", 1902, None),
+    ("sv", "Samtidsnoveller/Kyrkoherdens kor", "Hjalmar Söderberg", 1941, "Främlingarna", 1901, None),
+    ("sv", "Samtidsnoveller/Generalkonsulns middagar/I", "Hjalmar Söderberg", 1941, "Främlingarna", 1901,
+     "Generalkonsulns middagar I"),
+    ("sv", "Samtidsnoveller/Generalkonsulns middagar/II", "Hjalmar Söderberg", 1941, "Främlingarna", 1903,
+     "Generalkonsulns middagar II"),
+    ("sv", "Samtidsnoveller/Generalkonsulns middagar/III", "Hjalmar Söderberg", 1941, "Främlingarna", 1903,
+     "Generalkonsulns middagar III"),
+    ("sv", "Samtidsnoveller/Generalkonsulns middagar/IV", "Hjalmar Söderberg", 1941, "Främlingarna", 1900,
+     "Generalkonsulns middagar IV"),
+    ("sv", "Samtidsnoveller/Skalder och folk", "Hjalmar Söderberg", 1941, "Det mörknar över vägen", 1906, None),
+    ("sv", "Samtidsnoveller/Det mörknar över vägen", "Hjalmar Söderberg", 1941, "Det mörknar över vägen", 1907, None),
+    ("sv", "Samtidsnoveller/Sibyllans grotta", "Hjalmar Söderberg", 1941, "Det mörknar över vägen", 1907, None),
+    ("sv", "Kejsarn av Portugallien/Kapitel 01", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 1"),
+    ("sv", "Kejsarn av Portugallien/Kapitel 02", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 2"),
+    ("sv", "Kejsarn av Portugallien/Kapitel 03", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 3"),
+    ("sv", "Kejsarn av Portugallien/Kapitel 04", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 4"),
+    ("sv", "Kejsarn av Portugallien/Kapitel 05", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 5"),
+    ("sv", "Kejsarn av Portugallien/Kapitel 06", "Selma Lagerlöf", 1940, "Kejsarn av Portugallien", 1914, "Kejsarn av Portugallien, kapitel 6"),
+    # ---------------------------------------------------------------- Norwegian, Riksmål (from no.wikisource)
+    ("nb", "Byens sjæl", "Hans E. Kinck", 1926, "Steder og folk", 1919, None),
+    ("nb", "Strandebarm kirke", "Hans E. Kinck", 1926, "Steder og folk", 1921, None),
+    ("nb", "Rundt om Vestlandshus", "Hans E. Kinck", 1926, "Steder og folk", 1921, None),
+    ("nb", "Hardanger", "Hans E. Kinck", 1926, "Steder og folk", 1923, None),
+    ("nb", "Litt om stil", "Hans E. Kinck", 1926, "Mange slags kunst", 1919, None),
+    ("nb", "Mit reisefølge", "Hans E. Kinck", 1926, "Italienere", 1901, None),
+    ("nb", "Sydover sletten fra Milano", "Hans E. Kinck", 1926, "Italienere", 1901, None),
+    ("nb", "Smaa Epistler/02", "Nils Kjær", 1924, "Smaa Epistler", 1908, "Smaa Epistler II"),
+    ("nb", "Smaa Epistler/04", "Nils Kjær", 1924, "Smaa Epistler", 1908, "Smaa Epistler IV"),
+    ("nb", "Smaa Epistler/06", "Nils Kjær", 1924, "Smaa Epistler", 1908, "Smaa Epistler VI"),
+    # ---------------------------------------------------------------- Danish (pre-1948 spelling: capital nouns, aa)
+    ("da", "Pesten i Bergamo", "J.P. Jacobsen", 1885, "Mogens og andre Noveller", 1881, None),
+    ("da", "Fru Fønss", "J.P. Jacobsen", 1885, "Mogens og andre Noveller", 1882, None),
+    ("da", "Der burde have været Roser", "J.P. Jacobsen", 1885, "Mogens og andre Noveller", 1882, None),
+    ("da", "En Fortælling om dem der skal dø", "Herman Bang", 1912, "Liv og Død", 1899, None),
+    ("da", "Ane-Mette", "Henrik Pontoppidan", 1943, "Fra Hytterne", 1887, None),
+    ("da", "Et Grundskud", "Henrik Pontoppidan", 1943, "Fra Hytterne", 1887, None),
+    ("da", "Naadsensbrød", "Henrik Pontoppidan", 1943, "Fra Hytterne", 1887, None),
+    ("da", "Knokkelmanden", "Henrik Pontoppidan", 1943, "Fra Hytterne", 1887, None),
+    ("da", "Vandreren", "Henrik Pontoppidan", 1943, "Fra Hytterne", 1887, None),
 ]
 
 
@@ -177,7 +301,7 @@ class Wiki:
 
     def api(self, lang: str, params: dict, post: bool = False) -> dict:
         params = dict(params, format="json", formatversion="2")
-        url = f"https://{lang}.wikisource.org/w/api.php"
+        url = f"https://{HOST.get(lang, lang)}.wikisource.org/w/api.php"
         body = urllib.parse.urlencode(params)
         key = hashlib.sha256((url + "?" + body).encode()).hexdigest()
         path = self.cache / f"{key}.json"
@@ -242,6 +366,7 @@ FIXES = {
     "Earlos Marx": "Carlos Marx",  # drop initial image with the wrong alt text
     "decir ]a verdad": "decir la verdad",
     "die Erscheinungfremd": "die Erscheinung fremd",
+    "заважаютъ": "заважають",
 }
 PARA_END = (".", "!", "?", "…", ":", ";", "“", "”", "»", "«", '"', "—", "–", ")", "’", "'", ",")
 SENT_END = (".", "!", "?", "…", ":", "“", "”", "»", "«")
@@ -254,8 +379,39 @@ MARKER_RES = [
     re.compile(r"[¹²³⁴⁵⁶⁷⁸⁹⁰]+"),
 ]
 
+# paragraphs that are apparatus, not prose (applied outside LEGACY)
+DROP_PARA_RES = [
+    re.compile(r"Kaynakça\s*:"),  # tr.wikisource source line under the text
+]
 
-def paragraphs(html: str, title: str = "") -> list[str]:
+
+def paragraph_text(raw: str) -> str:
+    """One paragraph of source text (lines separated by U+2028) as clean prose, or "" to drop it."""
+    lines = [re.sub(r"\s+", " ", l).strip() for l in raw.split("\u2028")]
+    lines = [l for l in lines if l]
+    if not lines:
+        return ""
+    if len(lines) >= 3 and max(len(l.split()) for l in lines) < 20:
+        return ""  # verse, address blocks and lists of lines
+    # a title or byline set on its own line(s) above the prose in the same paragraph
+    while len(lines) > 1 and len(lines[0].split()) <= 8 and not lines[0].endswith(SENT_END):
+        lines.pop(0)
+    text = " ".join(lines)
+    for rx in MARKER_RES:
+        text = rx.sub("", text)
+    for bad, good in FIXES.items():
+        text = text.replace(bad, good)
+    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r" ([,.)])", r"\1", text)
+    text = re.sub(r"([(„¿¡]) ", r"\1", text)
+    if not text or not re.search(r"\w{2,}", text):
+        return ""
+    if re.fullmatch(r"[\W\d_]*", text):
+        return ""
+    return text
+
+
+def paragraphs(html: str, title: str = "", lang: str = "") -> list[str]:
     soup = BeautifulSoup(html, "html.parser")
     for sel in DROP_SELECTORS:
         for el in soup.select(sel):
@@ -278,30 +434,23 @@ def paragraphs(html: str, title: str = "") -> list[str]:
     for sup in soup.find_all("sup"):
         if sup.find("a") or re.fullmatch(r"\W*\d+\W*", sup.get_text()):
             sup.decompose()
+    if lang not in LEGACY:
+        # pl.wikisource sets several paragraphs in one <p>, each opened by an indent span
+        for el in soup.select("span._tb"):
+            el.replace_with("\u2029")
+        # dialogue set as indented lines (":— ...") renders as <dd>
+        for dd in soup.find_all("dd"):
+            dd.name = "p"
     paras: list[str] = []
     for p in soup.find_all("p"):
         for br in p.find_all("br"):
             br.replace_with("\u2028")
-        lines = [re.sub(r"\s+", " ", l).strip() for l in p.get_text("").split("\u2028")]
-        lines = [l for l in lines if l]
-        if len(lines) >= 3 and max(len(l.split()) for l in lines) < 20:
-            continue  # verse, address blocks and lists of lines
-        # a title or byline set on its own line(s) above the prose in the same paragraph
-        while len(lines) > 1 and len(lines[0].split()) <= 8 and not lines[0].endswith(SENT_END):
-            lines.pop(0)
-        text = " ".join(lines)
-        for rx in MARKER_RES:
-            text = rx.sub("", text)
-        for bad, good in FIXES.items():
-            text = text.replace(bad, good)
-        text = re.sub(r"\s+", " ", text).strip()
-        text = re.sub(r" ([,.)])", r"\1", text)
-        text = re.sub(r"([(„¿¡]) ", r"\1", text)
-        if not text or not re.search(r"\w{2,}", text):
-            continue
-        if re.fullmatch(r"[\W\d_]*", text):
-            continue
-        paras.append(text)
+        for seg in p.get_text("").split("\u2029"):
+            text = paragraph_text(seg if lang in LEGACY else seg.replace("\u00ad", ""))
+            if text and lang not in LEGACY and any(rx.match(text) for rx in DROP_PARA_RES):
+                continue
+            if text:
+                paras.append(text)
 
     def trim_head(paras: list[str]) -> list[str]:
         while paras and ((len(paras[0].split()) <= 6
@@ -328,6 +477,13 @@ def paragraphs(html: str, title: str = "") -> list[str]:
                      or (len(paras[-1].split()) <= 12 and re.search(r"\b1[89]\d\d\b", paras[-1]))):
         paras.pop()
     paras = trim_head(paras)
+    if lang not in LEGACY:
+        # a list of characters or places set as one short line each before the prose
+        k = 0
+        while k < len(paras) and len(paras[k].split()) <= 4:
+            k += 1
+        if k >= 3:
+            paras = paras[k:]
     return paras
 
 
@@ -338,17 +494,26 @@ def display_title(page: str) -> str:
     return re.sub(r"\s*\([^)]*\)\s*$", "", t).strip()
 
 
+CYRILLIC = dict(zip(
+    "абвгґдеєжзиіїйклмнопрстуфхцчшщъыьэюяё",
+    ["a", "b", "v", "g", "g", "d", "e", "ie", "zh", "z", "i", "i", "i", "i", "k", "l", "m", "n", "o", "p",
+     "r", "s", "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "iu", "ia", "e"],
+))
+
+
 def slugify(text: str) -> str:
     import unicodedata
     t = unicodedata.normalize("NFKD", text.lower())
     t = "".join(c for c in t if not unicodedata.combining(c))
     t = t.replace("ß", "ss").replace("œ", "oe").replace("æ", "ae")
+    t = t.replace("ł", "l").replace("ø", "o").replace("ı", "i").replace("đ", "d")
+    t = "".join(CYRILLIC.get(c, c) for c in t)
     t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
     return t[:48].rstrip("-") or "text"
 
 
 def page_url(lang: str, title: str) -> str:
-    return f"https://{lang}.wikisource.org/wiki/" + urllib.parse.quote(title.replace(" ", "_"), safe="/_(),:!'’")
+    return f"https://{HOST.get(lang, lang)}.wikisource.org/wiki/" + urllib.parse.quote(title.replace(" ", "_"), safe="/_(),:!'’")
 
 
 def yaml_str(s: str) -> str:
@@ -375,7 +540,7 @@ def build(wiki: Wiki, lang: str, min_words: int = 150) -> None:
     total = 0
     for _, page, author, died, book, year, title in items:
         title = title or display_title(page)
-        paras = paragraphs(html.get(page, ""), title)
+        paras = paragraphs(html.get(page, ""), title, lang)
         body = "\n\n".join(paras)
         words = len(body.split())
         if words < min_words:
@@ -408,18 +573,18 @@ def build(wiki: Wiki, lang: str, min_words: int = 150) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--lang", choices=["de", "fr", "es"], action="append")
+    ap.add_argument("--lang", choices=LANGS, action="append")
     ap.add_argument("--cache", default=os.path.expanduser("~/.cache/idiolect-native-fixtures"))
     ap.add_argument("--probe", metavar="TITLE", help="print the cleaned text of one page")
     ap.add_argument("--links", metavar="TITLE", help="list the existing main-namespace links of one page")
     args = ap.parse_args()
     wiki = Wiki(Path(args.cache))
-    langs = args.lang or ["de", "fr", "es"]
+    langs = args.lang or LANGS
     if args.links:
         print("\n".join(wiki.links(langs[0], args.links)))
         return
     if args.probe:
-        paras = paragraphs(wiki.render(langs[0], [args.probe])[args.probe], display_title(args.probe))
+        paras = paragraphs(wiki.render(langs[0], [args.probe])[args.probe], display_title(args.probe), langs[0])
         print("\n\n".join(paras))
         print(f"\n[{sum(len(p.split()) for p in paras)} words]", file=sys.stderr)
         return

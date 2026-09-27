@@ -16,6 +16,15 @@ in `idiolect.skill`.
 | `native-de` | Kurt Tucholsky, Karl Kraus, Carl von Ossietzky, Ludwig Bauer; German | de.wikisource.org, 1905–1928 | 34 | ~31,000 | Not screened: false-alarm test only |
 | `native-fr` | Alain, Remy de Gourmont, Charles Péguy, Octave Mirbeau; French | fr.wikisource.org, 1886–1925 | 42 | ~45,000 | Not screened: false-alarm test only |
 | `native-es` | Miguel de Unamuno, José Martí, Ángel Ganivet, José Ortega y Gasset, Rubén Darío; Spanish | es.wikisource.org, 1882–1920 | 45 | ~88,000 | Not screened: false-alarm test only |
+| `native-it` | Verga, Pirandello, Svevo; Italian | it.wikisource.org | 10 | ~32,000 | Not screened: false-alarm test only |
+| `native-pt` | Machado de Assis, Lima Barreto; Portuguese (Brazil) | pt.wikisource.org | 14 | ~32,000 | Not screened: false-alarm test only |
+| `native-pl` | Prus, Żeromski, Sienkiewicz; Polish (pre-1936 spelling) | pl.wikisource.org | 8 | ~22,000 | Not screened: false-alarm test only |
+| `native-ru` | Chekhov, Garshin, Bunin; Russian (post-1918 spelling) | ru.wikisource.org | 12 | ~30,000 | Not screened: false-alarm test only |
+| `native-uk` | Kotsiubynsky, Franko; Ukrainian | uk.wikisource.org | 11 | ~38,000 | Not screened: false-alarm test only |
+| `native-tr` | Ömer Seyfettin; Turkish (Latin script, Ottoman vocabulary) | tr.wikisource.org | 13 | ~25,000 | Not screened: false-alarm test only |
+| `native-sv` | Söderberg, Lagerlöf; Swedish | sv.wikisource.org | 15 | ~27,000 | Not screened: false-alarm test only |
+| `native-nb` | Kinck, Nils Kjær; Norwegian (Riksmål, "aa") | no.wikisource.org | 10 | ~29,000 | Not screened: false-alarm test only |
+| `native-da` | J. P. Jacobsen, Pontoppidan, Bang; Danish (pre-1948 spelling) | da.wikisource.org | 9 | ~28,000 | Not screened: false-alarm test only |
 
 The `native-*` folders are native prose for the language-flavour detectors' false-alarm test (spec
 §34.2, `tests/test_flavour.py`); they are never learned or used in an evaluation run. They were built
