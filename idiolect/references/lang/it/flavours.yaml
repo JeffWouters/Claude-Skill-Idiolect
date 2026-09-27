@@ -1,0 +1,75 @@
+# Language flavour detectors for Italian (spec §34.2): traces of another language in Italian prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Italian is worse than none.
+version: "1.0"
+detectors:
+  - id: fare-senso
+    name: "'fare senso' per 'avere senso'"
+    origins: [en]
+    how: "'fa senso' nel senso di 'make sense', dove l'italiano dice 'ha senso' ('mi fa senso' vuol dire altro)."
+    pattern: '(?<!mi )(?<!ti )(?<!gli )(?<!le )(?<!ci )(?<!vi )(?<!mi\s)\bf(?:a|anno|are|aceva|acevano)\s+(?:molto\s+|più\s+|poco\s+)?senso\b'
+    examples:
+      - "Questo fa senso."
+      - "Non fa molto senso per me."
+    not:
+      - "Questo ha senso."
+      - "I ragni mi fanno senso."
+      - "Mi fa senso."
+
+  - id: applicare-per
+    name: "'applicare per un lavoro'"
+    origins: [en]
+    how: "'applicare per' un posto secondo 'apply for', dove l'italiano dice 'candidarsi a' o 'fare domanda per'."
+    pattern: '\bapplic(?:are|o|hi|a|ano|ato|ando|ai)\s+per\s+(?:un|una|il|la|questo|questa|quel|quella)\s+(?:lavoro|posto|borsa|visto|programma|mutuo|prestito)\b'
+    examples:
+      - "Ho applicato per un lavoro a Milano."
+    not:
+      - "Mi sono candidato per un lavoro a Milano."
+      - "Applico la regola per questo caso."
+
+  - id: realizzare-che
+    name: "'realizzare che'"
+    origins: [en]
+    how: "'realizzare che' secondo 'realize that', dove l'italiano dice 'rendersi conto che'."
+    pattern: '\brealizz(?:are|o|i|a|ato|ai|ò|ando|ammo)\s+che\b'
+    examples:
+      - "Ho realizzato che lo script era sbagliato."
+    not:
+      - "Mi sono reso conto che lo script era sbagliato."
+      - "Ha realizzato un ottimo lavoro."
+
+  - id: sono-anni
+    name: "'sono trenta anni' per l'età"
+    origins: [en]
+    how: "'essere' con l'età secondo 'I am thirty', dove l'italiano dice 'ho trent'anni'."
+    pattern: '\b(?:io sono|tu sei|lei è|lui è|sono|sei)\s+(?:\d{1,2}|venti|trenta|quaranta|cinquanta|sessanta)\s+anni(?:\s+(?:oggi|ormai|adesso))?\s*[.!]'
+    examples:
+      - "Io sono trenta anni."
+      - "Sono 25 anni oggi."
+    not:
+      - "Ho trent'anni."
+      - "Sono trent'anni che lavoro qui."
+      - "Sono passati trenta anni dalla guerra."
+
+  - id: chiamare-indietro
+    name: "'chiamare indietro'"
+    origins: [en]
+    how: "'chiamare indietro' secondo 'call back', dove l'italiano dice 'richiamare'."
+    pattern: '\bchiam(?:are|o|a|ami|ato|erò|erà|ata|ando)\s+(?:\w+\s+)?indietro\b'
+    examples:
+      - "Ti chiamo indietro domani."
+      - "Mi ha chiamato indietro."
+    not:
+      - "Ti richiamo domani."
+      - "Il cane è tornato indietro."
+
+  - id: avere-buon-tempo
+    name: "'avere un buon tempo'"
+    origins: [en]
+    how: "'avere un buon tempo' secondo 'have a good time', dove l'italiano dice 'divertirsi' o 'stare bene'."
+    pattern: '\b(?:avere|abbiamo|ho|hai|hanno|abbiate|avuto|avete)\s+(?:avuto\s+)?un\s+buon\s+tempo\b'
+    examples:
+      - "Abbiamo avuto un buon tempo alla conferenza."
+    not:
+      - "Ci siamo divertiti alla conferenza."
+      - "Abbiamo avuto un bel tempo al mare."

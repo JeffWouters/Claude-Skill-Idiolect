@@ -1,0 +1,7 @@
+code: pt
+name: Portuguese
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, informal contractions, stop words and language flavour detectors for Portuguese. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Portuguese carry that caveat until fixture authors in the language calibrate them.

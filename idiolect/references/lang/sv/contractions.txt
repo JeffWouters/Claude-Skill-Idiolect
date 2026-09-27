@@ -1,0 +1,1 @@
+\b(nån|nåt|nånting|nånstans|nånsin|mej|dej|sej)\b

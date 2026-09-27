@@ -52,8 +52,9 @@ Claude will ask three things:
 3. **What kind of texts they are** (essay, post, email), when it cannot tell.
 
 It then measures your texts, compares them with neutral AI rewrites of the same paragraphs, and
-writes down what sets you apart. English, Dutch, German, French and Spanish are fully supported (the
-measures' thresholds were set on English, which Claude mentions for the other four); other languages that separate
+writes down what sets you apart. English, Dutch, German, French, Spanish, Italian, Portuguese, Polish,
+Russian, Ukrainian, Turkish, Swedish, Norwegian and Danish have language packs (the measures' thresholds
+were set on English, which Claude mentions for the others); other languages that separate
 words with spaces are measured on 11 of the 14 measures, and Claude says so.
 
 Every learn also listens for a **language flavour**: traces of another language in how you write

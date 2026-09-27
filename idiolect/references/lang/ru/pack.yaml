@@ -1,0 +1,7 @@
+code: ru
+name: Russian
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Russian. No contraction list: informal contractions are rare in written Russian, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Russian carry that caveat until fixture authors in the language calibrate them.

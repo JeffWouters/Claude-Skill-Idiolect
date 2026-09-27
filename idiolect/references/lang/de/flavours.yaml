@@ -1,7 +1,7 @@
 # Language flavour detectors for German (spec §34.2): traces of another language in German prose.
 # Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
 # (langpack.py check). Keep them narrow: a detector that fires on native German is worse than none.
-version: "1.0"
+version: "1.1"
 detectors:
   - id: entscheidung-machen
     name: "'eine Entscheidung machen'"
@@ -110,3 +110,16 @@ detectors:
       - "Ich habe keine Lust auf Pizza."
       - "Es hat keinen Sinn, das zu wiederholen."
       - "Das hat Sinn in diesem Fall."
+
+  - id: no-verb-second
+    name: "Subject before the verb after an opening word"
+    origins: [en]
+    how: "Nach einem einleitenden Wort steht das Subjekt vor dem Verb wie im Englischen ('Today I go'), wo Deutsch das Verb an zweiter Stelle hat: 'Heute gehe ich'."
+    pattern: '(?:^|[.!?]\s+)(?:heute|gestern|morgen|dann|deshalb|deswegen|jetzt|hier|oft|später|danach|trotzdem)\s*,?\s+(?:ich|du|wir|ihr|er|sie|es|man)\s+(?:bin|bist|ist|sind|seid|habe|hast|hat|haben|kann|kannst|können|will|willst|wollen|muss|musst|müssen|gehe|geht|gehen|komme|kommt|kommen|mache|macht|machen|war|hatte)\b'
+    examples:
+      - "Heute ich gehe ins Büro."
+      - "Dann wir können anfangen."
+    not:
+      - "Heute gehe ich ins Büro."
+      - "Dann können wir anfangen."
+      - "Morgen ist ein neuer Tag."

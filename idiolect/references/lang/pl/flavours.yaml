@@ -1,0 +1,61 @@
+# Language flavour detectors for Polish (spec §34.2): traces of another language in Polish prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Polish is worse than none.
+version: "1.0"
+detectors:
+  - id: robic-sens
+    name: "'robić sens'"
+    origins: [en]
+    how: "'to robi sens' według 'it makes sense', gdzie polszczyzna mówi 'to ma sens'."
+    pattern: '\brob(?:i|ią|ić|ił|iło|iła)\s+(?:dużo\s+|więcej\s+|żadnego\s+|jakiś\s+|trochę\s+)?sens\b'
+    examples:
+      - "To robi sens."
+      - "Nie robi żadnego sens."
+    not:
+      - "To ma sens."
+      - "Robi sensowne rzeczy."
+
+  - id: adresowac-problem
+    name: "'adresować problem'"
+    origins: [en]
+    how: "'adresować problem' według 'address a problem', gdzie polszczyzna mówi 'zająć się problemem'."
+    pattern: '\badresow(?:ać|ał|ała|ali|ane|any|anie|ujemy|uje)\s+(?:ten\s+|to\s+|te\s+|nasz\s+)?(?:problem|problemy|kwestię|kwestie|wyzwanie|wyzwania)\b'
+    examples:
+      - "Musimy adresować ten problem."
+    not:
+      - "Musimy zająć się tym problemem."
+      - "Adresował list do ministra."
+
+  - id: dobry-czas
+    name: "'mieć dobry czas'"
+    origins: [en]
+    how: "'mieć dobry czas' według 'have a good time', gdzie polszczyzna mówi 'dobrze się bawić'."
+    pattern: '\bmie(?:ć|liśmy|li|łem|łam|łeś|my|cie)\s+(?:naprawdę\s+)?dobry\s+czas\b'
+    examples:
+      - "Mieliśmy dobry czas na konferencji."
+    not:
+      - "Dobrze się bawiliśmy na konferencji."
+      - "To był dobry czas na zmiany."
+
+  - id: na-bazie-dziennej
+    name: "'na dziennej bazie'"
+    origins: [en]
+    how: "'na codziennej (regularnej) bazie' według 'on a daily basis', gdzie polszczyzna mówi 'codziennie' lub 'regularnie'."
+    pattern: '\bna\s+(?:dziennej|codziennej|tygodniowej|miesięcznej|regularnej|rocznej)\s+bazie\b'
+    examples:
+      - "Używam tego na codziennej bazie."
+    not:
+      - "Używam tego codziennie."
+      - "Na bazie tych danych."
+
+  - id: jestem-lat
+    name: "'jestem trzydzieści lat'"
+    origins: [en]
+    how: "'być' z wiekiem według 'I am thirty', gdzie polszczyzna mówi 'mam trzydzieści lat'."
+    pattern: '\b(?:jestem|jesteś|jest|jesteśmy)\s+(?:\d{1,2}|dwadzieścia|trzydzieści|czterdzieści|pięćdziesiąt|sześćdziesiąt)\s+lat\s*(?:stary|stara)?\s*[.!]'
+    examples:
+      - "Jestem trzydzieści lat."
+      - "Ona jest 25 lat stara."
+    not:
+      - "Mam trzydzieści lat."
+      - "To jest trzydzieści lat pracy."

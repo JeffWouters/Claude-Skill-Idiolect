@@ -1,0 +1,7 @@
+code: nb
+name: Norwegian
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Norwegian. No contraction list: informal contractions are rare in written Norwegian, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Norwegian carry that caveat until fixture authors in the language calibrate them.

@@ -1,0 +1,75 @@
+# Language flavour detectors for Portuguese (spec §34.2): traces of another language in Portuguese prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Portuguese is worse than none.
+version: "1.0"
+detectors:
+  - id: realizar-que
+    name: "'realizar que'"
+    origins: [en]
+    how: "'realizar que' segundo 'realize that', onde o português diz 'perceber' ou 'dar-se conta de'."
+    pattern: '\breali(?:zar|zo|zei|zou|zaram|zamos|zando)\s+que\b'
+    examples:
+      - "Realizei que o script estava errado."
+    not:
+      - "Percebi que o script estava errado."
+      - "Realizou um ótimo trabalho."
+
+  - id: tomar-lugar
+    name: "'tomar lugar'"
+    origins: [en]
+    how: "'tomar lugar' segundo 'take place', onde o português diz 'acontecer' ou 'ter lugar'."
+    pattern: '\btom(?:a|am|ou|aram|ar|ará|arão|ando)\s+lugar\b'
+    examples:
+      - "A reunião toma lugar na segunda."
+    not:
+      - "A reunião acontece na segunda."
+      - "Ele tomou o lugar do pai."
+
+  - id: sou-anos
+    name: "'sou trinta anos' para a idade"
+    origins: [en]
+    how: "'ser' com a idade segundo 'I am thirty', onde o português diz 'tenho trinta anos'."
+    pattern: '\b(?:eu sou|sou|você é|ele é|ela é)\s+(?:\d{1,2}|vinte|trinta|quarenta|cinquenta|sessenta)\s+anos\s*(?:de idade)?\s*[.!]'
+    examples:
+      - "Eu sou trinta anos."
+      - "Ela é 25 anos de idade."
+    not:
+      - "Tenho trinta anos."
+      - "São trinta anos de trabalho."
+
+  - id: em-uma-base
+    name: "'em uma base diária'"
+    origins: [en]
+    how: "'em uma base diária (regular)' segundo 'on a daily basis', onde o português diz 'diariamente' ou 'regularmente'."
+    pattern: '\bem\s+uma\s+base\s+(?:diária|semanal|mensal|anual|regular)\b'
+    examples:
+      - "Uso isso em uma base diária."
+    not:
+      - "Uso isso diariamente."
+      - "Com base nisso, decidimos."
+
+  - id: aplicar-para-vaga
+    name: "'aplicar para uma vaga'"
+    origins: [en]
+    how: "'aplicar para' uma vaga segundo 'apply for', onde o português diz 'candidatar-se a'."
+    pattern: '\baplic(?:ar|o|ou|ei|aram|ando|amos)\s+para\s+(?:uma|um|a|o|essa|esse|esta|este)\s+(?:vaga|bolsa|emprego|visto|programa|posição|cargo)\b'
+    examples:
+      - "Ele aplicou para uma vaga em Lisboa."
+    not:
+      - "Ele se candidatou a uma vaga em Lisboa."
+      - "Aplicamos a regra para esse caso."
+
+  - id: portunhol
+    name: "Spanish words in Portuguese"
+    origins: [es]
+    how: "Palavras espanholas no lugar das portuguesas: 'pero' (mas), 'muy' (muito), 'entonces' (então), 'también' (também), 'todavía' (ainda), 'nosotros' (nós)."
+    pattern: '\b(?:pero|muy|entonces|también|todavía|nosotros|ustedes)\b'
+    examples:
+      - "Funciona, pero é lento."
+      - "É muy bom."
+      - "Entonces vamos."
+    not:
+      - "Funciona, mas é lento."
+      - "É muito bom."
+      - "Então vamos."
+      - "O peru assado estava ótimo."

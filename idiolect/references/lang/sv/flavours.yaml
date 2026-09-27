@@ -1,0 +1,50 @@
+# Language flavour detectors for Swedish (spec §34.2): traces of another language in Swedish prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Swedish is worse than none.
+version: "1.0"
+detectors:
+  - id: gora-mening
+    name: "'göra mening'"
+    origins: [en]
+    how: "'det gör mening' eller 'gör sense' efter 'it makes sense', där svenskan säger 'det är vettigt' eller 'det är logiskt'."
+    pattern: '\bgör\s+(?:ingen\s+|mycket\s+|mer\s+)?(?:sense|mening)\b'
+    examples:
+      - "Det gör mening."
+      - "Det gör ingen sense."
+    not:
+      - "Det är vettigt."
+      - "Han skriver en mening."
+
+  - id: adressera
+    name: "'adressera ett problem'"
+    origins: [en]
+    how: "'adressera ett problem' efter 'address a problem', där svenskan säger 'ta itu med' eller 'hantera'."
+    pattern: '\badresser(?:a|ar|ade|at|as)\s+(?:ett|det|de|detta|dessa|problemet|frågan|problemen|frågorna|problem)\b'
+    examples:
+      - "Vi måste adressera problemet."
+    not:
+      - "Vi måste ta itu med problemet."
+      - "Brevet adresserades till kungen."
+
+  - id: hade-bra-tid
+    name: "'hade en bra tid'"
+    origins: [en]
+    how: "'vi hade en bra tid' efter 'we had a good time', där svenskan säger 'vi hade det trevligt'."
+    pattern: '\bhade\s+en\s+(?:bra|härlig|trevlig|fantastisk)\s+tid\b'
+    examples:
+      - "Vi hade en bra tid på konferensen."
+    not:
+      - "Vi hade det trevligt på konferensen."
+      - "Har du en bra tid för mötet?"
+
+  - id: no-verb-second
+    name: "Subject before the verb after an opening word"
+    origins: [en]
+    how: "Efter ett inledande ord kommer subjektet före verbet, som i engelskan ('Today I go'), där svenskan sätter verbet på andra plats: 'Idag går jag'."
+    pattern: '(?:^|[.!?]\s+)(?:idag|igår|imorgon|sedan|därför|nu|här|ofta|senare)\s*,?\s+(?:jag|du|vi|ni|de|han|hon|man)\s+(?:är|har|går|kan|ska|vill|måste|kommer|gör|tar|var|hade|gick)\b'
+    examples:
+      - "Idag jag går till jobbet."
+      - "Sedan vi kan börja."
+    not:
+      - "Idag går jag till jobbet."
+      - "Sedan kan vi börja."

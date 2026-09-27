@@ -761,7 +761,13 @@ the house style guide.
    (not calibrated) ship with their lists and flavour detectors (spec §34.2). Their contractions are
    the informal ones, not the standard forms every writer uses: German `gibt's`, `'ne`, `hab'`;
    French `t'as`, `j'sais`, `y'a`, `p'tit` (elision such as `l'` and `qu'` is grammar, not register);
-   Spanish `pa'`, `na'`, `'tá` (`al` and `del` are grammar).
+   Spanish `pa'`, `na'`, `'tá` (`al` and `del` are grammar). Italian, Portuguese, Polish, Russian,
+   Ukrainian, Turkish, Swedish, Norwegian Bokmål (`nb`) and Danish (not calibrated) ship with hedges,
+   openers, stop words and flavour detectors; only Portuguese and Swedish have a contractions list
+   (informal forms: `pra`, `tá`, `né`; `nån`, `mej`), so the other seven are measured on 13 metrics.
+5. The sentence splitter treats capitals of Latin Extended, Greek and Cyrillic (U+0100 to U+052F) as
+   upper-case letters, not only Latin-1 (`references/fingerprint.md`, Units); English and Dutch texts
+   measure as before.
 
 ## 33. Learning from what the writer publishes
 
@@ -834,9 +840,13 @@ the house style guide.
    (the verb before the subject after an opening word, the verb before the subject in 'the more ...,
    the less ...', time before place), for writers whose first language is
    Dutch, German, French, Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian, Danish, Chinese, Japanese, Korean and Arabic speakers, and for Indian English;
-   German 9 (traces of English and Dutch), Dutch 8, French 7 and Spanish 9 (traces of English). Each
-   pack's detectors fire less than 5 times per 100,000 words on native prose in that language
-   (`tests/test_flavour.py`, on the fixture authors and `evals/fixtures/native-de`, `-fr`, `-es`).
+   German 10 (traces of English and Dutch), Dutch 9, French 7 and Spanish 9 (traces of English);
+   Italian 6, Portuguese 6 (traces of English and Spanish), Polish 5, Russian 6, Ukrainian 6
+   (traces of English and Russian), Turkish 3, Swedish 4, Norwegian 3 and Danish 3. German, Dutch,
+   Swedish, Norwegian and Danish include the English speaker's word order: the subject before the
+   verb after an opening word ('Heute ich gehe'). Each pack's detectors fire less than 5 times per
+   100,000 words on native prose in that language (`tests/test_flavour.py`, on the fixture authors
+   and `evals/fixtures/native-*`).
    Origins are quoted where YAML 1.1 would read them as booleans (`"no"` for Norwegian); the store
    reads YAML 1.2, where they are strings either way.
 3. **Always.** `learn.py next` names `flavour P/L` for every profile and language whose slots the run

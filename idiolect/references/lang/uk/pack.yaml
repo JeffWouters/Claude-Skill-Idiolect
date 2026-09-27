@@ -1,0 +1,7 @@
+code: uk
+name: Ukrainian
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Ukrainian. No contraction list: informal contractions are rare in written Ukrainian, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Ukrainian carry that caveat until fixture authors in the language calibrate them.

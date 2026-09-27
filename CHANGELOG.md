@@ -13,8 +13,12 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
   Spanish (traces of English) and Dutch (traces of English), and the model for any other language.
   Word order counts too: the verb before the subject ('Then have we a problem', 'the less
   sophisticated will your code get') and time before place ('I drive tomorrow to Berlin').
-- **German, French and Spanish** are full language packs: hedges, conjunction openers, informal
-  contractions and stop words, so they are measured on all 14 measures. The profile keeps, per language, how each
+- **Twelve more language packs**: German, French and Spanish (all 14 measures), and Italian,
+  Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian and Danish, each with word
+  lists and language-flavour detectors (traces of English, and the English speaker's word order in
+  German, Dutch and the Scandinavian languages).
+- Sentences in Polish, Russian, Ukrainian, Turkish and other scripts beyond Latin-1 are now split
+  correctly; English and Dutch measure exactly as before. The profile keeps, per language, how each
   trace is recognised, examples, and how often the writer shows it; `write` uses it at that rate and
   `check` fails a draft that goes beyond the writer's highest rate. `flavour=off` writes without it.
   New store file `<lang>.flavour.yaml` (schema flavour v1); `flavour.py detect` runs the detectors

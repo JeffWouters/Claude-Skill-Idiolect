@@ -1,0 +1,37 @@
+# Language flavour detectors for Turkish (spec §34.2): traces of another language in Turkish prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Turkish is worse than none.
+version: "1.0"
+detectors:
+  - id: anlam-yapmak
+    name: "'anlam yapmak'"
+    origins: [en]
+    how: "'anlam yapıyor' ('it makes sense' kalıbından), Türkçede 'anlamlı' veya 'mantıklı'."
+    pattern: '\banlam\s+yap(?:ıyor|ar|tı|mıyor|maz|mak|ıyorlar)\b'
+    examples:
+      - "Bu anlam yapıyor."
+      - "Hiç anlam yapmıyor."
+    not:
+      - "Bu mantıklı."
+      - "Bu anlamlı bir soru."
+
+  - id: adreslemek
+    name: "'bir sorunu adreslemek'"
+    origins: [en]
+    how: "'adreslemek' ('address a problem' kalıbından), Türkçede 'ele almak' veya 'çözmek'."
+    pattern: '\badresle(?:mek|memiz|meliyiz|dik|diğimiz|yor|yoruz|yorlar|nmesi|nmeli|necek)\b'
+    examples:
+      - "Bu sorunu adreslemeliyiz."
+    not:
+      - "Bu sorunu ele almalıyız."
+      - "Mektubu bu adresle gönder."
+
+  - id: realize-etmek
+    name: "'realize etmek'"
+    origins: [en]
+    how: "'realize etmek' ('realize' kalıbından), Türkçede 'fark etmek'."
+    pattern: '\brealize\s+(?:et|edil|ett|edi)\w*'
+    examples:
+      - "Hatayı sonra realize ettim."
+    not:
+      - "Hatayı sonra fark ettim."

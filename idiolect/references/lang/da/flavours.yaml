@@ -1,0 +1,39 @@
+# Language flavour detectors for Danish (spec §34.2): traces of another language in Danish prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Danish is worse than none.
+version: "1.0"
+detectors:
+  - id: gor-mening
+    name: "'gør mening'"
+    origins: [en]
+    how: "'det gør mening' eller 'laver mening' efter 'it makes sense', hvor dansk siger 'det giver mening'."
+    pattern: '\b(?:gør|laver)\s+(?:ingen\s+|meget\s+|mere\s+)?(?:sense|mening)\b'
+    examples:
+      - "Det gør mening."
+      - "Det laver ingen sense."
+    not:
+      - "Det giver mening."
+      - "Det er fornuftigt."
+
+  - id: adressere
+    name: "'adressere et problem'"
+    origins: [en]
+    how: "'adressere et problem' efter 'address a problem', hvor dansk siger 'tage fat på' eller 'håndtere'."
+    pattern: '\badresser(?:e|er|ede|et|es)\s+(?:et|det|de|dette|disse|problemet|spørgsmålet|problemerne|problemer)\b'
+    examples:
+      - "Vi skal adressere problemet."
+    not:
+      - "Vi skal tage fat på problemet."
+      - "Brevet blev adresseret til kongen."
+
+  - id: no-verb-second
+    name: "Subject before the verb after an opening word"
+    origins: [en]
+    how: "Efter et indledende ord kommer subjektet før verbet, som på engelsk ('Today I go'), hvor dansk sætter verbet på andenpladsen: 'I dag går jeg'."
+    pattern: '(?:^|[.!?]\s+)(?:i dag|i går|i morgen|derfor|nu|her|ofte|senere|bagefter)\s*,?\s+(?:jeg|du|vi|i|de|han|hun|man)\s+(?:er|har|går|kan|skal|vil|må|kommer|gør|tager|tar|var|havde|gik)\b'
+    examples:
+      - "I dag jeg går på arbejde."
+      - "Derfor vi må vente."
+    not:
+      - "I dag går jeg på arbejde."
+      - "Derfor må vi vente."

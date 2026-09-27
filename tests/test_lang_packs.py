@@ -48,7 +48,7 @@ def test_english_is_a_pack_with_its_lists_unchanged():
 
 
 def test_every_shipped_pack_passes_the_checker():
-    assert langpack.packs() == ["de", "en", "es", "fr", "nl"]
+    assert langpack.packs() == ["da", "de", "en", "es", "fr", "it", "nb", "nl", "pl", "pt", "ru", "sv", "tr", "uk"]
     for code in langpack.packs():
         assert langpack.check(code) == [], code
     listed = {p["code"]: p for p in langpack.listing()}
@@ -76,7 +76,7 @@ def test_dutch_is_measured_on_all_fourteen_metrics():
     assert len(v) == 14
     assert v["hedges_per_1k"] > 0 and v["contractions_per_1k"] > 0 and v["conjunction_opener_share"] > 0
     assert measure.pack_warning("nl") == "the thresholds were calibrated on English, not on Dutch"
-    assert measure.pack_warning("pt").startswith("no language pack for 'pt': measured on the 11 metrics")
+    assert measure.pack_warning("cs").startswith("no language pack for 'cs': measured on the 11 metrics")
 
 
 @pytest.mark.parametrize("lang,name,text", [
@@ -89,6 +89,30 @@ def test_german_french_and_spanish_are_measured_on_all_fourteen_metrics(lang, na
     assert len(v) == 14
     assert v["hedges_per_1k"] > 0 and v["contractions_per_1k"] > 0 and v["conjunction_opener_share"] > 0
     assert measure.pack_warning(lang) == f"the thresholds were calibrated on English, not on {name}"
+
+
+@pytest.mark.parametrize("lang,n,text", [
+    ("it", 13, "Forse era il freddo. Ma la ruota era bucata. E pioveva."),
+    ("pt", 14, "Talvez fosse o frio. Mas a roda tava furada. E chovia pra caramba."),
+    ("pl", 13, "Chyba było zimno. Ale koło było przebite. Łąka była mokra."),
+    ("ru", 13, "Возможно, было холодно. Но колесо было пробито. И шёл дождь."),
+    ("uk", 13, "Можливо, було холодно. Але колесо було пробите. І йшов дощ."),
+    ("tr", 13, "Belki soğuktu. Ama tekerlek patlamıştı. Şimdi yağmur yağıyor."),
+    ("sv", 14, "Kanske var det kylan. Men hjulet var punkterat. Och nån hade glömt paraplyet."),
+    ("nb", 13, "Kanskje var det kulden. Men hjulet var punktert. Og det regnet."),
+    ("da", 13, "Måske var det kulden. Men hjulet var punkteret. Og det regnede."),
+])
+def test_the_other_packs_are_measured_with_their_lists(lang, n, text):
+    v = measure.metrics(text, lang)
+    assert len(v) == n == len(measure.applicable(lang))
+    assert v["hedges_per_1k"] > 0 and v["conjunction_opener_share"] > 0
+    assert measure.pack_warning(lang).startswith("the thresholds were calibrated on English")
+
+
+def test_capitals_beyond_latin_1_start_a_sentence():
+    for text, lang in (("Był dom. Łąka była zielona. Śnieg padał.", "pl"), ("Он пришёл. Дом был пуст. Всё.", "ru"),
+                       ("Geldi. Şimdi gitti. İyi.", "tr")):
+        assert measure.metrics(text, lang)["sentence_length_mean"] < 3, lang
 
 
 def test_a_pack_without_word_lists_says_so(tmp_path, monkeypatch):

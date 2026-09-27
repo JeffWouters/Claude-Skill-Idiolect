@@ -1,0 +1,7 @@
+code: it
+name: Italian
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Italian. No contraction list: informal contractions are rare in written Italian, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Italian carry that caveat until fixture authors in the language calibrate them.

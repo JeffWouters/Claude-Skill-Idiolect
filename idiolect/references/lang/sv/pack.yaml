@@ -1,0 +1,7 @@
+code: sv
+name: Swedish
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, informal contractions, stop words and language flavour detectors for Swedish. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Swedish carry that caveat until fixture authors in the language calibrate them.

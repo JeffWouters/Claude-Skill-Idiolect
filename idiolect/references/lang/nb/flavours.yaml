@@ -1,0 +1,39 @@
+# Language flavour detectors for Norwegian (spec §34.2): traces of another language in Norwegian prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Norwegian is worse than none.
+version: "1.0"
+detectors:
+  - id: gjor-mening
+    name: "'gjør mening'"
+    origins: [en]
+    how: "'det gjør mening' eller 'gjør sense' etter 'it makes sense', der norsk sier 'det gir mening' eller 'det er fornuftig'."
+    pattern: '\bgjør\s+(?:ingen\s+|mye\s+|mer\s+)?(?:sense|mening)\b'
+    examples:
+      - "Det gjør mening."
+      - "Det gjør ingen sense."
+    not:
+      - "Det gir mening."
+      - "Det er fornuftig."
+
+  - id: adressere
+    name: "'adressere et problem'"
+    origins: [en]
+    how: "'adressere et problem' etter 'address a problem', der norsk sier 'ta tak i' eller 'håndtere'."
+    pattern: '\badresser(?:e|er|te|t|es)\s+(?:et|det|de|dette|disse|problemet|spørsmålet|problemene|problemer)\b'
+    examples:
+      - "Vi må adressere problemet."
+    not:
+      - "Vi må ta tak i problemet."
+      - "Brevet ble adressert til kongen."
+
+  - id: no-verb-second
+    name: "Subject before the verb after an opening word"
+    origins: [en]
+    how: "Etter et innledende ord kommer subjektet før verbet, som på engelsk ('Today I go'), der norsk setter verbet på andreplass: 'I dag går jeg'."
+    pattern: '(?:^|[.!?]\s+)(?:i dag|i går|i morgen|derfor|nå|her|ofte|senere|etterpå)\s*,?\s+(?:jeg|du|vi|dere|de|han|hun|man)\s+(?:er|har|går|kan|skal|vil|må|kommer|gjør|tar|var|hadde|gikk)\b'
+    examples:
+      - "I dag jeg går på jobb."
+      - "Derfor vi må vente."
+    not:
+      - "I dag går jeg på jobb."
+      - "Derfor må vi vente."

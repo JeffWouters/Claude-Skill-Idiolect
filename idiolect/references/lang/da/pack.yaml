@@ -1,0 +1,7 @@
+code: da
+name: Danish
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Danish. No contraction list: informal contractions are rare in written Danish, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Danish carry that caveat until fixture authors in the language calibrate them.

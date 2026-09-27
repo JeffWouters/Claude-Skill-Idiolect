@@ -23,13 +23,13 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # ---------- the packs ----------
 
-PACKS = ("en", "nl", "de", "fr", "es")
+PACKS = ("en", "nl", "de", "fr", "es") + ("it", "pt", "pl", "ru", "uk", "tr", "sv", "nb", "da")
 
 
 def test_the_packs_detectors_pass_their_own_examples_and_counter_examples():
     for code in PACKS:
         assert langpack.check(code) == [], code
-        assert len(flavour.detectors(code)) >= 7, code
+        assert len(flavour.detectors(code)) >= 3, code
         for d in flavour.detectors(code):
             assert d["examples"] and d["not"], d["id"]
     assert len(flavour.detectors("en")) >= 40
@@ -51,6 +51,23 @@ def test_word_order_traces_are_detected_without_native_inversions():
     native = ("Often have I seen it. So do I. Only then did we notice. Now can you see it? The longer you wait, the "
               "harder it gets. He came yesterday to fix the boiler. I drive to Berlin tomorrow.")
     assert flavour.detect_text("en", native)["found"] == []
+
+
+@pytest.mark.parametrize("lang,text", [
+    ("it", "Questo fa senso. Ho realizzato che era sbagliato."),
+    ("pt", "Realizei que estava errado. A reunião toma lugar amanhã."),
+    ("pl", "To robi sens. Mieliśmy dobry czas."),
+    ("ru", "Это делает смысл. Встреча берёт место завтра."),
+    ("uk", "Це робить сенс. Я приймаю участь у конференції."),
+    ("tr", "Bu anlam yapıyor. Hatayı sonra realize ettim."),
+    ("sv", "Det gör mening. Idag jag går till jobbet."),
+    ("nb", "Det gjør mening. I dag jeg går på jobb."),
+    ("da", "Det gør mening. I dag jeg går på arbejde."),
+    ("de", "Heute ich gehe ins Büro."),
+    ("nl", "Vandaag ik ga naar kantoor."),
+])
+def test_every_pack_detects_traces_of_english(lang, text):
+    assert flavour.detect_text(lang, text)["found"], lang
 
 
 def test_german_french_and_spanish_packs_detect_english_traces():
@@ -80,7 +97,8 @@ def test_a_broken_detector_is_reported(tmp_path, monkeypatch):
 @pytest.mark.parametrize("author,lang", [("katharine-fullerton-gerould", "en"), ("robert-cortes-holliday", "en"),
                                          ("samuel-mcchord-crothers", "en"), ("synthetic-noor", "en"),
                                          ("synthetic-idris", "en"), ("native-de", "de"), ("native-fr", "fr"),
-                                         ("native-es", "es"), ("synthetic-sanne", "nl")])
+                                         ("native-es", "es"), ("synthetic-sanne", "nl")]
+                         + [(f"native-{c}", c) for c in ("it", "pt", "pl", "ru", "uk", "tr", "sv", "nb", "da")])
 def test_native_prose_barely_triggers_the_detectors(author, lang):
     """The false-alarm test: native writers' texts (spec §34.2). Under 5 per 100,000 words."""
     words = hits = 0

@@ -33,7 +33,7 @@ by hand. Load a mode's procedure file before running it.
 ## Parameters
 
 Read the request: natural language plus optional `key=value`, e.g. `/idiolect learn ~/Writing dry-run=true`.
-Synonyms: "in Dutch" → `lang=nl`; "my essays" → `type=essay`. When a request is ambiguous, ask.
+Synonyms: "in Dutch" → `lang=nl`; "in Norwegian" → `lang=nb`; "my essays" → `type=essay`. When a request is ambiguous, ask.
 
 | Parameter | Values | Default |
 | --- | --- | --- |

@@ -1,0 +1,7 @@
+code: tr
+name: Turkish
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Turkish. No contraction list: informal contractions are rare in written Turkish, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Turkish carry that caveat until fixture authors in the language calibrate them.

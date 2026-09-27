@@ -1,0 +1,1 @@
+\b(pra|pras|pro|pros|tá|tô|tava|tavam|cê|cês|né)\b

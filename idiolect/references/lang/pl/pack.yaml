@@ -1,0 +1,7 @@
+code: pl
+name: Polish
+version: "1.0"
+calibrated: false
+notes: >-
+  Hedges, conjunction openers, stop words and language flavour detectors for Polish. No contraction list: informal contractions are rare in written Polish, so that metric is left out. The global thresholds were calibrated on English and are applied
+  unchanged; slots in Polish carry that caveat until fixture authors in the language calibrate them.

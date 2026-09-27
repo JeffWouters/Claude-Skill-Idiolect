@@ -1,7 +1,7 @@
 # Language flavour detectors for Dutch (spec §34.2): traces of another language in Dutch prose.
 # Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
 # (langpack.py check). Keep them narrow: a detector that fires on native Dutch is worse than none.
-version: "1.0"
+version: "1.1"
 detectors:
   - id: maakt-sense
     name: "'sense maken'"
@@ -95,3 +95,16 @@ detectors:
     not:
       - "We hebben het erg naar ons zin gehad."
       - "Een goede tijd om te beginnen."
+
+  - id: no-verb-second
+    name: "Subject before the verb after an opening word"
+    origins: [en]
+    how: "Na een openingswoord staat het onderwerp voor het werkwoord zoals in het Engels ('Today I go'), waar het Nederlands het werkwoord op de tweede plaats zet: 'Vandaag ga ik'."
+    pattern: '(?:^|[.!?]\s+)(?:vandaag|gisteren|morgen|dan|daarom|nu|hier|vaak|later|daarna|toch)\s*,?\s+(?:ik|je|jij|we|wij|jullie|hij|zij|ze|men)\s+(?:ben|bent|is|zijn|heb|hebt|heeft|hebben|kan|kunt|kunnen|wil|wilt|willen|moet|moeten|ga|gaat|gaan|kom|komt|komen|doe|doet|doen|was|had)\b'
+    examples:
+      - "Vandaag ik ga naar kantoor."
+      - "Dan we kunnen beginnen."
+    not:
+      - "Vandaag ga ik naar kantoor."
+      - "Dan kunnen we beginnen."
+      - "Morgen is een nieuwe dag."
