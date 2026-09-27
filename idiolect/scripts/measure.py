@@ -64,9 +64,14 @@ def pack_warning(lang):
     if info is None:
         return (f"no language pack for '{lang}': measured on the {len(applicable(lang))} metrics that need no "
                 f"word list")
+    parts = []
     if not info.get("calibrated"):
-        return f"the thresholds were calibrated on English, not on {info.get('name', lang)}"
-    return None
+        parts.append(f"the thresholds were calibrated on English, not on {info.get('name', lang)}")
+    n = len(applicable(lang))
+    if n < len(METRICS):
+        parts.append(f"the {info.get('name', lang)} pack has no word lists yet: measured on the {n} metrics that "
+                     f"need none")
+    return "; ".join(parts) or None
 
 
 def applicable(lang):

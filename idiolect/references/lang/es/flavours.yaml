@@ -1,0 +1,107 @@
+# Language flavour detectors for Spanish (spec §34.2): traces of another language in Spanish prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native Spanish is worse than none.
+version: "1.0"
+detectors:
+  - id: hacer-sentido
+    name: "'hacer sentido'"
+    origins: [en]
+    how: "'hacer sentido' según 'make sense', donde el español dice 'tener sentido'."
+    pattern: '\bhac(?:e|en|er|ía|ían|ía|iendo)\s+(?:mucho\s+|más\s+|poco\s+|ningún\s+)?sentido\b'
+    examples:
+      - "Eso hace sentido."
+      - "No hace mucho sentido para mí."
+    not:
+      - "Eso tiene sentido."
+      - "Perdió el sentido del humor."
+
+  - id: aplicar-para
+    name: "'aplicar para un trabajo'"
+    origins: [en]
+    how: "'aplicar para' un puesto según 'apply for', donde el español dice 'solicitar' o 'postularse a'."
+    pattern: '\baplic(?:ar|o|as|a|amos|an|é|ó|aron|ando|ado)\s+(?:para|a)\s+(?:un|una|el|la|este|esta|ese|esa)\s+(?:trabajo|puesto|beca|empleo|visa|programa|préstamo)\b'
+    examples:
+      - "Voy a aplicar para un trabajo en Madrid."
+    not:
+      - "Voy a solicitar un trabajo en Madrid."
+      - "Aplicamos la regla a este caso."
+
+  - id: estar-supuesto
+    name: "'estar supuesto a'"
+    origins: [en]
+    how: "'estar supuesto a' según 'be supposed to', donde el español dice 'se supone que' o 'debería'."
+    pattern: '\b(?:estoy|estás|está|estamos|están|estaba|estabas|estaban|estuve)\s+supuest[oa]s?\s+a\b'
+    examples:
+      - "Estoy supuesto a terminarlo hoy."
+    not:
+      - "Se supone que lo termino hoy."
+      - "Lo he supuesto al principio."
+
+  - id: tomar-lugar
+    name: "'tomar lugar'"
+    origins: [en]
+    how: "'tomar lugar' según 'take place', donde el español dice 'tener lugar' o 'celebrarse'."
+    pattern: '\btom(?:a|an|ó|aron|ar|ará|arán|ando|aba|aban)\s+lugar\b'
+    examples:
+      - "La reunión toma lugar el lunes."
+    not:
+      - "La reunión tiene lugar el lunes."
+      - "Ocupó el lugar de su padre."
+
+  - id: realizar-que
+    name: "'realizar que'"
+    origins: [en]
+    how: "'realizar que' según 'realize that', donde el español dice 'darse cuenta de que'."
+    pattern: '\breali(?:zar|zo|zas|za|zamos|zan|cé|zó|zaron|zando)\s+que\b'
+    examples:
+      - "Realicé que el script estaba mal."
+      - "No realizan que es gratis."
+    not:
+      - "Me di cuenta de que el script estaba mal."
+      - "Realizó un gran trabajo."
+
+  - id: en-una-base
+    name: "'en una base diaria'"
+    origins: [en]
+    how: "'en una base diaria (regular)' según 'on a daily basis', donde el español dice 'a diario' o 'con regularidad'."
+    pattern: '\ben\s+una\s+base\s+(?:diaria|semanal|mensual|anual|regular)\b'
+    examples:
+      - "Lo uso en una base diaria."
+    not:
+      - "Lo uso a diario."
+      - "Sobre esta base decidimos."
+
+  - id: soy-anos
+    name: "'soy treinta años'"
+    origins: [en]
+    how: "'ser' con la edad según 'I am thirty', donde el español dice 'tener treinta años'."
+    pattern: '\b(?:soy|eres|es|somos|son)\s+(?:\d{1,2}|veinte|treinta|cuarenta|cincuenta|sesenta)(?:\s+y\s+\w+)?\s+años\b(?!\s+(?:mayor|menor|más|menos|después|antes|de)\b)'
+    examples:
+      - "Soy treinta años."
+      - "Mi hermana es 25 años."
+    not:
+      - "Tengo treinta años."
+      - "Es 30 años mayor que yo."
+      - "Son veinte años de trabajo."
+
+  - id: tener-buen-tiempo
+    name: "'tener un buen tiempo'"
+    origins: [en]
+    how: "'tener un buen tiempo' según 'have a good time', donde el español dice 'pasarlo bien'."
+    pattern: '\b(?:tener|tengo|tienes|tiene|tenemos|tienen|tuve|tuvimos|tuvieron|tengan)\s+un\s+(?:buen|gran)\s+tiempo\b'
+    examples:
+      - "Tuvimos un buen tiempo en la conferencia."
+    not:
+      - "Lo pasamos bien en la conferencia."
+      - "Hace buen tiempo hoy."
+
+  - id: atender-reunion
+    name: "'atender una reunión'"
+    origins: [en]
+    how: "'atender' una reunión o clase según 'attend', donde el español dice 'asistir a'."
+    pattern: '\b(?:atend(?:er|í|imos|ieron|emos|ía|ían)|atiend(?:o|es|e|en))\s+(?:la|una|el|un|esta|este)\s+(?:reunión|conferencia|clase|evento|junta|sesión|curso|charla)\b'
+    examples:
+      - "Mañana atiendo una reunión en Valencia."
+    not:
+      - "Mañana asisto a una reunión en Valencia."
+      - "Atiende a los clientes."

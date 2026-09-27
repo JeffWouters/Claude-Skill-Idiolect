@@ -1,0 +1,112 @@
+# Language flavour detectors for German (spec §34.2): traces of another language in German prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native German is worse than none.
+version: "1.0"
+detectors:
+  - id: entscheidung-machen
+    name: "'eine Entscheidung machen'"
+    origins: [en]
+    how: "'eine Entscheidung machen' nach 'make a decision', wo Deutsch 'eine Entscheidung treffen' sagt."
+    pattern: '\bentscheidung(?:en)?\s+(?:zu\s+)?(?:machen|gemacht|mache|machst|macht|machte|machten)\b'
+    examples:
+      - "Wir müssen eine Entscheidung machen."
+      - "Er hat die Entscheidung gemacht."
+    not:
+      - "Wir müssen eine Entscheidung treffen."
+      - "Die Entscheidung fiel schwer."
+
+  - id: foto-nehmen
+    name: "'ein Foto nehmen'"
+    origins: [en]
+    how: "'ein Foto nehmen' nach 'take a photo', wo Deutsch 'ein Foto machen' sagt."
+    pattern: '\b(?:ein|zwei|drei|viele|einige|paar)\s+(?:fotos?|bilder?)\s+(?:nehmen|genommen|nimmt|nehme|nahm|nahmen)\b'
+    examples:
+      - "Kannst du ein Foto nehmen?"
+      - "Wir haben viele Fotos genommen."
+    not:
+      - "Kannst du ein Foto machen?"
+      - "Er hat das Bild von der Wand genommen."
+
+  - id: das-ist-warum
+    name: "'Das ist, warum'"
+    origins: [en]
+    how: "'Das ist, warum' nach 'this is why', wo Deutsch 'deshalb' oder 'darum' sagt."
+    pattern: '\b(?:das|dies)\s+ist,?\s+warum\b'
+    examples:
+      - "Das ist, warum ich Skripte schreibe."
+      - "Dies ist warum es scheitert."
+    not:
+      - "Deshalb schreibe ich Skripte."
+      - "Das ist der Grund, warum es scheitert."
+
+  - id: in-begriffen-von
+    name: "'in Begriffen von'"
+    origins: [en]
+    how: "'in Begriffen von' nach 'in terms of', wo Deutsch 'was ... angeht' oder 'hinsichtlich' sagt."
+    pattern: '\bin\s+begriffen\s+von\b'
+    examples:
+      - "In Begriffen von Geschwindigkeit ist das besser."
+    not:
+      - "Was die Geschwindigkeit angeht, ist das besser."
+
+  - id: auf-taeglicher-basis
+    name: "'auf einer täglichen Basis'"
+    origins: [en]
+    how: "'auf einer täglichen (regelmäßigen) Basis' nach 'on a daily basis', wo Deutsch 'täglich' oder 'regelmäßig' sagt."
+    pattern: '\bauf\s+(?:einer\s+)?(?:täglich|wöchentlich|monatlich|jährlich|regelmäßig)(?:en|er)\s+basis\b'
+    examples:
+      - "Ich nutze das auf einer täglichen Basis."
+      - "Wir prüfen es auf regelmäßiger Basis."
+    not:
+      - "Ich nutze das täglich."
+      - "Auf dieser Basis entschieden wir."
+
+  - id: ich-bin-kalt
+    name: "'Ich bin kalt'"
+    origins: [en]
+    how: "'Ich bin kalt' nach 'I am cold', wo Deutsch 'mir ist kalt' sagt."
+    pattern: '\b(?:ich\s+bin|bin\s+ich|wir\s+sind|sind\s+wir)\s+(?:so\s+|sehr\s+|echt\s+|wirklich\s+)?(?:kalt|heiß)\b'
+    examples:
+      - "Ich bin so kalt heute."
+      - "Wir sind sehr heiß im Büro."
+    not:
+      - "Mir ist so kalt heute."
+      - "Das Wasser ist kalt."
+
+  - id: fuer-jahre-praesens
+    name: "'für drei Jahre' mit Präsens"
+    origins: [en]
+    how: "Präsens mit 'für' und einer Dauer nach 'I have lived here for three years', wo Deutsch 'seit drei Jahren' sagt."
+    pattern: '\b(?:ich|wir)\s+(?:lebe|leben|wohne|wohnen|arbeite|arbeiten)\b[^.!?\n]{0,30}\bfür\s+(?:\d+|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|viele|einige)\s+(?:jahre|monate|wochen)\b'
+    examples:
+      - "Ich wohne hier für drei Jahre."
+      - "Wir arbeiten mit PowerShell für zehn Jahre."
+    not:
+      - "Ich wohne hier seit drei Jahren."
+      - "Ich fahre für drei Wochen nach Rom."
+
+  - id: das-klopft
+    name: "'Das klopft'"
+    origins: [nl]
+    how: "'Das klopft' nach dem niederländischen 'dat klopt', wo Deutsch 'das stimmt' sagt."
+    pattern: '\bdas\s+klopft(?:\s+(?:nicht|schon|genau|also|ja|doch|wohl))?\s*[.!]'
+    examples:
+      - "Das klopft nicht."
+      - "Ja, das klopft."
+    not:
+      - "Das stimmt nicht."
+      - "Es klopft an der Tür."
+      - "Es klopft, und niemand öffnet."
+
+  - id: sinn-in
+    name: "'Sinn in etwas haben'"
+    origins: [nl]
+    how: "'Sinn in etwas haben' nach dem niederländischen 'zin hebben in', wo Deutsch 'Lust auf etwas haben' sagt."
+    pattern: '\b(?:habe|hast|hat|haben|hatte|hatten)\s+(?:du\s+|ihr\s+|wir\s+|ich\s+)?(?:keinen\s+|wenig\s+|viel\s+|richtig\s+|echt\s+)?sinn\s+in\s+(?:ein(?:e|en)?\s+|die\s+|den\s+|das\s+)?[a-zäöü]+\s*[.!?]'
+    examples:
+      - "Ich habe keinen Sinn in Pizza."
+      - "Hast du Sinn in einen Kaffee?"
+    not:
+      - "Ich habe keine Lust auf Pizza."
+      - "Es hat keinen Sinn, das zu wiederholen."
+      - "Das hat Sinn in diesem Fall."

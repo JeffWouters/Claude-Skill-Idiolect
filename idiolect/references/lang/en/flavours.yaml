@@ -2,11 +2,11 @@
 # Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
 # (langpack.py check). Keep them narrow: a detector that fires on native English is worse than none.
 # origins: ISO 639-1 codes of the languages the trace usually comes from.
-version: "1.0"
+version: "1.1"
 detectors:
   - id: since-duration
     name: "'since' with a length of time"
-    origins: [de, nl, fr, es, it]
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi"]
     how: "'since' before a length of time where English says 'for' (German seit, Dutch sinds, French depuis)."
     pattern: '\bsince\s+(?:\d+|a|one|two|three|four|five|six|seven|eight|nine|ten|twelve|twenty|many|several|a few|some)\s+(?:years?|months?|weeks?|days?|hours?|decades?)\b(?!\s+(?:ago|now|before|earlier|back))'
     examples:
@@ -19,7 +19,7 @@ detectors:
 
   - id: present-since
     name: "Present tense with 'since'"
-    origins: [de, nl, fr, es, it]
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi"]
     how: "A present tense with 'since' where English uses the present perfect ('I am here since 2010' for 'I have been here since 2010')."
     pattern: '\b(?:I am|I''m|we are|we''re|he is|she is|they are|I work|we work|I live|we live|I know|we know)\s+(?:(?:here|there|in \w+|at \w+|with \w+|him|her|them|it)\s+)?since\b'
     examples:
@@ -32,7 +32,7 @@ detectors:
 
   - id: uncountable-plural
     name: "Plural of an uncountable noun"
-    origins: [de, nl, fr, es, it]
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi", "zh", "ja", "ko", "ar"]
     how: "A plural on a noun English does not count: informations, advices, feedbacks, softwares, trainings, furnitures."
     pattern: '\b(?:informations|advices|feedbacks|softwares|hardwares|equipments|furnitures|knowledges|homeworks|luggages|trainings)\b'
     examples:
@@ -46,7 +46,7 @@ detectors:
 
   - id: else-opener
     name: "'Else,' to open a sentence"
-    origins: [de, nl]
+    origins: ["de", "nl", "sv", "no", "da"]
     how: "'Else,' opens a sentence where English says 'Otherwise,' (German sonst, Dutch anders)."
     pattern: '(?:^|[.!?]\s+)else,\s'
     examples:
@@ -59,7 +59,7 @@ detectors:
 
   - id: adverb-before-object
     name: "Adverb between verb and object"
-    origins: [de, nl]
+    origins: ["de", "nl", "sv", "no", "da", "fr", "es", "it", "pt"]
     how: "An adverb (already, also, still, often, always, never, really, now) sits between the verb and its object, as German and Dutch order it: 'you know already the name' for 'you already know the name'."
     pattern: '\b(?:know|knows|have|has|use|uses|need|needs|see|sees|find|finds|like|likes|want|wants|read|reads|get|gets|call|calls|run|runs|love|loves)\s+(?:already|also|still|often|always|never|really|now)\s+(?:the|a|an|this|that|these|those|your|my|his|her|its|our|their|some)\b'
     examples:
@@ -86,7 +86,7 @@ detectors:
 
   - id: explain-me
     name: "'explain me'"
-    origins: [de, nl, fr, es, it]
+    origins: [de, nl, fr, es, it, pt, pl, ru, uk, tr, ar, hi]
     how: "'explain' followed directly by the person, without 'to': 'explain me how'."
     pattern: '\bexplain(?:s|ed|ing)?\s+(?:me|us)\b'
     examples:
@@ -98,7 +98,7 @@ detectors:
 
   - id: discuss-about
     name: "'discuss about'"
-    origins: [fr, es, it, nl, de]
+    origins: [fr, es, it, nl, de, pt, pl, ru, uk, tr, ar, hi, zh]
     how: "'discuss about' where English discusses a thing directly (French discuter de)."
     pattern: '\bdiscuss(?:es|ed|ing)?\s+about\b'
     examples:
@@ -109,7 +109,7 @@ detectors:
 
   - id: depend-of
     name: "'depend of'"
-    origins: [fr, es, it, nl]
+    origins: [fr, es, it, nl, pt]
     how: "'depend of' where English says 'depend on' (French dépendre de, Dutch afhangen van)."
     pattern: '\bdepend(?:s|ed|ing|ent)?\s+of\b'
     examples:
@@ -120,7 +120,7 @@ detectors:
 
   - id: be-agree
     name: "'be agree'"
-    origins: [fr, es, it]
+    origins: [fr, es, it, pt, ru, uk, tr, ar]
     how: "'am agree' or 'are agree' (French être d'accord, Spanish estar de acuerdo)."
     pattern: '\b(?:am|are|is|I''m|we''re|you''re|they''re)\s+(?:not\s+)?agree\b'
     examples:
@@ -132,7 +132,7 @@ detectors:
 
   - id: have-age
     name: "'have' for age"
-    origins: [fr, es, it]
+    origins: [fr, es, it, pt, ar]
     how: "'have' with a number of years for age (French avoir 30 ans): 'I have 30 years'."
     pattern: '\b(?:I|he|she|we|they|you)\s+(?:have|has|had)\s+(?:\d{1,2}|twenty|thirty|forty|fifty|sixty|seventy)\s+years\b(?!\s+(?:of|ago|to|in|left|before|since|experience|behind|ahead))'
     examples:
@@ -155,7 +155,7 @@ detectors:
 
   - id: learn-for-teach
     name: "'learn' for 'teach'"
-    origins: [nl]
+    origins: ["nl", "sv", "no", "da", "pl", "ru", "uk"]
     how: "'learn someone to' where English says 'teach' (Dutch iemand iets leren)."
     pattern: '\blearn(?:s|ed|t|ing)?\s+(?:me|you|him|her|us|them)\s+(?:to|how)\b'
     examples:
@@ -167,7 +167,7 @@ detectors:
 
   - id: in-the-weekend
     name: "'in the weekend'"
-    origins: [nl]
+    origins: ["nl", "sv", "no", "da"]
     how: "'in the weekend' where British English says 'at the weekend' and American 'on the weekend' (Dutch in het weekend). New Zealand English says it too."
     pattern: '\bin the weekend\b'
     examples:
@@ -199,7 +199,7 @@ detectors:
 
   - id: actual-for-current
     name: "'actual' for 'current'"
-    origins: [de, nl, fr, es, it]
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "sv", "no", "da"]
     how: "'actual' meaning current or latest (German aktuell, Dutch actueel, French actuel): 'the actual version'."
     pattern: '\bthe actual (?:version|release|edition|build|trends?)\b'
     examples:
@@ -210,7 +210,7 @@ detectors:
 
   - id: make-a-photo
     name: "'make a photo'"
-    origins: [de, nl, es, it]
+    origins: [de, nl, es, it, pl, ru, uk]
     how: "'make a photo' for 'take a photo' (German ein Foto machen, Dutch een foto maken)."
     pattern: '\b(?:make|makes|making|made)\s+(?:a|some|the|this|that|a few)\s+(?:photos?|pictures?)\b'
     examples:
@@ -220,7 +220,7 @@ detectors:
 
   - id: more-plus-short-adjective
     name: "'more' with a short adjective"
-    origins: [de, nl, fr, es, it]
+    origins: [de, nl, fr, es, it, pt, pl, ru, uk, tr, ar]
     how: "'more' before a short adjective that English compares with -er: 'more easy', 'more fast'."
     pattern: '(?<!and )\bmore (?:easy|fast|quick|cheap|big|small|short|long|nice|hard)\b(?=\s*(?:than\b|to\b|[.,;:!?)]|$))'
     examples:
@@ -230,3 +230,287 @@ detectors:
       - "This way it is easier to read."
       - "It became more and more easy."
       - "We need more short sentences."
+
+  - id: how-is-it-called
+    name: "'How is it called?'"
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "sv", "no", "da"]
+    how: "'How is it called' where English asks 'What is it called' (German wie heißt, Dutch hoe heet, French comment ça s'appelle, Polish jak to się nazywa)."
+    pattern: '\bhow (?:is (?:it|this|that|he|she|the \w+) called|it is called)\b'
+    examples:
+      - "How is it called in PowerShell?"
+      - "I never know how it is called."
+    not:
+      - "What is it called in PowerShell?"
+      - "How is it calculated?"
+
+  - id: what-means
+    name: "'What means ...?'"
+    origins: [de, nl, fr, es, it, pt, pl, ru, uk, sv, tr]
+    how: "'What means X?' without 'does' (German was bedeutet, Russian что значит): 'What means this error?'."
+    pattern: '(?<!by )(?<!these )(?<!those )(?<!other )(?<!all )\bwhat means\b(?!\s+(?:of|to|by|are|were|do|did|have|had)\b)'
+    examples:
+      - "What means this error?"
+      - "Nobody told me what means 'idempotent'."
+    not:
+      - "What does this error mean?"
+      - "By what means did they get in?"
+      - "What means of transport do you use?"
+
+  - id: do-a-mistake
+    name: "'do a mistake'"
+    origins: [fr, es, it, pt, pl, ru, uk, ar, tr]
+    how: "'do a mistake' where English says 'make a mistake' (French faire une erreur, Russian сделать ошибку)."
+    pattern: '\b(?:do|does|did|doing|done)\s+(?:a|many|several|some|no|any|a lot of|lots of|the same|this|that)\s+mistakes?\b(?!\s+(?:happen|occur|get|go|matter|cost|show|look|mean)\b)'
+    examples:
+      - "Everyone did a mistake once."
+      - "You will do many mistakes at first."
+    not:
+      - "Everyone made a mistake once."
+      - "Did a mistake happen here?"
+
+  - id: depend-from
+    name: "'depend from'"
+    origins: [pl, ru, uk, it, de]
+    how: "'depend from' where English says 'depend on' (Polish zależeć od, Russian зависеть от, Italian dipendere da)."
+    pattern: '\bdepend(?:s|ed|ing)?\s+from\b'
+    examples:
+      - "It depends from the version."
+    not:
+      - "It depends on the version."
+      - "They are independent from each other."
+
+  - id: according-to-me
+    name: "'according to me'"
+    origins: [fr, es, it, pt, tr, hi, ar]
+    how: "'according to me' for 'in my opinion' (French selon moi, Spanish según yo, Italian secondo me; common in Indian English)."
+    pattern: '\baccording to (?:me|us)\b'
+    examples:
+      - "According to me, this is the better way."
+    not:
+      - "In my opinion, this is the better way."
+      - "According to the docs, this is the better way."
+
+  - id: question-to
+    name: "'a question to you'"
+    origins: [pl, ru, uk, de, cs]
+    how: "'have a question to someone' where English says 'for' (Polish pytanie do ciebie, Russian вопрос к тебе, German Frage an dich)."
+    pattern: '\b(?:have|has|had|got)\s+(?:a|one|some|two|a few|another)\s+questions?\s+to\s+(?:you|him|her|them)\b'
+    examples:
+      - "I have a question to you about the module."
+      - "We have one question to him."
+    not:
+      - "I have a question for you about the module."
+      - "I put the question to them in the meeting."
+
+  - id: worth-to
+    name: "'worth to' with a verb"
+    origins: ["pl", "ru", "uk", "de", "nl", "sv", "no", "da", "fr"]
+    how: "'it is worth to do' where English says 'worth doing' (Polish warto, Russian стоит, German es lohnt sich zu)."
+    pattern: '\b(?:is|are|was|were|it''s|isn''t|be)\s+(?:really\s+|definitely\s+|also\s+)?worth\s+to\s+\w+'
+    examples:
+      - "It is worth to read the release notes."
+      - "It's really worth to try."
+    not:
+      - "It is worth reading the release notes."
+      - "It was worth it to me."
+
+  - id: double-comparative
+    name: "'more better'"
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi", "zh", "ja", "ko", "ar"]
+    how: "'more' before a comparative that already ends in -er: 'more better', 'more easier'."
+    pattern: '\bmore (?:better|worse|easier|faster|quicker|bigger|smaller|cheaper|simpler|harder|safer|shorter|longer|older|newer)\b(?!\s+(?:and|or)\s+(?:more\s+)?\w+er\b)'
+    examples:
+      - "The new version is more better."
+      - "It is more easier this way."
+    not:
+      - "The new version is much better."
+      - "We need more than faster disks."
+
+  - id: suggest-someone-to
+    name: "'suggest you to'"
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi", "zh", "ja", "ko", "ar"]
+    how: "'suggest someone to do' where English says 'suggest that someone do' or 'suggest doing' (French suggérer à quelqu'un de, Chinese 建议你)."
+    pattern: '\bsuggest(?:s|ed|ing)?\s+(?:you|him|her|them|us|me)\s+to\s+(?!the\b|a\b|an\b|this\b|that\b|my\b|your\b|his\b|her\b|our\b|their\b)\w+'
+    examples:
+      - "I suggest you to restart the service."
+      - "He suggested me to use the pipeline."
+    not:
+      - "I suggest you restart the service."
+      - "He suggested it to me."
+      - "I suggest them to the team."
+
+  - id: looking-forward-to-infinitive
+    name: "'looking forward to see'"
+    origins: ["de", "nl", "fr", "es", "it", "pt", "pl", "ru", "uk", "tr", "sv", "no", "da", "hi", "zh", "ja", "ko", "ar"]
+    how: "'look forward to' with a bare verb where English uses -ing: 'looking forward to see you'."
+    pattern: '\blook(?:s|ed|ing)?\s+forward\s+to\s+(?:see|meet|hear|work|read|talk|visit|welcome|receive|get|join|speak|discuss|attend)\b'
+    examples:
+      - "I am looking forward to see you in Amsterdam."
+      - "We look forward to hear from you."
+    not:
+      - "I am looking forward to seeing you in Amsterdam."
+      - "We look forward to the conference."
+
+  - id: make-a-question
+    name: "'make a question'"
+    origins: [es, pt, it]
+    how: "'make a question' where English says 'ask a question' (Spanish hacer una pregunta, Portuguese fazer uma pergunta)."
+    pattern: '\b(?:make|makes|made|making)\s+(?:a|an|the|this|that|some|many|one|two|a few|several)\s+questions?\b'
+    examples:
+      - "Can I make a question?"
+      - "She made some questions about the licence."
+    not:
+      - "Can I ask a question?"
+      - "She asked some questions about the licence."
+
+  - id: assist-for-watch
+    name: "'assist' for 'watch'"
+    origins: [pt]
+    how: "'assist' a film or game where English says 'watch' (Portuguese assistir)."
+    pattern: '\bassist(?:s|ed|ing)?\s+(?:a|the|this|that|some)\s+(?:film|movie|show|series|game|match|video)\b'
+    examples:
+      - "Yesterday we assisted a movie about hackers."
+    not:
+      - "Yesterday we watched a movie about hackers."
+      - "The plugin assisted the user."
+
+  - id: married-with
+    name: "'married with' a person"
+    origins: [es, pt, it, fr, ru, uk, ar]
+    how: "'married with' a person where English says 'married to' (Spanish casado con, Italian sposato con)."
+    pattern: '\bmarried\s+with\s+(?:a|an|my|his|her|the|him|me|someone|somebody)\b(?!\s+(?:child|children|kids|son|sons|daughter|daughters|baby|babies)\b)'
+    examples:
+      - "He is married with a nurse."
+      - "She was married with him for ten years."
+    not:
+      - "He is married to a nurse."
+      - "Married with children, he rarely travels."
+      - "married with two kids"
+
+  - id: open-close-light
+    name: "'open the light'"
+    origins: [zh, ja, ko, fr, es, it, pt, ar, tr]
+    how: "'open' or 'close' a light or device where English says 'turn on' or 'switch off' (Chinese 开灯, French ouvrir la lumière)."
+    pattern: '\b(?:open|opens|opened|opening|close|closes|closed|closing)\s+the\s+(?:light|lights|lamp|tv|television|radio|air ?con(?:ditioner)?|air conditioning|fan)\b'
+    examples:
+      - "Please open the light."
+      - "I closed the TV and went to bed."
+    not:
+      - "Please turn on the light."
+      - "I switched off the TV and went to bed."
+
+  - id: although-but
+    name: "'Although ..., but'"
+    origins: [zh, ja, ko, vi, ar, hi]
+    how: "'although' and 'but' in one sentence, as Chinese pairs 虽然 with 但是: 'Although it is slow, but it works'."
+    pattern: '\b(?:although|though|even though)\b[^.!?;:\n]{1,100},\s*but\b'
+    examples:
+      - "Although it is slow, but it works."
+      - "Even though I tried twice, but it failed."
+    not:
+      - "Although it is slow, it works."
+      - "It is slow, but it works."
+
+  - id: because-so
+    name: "'Because ..., so'"
+    origins: [zh, ja, ko, vi]
+    how: "'because' and 'so' in one sentence, as Chinese pairs 因为 with 所以: 'Because it failed, so I restarted it'."
+    pattern: '(?:^|[.!?]\s+)because\b[^.!?;:\n]{1,100},\s*so\b'
+    examples:
+      - "Because it failed, so I restarted it."
+      - "Because the file was locked, so nothing happened."
+    not:
+      - "Because it failed, I restarted it."
+      - "It failed, so I restarted it."
+
+  - id: very-plus-verb
+    name: "'very' with a verb"
+    origins: [zh, ja, ko]
+    how: "'very' before a verb where English says 'very much' or 'really' (Chinese 很喜欢): 'I very like it'."
+    pattern: '\b(?:I|we|you|they|he|she)\s+very\s+(?:like|likes|liked|love|loves|loved|want|wants|wanted|hope|hopes|enjoy|enjoys|enjoyed|appreciate|appreciated)\b'
+    examples:
+      - "I very like this module."
+      - "We very appreciate your help."
+    not:
+      - "I really like this module."
+      - "We very much appreciate your help."
+
+  - id: challenge-to
+    name: "'challenge to' for 'try'"
+    origins: [ja, ko]
+    how: "'challenge to' do something where English says 'try' or 'take on' (Japanese チャレンジする)."
+    pattern: '\b(?:I|we|you|they|he|she)\s+(?:will\s+|want to\s+|wanted to\s+)?challeng(?:e|es|ed)\s+to\s+(?!a\b|an\b|the\b)\w+'
+    examples:
+      - "This year I challenged to write my own module."
+      - "We will challenge to automate everything."
+    not:
+      - "This year I tried to write my own module."
+      - "He challenged me to a duel."
+      - "They challenged to a duel."
+
+  - id: do-the-needful
+    name: "'do the needful'"
+    origins: [hi]
+    how: "'do the needful' for 'do what is needed', from Indian English."
+    pattern: '\bdo(?:ing)?\s+the\s+needful\b'
+    examples:
+      - "Kindly do the needful."
+    not:
+      - "Please do what is needed."
+
+  - id: revert-for-reply
+    name: "'revert' for 'reply'"
+    origins: [hi]
+    how: "'revert to someone' meaning 'reply to someone', from Indian English."
+    pattern: '\brevert(?:s|ed|ing)?\s+(?:back\s+)?to\s+(?:me|you|us|him|her|them)\b'
+    examples:
+      - "Please revert to me by Friday."
+      - "I will revert back to you soon."
+    not:
+      - "Please reply to me by Friday."
+      - "Revert to the previous version."
+
+  - id: south-asian-coinages
+    name: "Indian English words"
+    origins: [hi]
+    how: "Words formed in Indian English: 'prepone' (move earlier), 'updation', 'timepass', 'out of station' (away from town)."
+    pattern: '\b(?:prepone[ds]?|preponing|updation|timepass|out of station)\b'
+    examples:
+      - "Can we prepone the meeting?"
+      - "The updation of records is pending."
+      - "He is out of station this week."
+    not:
+      - "Can we move the meeting forward?"
+      - "The station is out of order."
+
+  - id: cousin-brother
+    name: "'cousin brother'"
+    origins: [hi]
+    how: "'cousin brother' or 'cousin sister' for a male or female cousin, from Indian English."
+    pattern: '\bcousin[- ](?:brother|sister)s?\b'
+    examples:
+      - "My cousin brother works in Pune."
+    not:
+      - "My cousin works in Pune."
+
+  - id: itself-after-time
+    name: "'today itself'"
+    origins: [hi]
+    how: "'itself' after a time word for emphasis ('today itself' for 'this very day'), from Indian English."
+    pattern: '\b(?:today|tomorrow|yesterday|now|tonight|this morning|this evening|this week) itself\b'
+    examples:
+      - "I will send it today itself."
+    not:
+      - "I will send it today."
+      - "The task itself was quiet."
+
+  - id: passed-out-for-graduated
+    name: "'passed out' for 'graduated'"
+    origins: [hi]
+    how: "'passed out of college' meaning graduated, from Indian English."
+    pattern: '\bpass(?:ed)?\s+out\s+(?:of|from)\s+(?:college|university|school|engineering|the (?:college|university|institute)|iit|nit|iim)\b'
+    examples:
+      - "I passed out of college in 2015."
+    not:
+      - "I graduated from college in 2015."
+      - "He passed out from exhaustion."

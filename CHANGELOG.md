@@ -9,8 +9,8 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 - **Language flavour** (spec §34): every learn detects traces of another language in the writer's
   prose (German word order in English, a Dutch preposition, a French false friend), with detectors in
-  the English pack for Dutch, German, French, Spanish and Italian writers and in the Dutch pack for
-  English writers, and the model for any other language. The profile keeps, per language, how each
+  the English pack for Dutch, German, French, Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian, Danish, Chinese, Japanese, Korean and Arabic speakers, and Indian English, packs for German (traces of English and Dutch), French and
+  Spanish (traces of English) and Dutch (traces of English), and the model for any other language. The profile keeps, per language, how each
   trace is recognised, examples, and how often the writer shows it; `write` uses it at that rate and
   `check` fails a draft that goes beyond the writer's highest rate. `flavour=off` writes without it.
   New store file `<lang>.flavour.yaml` (schema flavour v1); `flavour.py detect` runs the detectors

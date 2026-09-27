@@ -1,0 +1,86 @@
+# Language flavour detectors for French (spec §34.2): traces of another language in French prose.
+# Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
+# (langpack.py check). Keep them narrow: a detector that fires on native French is worse than none.
+version: "1.0"
+detectors:
+  - id: faire-du-sens
+    name: "'faire du sens'"
+    origins: [en]
+    how: "'faire du sens' d'après 'make sense', là où le français dit 'avoir du sens' ou 'être logique'."
+    pattern: '\bf(?:ait|ais|aire|aisait|aisaient|ont|era)\s+(?:du|beaucoup de|plus de|pas de|peu de)\s+sens\b'
+    examples:
+      - "Ça fait du sens."
+      - "Cela ne fait pas de sens pour moi."
+    not:
+      - "Ça a du sens."
+      - "C'est logique."
+
+  - id: adresser-un-probleme
+    name: "'adresser un problème'"
+    origins: [en]
+    how: "'adresser un problème' d'après 'address a problem', là où le français dit 'traiter' ou 's'attaquer à'."
+    pattern: '\badress(?:er|e|es|ons|ez|ent|é|ée|és|ées|ait|aient)\s+(?:un|le|les|ce|ces|cette|la|des|ses|nos|vos)\s+(?:problèmes?|questions?|enjeux?|défis?|sujets?|préoccupations?|besoins?)\b'
+    examples:
+      - "Nous devons adresser ce problème."
+      - "Le rapport adresse les enjeux du projet."
+    not:
+      - "Nous devons traiter ce problème."
+      - "Il adresse une lettre au ministre."
+
+  - id: sur-une-base
+    name: "'sur une base quotidienne'"
+    origins: [en]
+    how: "'sur une base quotidienne (régulière)' d'après 'on a daily basis', là où le français dit 'chaque jour' ou 'régulièrement'."
+    pattern: '\bsur\s+une\s+base\s+(?:quotidienne|hebdomadaire|mensuelle|annuelle|régulière|journalière)\b'
+    examples:
+      - "Je l'utilise sur une base quotidienne."
+    not:
+      - "Je l'utilise chaque jour."
+      - "Sur cette base, nous avons décidé."
+
+  - id: je-suis-ans
+    name: "'je suis trente ans'"
+    origins: [en]
+    how: "'être' avec l'âge d'après 'I am thirty', là où le français dit 'avoir trente ans'."
+    pattern: '\b(?:je\s+suis|il\s+est|elle\s+est|tu\s+es|nous\s+sommes)\s+(?:\d{1,2}|vingt|trente|quarante|cinquante|soixante)(?:[- ]\w+)?\s+ans\b'
+    examples:
+      - "Je suis trente ans."
+      - "Elle est 25 ans."
+    not:
+      - "J'ai trente ans."
+      - "Il est parti il y a trente ans."
+
+  - id: je-suis-faim
+    name: "'je suis faim'"
+    origins: [en]
+    how: "'être' avec faim, soif ou peur d'après 'I am hungry', là où le français dit 'avoir faim'."
+    pattern: '\b(?:je\s+suis|tu\s+es|il\s+est|elle\s+est|nous\s+sommes|vous\s+êtes|ils\s+sont|j''étais)\s+(?:très\s+|si\s+)?(?:faim|soif|peur|sommeil)\b'
+    examples:
+      - "Je suis faim."
+      - "Nous sommes très soif."
+    not:
+      - "J'ai faim."
+      - "Il est mort de peur."
+
+  - id: supporter-pour-soutenir
+    name: "'supporter' pour 'soutenir'"
+    origins: [en]
+    how: "'supporter' un projet ou une idée d'après 'support', là où le français dit 'soutenir'."
+    pattern: '\bsupport(?:er|e|es|ons|ez|ent|é|ée|és|ées|ait|aient)\s+(?:un|une|le|la|les|ce|cette|ces|notre|votre|leur|nos|vos|leurs)\s+(?:projets?|initiatives?|idées?|causes?|candidats?|candidatures?|propositions?|décisions?|efforts?|démarches?)\b'
+    examples:
+      - "Nous supportons ce projet."
+      - "Elle a supporté la proposition."
+    not:
+      - "Nous soutenons ce projet."
+      - "Il ne supporte pas le bruit."
+
+  - id: appliquer-pour
+    name: "'appliquer pour un poste'"
+    origins: [en]
+    how: "'appliquer pour' un poste d'après 'apply for', là où le français dit 'postuler à'."
+    pattern: '\bappliqu(?:er|e|es|ons|ez|ent|é|ée|ais|ait)\s+(?:pour|à)\s+(?:un|une|le|la|ce|cette)\s+(?:poste|emploi|job|bourse|visa|programme|prêt)\b'
+    examples:
+      - "J'ai appliqué pour un poste chez eux."
+    not:
+      - "J'ai postulé à un poste chez eux."
+      - "On applique la règle à ce poste."

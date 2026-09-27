@@ -753,9 +753,12 @@ the house style guide.
    leading or trailing spaces, a duplicate line, or a contraction pattern that does not compile.
 3. A slot in a language without a pack is measured on the 11 metrics that need no list; a slot whose
    pack is not `calibrated` gets the warning "the thresholds were calibrated on English, not on
-   <name>" in the kit, and the check report's `message` notes it.
+   <name>" in the kit, and the check report's `message` notes it. A pack without the word lists (one
+   that only holds flavour detectors) adds "the <name> pack has no word lists yet: measured on the 11
+   metrics that need none".
 4. English (`en`, calibrated) keeps the lists it has always had. Dutch (`nl`, not calibrated) ships
-   with its lists and `assets/starter-rules/nl.yaml`.
+   with its lists and `assets/starter-rules/nl.yaml`. German (`de`), French (`fr`) and Spanish (`es`)
+   ship with flavour detectors only (spec §34.2).
 
 ## 33. Learning from what the writer publishes
 
@@ -824,8 +827,13 @@ the house style guide.
 2. **Detectors.** A pack may hold `flavours.yaml`: `version` and `detectors`, each `{id, name, origins,
    how, pattern, examples, not}`. Patterns are case-insensitive and multi-line. `langpack.py check` fails
    a detector whose pattern does not compile, misses one of its `examples`, or matches one of its `not`
-   lines, and an id used twice. English ships detectors for Dutch, German, French, Spanish and Italian
-   writers; Dutch for English writers.
+   lines, and an id used twice. English ships 43 detectors, for writers whose first language is
+   Dutch, German, French, Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian, Danish, Chinese, Japanese, Korean and Arabic speakers, and for Indian English;
+   German 9 (traces of English and Dutch), Dutch 8, French 7 and Spanish 9 (traces of English). Each
+   pack's detectors fire less than 5 times per 100,000 words on native prose in that language
+   (`tests/test_flavour.py`, on the fixture authors and `evals/fixtures/native-de`, `-fr`, `-es`).
+   Origins are quoted where YAML 1.1 would read them as booleans (`"no"` for Norwegian); the store
+   reads YAML 1.2, where they are strings either way.
 3. **Always.** `learn.py next` names `flavour P/L` for every profile and language whose slots the run
    measured, until `flavour-apply` has run for it.
 4. **Sample** (`learn.py flavour-sample --profile P --lang L`): every pack detector (the pack of the

@@ -23,11 +23,32 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # ---------- the packs ----------
 
+PACKS = ("en", "nl", "de", "fr", "es")
+
+
 def test_the_packs_detectors_pass_their_own_examples_and_counter_examples():
-    assert langpack.check("en") == [] and langpack.check("nl") == []
-    assert len(flavour.detectors("en")) >= 15 and len(flavour.detectors("nl")) >= 5
-    for d in flavour.detectors("en") + flavour.detectors("nl"):
-        assert d["examples"] and d["not"], d["id"]
+    for code in PACKS:
+        assert langpack.check(code) == [], code
+        assert len(flavour.detectors(code)) >= 7, code
+        for d in flavour.detectors(code):
+            assert d["examples"] and d["not"], d["id"]
+    assert len(flavour.detectors("en")) >= 40
+
+
+def test_english_detectors_cover_the_widely_spoken_first_languages():
+    origins = {o for d in flavour.detectors("en") for o in d["origins"]}
+    for code in ("de", "nl", "fr", "es", "it", "pt", "pl", "ru", "tr", "sv", "no", "da", "hi", "zh", "ja", "ar"):
+        assert code in origins, code
+    # Norwegian is the string "no", never YAML 1.1's false
+    assert all(isinstance(o, str) for d in flavour.detectors("en") for o in d["origins"])
+
+
+def test_german_french_and_spanish_packs_detect_english_traces():
+    assert flavour.detect_text("de", "Wir müssen eine Entscheidung machen. Das ist, warum.")["found"]
+    assert flavour.detect_text("fr", "Ça fait du sens. Je suis faim.")["found"]
+    assert flavour.detect_text("es", "Eso hace sentido. La reunión toma lugar mañana.")["found"]
+    assert {o for c in ("fr", "es") for d in flavour.detectors(c) for o in d["origins"]} == {"en"}
+    assert {o for d in flavour.detectors("de") for o in d["origins"]} == {"en", "nl"}
 
 
 def test_a_broken_detector_is_reported(tmp_path, monkeypatch):
@@ -46,15 +67,18 @@ def test_a_broken_detector_is_reported(tmp_path, monkeypatch):
         assert part in problems, part
 
 
-@pytest.mark.parametrize("author", ["katharine-fullerton-gerould", "robert-cortes-holliday",
-                                    "samuel-mcchord-crothers", "synthetic-noor", "synthetic-idris"])
-def test_native_english_barely_triggers_the_detectors(author):
+@pytest.mark.parametrize("author,lang", [("katharine-fullerton-gerould", "en"), ("robert-cortes-holliday", "en"),
+                                         ("samuel-mcchord-crothers", "en"), ("synthetic-noor", "en"),
+                                         ("synthetic-idris", "en"), ("native-de", "de"), ("native-fr", "fr"),
+                                         ("native-es", "es"), ("synthetic-sanne", "nl")])
+def test_native_prose_barely_triggers_the_detectors(author, lang):
+    """The false-alarm test: native writers' texts (spec §34.2). Under 5 per 100,000 words."""
     words = hits = 0
     for f in glob.glob(str(FIX / author / "[0-9]*.md")):
-        t = pathlib.Path(f).read_text(encoding="utf-8")
+        t = pathlib.Path(f).read_text(encoding="utf-8").split("\n---\n", 1)[-1]
         words += count_words(t)
-        hits += sum(x["count"] for x in flavour.detect_text("en", t)["found"])
-    assert hits * 1000 / words < 0.05, (author, hits, words)
+        hits += sum(x["count"] for x in flavour.detect_text(lang, t)["found"])
+    assert words > 1000 and hits * 1000 / words < 0.05, (author, hits, words)
 
 
 def test_detect_names_what_it_finds_in_any_text():

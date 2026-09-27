@@ -23,7 +23,8 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > imports a style guide as rulings, and leans a draft warmer, firmer, more formal and so on within the
 > writer's own range (`tone=`; with two tones, the first named decides any measure they pull both
 > ways).
-> English and Dutch ship as language packs (Dutch with its own starter rules), and Idiolect can keep
+> English and Dutch ship as language packs (Dutch with its own starter rules); German, French and
+> Spanish ship with language-flavour detectors. Idiolect can keep
 > its drafts and learn from the edited versions the writer publishes (`published`, scan by hand or
 > as a scheduled task).
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;

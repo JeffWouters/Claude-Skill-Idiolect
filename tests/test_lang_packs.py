@@ -48,7 +48,7 @@ def test_english_is_a_pack_with_its_lists_unchanged():
 
 
 def test_every_shipped_pack_passes_the_checker():
-    assert langpack.packs() == ["en", "nl"]
+    assert langpack.packs() == ["de", "en", "es", "fr", "nl"]
     for code in langpack.packs():
         assert langpack.check(code) == [], code
     listed = {p["code"]: p for p in langpack.listing()}
@@ -76,7 +76,10 @@ def test_dutch_is_measured_on_all_fourteen_metrics():
     assert len(v) == 14
     assert v["hedges_per_1k"] > 0 and v["contractions_per_1k"] > 0 and v["conjunction_opener_share"] > 0
     assert measure.pack_warning("nl") == "the thresholds were calibrated on English, not on Dutch"
-    assert measure.pack_warning("fr").startswith("no language pack for 'fr': measured on the 11 metrics")
+    assert measure.pack_warning("pt").startswith("no language pack for 'pt': measured on the 11 metrics")
+    # a pack with flavour detectors but no word lists yet says both (spec §32, §34)
+    assert measure.pack_warning("de") == ("the thresholds were calibrated on English, not on German; the German "
+                                          "pack has no word lists yet: measured on the 11 metrics that need none")
 
 
 def test_the_dutch_starter_set_mirrors_the_english_one_and_leaves_plain_dutch_alone():
