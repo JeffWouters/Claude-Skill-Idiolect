@@ -119,6 +119,20 @@
           "minimum": 0,
           "maximum": 1,
           "description": "Share of the examples in the blend: words / (words + 300)."
+        },
+        "tone": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "warm",
+              "cool",
+              "firm",
+              "soft",
+              "formal",
+              "casual"
+            ]
+          },
+          "description": "Tones asked for (spec §31): targets moved within the writer's own range."
         }
       },
       "additionalProperties": false

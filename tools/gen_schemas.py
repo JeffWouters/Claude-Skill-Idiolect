@@ -417,7 +417,9 @@ check_report = {
                     "properties": {"examples": {"type": "array", "items": {"type": "string"}},
                                    "words": {"type": "integer", "minimum": 0},
                                    "weight": {"type": "number", "minimum": 0, "maximum": 1,
-                                              "description": "Share of the examples in the blend: words / (words + 300)."}},
+                                              "description": "Share of the examples in the blend: words / (words + 300)."},
+                                   "tone": {"type": "array", "items": {"enum": ["warm", "cool", "firm", "soft", "formal", "casual"]},
+                                            "description": "Tones asked for (spec §31): targets moved within the writer's own range."}},
                     "additionalProperties": False},
         "bunched": {"type": "array", "description": "Habits used far above the writer's rate in one paragraph "
                     "(design: Guardrails, No caricature). A revision trigger, not a fail by itself.",

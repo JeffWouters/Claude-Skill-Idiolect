@@ -1,6 +1,6 @@
 """check: compare a text with the writer's fingerprint (spec §17). Read-only; takes no lock.
 
-    python3 check.py --store S --file DRAFT [--brief FILE] [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
+    python3 check.py --store S --file DRAFT [--brief FILE] [--tone T] [--profile P] [--lang L] [--type T] [--facet k=v] [--json]
 
 Measures against the targets for this piece: the slot's fingerprint blended with the example passages
 the brief selects, exactly as kit.py does with the same brief (without --brief, the text itself picks
@@ -121,7 +121,7 @@ def flag_metric(name, draft, writer, fp_metric):
     return "ok", ratio
 
 
-def check(store, text, profile=None, facets=None, brief=None):
+def check(store, text, profile=None, facets=None, brief=None, tone=None):
     report = {"schema_version": 1}
     try:
         prof, slot, _ = resolve.resolve(store, profile, facets)
@@ -140,6 +140,7 @@ def check(store, text, profile=None, facets=None, brief=None):
     n = count_words(measured)
     picks = kitmod.pick_examples(kitmod.slot_examples(store, prof, slot), text if brief is None else brief, lang)
     targets, t_words, t_weight = kitmod.blend(fp["metrics"], [e["text"] for e in picks], lang)
+    targets, _ = kitmod.apply_tone(store, prof, slot, targets, tone)     # the same targets as the kit
     vals = measure.metrics(measured, lang)
     rows, flagged = [], 0
     for m, v in fp["metrics"].items():
@@ -177,7 +178,8 @@ def check(store, text, profile=None, facets=None, brief=None):
     broken = sorted({x["lesson"] for x in ruling_lines})
     report.update({"status": status, "profile": prof, "slot": slot, "confidence": conf, "flagged": flagged,
                    "fail_threshold": threshold, "metrics": rows,
-                   "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight}})
+                   "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight,
+                               **({"tone": kitmod.parse_tone(tone)} if tone else {})}})
     if lines:
         report["flagged_lines"] = lines
     if bunches:
@@ -227,6 +229,7 @@ def main(argv=None):
     ap.add_argument("--lang")
     ap.add_argument("--type")
     ap.add_argument("--facet", action="append", default=[])
+    ap.add_argument("--tone", help="the same tone given to kit.py")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     facets = {"lang": a.lang, "type": a.type}
@@ -238,7 +241,7 @@ def main(argv=None):
             raise StoreError("no store given (discover one first, see SKILL.md)")
         store = Store(a.store)
         brief = pathlib.Path(a.brief).read_text(encoding="utf-8") if a.brief else None
-        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets, brief)
+        r = check(store, pathlib.Path(a.file).read_text(encoding="utf-8"), a.profile, facets, brief, a.tone)
     except StoreError as e:
         r = {"schema_version": 1, "status": "no_store" if ("idiolect.yaml" in str(e) or "no store" in str(e)) else "error",
              "message": str(e)}

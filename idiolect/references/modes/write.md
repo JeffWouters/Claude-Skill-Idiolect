@@ -8,8 +8,15 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
 2. Build the kit for the requested profile and facets:
 
    ```
-   python3 scripts/kit.py --store S [--profile P] [--lang L] [--type T] [--facet channel=x] --brief <brief or text file>
+   python3 scripts/kit.py --store S [--profile P] [--lang L] [--type T] [--facet channel=x] --brief <brief or text file> [--tone T]
    ```
+
+   - **Tone.** When the writer asks for a lean ("warmer", "firmer", "more formal", "more casual",
+     "softer", "cooler"), pass `--tone warm|cool|firm|soft|formal|casual` (two that agree may be
+     combined, `warm,firm`), and pass the same `--tone` to `check.py`. The kit's Tone section says
+     which targets moved and the writer's range: stay inside it and get the rest of the tone from word
+     choice and stance, never by exaggerating. A slot with fewer than 5 texts cannot take a tone: say so
+     and write without it.
 
    - `no_slot`: ask which profile or type to use (with `interactive=false`, return `status: no_slot`
      and the message). `no_store`: say nothing has been learned yet and offer `learn`.
@@ -37,7 +44,7 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      question, an archaic word, an exclamation, a signature phrase) appears more often per paragraph
      than in the examples, cut it back.
 5. Save the draft to a file and run
-   `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] --json`,
+   `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them
    plainly. A line that breaks a ruling (`lesson: r-...`) fails the draft outright: fix every one.
    If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report

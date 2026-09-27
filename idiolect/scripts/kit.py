@@ -118,7 +118,70 @@ def phrase_rate_text(v):
     return (f"about {r['per_1k']:g} per 1,000 words; in {r['texts']} of {r['of']} texts")
 
 
-def build(store, profile=None, facets=None, brief=None, n_examples=3):
+# Tone within the voice (spec §31): each tone moves a few targets to the writer's own quartile, so a
+# draft can be warmer or firmer without leaving the range the writer's texts show.
+TONES = {
+    "warm": {"contractions_per_1k": 1, "short_sentence_share": 1, "long_word_share": -1},
+    "cool": {"contractions_per_1k": -1, "short_sentence_share": -1, "long_word_share": 1},
+    "firm": {"hedges_per_1k": -1, "sentence_length_mean": -1, "short_sentence_share": 1},
+    "soft": {"hedges_per_1k": 1, "sentence_length_mean": 1},
+    "formal": {"contractions_per_1k": -1, "long_word_share": 1, "conjunction_opener_share": -1, "sentence_length_mean": 1},
+    "casual": {"contractions_per_1k": 1, "long_word_share": -1, "conjunction_opener_share": 1, "sentence_length_mean": -1},
+}
+TONE_MIN_TEXTS = 5
+TONE_WORDS = {"warm": "warmer", "cool": "cooler, more reserved", "firm": "firmer, more direct",
+              "soft": "softer, more tentative", "formal": "more formal", "casual": "more casual"}
+
+
+def parse_tone(tone):
+    """'firm' or 'warm,firm' -> ['warm', 'firm']; refuses unknown tones and tones that pull a
+    measure both ways."""
+    if not tone:
+        return []
+    names = [t.strip().lower() for t in (tone if isinstance(tone, (list, tuple)) else str(tone).split(",")) if t.strip()]
+    bad = [t for t in names if t not in TONES]
+    if bad:
+        raise StoreError(f"unknown tone {', '.join(bad)}; tones: {', '.join(TONES)}")
+    pull = {}
+    for t in names:
+        for m, d in TONES[t].items():
+            if pull.get(m, d) != d:
+                raise StoreError(f"{' and '.join(names)} pull {DESCRIBE.get(m, (m,))[0]} both ways; choose one")
+            pull[m] = d
+    return sorted(set(names), key=names.index)
+
+
+def apply_tone(store, prof, slot, targets, tone):
+    """targets with each toned metric moved to the writer's own quartile (25th or 75th percentile of
+    their texts of this slot) when that lies further in the asked direction. Returns (targets, moved)."""
+    names = parse_tone(tone)
+    if not names:
+        return targets, []
+    lang = slot.split(".")[0]
+    own = measure.slot_texts(store.manifest["texts"], store.corpus_text, store.facets, prof).get(slot, {})
+    texts = [t for _, t, _ in own.get("texts", [])]
+    if len(texts) < TONE_MIN_TEXTS:
+        raise StoreError(f"a tone needs at least {TONE_MIN_TEXTS} texts in {prof}/{slot} to know the writer's range; "
+                         f"it has {len(texts)}")
+    vals = [measure.metrics(t, lang) for t in texts]
+    out, moved = dict(targets), []
+    for t in names:
+        for m, d in TONES[t].items():
+            if m not in out or any(m not in v for v in vals):
+                continue
+            xs = [v[m] for v in vals]
+            lo, hi = measure.quantile(xs, 0.25), measure.quantile(xs, 0.75)
+            to = hi if d > 0 else lo
+            if (d > 0 and to > out[m]) or (d < 0 and to < out[m]):
+                fmt = DESCRIBE.get(m, (m, "{:.2f}"))[1]
+                moved.append({"metric": m, "tone": t, "describe": DESCRIBE.get(m, (m,))[0],
+                              "from": out[m], "to": to, "shown": f"{fmt.format(out[m])} -> {fmt.format(to)}",
+                              "range": f"{fmt.format(lo)} to {fmt.format(hi)}"})
+                out[m] = to
+    return out, moved
+
+
+def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None):
     prof, slot, tried = resolve.resolve(store, profile, facets)
     base = store.root / "profiles" / prof
     fp = read_store_file(base / f"{slot}.json", "fingerprint")
@@ -155,6 +218,8 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3):
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
     local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
+    local, moved = apply_tone(store, prof, slot, local, tone)
+    kit["tone"] = {"asked": parse_tone(tone), "moved": moved}
     kit["blend"] = {"examples": [e["id"] for e in kit["examples"]], "words": n_words, "weight": weight}
     targets = []
     for m, v in fp["metrics"].items():
@@ -205,6 +270,14 @@ def markdown(kit, notes="brief"):
         for t in kit["targets"]:
             rng = f" (the writer's own passages: {t['shown_range']})" if "range" in t else ""
             L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}{rng}")
+    tone = kit.get("tone") or {}
+    if tone.get("asked"):
+        L += ["", f"## Tone: {', '.join(TONE_WORDS[t] for t in tone['asked'])}",
+              "Still this writer: the targets above already sit where the writer's own texts go in this "
+              "direction, never beyond. Get the tone from word choice and stance within them; do not exaggerate."]
+        L += [f"- {m['describe']}: {m['shown']} (the writer's texts range {m['range']})" for m in tone["moved"]]
+        if not tone["moved"]:
+            L.append("- The targets already lean this way; no measure moved.")
     if kit["never"]:
         L += ["", "## Never-list (phrases this writer never uses)"] + [f"- \"{m}\"" for m in kit["never"]]
     if kit["forms"]:
@@ -248,6 +321,7 @@ def main(argv=None):
     ap.add_argument("--facet", action="append", default=[])
     ap.add_argument("--brief")
     ap.add_argument("--examples", type=int, default=3)
+    ap.add_argument("--tone", help="warm, cool, firm, soft, formal or casual; two may be combined: warm,firm")
     ap.add_argument("--notes", choices=NOTES, default="brief",
                     help="how much of the observed lessons the Markdown kit shows (default brief)")
     ap.add_argument("--omit", action="append", default=[], choices=["targets"],
@@ -260,7 +334,7 @@ def main(argv=None):
         facets[k] = v
     brief = pathlib.Path(a.brief).read_text(encoding="utf-8") if a.brief else ""
     try:
-        kit = build(Store(a.store), a.profile, facets, brief, a.examples)
+        kit = build(Store(a.store), a.profile, facets, brief, a.examples, a.tone)
     except resolve.NoSlot as e:
         print(json.dumps({"status": "no_slot", "message": str(e)}))
         return 3
