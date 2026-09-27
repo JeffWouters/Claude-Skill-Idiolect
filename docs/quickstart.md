@@ -1,0 +1,96 @@
+# Idiolect quickstart
+
+From nothing to a first draft in your own voice, in about half an hour. You talk to Claude in plain
+language; Claude runs the scripts. The examples use Sam, a fictional writer with essays in
+`~/Writing/Published`.
+
+## 1. Install
+
+- **Claude Code on your computer:** copy the `idiolect` folder to `~/.claude/skills/idiolect`.
+- **The Claude app:** add `idiolect.skill` as a skill in your account. A cloud session reaches the
+  files on your computer only when it is linked to that computer ([runtime](../idiolect/references/runtime.md)).
+
+The scripts need Python 3.10 or later and five packages:
+
+```
+python3 -m pip install PyYAML jsonschema markdown-it-py pdfminer.six lingua-language-detector
+```
+
+You do not have to run anything yourself: Claude runs `check_env.py` first and names what is missing.
+
+**Say "Idiolect" in your requests.** "Rewrite this in my voice" on its own is left to other skills on
+purpose; "rewrite this with Idiolect" or `/idiolect rewrite ...` uses this one.
+
+## 2. Look before you learn
+
+> /idiolect learn ~/Writing/Published dry-run=true
+
+A dry run writes nothing. It lists what it found: how many texts, their language, and what it skips
+and why (under 150 words of prose, near-duplicates, unreadable files). Use it to check that the
+folder holds what you think it holds.
+
+## 3. The first learn
+
+> /idiolect learn ~/Writing/Published
+
+Claude will ask three things:
+
+1. **Where to keep the store**, the folder that holds everything learned. Pick one outside your
+   writing folder, such as `~/Idiolect`. Your source files are only ever read, never changed.
+2. **Which texts are yours.** Answer in plain words: "all mine except the two guest posts". Only
+   texts you mark as your own are learned from; co-written ones can be kept aside as `assisted`.
+3. **What kind of texts they are** (essay, post, email), when it cannot tell.
+
+It then measures your texts, compares them with neutral AI rewrites of the same paragraphs, and
+writes down what sets you apart.
+
+## 4. Approve the diff
+
+Nothing is saved until you approve. The diff lists every proposal as its own item:
+
+- **Lessons**, such as "Opens with a short concrete scene", with how many of your texts show it.
+- **Vocabulary**: words you always spell one way, and phrases you favour.
+- **Example passages**, with names and organisations replaced by placeholders such as `[client]`.
+- **The fingerprint and its confidence** for each slot, such as `en.essay`.
+
+Reject anything that is not you ("reject l-004"). A rejection is remembered and not proposed again.
+If a lesson is something you always or never do, say so and it becomes a **ruling**, which every
+draft obeys. Then approve the rest.
+
+**Confidence** is `low` below 3 texts or 3,000 words, and `high` from about 8 texts and 15,000 words
+whose measurements agree. Low confidence works, but drafts are rougher: learn more texts of that kind.
+
+## 5. Use it
+
+| You say | What happens |
+| --- | --- |
+| "Write 400 words with Idiolect on why we stopped using spreadsheets for planning." | A draft in your voice, checked against your profile. Facts it does not have become placeholders such as `[example needed: a real incident]`, never inventions. |
+| "Rewrite draft.md with Idiolect, depth=edit." | Your meaning and facts kept; sentences (and with `edit`, trimming) in your voice. |
+| "Check this post against my Idiolect profile." | Pass or fail, with what is off: too many dashes, sentences too long, a phrase you never use. |
+| "Here is the draft Idiolect wrote and the version I published. Learn from my edits." | Your corrections become edit lessons, which outrank everything learned from your texts. |
+| "Load the Idiolect starter rules into my profile." | Optional rules against common signs of AI writing (em dashes, "delve", chatbot phrases, filler). Rules about habits apply only if your own texts don't have that habit, so if you use dashes, you keep them. You approve each rule. |
+
+## 6. When something is off
+
+- **Wrong lesson, or a text that should not have counted:**
+  "Forget drafts/old-rant.md from my Idiolect store."
+- **A whole learn you regret:** "Roll my Idiolect profile back to before yesterday's learn."
+  A snapshot is taken before every approved change.
+- **Where things stand:** "Show my Idiolect status": profiles, slots, confidence, anything waiting.
+- **A session ended before you approved:** the next run offers to resume or discard it.
+
+## Going deeper
+
+| To learn about | Read |
+| --- | --- |
+| Every mode, step by step (what Claude does) | [`idiolect/references/modes/`](../idiolect/references/modes/) |
+| Profiles, slots, facets such as `channel`, and inheritance | [design: Facets, resolution and inheritance](design.md#facets-resolution-and-inheritance) |
+| What the store holds and how to back it up | [design: The store](design.md#the-store) |
+| Testing your profile against a text it has not seen | [`modes/test.md`](../idiolect/references/modes/test.md) |
+| Interviews, mail, web pages and talk transcripts | [`modes/interview.md`](../idiolect/references/modes/interview.md), [`modes/connector.md`](../idiolect/references/modes/connector.md) |
+| Rulings, tests and the starter set | [`modes/rules.md`](../idiolect/references/modes/rules.md), [spec §27](spec.md#27-rulings-with-tests-and-the-starter-set) |
+| Exporting your voice as one prompt for another tool | [`modes/export.md`](../idiolect/references/modes/export.md) |
+| What the metrics measure, and which languages are supported | [`references/fingerprint.md`](../idiolect/references/fingerprint.md) |
+| Running from a cloud session on files on your computer | [`references/runtime.md`](../idiolect/references/runtime.md) |
+| Why it works this way, and how well it does | [design](design.md): the worked example, quality plan and decision log |
+| Exact file formats and rules | [spec](spec.md) and [`assets/schemas/`](../idiolect/assets/schemas/) |

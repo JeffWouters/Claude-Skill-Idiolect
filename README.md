@@ -21,6 +21,8 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > In blind evaluation it beat few-shot prompting on synthetic authors, not on well-known real ones;
 > a writer's own blind test is available but has not been run. Fixture authors are learned in `evals/store/`.
 
+**New here? Start with the [quickstart](docs/quickstart.md):** install, a first learn, and the everyday requests.
+
 ## Try it
 
 ```
