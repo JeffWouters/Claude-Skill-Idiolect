@@ -672,6 +672,25 @@ def paragraphs(text, lo, hi):
     return [p for p in text.split("\n\n") if lo <= count_words(p) <= hi and not measure.is_heading(p)]
 
 
+def passages(text, lo, hi):
+    """Consecutive short paragraphs joined into passages of lo to hi words, for a writer whose
+    paragraphs are all short (a post of one- and two-sentence paragraphs). A heading or an over-long
+    paragraph ends a passage."""
+    out, cur = [], []
+    for p in text.split("\n\n"):
+        n = count_words(p)
+        if not p.strip() or measure.is_heading(p) or n > hi:
+            cur = []
+            continue
+        if cur and sum(count_words(x) for x in cur) + n > hi:
+            cur = []
+        cur.append(p)
+        if sum(count_words(x) for x in cur) >= lo:
+            out.append("\n\n".join(cur))
+            cur = []
+    return out
+
+
 # ---------- contrast (design: pipeline step 6) ----------
 
 def contrast_sample(store_root, prof, slot):
@@ -690,6 +709,9 @@ def contrast_sample(store_root, prof, slot):
                                               "primary metrics and never-list are kept"}
     rng = random.Random(measure.slot_seed(prof, slot) + 1)
     by_text = [(k, paragraphs(t, 60, 200)) for k, t in texts]
+    if sum(len(ps) for _, ps in by_text) < CONTRAST_PARAS:
+        # too few paragraphs of 60+ words: texts without one give passages of joined short paragraphs
+        by_text = [(k, ps or passages(t, 60, 200)) for (k, ps), (_, t) in zip(by_text, texts)]
     by_text = [(k, ps) for k, ps in by_text if ps]
     rng.shuffle(by_text)
     sample = []
