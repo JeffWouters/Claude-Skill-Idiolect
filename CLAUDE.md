@@ -17,7 +17,7 @@ Phase 5 added `learn-edit` (`scripts/learn_edit.py`, spec §20), `interview` (`s
 the mail adapter (§6.4), `migrate.py --add-facet` (§12.7) and the marking of rulings from profiles not
 the writer's own (§12.6). Phase 6 added `export` (§22), web and connector texts (`web.py`, `connector.py`, §23), transcripts
 (§24), calls from other skills (`evals/callers/`, §25) and the bridged route (`runtime.md`, `bridge.py`,
-§26). Open: the writer's own blind test (`test judge=true`) and short mails (see design, open questions). Recognition from run 7 is forced choice with controls and a sensitivity test
+§26). Short mails are joined per thread, then per week (spec §6.4). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
 (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 
