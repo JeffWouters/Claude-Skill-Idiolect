@@ -1,0 +1,42 @@
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - name: The tag matches plugin.json and the changelog
+        run: |
+          version=$(python -c "import json;print(json.load(open('idiolect/.claude-plugin/plugin.json'))['version'])")
+          test "v$version" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME, plugin.json $version"; exit 1; }
+          grep -q "^## $version " CHANGELOG.md || { echo "CHANGELOG.md has no entry for $version"; exit 1; }
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest tests -q
+      - run: python tools/build_package.py --out dist
+      - name: Release notes from the changelog
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          awk -v v="## $version " 'index($0, v) == 1 {on=1; next} /^## / {on=0} on' CHANGELOG.md > notes.md
+          cat >> notes.md <<'NOTES'
+
+          **Install.** Claude Code: `/plugin marketplace add JeffWouters/Claude-Skill-Idiolect`, then
+          `/plugin install idiolect@jeffops`. Claude app and claude.ai: download `idiolect.skill` below and
+          add it as a skill in your settings.
+          NOTES
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/idiolect.skill --title "Idiolect $GITHUB_REF_NAME" --notes-file notes.md
