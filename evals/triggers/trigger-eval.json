@@ -118,5 +118,21 @@
  {
   "query": "Summarise the last ten posts on https://example.com/blog in a table.",
   "should_trigger": false
+ },
+ {
+  "query": "Load Idiolect's starter rules into my essays profile, but let me keep em dashes if my own essays use them.",
+  "should_trigger": true
+ },
+ {
+  "query": "Add a ruling to my Idiolect profile: never write 'going forward', and have the check fail any draft that does.",
+  "should_trigger": true
+ },
+ {
+  "query": "Humanize this paragraph: take out the AI tells like 'delve' and the em dashes.",
+  "should_trigger": false
+ },
+ {
+  "query": "What's the difference between an em dash and an en dash, and when should I use each?",
+  "should_trigger": false
  }
 ]
