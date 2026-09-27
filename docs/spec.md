@@ -166,6 +166,16 @@ Inside a block, line breaks become single spaces.
    sign-off line of at most four words ending in a comma, such as "Best," or "Kind regards,", in the
    last eight lines, to the end). The entry's `origin` is `mail`; its cached text is redacted (§15)
    and carries a `redaction` record.
+   - **Short mails are joined** (decided by the writer after phase 6). Mails under the 150-word floor
+     in one folder (its own files, not subfolders) are joined into one text: first per thread (the
+     subject without `Re:`/`Fwd:`/`AW:`/`Antw:` prefixes, at least two mails), then what is left per
+     ISO week. A group becomes a text when it reaches 150 words together; mails in a group that stays
+     under it remain `skipped: too short`. The joined text is the members' own parts in date order;
+     its date is the newest member's; its path is `<folder>/_joined/thread-<8 hex>` or
+     `<folder>/_joined/week-<YYYY>-W<ww>`, a path with no file behind it. Each member's row says
+     `joined into <path>` and the group's row names its members. A new or changed member changes the
+     group's text, so the group follows the ordinary lifecycle: `changed` at the same path, the old
+     text superseded.
 5. **Headings in measurement.** Headings stay in the cached text and the hash, but are not measured:
    see `references/fingerprint.md`.
 
