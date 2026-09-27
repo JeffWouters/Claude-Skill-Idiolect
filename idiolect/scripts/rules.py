@@ -5,11 +5,13 @@
                                   [--pattern R] [--unless-writer-uses] [--slot K] [--lang L]
     python3 rules.py --store S show [--profile P] [--lang L] [--type T] [--facet k=v]
     python3 rules.py starter [--lang L]
+    python3 rules.py guide-text --source GUIDE
+    python3 rules.py --store S import --profile P --source GUIDE --file proposals.yaml
 
 `defaults` and `add` propose `ruling` items in a learn run (the one waiting in the pending area, or a
 new one): nothing changes until the writer approves the diff (stage.py diff / decide / commit). A
 starter rule the writer rejects is remembered in rulings.yaml (`declined`) and not proposed again at
-the same set version. `show` lists the rulings that apply to a slot with the writer's own rate for
+the same set version. `import` stages rules the model found in a style guide (each quoting it). `show` lists the rulings that apply to a slot with the writer's own rate for
 those marked unless_writer_uses. `starter` prints the starter set. The functions below are also what
 check.py and kit.py use to apply rulings.
 """
@@ -281,6 +283,97 @@ def add(store_root, profile, text, test=None, unless_writer_uses=False, slot=Non
         raise
 
 
+# ---------- importing a style guide (spec §30) ----------
+
+def guide_text(path):
+    """The style guide's text as numbered lines, for the model to read and quote. Markdown, Word and
+    PDF go through the adapters; anything else is read as plain text."""
+    p = pathlib.Path(path)
+    if not p.is_file():
+        raise StoreError(f"no file {path}")
+    from adapters import extract
+    ex = extract(p) if p.suffix.lower() in (".md", ".markdown", ".docx", ".pdf") else None
+    text = "\n\n".join(b for b in ex.blocks if b.strip()) if ex is not None else p.read_text(encoding="utf-8")
+    return [line for line in text.splitlines()]
+
+
+def _norm(text):
+    text = measure.normalise_quotes(text).lower()
+    text = re.sub(r"[*_`#>]+", " ", text)
+    return " ".join(text.split())
+
+
+def import_guide(store_root, profile, source, proposals_file):
+    """Stage the rules the model found in a style guide. Every proposal quotes the guide; a quote the
+    guide does not contain stops the import, so no rule is invented. A rule the profile already holds
+    (same wording) is skipped."""
+    store = Store(store_root)
+    prof = profile or store.config["default_profile"]
+    _check_profile(store, prof)
+    src = pathlib.Path(source)
+    lines = guide_text(src)
+    hay = _norm("\n".join(lines)) + " " + _norm(src.read_text(encoding="utf-8", errors="ignore")
+                                              if src.suffix.lower() not in (".docx", ".pdf") else "")
+    data = load_yaml_text(pathlib.Path(proposals_file).read_text(encoding="utf-8")) or {}
+    props = data.get("rules") if isinstance(data, dict) else data
+    if not isinstance(props, list) or not props:
+        raise StoreError("the proposals file holds no rules (rules: [{text, quote, test?, ...}])")
+    problems = []
+    for n, r in enumerate(props, 1):
+        if not isinstance(r, dict) or not str(r.get("text", "")).strip():
+            problems.append(f"rule {n}: no text")
+            continue
+        q = _norm(str(r.get("quote", "")))
+        if len(q) < 3 or q not in hay:
+            problems.append(f"rule {n} ({r['text'][:40]}): its quote is not in {src.name}")
+        if r.get("test"):
+            try:
+                compile_test(r["test"], f"rule {n}")
+            except StoreError as e:
+                problems.append(str(e))
+        if r.get("unless_writer_uses") and not r.get("test"):
+            problems.append(f"rule {n}: unless_writer_uses needs a test")
+    if problems:
+        raise StoreError("nothing was staged: " + "; ".join(problems))
+    store, pending = _open_run(store_root, prof)
+    try:
+        base, last = _profile_rulings(store, prof, pending)
+        held = {_norm(e["text"]) for e in base["entries"]}
+        held |= {_norm(pending.payload(it["id"])["ruling"]["entry"]["text"]) for it in pending.plan["items"]
+                 if it["kind"] == "ruling" and it.get("profile") == prof}
+        proposed, skipped = [], []
+        today = utcnow().date().isoformat()
+        for r in props:
+            key = _norm(r["text"])
+            if key in held:
+                skipped.append({"text": r["text"], "why": "the profile already holds this rule"})
+                continue
+            held.add(key)
+            last += 1
+            entry = {"id": f"r-{last:03d}", "text": r["text"].strip(), "slot": r.get("slot"), "origin": "stated",
+                     "created": today, "personal_data": "none"}
+            if r.get("lang"):
+                entry["lang"] = r["lang"]
+            if r.get("test"):
+                entry["test"] = r["test"]
+                entry["unless_writer_uses"] = bool(r.get("unless_writer_uses"))
+            pending.add("ruling", "add", f"profiles/{prof}/rulings.yaml",
+                        f"{entry['id']}: {entry['text']} (from {src.name}: \"{str(r['quote']).strip()[:80]}\")"
+                        + (" (checked)" if entry.get("test") else ""),
+                        {"ruling": {"profile": prof, "entry": entry}}, profile=prof, slot=entry["slot"],
+                        ref=entry["id"])
+            proposed.append({"id": entry["id"], "text": entry["text"], "checked": bool(entry.get("test"))})
+        if not proposed and not pending.plan["items"]:
+            stage.discard(store_root)
+        return {"profile": prof, "source": src.name, "proposed": proposed, "skipped": skipped,
+                "next": "show the diff (stage.py diff); approve or reject each rule; then commit"
+                if proposed else "nothing new to propose"}
+    except Exception:
+        if len(pending.plan["items"]) == 0:
+            stage.discard(store_root)
+        raise
+
+
 def show(store, profile=None, facets=None):
     prof, slot, _ = resolve.resolve(store, profile, facets)
     rs = applicable(store, prof, slot)
@@ -294,7 +387,9 @@ def show(store, profile=None, facets=None):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store")
-    ap.add_argument("action", choices=["defaults", "add", "show", "starter"])
+    ap.add_argument("action", choices=["defaults", "add", "show", "starter", "guide-text", "import"])
+    ap.add_argument("--source", help="guide-text / import: the style guide")
+    ap.add_argument("--file", help="import: the proposals (YAML)")
     ap.add_argument("--profile")
     ap.add_argument("--lang")
     ap.add_argument("--type")
@@ -311,8 +406,12 @@ def main(argv=None):
     try:
         if a.action == "starter":
             out = starter(a.lang or "en")
+        elif a.action == "guide-text":
+            out = {"source": a.source, "lines": [f"{i}: {x}" for i, x in enumerate(guide_text(a.source), 1)]}
         elif not a.store:
             raise StoreError("no store given (discover one first, see SKILL.md)")
+        elif a.action == "import":
+            out = import_guide(a.store, a.profile, a.source, a.file)
         elif a.action == "defaults":
             out = defaults(a.store, a.profile, a.lang or "en", a.category)
         elif a.action == "add":

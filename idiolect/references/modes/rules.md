@@ -2,7 +2,7 @@
 
 Rulings are the writer's absolute instructions ("never use semicolons"). A ruling may carry a test, and
 then `check` enforces it: any broken ruling fails a draft (spec §27). This mode adds rulings, loads the
-optional starter set, and shows what applies. Store-writing: nothing changes until the writer approves
+optional starter set, imports the writer's own style guide, and shows what applies. Store-writing: nothing changes until the writer approves
 the diff. Run scripts from the skill folder.
 
 ## The starter set
@@ -51,6 +51,34 @@ One form per ruling: `--chars`, `--words` (whole words), `--phrases` (whole phra
 is added without a test: the kit carries it, the check cannot. `--slot K` or `--lang L` narrow it.
 During a `learn` run, a lesson the writer calls "always" or "never" is promoted with `learn.py rule`
 instead (`learn.md`, step 8).
+
+## 2b. Import a style guide
+
+When the writer has their rules in a document (a house style guide, brand voice notes, their own
+checklist):
+
+```
+python3 scripts/rules.py guide-text --source guide.docx
+```
+
+Read the numbered lines and write `proposals.yaml`: one rule per instruction a writer can follow,
+worded as a ruling, with `quote` copied exactly from the guide, and a test wherever a script can check
+it (as in step 2). Leave out advice that is not a rule ("know your audience"), and never add a rule the
+guide does not state.
+
+```yaml
+rules:
+  - {text: "Write numbers under ten as words.", quote: "Spell out numbers one to nine", test: null}
+  - {text: "Never use 'utilise'.", quote: "use, not utilise", test: {words: [utilise, utilised, utilising]}}
+```
+
+```
+python3 scripts/rules.py --store S import --profile P --source guide.docx --file proposals.yaml
+```
+
+A quote the guide does not contain stops the import and stages nothing: fix the proposal. A rule the
+profile already holds is skipped. To hand the rules back as a document, use the `guide` mode with
+`--rulings-only`.
 
 ## 3. Diff, approve, commit
 
