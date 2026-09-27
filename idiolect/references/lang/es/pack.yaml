@@ -1,7 +1,8 @@
 code: es
 name: Spanish
-version: "1.0"
+version: "1.1"
 calibrated: false
 notes: >-
-  Language flavour detectors only (flavours.yaml, spec §34). No word lists yet, so texts in this
-  language are measured on the 11 metrics that need none.
+  Hedges, conjunction openers, informal contractions, stop words and language flavour detectors for
+  Spanish. The global thresholds were calibrated on English and are applied unchanged; slots in Spanish carry
+  that caveat until fixture authors in the language calibrate them.

@@ -2,7 +2,7 @@
 # Each pattern is case-insensitive and multi-line, must match every line of `examples` and none of `not`
 # (langpack.py check). Keep them narrow: a detector that fires on native English is worse than none.
 # origins: ISO 639-1 codes of the languages the trace usually comes from.
-version: "1.1"
+version: "1.2"
 detectors:
   - id: since-duration
     name: "'since' with a length of time"
@@ -514,3 +514,48 @@ detectors:
     not:
       - "I graduated from college in 2015."
       - "He passed out from exhaustion."
+
+  - id: verb-before-subject
+    name: "Verb before the subject after an opening word"
+    origins: ["de", "nl", "sv", "no", "da"]
+    how: "When a sentence opens with a word or phrase other than the subject, the verb comes before the subject, as German and Dutch keep the verb second: 'Then have we a problem', 'In this case can you use Get-Item'."
+    pattern: '(?:^|[.!]\s+)(?:then|now|here|today|yesterday|tomorrow|therefore|thus|also|already|first|next|afterwards|later|soon|usually|maybe|perhaps|of course|in this case|in that case|with this|with that|this way|that way|in the next step|in this article|in version \d+)\s*,?\s+(?:have|has|had|can|could|will|would|must|should|shall|may|might|need|needs|want|wants|do|does|did|is|are|was|were|see|sees|get|gets|find|finds|know|knows|use|uses|go|goes|come|comes|take|takes|make|makes)\s+(?:I|we|you|they|he|she|it)\b[^.!?\n]*[.!]'
+    examples:
+      - "Then have we a problem."
+      - "In this case can you use Get-Item instead."
+      - "Now know you the trick!"
+    not:
+      - "Then we have a problem."
+      - "In this case you can use Get-Item instead."
+      - "Now can you see the problem?"
+      - "So do I."
+      - "Only then did we notice it."
+      - "Often have I seen it happen."
+
+  - id: comparative-inversion
+    name: "Verb before the subject in 'the more ..., the less ...'"
+    origins: [de, nl]
+    how: "In a 'the more ..., the less ...' sentence the verb comes before the subject, in German and Dutch order (je ... desto, hoe ... hoe): 'the less sophisticated will your code get'."
+    pattern: '\bthe (?:more|less|better|worse|fewer|bigger|smaller|faster|slower|longer|shorter|harder|easier|higher|lower)\b(?:(?!\b(?:you|we|i|they|he|she|it|one|people)\b)[^.!?\n,;]){0,40}?\s(?:will|can|does|do|gets|get|becomes|become|would|could|should|must)\s+(?:your|the|my|our|their|his|her|its|this|that|these|those|you|we|it|they|he|she|i)\b'
+    examples:
+      - "The more versions you target, the less sophisticated will your code get."
+      - "The longer you wait, the harder will it become."
+    not:
+      - "The more versions you target, the less sophisticated your code gets."
+      - "The longer you wait, the harder it becomes."
+      - "The more you practise, the better you will get."
+      - "The more aristocratic in hotels you get the fewer the towels."
+
+  - id: time-before-place
+    name: "Time before place"
+    origins: [de, nl]
+    how: "The time comes before the place, as German and Dutch order them ('Ich fahre morgen nach Berlin'): 'I drive tomorrow to Berlin', where English says 'I drive to Berlin tomorrow'."
+    pattern: '\b(?:go|goes|went|drive|drives|drove|fly|flies|flew|travel|travels|travelled|traveled|come|comes|came|move|moves|moved|return|returns|returned|walk|walks|walked|ride|rides|rode|head|heads|headed|going|driving|flying|travelling|traveling|coming|moving|returning)\s+(?:tomorrow|today|tonight|yesterday|next (?:week|month|year|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|last (?:week|month|year|night)|this (?:morning|afternoon|evening|week|weekend)|on (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|every (?:day|week|year|morning|evening))\s+(?:to\s+(?:(?:the|a|an|my|our|your|his|her|their|this|that)\b|(?-i:[A-Z])\w+)|back to\b|home\b|abroad\b)'
+    examples:
+      - "I drive tomorrow to Berlin."
+      - "We go every day to the office."
+      - "She flew last week back to Oslo."
+    not:
+      - "I drive to Berlin tomorrow."
+      - "He came yesterday to fix the boiler."
+      - "We go to the office every day."

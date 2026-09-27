@@ -1,0 +1,5 @@
+\bt['’](as|es|étais|avais|sais|vois|veux|fais)\b
+\bj['’](sais|suis|pense|crois|vais|peux|veux|fais|dis|trouve)\b
+\by['’]a\b
+\bp['’]tit(e|s|es)?\b
+\bch['’]uis\b

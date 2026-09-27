@@ -43,6 +43,16 @@ def test_english_detectors_cover_the_widely_spoken_first_languages():
     assert all(isinstance(o, str) for d in flavour.detectors("en") for o in d["origins"])
 
 
+def test_word_order_traces_are_detected_without_native_inversions():
+    found = {x["detector"] for x in flavour.detect_text("en", (
+        "Then have we a problem. The more versions you target, the less sophisticated will your code get. "
+        "I drive tomorrow to Berlin."))["found"]}
+    assert found == {"verb-before-subject", "comparative-inversion", "time-before-place"}
+    native = ("Often have I seen it. So do I. Only then did we notice. Now can you see it? The longer you wait, the "
+              "harder it gets. He came yesterday to fix the boiler. I drive to Berlin tomorrow.")
+    assert flavour.detect_text("en", native)["found"] == []
+
+
 def test_german_french_and_spanish_packs_detect_english_traces():
     assert flavour.detect_text("de", "Wir müssen eine Entscheidung machen. Das ist, warum.")["found"]
     assert flavour.detect_text("fr", "Ça fait du sens. Je suis faim.")["found"]

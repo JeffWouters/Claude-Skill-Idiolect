@@ -1,0 +1,3 @@
+(?<!\w)['’](s|n|ne|nen|nem|ner)\b
+\b(gibt|geht|steht|war|ist|hat|wird|wie|was|wenn|ob|so|da|auf|für|durch|um|mach|hab)['’]s\b
+\b(hab|hätt|würd|könnt|möcht|wär|müsst|sollt|find|glaub|mein|sag|geh|komm|seh|denk)['’](?!\w)

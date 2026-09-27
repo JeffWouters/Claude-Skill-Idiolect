@@ -243,7 +243,7 @@ def test_counts():
     assert [measure.fail_count(n) for n in (14, 13, 12, 11)] == [4, 4, 4, 4]
     assert measure.fail_count(1) == 1 and measure.fail_count(5) == 2
     assert len(measure.applicable("en")) == 14 and len(measure.applicable("nl")) == 14   # Dutch pack (spec §32)
-    assert len(measure.applicable("fr")) == 11                                            # no word lists (the French pack holds flavour detectors only)
+    assert len(measure.applicable("pt")) == 11                                            # no pack
 
 
 def test_metrics_match_phase0_without_headings():

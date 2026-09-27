@@ -99,16 +99,18 @@ The engine supports languages that separate words with spaces and end sentences 
 - A language with no `stopwords.txt` matches rejections without stop-word removal.
 - A pack may also hold `flavours.yaml`: detectors for traces of other languages in this one (spec
   §34.2). They are not metrics: they feed the writer's language flavour, which is kept and checked
-  separately at the writer's own rate. English has detectors for Dutch, German, French, Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian, Danish, Chinese, Japanese, Korean and Arabic speakers, and Indian English; German for
-  English and Dutch speakers; Dutch, French and Spanish for English speakers. The German, French and
-  Spanish packs hold only these detectors so far, no word lists. Without detectors the model still
+  separately at the writer's own rate. English has detectors (three of them for word order) for Dutch, German, French, Spanish, Italian, Portuguese, Polish, Russian, Ukrainian, Turkish, Swedish, Norwegian, Danish, Chinese, Japanese, Korean and Arabic speakers, and Indian English; German for
+  English and Dutch speakers; Dutch, French and Spanish for English speakers. Without detectors the model still
   finds a flavour; its counts are then its verified examples.
 - Languages written without spaces between words (Chinese, Japanese, Thai and others) are out of
   scope for v1: `learn` reports their texts as "Skipped: language not supported" and never builds a
   slot for them.
-- Two packs ship: **English** (`en`, calibrated; the lists used since phase 0, unchanged) and **Dutch**
-  (`nl`, not calibrated). Dutch contractions are the clitics `'t`, `'n`, `'s`, `m'n`, `z'n`, `d'r` and
-  `zo'n`, with straight or curly apostrophes.
+- Five packs ship: **English** (`en`, calibrated; the lists used since phase 0, unchanged), **Dutch**
+  (`nl`), **German** (`de`), **French** (`fr`) and **Spanish** (`es`), the last four not calibrated.
+  Dutch contractions are the clitics `'t`, `'n`, `'s`, `m'n`, `z'n`, `d'r` and `zo'n`. German, French and
+  Spanish count only informal contractions (`gibt's`, `'ne`, `hab'`; `t'as`, `j'sais`, `y'a`; `pa'`,
+  `'tá`), since their standard ones (`l'`, `qu'`, `al`, `del`, `im`, `zum`) are grammar that every writer
+  uses. Apostrophes may be straight or curly.
 - Adding a language is adding its pack and running `langpack.py check`. The thresholds were calibrated
   on English and are applied unchanged elsewhere: for a pack that is not calibrated, the kit and the
   check report say so. A language with no pack is measured on the eleven list-free metrics, also with a

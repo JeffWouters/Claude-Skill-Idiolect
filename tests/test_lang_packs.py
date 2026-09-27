@@ -77,8 +77,27 @@ def test_dutch_is_measured_on_all_fourteen_metrics():
     assert v["hedges_per_1k"] > 0 and v["contractions_per_1k"] > 0 and v["conjunction_opener_share"] > 0
     assert measure.pack_warning("nl") == "the thresholds were calibrated on English, not on Dutch"
     assert measure.pack_warning("pt").startswith("no language pack for 'pt': measured on the 11 metrics")
-    # a pack with flavour detectors but no word lists yet says both (spec §32, §34)
-    assert measure.pack_warning("de") == ("the thresholds were calibrated on English, not on German; the German "
+
+
+@pytest.mark.parametrize("lang,name,text", [
+    ("de", "German", "Vielleicht war es die Kälte. Aber das Rad war platt, und es gibt's nicht anders. So war's."),
+    ("fr", "French", "Peut-être était-ce le froid. Mais le vélo était crevé, et j'sais pas pourquoi. Y'a rien à faire."),
+    ("es", "Spanish", "Quizás fue el frío. Pero la rueda estaba pinchada, y no hay na' que hacer. Pa' qué."),
+])
+def test_german_french_and_spanish_are_measured_on_all_fourteen_metrics(lang, name, text):
+    v = measure.metrics(text, lang)
+    assert len(v) == 14
+    assert v["hedges_per_1k"] > 0 and v["contractions_per_1k"] > 0 and v["conjunction_opener_share"] > 0
+    assert measure.pack_warning(lang) == f"the thresholds were calibrated on English, not on {name}"
+
+
+def test_a_pack_without_word_lists_says_so(tmp_path, monkeypatch):
+    d = tmp_path / "xx"
+    d.mkdir()
+    (d / "pack.yaml").write_text("code: xx\nname: Testish\nversion: '1.0'\ncalibrated: false\n")
+    monkeypatch.setattr(measure, "LANG_DIR", tmp_path)
+    monkeypatch.setattr(measure, "_lists", {})
+    assert measure.pack_warning("xx") == ("the thresholds were calibrated on English, not on Testish; the Testish "
                                           "pack has no word lists yet: measured on the 11 metrics that need none")
 
 
