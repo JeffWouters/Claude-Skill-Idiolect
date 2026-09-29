@@ -5,7 +5,7 @@ Versions follow `idiolect/.claude-plugin/plugin.json`. A release is a tag `vX.Y.
 it to the GitHub release. Store file formats have their own `schema_version`, migrated by
 `scripts/migrate.py`.
 
-## Unreleased
+## 1.1.0 (2026-09-29)
 
 - **Language flavour** (spec §34): every learn detects traces of another language in the writer's
   prose (German word order in English, a Dutch preposition, a French false friend), with detectors in
