@@ -302,3 +302,12 @@ def test_another_live_run_blocks(tmp_path):
     lock.acquire(str(st), "forget")                       # someone else, live
     with pytest.raises(lock.Locked):
         learn.Run(st)
+
+
+def test_a_large_slot_is_sampled_across_its_whole_period():
+    """Found learning a blog of 214 posts: the lessons sample held only the oldest 66, because it filled
+    up in date order. It is now spread evenly over the dates (design: a stratified sample)."""
+    dated = [(f"k{i:03d}", "text") for i in range(214)]
+    picked = learn.spread(dated, 300)
+    assert len(picked) == 66 and picked[0] == dated[0] and picked[-1][0] >= "k210"
+    assert learn.spread(dated[:10], 300) == dated[:10]

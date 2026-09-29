@@ -836,6 +836,17 @@ def _mirrors(run, prof, slot):
 
 # ---------- lessons (spec §14) ----------
 
+def spread(dated, per, cap=QUAL_CAP):
+    """The texts a sample of at most `cap` words can hold at about `per` words each, spread evenly over
+    the dated list (design: a stratified sample): with many texts the sample covers every period, not
+    only the oldest texts that happen to fill it first."""
+    fit = max(1, cap // per)
+    if len(dated) <= fit:
+        return dated
+    step = len(dated) / fit
+    return [dated[int(i * step)] for i in range(fit)]
+
+
 def lessons_sample(store_root, prof, slot):
     run = Run(store_root)
     texts = slot_texts(run, prof, slot)
@@ -844,7 +855,7 @@ def lessons_sample(store_root, prof, slot):
     per = max(300, QUAL_CAP // max(1, len(dated)))
     rng = random.Random(measure.slot_seed(prof, slot) + 2)
     parts, total = [], 0
-    for k, t in dated:
+    for k, t in spread(dated, per):
         paras = t.split("\n\n")
         if count_words(t) <= per:
             chunk = paras

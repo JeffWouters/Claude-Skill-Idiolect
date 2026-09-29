@@ -288,7 +288,7 @@ def sample(store_root, prof, lang):
     dated = sorted(texts, key=lambda kt: ((view.get(kt[0]) or {}).get("date") or "", kt[0]))
     per = max(300, SAMPLE_CAP // max(1, len(dated)))
     parts, total = [], 0
-    for k, t in dated:
+    for k, t in learn.spread(dated, per, SAMPLE_CAP):
         paras = t.split("\n\n")
         if count_words(t) <= per:
             chunk = paras
