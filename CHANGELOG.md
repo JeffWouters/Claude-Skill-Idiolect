@@ -5,6 +5,12 @@ Versions follow `idiolect/.claude-plugin/plugin.json`. A release is a tag `vX.Y.
 it to the GitHub release. Store file formats have their own `schema_version`, migrated by
 `scripts/migrate.py`.
 
+## Unreleased
+
+- Learning from a site with many posts no longer stops in the outlier step when a measure is hundreds
+  of times below the typical text.
+- Adding a web or mail text whose file does not exist is reported as an error, not a crash.
+
 ## 1.1.0 (2026-09-29)
 
 - **Language flavour** (spec §34): every learn detects traces of another language in the writer's

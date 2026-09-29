@@ -154,3 +154,12 @@ def test_a_profile_learned_only_from_web_pages_is_created_in_the_diff_with_its_c
     stage.commit(other)
     assert not (other / "profiles" / "guest").exists()
     assert not any("guest" in e["profiles"] for e in Store(other).manifest["texts"].values())
+
+
+def test_adding_a_missing_file_is_an_error_not_a_crash(tmp_path):
+    """Found adding pages whose index gives paths relative to another folder: a traceback, no JSON."""
+    import connector
+    import pytest
+    from common import StoreError
+    with pytest.raises(StoreError, match="no such file"):
+        connector.add(tmp_path, tmp_path / "missing.txt", "web", "own")

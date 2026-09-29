@@ -68,10 +68,11 @@ def off(vals, ref):
             continue
         r = ratio(vals[m], ref[m], m)
         name, fmt = DESCRIBE.get(m, (m, "{:.2f}"))
-        rows.append({"metric": m, "describe": name, "text": fmt.format(vals[m]), "typical": fmt.format(ref[m]),
-                     "ratio": round(r, 2), "direction": "more" if r > 1 else "fewer"})
-    rows.sort(key=lambda x: -abs(math.log(x["ratio"])))
-    return [x for x in rows if abs(math.log(x["ratio"])) >= math.log(1.25)][:TOP]
+        rows.append(({"metric": m, "describe": name, "text": fmt.format(vals[m]), "typical": fmt.format(ref[m]),
+                      "ratio": round(r, 2), "direction": "more" if r > 1 else "fewer"}, abs(math.log(r))))
+    # sorted on the exact ratio: a rounded one can be 0.0 for a device far below the typical text
+    rows.sort(key=lambda x: -x[1])
+    return [x for x, gap in rows if gap >= math.log(1.25)][:TOP]
 
 
 def slot_outliers(texts, lang):

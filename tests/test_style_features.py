@@ -293,3 +293,14 @@ def test_a_tone_needs_five_texts_and_works_on_the_command_line(st, tmp_path, mon
     monkeypatch.setattr(measure, "slot_texts", lambda *a: {k: {**v, "texts": v["texts"][:3]} for k, v in real(*a).items()})
     with pytest.raises(StoreError, match="a tone needs at least 5 texts"):
         kit.build(Store(st), "idris", {"type": "essay"}, PLAIN, tone="firm")
+
+
+def test_off_survives_a_ratio_that_rounds_to_zero():
+    """Found learning a blog with many posts: a metric hundreds of times below the typical text gave a
+    rounded ratio of 0.0 and a math domain error in the outlier step."""
+    import verify
+    import measure
+    m, g = min(measure.METRICS.items(), key=lambda x: x[1]["floor"])
+    ref = {m: g["floor"] * 1000}
+    rows = verify.off({m: 0.0}, ref)
+    assert rows and rows[0]["direction"] == "fewer"

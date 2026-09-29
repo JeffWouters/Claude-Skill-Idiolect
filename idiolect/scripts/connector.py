@@ -68,6 +68,8 @@ def start(store_root, profile, lang, type_, facets=None, subject=None, consent=N
 
 
 def add(store_root, file, origin, ownership, date=None, note=None, strip=False):
+    if not pathlib.Path(file).is_file():
+        raise StoreError(f"no such file: {file}")
     run = learn.Run(store_root)
     st = run.state
     cn = st.get("connector")
