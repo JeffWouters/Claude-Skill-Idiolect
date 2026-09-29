@@ -10,6 +10,8 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 - Learning from a site with many posts no longer stops in the outlier step when a measure is hundreds
   of times below the typical text.
 - Adding a web or mail text whose file does not exist is reported as an error, not a crash.
+- Language-flavour traces are matched within one paragraph, so the gap a removed code block leaves
+  between two paragraphs no longer reads as a trace.
 
 ## 1.1.0 (2026-09-29)
 

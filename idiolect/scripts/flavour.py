@@ -54,8 +54,18 @@ def prep(text):
     return measure.normalise_quotes(text)
 
 
+PARA = re.compile(r"(?:(?!\n[ \t]*\n).)+", re.S)
+
+
+def finditer(rx, text):
+    """Matches of rx within each paragraph of an already prepared text: a trace never spans a paragraph
+    break (a web page's removed code block leaves 'you can see' and 'Now that ...' side by side)."""
+    for para in PARA.finditer(text):
+        yield from rx.finditer(text, para.start(), para.end())
+
+
 def hits(rx, text):
-    return sum(1 for _ in rx.finditer(prep(text)))
+    return sum(1 for _ in finditer(rx, prep(text)))
 
 
 def check_detectors(lang):
@@ -130,7 +140,7 @@ def matches(rx, texts, n=MAX_EXAMPLES, context=None):
                 return out
             if rnd == 0 and k in used:
                 continue
-            for m in rx.finditer(prep(t)):
+            for m in finditer(rx, prep(t)):
                 if context:
                     tt = prep(t)
                     snip = tt[max(0, m.start() - context):m.end() + context].replace("\n", " ")
@@ -603,7 +613,7 @@ def detect_text(lang, text):
     out = []
     for d in detectors(lang):
         rx = compile_pattern(d["pattern"])
-        found = [m.group(0) for m in rx.finditer(prep(text))]
+        found = [m.group(0) for m in finditer(rx, prep(text))]
         if found:
             out.append({"detector": d["id"], "name": d["name"], "origins": d["origins"], "count": len(found),
                         "found": found[:5]})

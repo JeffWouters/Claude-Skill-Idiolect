@@ -834,7 +834,8 @@ the house style guide.
    that long); `texts` counts texts with at least one hit. Ids are `f-NNN`, never reused (`last_id`
    covers rejected ones).
 2. **Detectors.** A pack may hold `flavours.yaml`: `version` and `detectors`, each `{id, name, origins,
-   how, pattern, examples, not}`. Patterns are case-insensitive and multi-line. `langpack.py check` fails
+   how, pattern, examples, not}`. Patterns are case-insensitive and multi-line, and match within one
+   paragraph: a trace never spans a blank line. `langpack.py check` fails
    a detector whose pattern does not compile, misses one of its `examples`, or matches one of its `not`
    lines, and an id used twice. English ships 46 detectors, three of them for word order
    (the verb before the subject after an opening word, the verb before the subject in 'the more ...,

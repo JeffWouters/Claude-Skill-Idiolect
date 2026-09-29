@@ -340,3 +340,10 @@ def test_guide_and_export_carry_the_flavour(learned):
     assert "## Language flavour" in g and "German" in g
     e = export.build(Store(learned), "noor", {"lang": "en", "type": "essay"})["prompt"]
     assert "## Language flavour" in e
+
+
+def test_a_trace_never_spans_a_paragraph_break():
+    """Found learning a blog: with its code blocks removed, 'as you can see' ended one paragraph and
+    'Now that the ...' began the next, which read as 'see now that' (adverb before the object)."""
+    assert flavour.detect_text("en", "It is added to the pull request as you can see\n\nNow that the checks pass, merge it.")["found"] == []
+    assert flavour.detect_text("en", "You know already the name of the cmdlet.")["found"]
