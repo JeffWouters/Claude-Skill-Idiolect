@@ -403,13 +403,14 @@ detectors:
     name: "'Although ..., but'"
     origins: [zh, ja, ko, vi, ar, hi]
     how: "'although' and 'but' in one sentence, as Chinese pairs 虽然 with 但是: 'Although it is slow, but it works'."
-    pattern: '\b(?:although|though|even though)\b[^.!?;:\n]{1,100},\s*but\b'
+    pattern: '\b(?:although|(?<!\bas )though|even though)\b[^.!?;:\n]{1,100},\s*but\b'
     examples:
       - "Although it is slow, but it works."
       - "Even though I tried twice, but it failed."
     not:
       - "Although it is slow, it works."
       - "It is slow, but it works."
+      - "It seems as though the user was added, but no permissions were set."
 
   - id: because-so
     name: "'Because ..., so'"

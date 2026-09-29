@@ -14,6 +14,8 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
   the oldest texts first (the design's stratified sample).
 - Language-flavour traces are matched within one paragraph, so the gap a removed code block leaves
   between two paragraphs no longer reads as a trace.
+- The English 'Although ..., but' detector no longer fires on 'as though ..., but', which native
+  writers use (found learning a native writer's blog).
 
 ## 1.1.0 (2026-09-29)
 
