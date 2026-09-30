@@ -14,6 +14,11 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 - **Removing one learned item** (spec §36): `maintain.py remove --profile P --id <id>` removes a
   lesson, edit lesson, example, vocabulary item, ruling or flavour marker by id, after approval, and
   records it as the writer's rejection so a later learn does not bring it back.
+- **Forgetting a web page by its address** (spec §36.7): a web text keeps the address it was read
+  from (`connector.py add --url`), and `maintain.py forget --source <address>` finds it. The ledger
+  (`corpus/manifest.json`, and `manifest-entries.json` in snapshots) goes to schema version 2: run
+  `scripts/migrate.py --store <store>` once. Pages learned before this have no address stored; forget
+  those by key.
 - **Lifting a rejection** (spec §36): `maintain.py lift --profile P --id <x-, f- or s- id>` removes a
   rejection record, a rejected flavour marker or a declined starter rule, so it may be proposed again.
 - Learning from a site with many posts no longer stops in the outlier step when a measure is hundreds

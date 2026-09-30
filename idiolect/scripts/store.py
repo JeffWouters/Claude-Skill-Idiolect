@@ -10,7 +10,7 @@ import fnmatch
 import pathlib
 import re
 
-from common import StoreError, check_schema, load_yaml_text, read_store_file
+from common import StoreError, check_schema, load_yaml_text, read_store_file, version_of
 
 MARKER = "idiolect.yaml"
 SKIP_DIRS = {"node_modules", "_to_delete"}
@@ -61,7 +61,7 @@ def discover(roots, depth=3):
 # ---------- the loaded store ----------
 
 class Store:
-    def __init__(self, root):
+    def __init__(self, root, migrating=False):
         self.root = pathlib.Path(root).resolve()
         if not is_store(self.root):
             raise StoreError(f"no valid {MARKER} in {self.root}")
@@ -70,7 +70,14 @@ class Store:
         sp = self.root / "sources.yaml"
         self.sources = read_store_file(sp, "sources") if sp.exists() else {"schema_version": 1, "sources": []}
         mp = self.root / "corpus" / "manifest.json"
-        self.manifest = read_store_file(mp, "manifest") if mp.exists() else {"schema_version": 1, "texts": {}}
+        if migrating and mp.exists():
+            # migrate.py only: an older ledger is read as it will be after the upgrade (spec §36.7)
+            import migrate
+            self.manifest = migrate.upgraded_manifest(mp)
+        elif mp.exists():
+            self.manifest = read_store_file(mp, "manifest")
+        else:
+            self.manifest = {"schema_version": version_of("manifest"), "texts": {}}
 
     @property
     def facets(self):

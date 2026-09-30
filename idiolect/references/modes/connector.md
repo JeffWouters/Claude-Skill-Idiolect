@@ -39,8 +39,10 @@ or edited from someone else's draft (`assisted`), and which are not theirs (`exc
 `own`: a site holds guest posts and quotes. Then per page:
 
 ```
-python3 scripts/connector.py --store S add --file <NNN.txt> --origin web --ownership own --date <date> --note <url>
+python3 scripts/connector.py --store S add --file <NNN.txt> --origin web --ownership own --date <date> --url <url>
 ```
+
+The address is kept, so the writer can later say "forget <url>" (`maintain.py forget --source <url>`).
 
 ## 2b. Microsoft 365 mail
 

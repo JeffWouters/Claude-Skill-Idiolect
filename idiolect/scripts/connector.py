@@ -4,7 +4,10 @@ has no inventory. After the texts, the learn pipeline continues from `learn.py m
     python3 connector.py --store S start --profile P --lang L --type T [--facet k=v]
                                        [--subject S --consent C [--description D]]   # a new profile
     python3 connector.py --store S add --file F --origin web|mail --ownership own|assisted|exclude
-                                     [--date YYYY-MM-DD] [--note "URL or subject"] [--strip]
+                                     [--date YYYY-MM-DD] [--url URL] [--note "subject"] [--strip]
+
+A web text keeps its address (--url, or a --note that is one) in the ledger, so it can be forgotten by
+it: maintain.py forget --source URL.
     python3 connector.py --store S list
 
 For mail, give the names to redact first: learn.py mail-names --file names.yaml.
@@ -67,7 +70,10 @@ def start(store_root, profile, lang, type_, facets=None, subject=None, consent=N
             "next": "connector.py add for each text, with the writer's ownership; then learn.py measure"}
 
 
-def add(store_root, file, origin, ownership, date=None, note=None, strip=False):
+URL = re.compile(r"^https?://\S+$")
+
+
+def add(store_root, file, origin, ownership, date=None, note=None, strip=False, url=None):
     if not pathlib.Path(file).is_file():
         raise StoreError(f"no such file: {file}")
     run = learn.Run(store_root)
@@ -92,11 +98,22 @@ def add(store_root, file, origin, ownership, date=None, note=None, strip=False):
     today = utcnow().date().isoformat()
     if date and not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
         raise StoreError("date is YYYY-MM-DD")
+    if url is None and origin == "web" and note and URL.match(note.strip()):
+        url = note.strip()                   # the connector guide passed the address as the note
+    if url is not None:
+        url = url.strip()
+        if origin != "web":
+            raise StoreError("only a web text has an address (--url)")
+        if not URL.match(url) or len(url) > 2000:
+            raise StoreError(f"not a web address: {url!r}")
     owned = ownership == "own"
     create = {"path": None, "date": date, "origin": origin,
               "profiles": {prof: {"ownership": ownership, "decided": today, "decided_by": "writer"}},
               "facets": cn["facets"], "words": n, "holdout": False, "status": "active", "cached": owned}
-    summary = f"{origin} text{' (' + note + ')' if note else ''}, {n} words, {cn['slot']}; {ownership} for {prof}"
+    if url:
+        create["url"] = url
+    label = note or url
+    summary = f"{origin} text{' (' + label + ')' if label else ''}, {n} words, {cn['slot']}; {ownership} for {prof}"
     payload = {"manifest": [{"key": key, "create": create, "cache": owned}]}
     new_prof = [i["id"] for i in run.pending.plan["items"] if i["kind"] == "profile" and i["op"] == "add"
                 and i.get("profile") == prof]
@@ -140,6 +157,7 @@ def main(argv=None):
     ap.add_argument("--ownership")
     ap.add_argument("--date")
     ap.add_argument("--note")
+    ap.add_argument("--url", help="add, web: the page's address, kept so it can be forgotten by it")
     ap.add_argument("--strip", action="store_true")
     ap.add_argument("--subject", help="start, new profile: who the voice is")
     ap.add_argument("--consent", help="start, new profile: 'self', or how that person gave permission")
@@ -150,7 +168,7 @@ def main(argv=None):
             out = start(a.store, a.profile or Store(a.store).config["default_profile"], a.lang or "en", a.type,
                         dict(f.split("=", 1) for f in a.facet), a.subject, a.consent, a.description)
         elif a.action == "add":
-            out = add(a.store, a.file, a.origin, a.ownership, a.date, a.note, a.strip)
+            out = add(a.store, a.file, a.origin, a.ownership, a.date, a.note, a.strip, a.url)
         else:
             out = listing(a.store)
     except StoreError as e:

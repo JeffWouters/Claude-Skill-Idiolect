@@ -72,7 +72,7 @@ def check_schema(name, data, where="data"):
 
 
 # Current schema_version per store file (design: Schemas and migrations); anything not listed is 1.
-VERSIONS = {"vocabulary": 2, "rulings": 2}
+VERSIONS = {"vocabulary": 2, "rulings": 2, "manifest": 2, "manifest-entries": 2}
 
 
 def version_of(schema):

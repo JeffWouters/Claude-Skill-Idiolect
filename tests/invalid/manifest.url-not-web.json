@@ -1,0 +1,1 @@
+{"schema_version": 2, "texts": {"c14b910378020399b3acb1a97bed77d1895ec066eea482b17639810b5df65efd": {"path": "essays/x.md", "url": "https://example.com/x", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "path-rule"}}, "facets": {"lang": "en", "type": "essay"}, "holdout": false, "status": "active", "cached": true}}}

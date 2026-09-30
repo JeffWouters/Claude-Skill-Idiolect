@@ -1,7 +1,7 @@
 """forget, rollback, prune, delete, remove and lift: the only modes that delete (spec §8, §11, §35, §36). Each builds a
 proposal in the pending area; nothing changes until the writer approves and `stage.py commit` runs.
 
-    python3 maintain.py --store S forget --source REL_PATH_OR_KEY [--profile P] [--ownership own|assisted|exclude]
+    python3 maintain.py --store S forget --source REL_PATH_KEY_OR_URL [--profile P] [--ownership own|assisted|exclude]
     python3 maintain.py --store S rollback --profile P [--to SNAPSHOT]
     python3 maintain.py --store S prune --profile P [--keep 10]
     python3 maintain.py --store S delete --profile P
@@ -11,6 +11,7 @@ proposal in the pending area; nothing changes until the writer approves and `sta
 import argparse
 import json
 import pathlib
+import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -22,13 +23,27 @@ from common import StoreError, content_hash, read_store_file, utcnow  # noqa: E4
 import detect  # noqa: E402
 
 
+def norm_url(url):
+    """The form two addresses of the same page share: scheme http or https, host in lower case, no
+    fragment, no trailing slash (spec §36.7)."""
+    import urllib.parse
+    u = urllib.parse.urlsplit(url.strip())
+    path = u.path.rstrip("/") or ""
+    return f"{u.netloc.lower().removeprefix('www.')}{path}{'?' + u.query if u.query else ''}"
+
+
 def _entries_for(store, source):
     texts = store.manifest["texts"]
     if source in texts:
         return {source: texts[source]}          # by key: exactly that text
-    # by path: the current version and its segments; superseded versions are history (spec §8), and
-    # forgotten ones count only when nothing else is there
-    at = {k: e for k, e in texts.items() if e.get("path") == source and e["status"] != "superseded"}
+    # by path, or by a web text's address: the current version and its segments; superseded versions
+    # are history (spec §8), and forgotten ones count only when nothing else is there
+    if re.match(r"^https?://", source):
+        want = norm_url(source)
+        at = {k: e for k, e in texts.items() if e.get("url") and norm_url(e["url"]) == want
+              and e["status"] != "superseded"}
+    else:
+        at = {k: e for k, e in texts.items() if e.get("path") == source and e["status"] != "superseded"}
     live = {k: e for k, e in at.items() if e["status"] != "forgotten"}
     return live or at
 
@@ -86,7 +101,9 @@ def forget(store_root, source, profile=None, ownership=None):
     try:
         entries = _entries_for(store, source)
         if not entries:
-            raise StoreError(f"no manifest entry for {source}")
+            raise StoreError(f"no manifest entry for {source}" + (
+                "; web texts added before the ledger kept addresses have none: forget them by key"
+                if re.match(r"^https?://", source) else ""))
         if profile and not (store.root / "profiles" / profile / "profile.yaml").exists():
             raise StoreError(f"no profile {profile}; a new profile is created by learn, with its consent recorded")
         if profile and not ownership and not any(profile in e["profiles"] for e in entries.values()):

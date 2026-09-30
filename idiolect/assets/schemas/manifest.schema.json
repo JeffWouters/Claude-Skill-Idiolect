@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/manifest.schema.json",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v2/manifest.schema.json",
   "title": "corpus/manifest.json — per-text ledger entries and corpus index",
   "type": "object",
   "required": [
@@ -9,12 +9,13 @@
   ],
   "properties": {
     "schema_version": {
-      "$ref": "common.schema.json#/$defs/schemaVersion"
+      "const": 2,
+      "description": "Version 2: a web text may carry the address it was read from (url, spec §36.7). migrate.py upgrades version 1."
     },
     "texts": {
       "type": "object",
       "propertyNames": {
-        "$ref": "common.schema.json#/$defs/textKey"
+        "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/textKey"
       },
       "additionalProperties": {
         "$ref": "#/$defs/entry"
@@ -37,7 +38,7 @@
         "path": {
           "oneOf": [
             {
-              "$ref": "common.schema.json#/$defs/relPath"
+              "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/relPath"
             },
             {
               "type": "null"
@@ -45,10 +46,16 @@
           ],
           "description": "null for interview answers and connector sources."
         },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://[^\\s]+$",
+          "maxLength": 2000,
+          "description": "The address a web text was read from (origin web), so it can be forgotten by its address (spec §36.7)."
+        },
         "date": {
           "oneOf": [
             {
-              "$ref": "common.schema.json#/$defs/date"
+              "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
             },
             {
               "type": "null"
@@ -68,7 +75,7 @@
           "minProperties": 1,
           "description": "Ownership per profile (spec §7). A profile the text does not feed is absent.",
           "propertyNames": {
-            "$ref": "common.schema.json#/$defs/profileName"
+            "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/profileName"
           },
           "additionalProperties": {
             "type": "object",
@@ -79,10 +86,10 @@
             ],
             "properties": {
               "ownership": {
-                "$ref": "common.schema.json#/$defs/ownership"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/ownership"
               },
               "decided": {
-                "$ref": "common.schema.json#/$defs/date"
+                "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/date"
               },
               "decided_by": {
                 "enum": [
@@ -99,7 +106,7 @@
         "facets": {
           "allOf": [
             {
-              "$ref": "common.schema.json#/$defs/facetValues"
+              "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/facetValues"
             },
             {
               "required": [
@@ -125,14 +132,14 @@
           ]
         },
         "superseded_by": {
-          "$ref": "common.schema.json#/$defs/textKey"
+          "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/textKey"
         },
         "cached": {
           "type": "boolean",
           "description": "true when the text is own for at least one profile and not forgotten (spec §7.4)."
         },
         "redaction": {
-          "$ref": "common.schema.json#/$defs/redaction"
+          "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/redaction"
         }
       },
       "additionalProperties": false,
@@ -191,6 +198,21 @@
             ],
             "description": "Other people's details in mail are redacted in the corpus too."
           }
+        },
+        {
+          "if": {
+            "required": [
+              "url"
+            ]
+          },
+          "then": {
+            "properties": {
+              "origin": {
+                "const": "web"
+              }
+            }
+          },
+          "description": "Only a web text has an address."
         }
       ]
     }

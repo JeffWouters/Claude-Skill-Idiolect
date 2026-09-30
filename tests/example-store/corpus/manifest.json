@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "texts": {
     "76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa": {"path": "Published/2025-on-slowness.md", "date": "2025-03-14", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "path-rule"}}, "facets": {"lang": "en", "type": "essay"}, "words": 1840, "holdout": false, "status": "active", "cached": true},
     "76ee19e27fd6d397406ad38545e1350891e39d34b6b98dbba192d7f6b751dffa#2": {"path": "Published/2025-on-slowness.md", "date": "2025-03-14", "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-10-02", "decided_by": "path-rule"}}, "facets": {"lang": "nl", "type": "essay"}, "words": 160, "holdout": false, "status": "active", "cached": true},

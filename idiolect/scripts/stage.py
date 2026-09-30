@@ -398,7 +398,7 @@ def render(store, pending, include, final=False):
 
     # manifest
     if patches:
-        man = {"schema_version": 1, "texts": dict(sorted(texts.items()))}
+        man = {"schema_version": version_of("manifest"), "texts": dict(sorted(texts.items()))}
         check_schema("manifest", man, "rendered manifest")
         out["corpus/manifest.json"] = json.dumps(man, indent=2, ensure_ascii=False) + "\n"
 
@@ -942,7 +942,7 @@ def _snapshot(store, rel):
         else:
             shutil.copy2(f, tmp / f.name)
     entries = {k: e for k, e in store.manifest["texts"].items() if profile in e["profiles"]}
-    write_json(tmp / "manifest-entries.json", {"schema_version": 1, "profile": profile,
+    write_json(tmp / "manifest-entries.json", {"schema_version": version_of("manifest-entries"), "profile": profile,
                                                 "taken": iso(utcnow()), "texts": entries}, "manifest-entries")
     os.replace(tmp, final)
 

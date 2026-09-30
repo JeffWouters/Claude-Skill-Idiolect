@@ -14,6 +14,9 @@ Steps so far:
   this engine cannot read.
 - rulings.yaml 1 -> 2: only the version changes; version 2 adds optional tests (spec §27). Snapshots
   too.
+- corpus/manifest.json and snapshots' manifest-entries.json 1 -> 2: only the version changes; version
+  2 lets a web text keep its address (url, spec §36.7). Texts added before it have none: they are
+  forgotten by key or path, or their address is added by hand.
 """
 import argparse
 import json
@@ -49,7 +52,15 @@ def check_rulings_1(data, where):
         raise StoreError(f"{where} is not a valid version 1 rulings file; nothing was upgraded")
 
 
-CHECK_1 = {"vocabulary": check_vocabulary_1, "rulings": check_rulings_1}
+def check_manifest_1(data, where):
+    ok = isinstance(data, dict) and isinstance(data.get("texts"), dict) and all(
+        isinstance(e, dict) and isinstance(e.get("profiles"), dict) for e in data["texts"].values())
+    if not ok:
+        raise StoreError(f"{where} is not a valid version 1 ledger file; nothing was upgraded")
+
+
+CHECK_1 = {"vocabulary": check_vocabulary_1, "rulings": check_rulings_1, "manifest": check_manifest_1,
+           "manifest-entries": check_manifest_1}
 
 
 def rulings_1_to_2(data, own_texts=None, today=None):
@@ -71,12 +82,48 @@ def vocabulary_1_to_2(data, own_texts=None, today=None):
     return out
 
 
+def manifest_1_to_2(data, own_texts=None, today=None):
+    return {**data, "schema_version": 2}
+
+
 STEPS = {"vocabulary": {1: vocabulary_1_to_2}, "rulings": {1: rulings_1_to_2}}
+JSON_STEPS = {"manifest": {1: manifest_1_to_2}, "manifest-entries": {1: manifest_1_to_2}}
+
+
+def _load(f):
+    text = f.read_text(encoding="utf-8")
+    return json.loads(text) if f.suffix == ".json" else (load_yaml_text(text) or {})
+
+
+def _dump(f, data):
+    return json.dumps(data, indent=2, ensure_ascii=False) + "\n" if f.suffix == ".json" else dump_yaml(data)
+
+
+def _upgrade(schema, data, v, texts=None, today=None):
+    steps = {**STEPS, **JSON_STEPS}[schema]
+    while v < version_of(schema):
+        data = steps[v](data, texts, today)
+        v += 1
+    return data
+
+
+def upgraded_manifest(path):
+    """The ledger as it will be after the upgrade, validated; for reading an older store before
+    migrating it (store.Store(migrating=True))."""
+    data = _load(path)
+    v = data.get("schema_version", 1) if isinstance(data, dict) else 1
+    if v < version_of("manifest"):
+        CHECK_1["manifest"](data, str(path))
+        data = _upgrade("manifest", data, v)
+    return check_schema("manifest", data, str(path))
 
 
 def plan(store):
     """[(path, schema, from_version, profile, is_snapshot)] for every file older than this engine."""
     todo = []
+    mp = store.root / "corpus" / "manifest.json"
+    if mp.exists() and _load(mp).get("schema_version", 1) < version_of("manifest"):
+        todo.append((mp, "manifest", _load(mp).get("schema_version", 1), None, False))
     root = store.root / "profiles"
     if not root.exists():
         return todo
@@ -87,11 +134,15 @@ def plan(store):
                 v = data.get("schema_version", 1)
                 if v < version_of(schema):
                     todo.append((f, schema, v, prof_dir.name, "snapshots" in f.relative_to(prof_dir).parts))
+        for f in sorted(prof_dir.glob("snapshots/*/manifest-entries.json")):
+            v = _load(f).get("schema_version", 1)
+            if v < version_of("manifest-entries"):
+                todo.append((f, "manifest-entries", v, prof_dir.name, True))
     return todo
 
 
 def migrate(store_root, dry_run=False, now=None):
-    store = Store(store_root)
+    store = Store(store_root, migrating=True)
     todo = plan(store)
     rel = [str(f.relative_to(store.root)) for f, *_ in todo]
     if dry_run or not todo:
@@ -107,7 +158,7 @@ def migrate(store_root, dry_run=False, now=None):
         # 1. convert and validate everything in memory; nothing is written if any file fails (review M4)
         own, converted, touched = {}, [], {}
         for f, schema, v, prof, is_snap in todo:
-            data = load_yaml_text(f.read_text(encoding="utf-8"))
+            data = _load(f)
             if v == 1:
                 CHECK_1[schema](data, str(f))
             texts = None
@@ -115,9 +166,7 @@ def migrate(store_root, dry_run=False, now=None):
                 if prof not in own:
                     own[prof] = measure.own_texts(store.manifest["texts"], store.corpus_text, store.facets, prof)
                 texts = own[prof]
-            while v < version_of(schema):
-                data = STEPS[schema][v](data, texts, today)
-                v += 1
+            data = _upgrade(schema, data, v, texts, today)
             check_schema(schema, data, str(f))
             converted.append((f, data))
             touched.setdefault(prof, []).append(f"{schema} {data['schema_version']}")
@@ -127,8 +176,10 @@ def migrate(store_root, dry_run=False, now=None):
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(f, dest)
         for f, data in converted:
-            atomic_write(f, dump_yaml(data))
+            atomic_write(f, _dump(f, data))
         for prof, what in touched.items():
+            if prof is None:                  # the store's own ledger: no profile changelog
+                continue
             cl = store.root / "profiles" / prof / "changelog.md"
             existing = cl.read_text(encoding="utf-8") if cl.exists() else ""
             atomic_write(cl, pages.changelog_append(

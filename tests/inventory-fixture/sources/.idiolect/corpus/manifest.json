@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "texts": {
     "a751f62664f1546c5e52df468177f7131f030a54939762e287b3f387cbbcc778": {"path": "essays/back.md", "date": null, "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-09-01", "decided_by": "path-rule"}}, "facets": {"lang": "en", "type": "essay"}, "words": 216, "holdout": false, "status": "unreachable", "cached": true},
     "2a07772c773e6f3bf8658d4d37bc07ce5bde82c50dc174316e8faac214368c72": {"path": "essays/changed.md", "date": null, "origin": "file", "profiles": {"sam": {"ownership": "own", "decided": "2026-09-01", "decided_by": "path-rule"}}, "facets": {"lang": "en", "type": "essay"}, "words": 278, "holdout": false, "status": "active", "cached": true},

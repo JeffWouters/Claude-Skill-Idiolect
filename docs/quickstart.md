@@ -101,7 +101,8 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 ## 6. When something is off
 
 - **Wrong lesson, or a text that should not have counted:**
-  "Forget drafts/old-rant.md from my Idiolect store."
+  "Forget drafts/old-rant.md from my Idiolect store." A web page learned with Idiolect is forgotten
+  by its address: "Forget https://example.com/posts/old-rant from my Idiolect store."
 - **One lesson, rule, word or example you don't want:** "Remove lesson l-004 from my Idiolect
   profile sam." It stays out at the next learn too. Changed your mind about something you rejected
   earlier? "Lift rejection x-003 in my Idiolect profile sam."

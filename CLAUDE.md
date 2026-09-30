@@ -25,7 +25,7 @@ draft that breaks a ruling. Then: outliers at learn and `verify.py` (§28, thres
 `langpack.py`, Dutch with `starter-rules/nl.yaml`, fixture `synthetic-sanne`, §32) and `published.py`
 (kept drafts, scan, edit queue, §33). Then: language flavour (`flavour.py`, `flavours.yaml` detectors in the packs,
 `<lang>.flavour.yaml`, learn step 7b, kit and check, §34); packs with word lists and detectors for en, nl, de, fr, es, it, pt, pl, ru, uk, tr, sv, nb, da, false-alarm fixtures
-`evals/fixtures/native-*`). Then: `maintain.py delete` removes a whole profile in one approved diff (§35). `maintain.py remove` drops one learned item by id and records it as rejected; `lift` removes a rejection (§36). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
+`evals/fixtures/native-*`). Then: `maintain.py delete` removes a whole profile in one approved diff (§35). `maintain.py remove` drops one learned item by id and records it as rejected; `lift` removes a rejection; a web text keeps its `url` (manifest schema v2) and is forgotten by it (§36). Open: the writer's own blind test (`test judge=true`). Recognition from run 7 is forced choice with controls and a sensitivity test
 (`evals/recognition-study/`).
 Run `python3 -m pytest tests -q` before every commit.
 

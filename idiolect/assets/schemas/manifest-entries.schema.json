@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/manifest-entries.schema.json",
+  "$id": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v2/manifest-entries.schema.json",
   "title": "snapshots/<timestamp>/manifest-entries.json — the manifest entries feeding one profile at snapshot time",
   "type": "object",
   "required": [
@@ -11,21 +11,22 @@
   ],
   "properties": {
     "schema_version": {
-      "$ref": "common.schema.json#/$defs/schemaVersion"
+      "const": 2,
+      "description": "Version 2, with the manifest's version 2 entries. migrate.py upgrades version 1."
     },
     "profile": {
-      "$ref": "common.schema.json#/$defs/profileName"
+      "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/profileName"
     },
     "taken": {
-      "$ref": "common.schema.json#/$defs/dateTime"
+      "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/dateTime"
     },
     "texts": {
       "type": "object",
       "propertyNames": {
-        "$ref": "common.schema.json#/$defs/textKey"
+        "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v1/common.schema.json#/$defs/textKey"
       },
       "additionalProperties": {
-        "$ref": "manifest.schema.json#/$defs/entry"
+        "$ref": "https://github.com/JeffWouters/Claude-Skill-Idiolect/schemas/v2/manifest.schema.json#/$defs/entry"
       }
     }
   },

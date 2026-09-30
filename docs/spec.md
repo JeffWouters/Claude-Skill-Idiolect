@@ -609,7 +609,9 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    [--note N] [--strip]` adds one text: `path: null`; the ownership the writer gave (web and connector
    texts start undecided and are never assumed `own`, §7.5); `--strip` removes quotes and a signature
    as §6.4; `mail` texts are redacted (§15, names from `learn.py mail-names`); under 150 words refused;
-   `--note` (a URL, a subject) goes into the item summary and the changelog only. Then the learn
+   `--url U` (web only) keeps the page's address in the entry's `url` (§36.7); a web text's `--note`
+   that is an address counts as `--url`. Otherwise `--note` (a subject) goes into the item summary
+   and the changelog only. Then the learn
    pipeline from measurement on.
 2. **Web** (`web.py fetch --url U [--max 50] --out DIR`): fetched raw over HTTP (`urllib`, a 20-second
    timeout), never through a summarising tool. A sitemap gives its page URLs, an RSS or Atom feed its
@@ -931,7 +933,7 @@ the house style guide.
 5. **Permission.** Like the other deleting modes, ask for delete permission on the store's folder at
    commit time where the environment needs it.
 
-## 36. Removing a learned item, lifting a rejection
+## 36. Removing a learned item, lifting a rejection, forgetting a web page by its address
 
 1. **Commands.** `maintain.py remove --profile P --id ID [--id ID ...] [--slot K]` and
    `maintain.py lift --profile P --id ID [--id ID ...]`. Each builds one proposal, approved or
@@ -957,3 +959,11 @@ the house style guide.
    may propose the item again, for approval as always.
 6. **Finding the ids.** `status.py --profile P` lists that profile's rejections with their ids: the
    `x-` entries, rejected flavour markers and declined starter rules.
+7. **Forgetting a web text by its address.** A `web` entry may carry `url` (manifest schema version
+   2). `forget --source <http(s) address>` selects the entries whose `url` matches, compared without
+   scheme, `www.`, fragment or trailing slash and with the host in lower case; superseded entries are
+   left alone and forgotten ones count only when nothing else matches, as for a path. An address no
+   entry carries is refused, saying that texts added before version 2 have none and are forgotten
+   by key. `migrate.py` upgrades `corpus/manifest.json` and every snapshot's `manifest-entries.json`
+   from 1 to 2 by the version alone; to read an older ledger while migrating, the store is loaded
+   with the upgrade applied in memory.

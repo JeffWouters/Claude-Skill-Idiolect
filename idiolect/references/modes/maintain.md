@@ -17,6 +17,9 @@ python3 scripts/maintain.py --store S forget --source <path or key> [--profile P
   later learns skip it.
 - With `--ownership`: reclassifies it. `own` extracts and caches it again, also for a forgotten text,
   as long as the file still gives the same text.
+- `--source` by a web page's address matches the texts learned from that page (`http` or `https`,
+  with or without `www.` or a trailing slash). Texts added before the ledger kept addresses have none:
+  forget those by key.
 - `--source` by path matches the current version of that file and its segments (earlier,
   superseded versions are history and stay as they are); by key, exactly one text.
 - Examples taken from the text are removed and affected slots are re-measured in the same proposal.

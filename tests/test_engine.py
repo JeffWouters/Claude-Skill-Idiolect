@@ -282,7 +282,7 @@ def _author_store(tmp_path, author, n=None):
                     "profiles": {"fx": {"ownership": "own", "decided": "2026-10-02", "decided_by": "path-rule"}},
                     "facets": {"lang": "en", "type": "essay"}, "words": count_words(t), "holdout": False,
                     "status": "active", "cached": True}
-    write_json(store / "corpus" / "manifest.json", {"schema_version": 1, "texts": texts}, "manifest")
+    write_json(store / "corpus" / "manifest.json", {"schema_version": 2, "texts": texts}, "manifest")
     return Store(store)
 
 
