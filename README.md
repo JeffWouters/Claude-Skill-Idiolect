@@ -100,7 +100,7 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 | 4 | Validation: `test` |
 | 5 | Feedback: learn-edit, interview, more facets, inheritance |
 | 6 | Reach: cloud route, export, more adapters, use from other skills |
-| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31); language packs, learning from what is published (spec §32–33) |
+| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31); language packs, learning from what is published (spec §32–33); language flavour (spec §34); deleting a whole profile (spec §35) |
 
 ## Licence
 

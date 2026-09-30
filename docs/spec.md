@@ -217,6 +217,7 @@ anything else is a bug. Every change except those marked *housekeeping* goes thr
 | `active`, `unreachable` | `forgotten` | Approved `forget` of the text for **every** profile it feeds; cached text deleted |
 | `forgotten` | `active` | Approved `forget <source> ownership=own`: the file is found with the same hash, extracted and cached again. The entry's old profile records are replaced by the new ones, so re-owning for one profile never revives another |
 | any | the snapshot's status | Approved `rollback` (below) |
+| any | (removed from the manifest) | Approved `delete` of the only profile the entry has a record for; its cached text is deleted (§35) |
 
 `holdout` can be set on any `active` entry by an approved `test` and is cleared only by `rollback` or
 by an approved `forget`.
@@ -229,6 +230,7 @@ by an approved `forget`.
 | `forget <source>` for its only (or last) profile | Status `forgotten`; text deleted |
 | `forget <source> ownership=assisted` or `exclude` | Record changed; if no profile is `own` any more, text deleted and `cached: false` |
 | `forget <source> ownership=own` | Record changed; text extracted and cached if it was not (`cached: true`) |
+| `delete` of a profile, for an entry other profiles also use | That profile's record is removed (not `exclude`: the profile no longer exists); if no remaining profile is `own`, text deleted and `cached: false` (§35) |
 
 ### Rollback
 
@@ -276,7 +278,7 @@ Entries that do not feed the profile are never touched by its rollback.
      rejected is rejected; other lessons lose the rejected texts from their evidence at commit.
    - An item on a pooled slot that holds exactly the texts of one exact slot *follows* the matching
      item there and takes its decision; the diff shows only the leading item.
-   - `forget`, `rollback` and `prune` proposals are **atomic**: rejecting any item rejects all.
+   - `forget`, `rollback`, `prune` and `delete` proposals are **atomic**: rejecting any item rejects all.
 5. **Commit** on approval:
    1. Approved fingerprints are re-measured on the approved corpus only, so a rejected text never
       counts; a slot left without texts drops its fingerprint. Then the engine regenerates each
@@ -299,7 +301,8 @@ Entries that do not feed the profile are never touched by its rollback.
 
 ## 10. Lock
 
-1. **Store-writing modes** are `learn`, `learn-edit`, `interview`, `forget`, `rollback`, `prune` and
+1. **Store-writing modes** are `learn`, `learn-edit`, `interview`, `forget` (also used by `delete`,
+   which removes a whole profile, §35), `rollback`, `prune` and
    `test` (`test` flags holdout texts and writes `eval/results.md`), and `migrate.py`, which takes the
    lock as mode `migrate` while it upgrades file formats and refuses to run while a pending area waits. Each creates `.state/lock`
    exclusively (create-new, failing if it exists) before its first write, including the pending area.
@@ -346,8 +349,9 @@ Entries that do not feed the profile are never touched by its rollback.
    rollback removed) gets that record at the next learn.
    4. Goes through the pending area and approval like any change.
 3. `prune` keeps the newest `keep` snapshots (default 10) and deletes the rest.
-4. Only `forget`, `rollback` and `prune` delete, always after an approved diff. Where the environment
-   needs delete permission, the engine asks for it at that point and explains why.
+4. Only `forget`, `rollback`, `prune` and `delete` (a whole profile, §35) delete, always after an
+   approved diff. Where the environment needs delete permission, the engine asks for it at that point
+   and explains why. `delete` takes no snapshot of the profile it removes, so it cannot be rolled back.
 
 ## 12. Facets, slot keys and resolution
 

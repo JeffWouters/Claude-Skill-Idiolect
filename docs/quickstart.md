@@ -104,6 +104,9 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
   "Forget drafts/old-rant.md from my Idiolect store."
 - **A whole learn you regret:** "Roll my Idiolect profile back to before yesterday's learn."
   A snapshot is taken before every approved change.
+- **A profile you no longer want:** "Delete the Idiolect profile sam." You see everything that goes
+  (the profile, its snapshots, the texts only it used) and approve it as a whole. This one cannot be
+  rolled back, and the store's default profile is refused.
 - **Where things stand:** "Show my Idiolect status": profiles, slots, confidence, anything waiting.
 - **A session ended before you approved:** the next run offers to resume or discard it.
 

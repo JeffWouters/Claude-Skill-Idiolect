@@ -155,7 +155,7 @@ The model reads the request: natural language plus optional `key=value` pairs, e
 
 *Modes grouped by what they may change. The first two groups are the store-writing modes: they take the lock and change nothing without an approved diff. `test` changes no lessons, but it flags holdout texts and adds a row to its results file (spec §10).*
 
-*Added after the picture was drawn: `rules` changes what is learned (after approval); `verify` and `guide` only use it; `published` keeps drafts and queues matches, and learns only through `learn-edit`.*
+*Added after the picture was drawn: `rules` changes what is learned (after approval); `verify` and `guide` only use it; `published` keeps drafts and queues matches, and learns only through `learn-edit`; `delete` removes a whole profile (after approval, as a whole) and belongs with `rollback` and `prune`.*
 
 ### Write and rewrite, step by step
 
@@ -453,7 +453,7 @@ exclude:
 
 ![Life of a text in the manifest: found by inventory as undecided; own and approved becomes active; assisted or exclude is recorded and can be promoted to own; active and superseded switch when the file is edited or reverted; active and unreachable switch when the path goes and comes back; active becomes forgotten after forget and can be re-owned; unreachable can also be forgotten.](idiolect-design-images/10-manifest.png)
 
-*Lifecycle of a text in the manifest. `recorded` stands for an entry that is only `assisted` or `exclude`, which keeps its hash and decisions but no cached text. `holdout` is a separate flag on any entry. `rollback` can restore any earlier state (spec §8).*
+*Lifecycle of a text in the manifest. `recorded` stands for an entry that is only `assisted` or `exclude`, which keeps its hash and decisions but no cached text. `holdout` is a separate flag on any entry. `rollback` can restore any earlier state (spec §8). Deleting a profile removes the entries only that profile used from the manifest altogether, and only that profile's record from the others (spec §35).*
 
 ### Other store files
 
@@ -520,7 +520,7 @@ idiolect/
     edits.py               pair diffing, candidate changes, recurrence counts
     redact.py              pattern redaction; hands names and organisations to the model
     diff_profile.py        pending vs current → readable diff; exact rejection filter
-    snapshot.py            snapshot, rollback, prune
+    snapshot.py            snapshot, rollback, prune, delete (a whole profile)
     migrate.py             schema upgrades, facet appends
     export.py              export assembly with redaction checks
     flavour.py             language flavour: detectors, counting, the flavour file, kit and check sections
@@ -686,7 +686,7 @@ Built and tested on the local route with fixture authors only; no phase depends 
 | Lessons carry stable ids (`l-`, `d-`) | Promotions and rejections must still point at the same lesson after a relearn |
 | YAML read as 1.2 core, dates as strings | `lang: no` (Norwegian) must not become false |
 | Decisions carry through: requirements, rejected texts, mirrored slots; fingerprints re-measured at commit | A text the writer rejected must never count or become an example; a lone rejection must not leave a half-consistent store |
-| forget, rollback and prune are all-or-nothing | Their items only make sense together |
+| forget, rollback, prune and delete are all-or-nothing | Their items only make sense together |
 | Only the writer's own rejections become permanent | A lesson rejected only because its text or profile was rejected must be able to come back |
 | Rollback never restores rejections and never lowers id counters | Rejections are permanent until lifted; ids must not be reused |
 | Rolling back past a text's first learn removes its entry | The entry did not exist then; "forgotten" would block every later learn of a text the writer never forgot |

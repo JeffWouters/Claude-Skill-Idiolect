@@ -105,7 +105,7 @@ profile: sam
 - Snapshot: snapshots/2026-10-02T214000Z/
 ```
 
-Newest entry last. Modes that write here: learn, learn-edit, interview, forget, rollback, prune, and migrate.py (one entry per format upgrade).
+Newest entry last. Modes that write here: learn, learn-edit, interview, forget, rollback, prune, and migrate.py (one entry per format upgrade). `delete` writes no entry: it removes the profile's changelog with the rest of its folder (spec §35).
 
 ## Test results — `eval/results.md`
 
