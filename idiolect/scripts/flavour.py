@@ -502,6 +502,13 @@ def render_commit(store, pending, view, get_text, recount=(), staged=None):
             if it["decision"] == "approved":
                 if it["op"] == "remove":
                     markers.pop(m["id"], None)
+                    if body.get("reject") and not any(r["id"] == m["id"] for r in rejected):
+                        # removed by the writer (maintain.py remove, spec §36): not proposed again
+                        entry = {"id": m["id"], "name": m["name"], "normalised": normalise_name(m["name"]),
+                                 "rejected": today}
+                        if m.get("detector"):
+                            entry["detector"] = m["detector"]
+                        rejected.append(entry)
                 else:
                     markers[m["id"]] = m
             elif writer.get(it["id"]) == "rejected" and it["op"] == "add":

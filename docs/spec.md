@@ -930,3 +930,30 @@ the house style guide.
    changes.
 5. **Permission.** Like the other deleting modes, ask for delete permission on the store's folder at
    commit time where the environment needs it.
+
+## 36. Removing a learned item, lifting a rejection
+
+1. **Commands.** `maintain.py remove --profile P --id ID [--id ID ...] [--slot K]` and
+   `maintain.py lift --profile P --id ID [--id ID ...]`. Each builds one proposal, approved or
+   rejected as a whole, under the `forget` mode (lock and pending area), so no store file format
+   changes. An unknown profile, an id of the wrong kind or an id the profile does not hold is refused,
+   and a refusal leaves no proposal behind.
+2. **What `remove` takes.** Lessons `l-` (slot pages), edit lessons `d-` (`<slot>.edits.md`), examples
+   `e-` (`<slot>.examples.md`), vocabulary items `v-`, rulings `r-` and flavour markers `f-`
+   (`<lang>.flavour.yaml`). Lesson, edit-lesson and example ids are numbered per slot page: an id
+   found on several pages with the same text (a pooled slot's mirror) is removed from all of them;
+   with different texts the command asks for `--slot`, which limits the removal to that slot (or,
+   for `f-`, that language).
+3. **Recorded as a rejection.** On an approved commit each removed lesson, edit lesson, example and
+   vocabulary item gets an `x-` entry in `rejected.yaml` exactly as if the writer had rejected it
+   when it was proposed (an example is kept as a hash only, §14.3); a removed flavour marker goes
+   into the flavour file's `rejected` list; a removed starter rule goes into `declined` (§27.5). A
+   ruling the writer stated leaves no record: only the writer adds those. The ids are never reused.
+4. **Snapshot.** The commit takes a snapshot of the profile first, so a removal can be rolled back
+   (rejections are never rolled back, §11).
+5. **`lift`.** Takes `x-` ids (entries in `rejected.yaml`), `f-` ids of rejected flavour markers and
+   `s-` ids of declined starter rules, and removes those records; `last_id` keeps its value, so no
+   `x-` id is reused. Nothing comes back by itself: the next learn, flavour step or `rules defaults`
+   may propose the item again, for approval as always.
+6. **Finding the ids.** `status.py --profile P` lists that profile's rejections with their ids: the
+   `x-` entries, rejected flavour markers and declined starter rules.

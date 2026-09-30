@@ -517,7 +517,7 @@ def render(store, pending, include, final=False):
     edit_lessons = collections.defaultdict(list)
     for it, pl in items:
         if "edit_lesson" in pl:
-            edit_lessons[(pl["edit_lesson"]["profile"], pl["edit_lesson"]["slot"])].append(pl["edit_lesson"])
+            edit_lessons[(pl["edit_lesson"]["profile"], pl["edit_lesson"]["slot"])].append((it["op"], pl["edit_lesson"]))
     for (prof, slot), rows in edit_lessons.items():
         rel = f"profiles/{prof}/{slot}.edits.md"
         base = _read(store, rel)
@@ -526,8 +526,11 @@ def render(store, pending, include, final=False):
         else:
             meta, cur = {"schema_version": 1, "profile": prof, "slot": slot, "personal_data": "none", "last_id": 0}, []
         byid = {c["id"]: c for c in cur}
-        for les in rows:
-            byid[les["id"]] = les
+        for op, les in rows:
+            if op == "remove":                    # maintain.py remove (spec §36)
+                byid.pop(les["id"], None)
+            else:
+                byid[les["id"]] = les
         meta["last_id"] = max([meta.get("last_id") or 0, _plan_ids(pending, "edit_lesson", prof, slot)]
                               + [int(i.split("-")[1]) for i in byid])
         out[rel] = pages.render_edits(meta, list(byid.values()))
@@ -594,9 +597,13 @@ def render_declined(store, pending, files):
     today = utcnow().date().isoformat()
     per = collections.defaultdict(dict)
     for it in pending.plan["items"]:
-        if it["kind"] != "ruling" or writer.get(it["id"]) != "rejected":
+        if it["kind"] != "ruling":
             continue
-        body = pending.payload(it["id"]).get("ruling") or {}
+        pl = pending.payload(it["id"])
+        removed = it["op"] == "remove" and pl.get("reject") and it["decision"] == "approved"
+        if writer.get(it["id"]) != "rejected" and not removed:
+            continue
+        body = pl.get("ruling") or {}
         st = (body.get("entry") or {}).get("starter")
         if st:
             per[body["profile"]][st["id"]] = st
@@ -624,9 +631,14 @@ def render_rejections(store, pending):
     today = utcnow().date().isoformat()
     for it in plan["items"]:
         kind = ITEM_KINDS_REJECTABLE.get(it["kind"])
-        if writer.get(it["id"]) != "rejected" or not kind or it["op"] != "add":
+        if not kind:
             continue
         pl = pending.payload(it["id"])
+        # the writer's rejection of a proposal, or an approved removal the writer asked to keep out
+        # (maintain.py remove, spec §36)
+        removed = it["op"] == "remove" and pl.get("reject") and it["decision"] == "approved"
+        if not removed and (writer.get(it["id"]) != "rejected" or it["op"] != "add"):
+            continue
         body = pl.get("lesson") or pl.get("edit_lesson") or pl.get("example") or (pl.get("vocab") or {}).get("entry") or {}
         text = body.get("text", "")
         slot = it.get("slot") or (pl.get("lesson") or pl.get("edit_lesson") or pl.get("example") or {}).get("slot") or "_"

@@ -9,7 +9,7 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > **Status: all build phases done (0 to 6).** The skill finds or creates a store, learns a voice from
 > Markdown, PDF and Word files with the writer's approval (ownership, fingerprints, contrast with
 > neutral AI rewrites, lessons with stable ids, vocabulary, redacted examples), supports
-> `forget`, `rollback`, `prune`, `delete` (a whole profile) and `status`, writes, rewrites and checks text in a learned voice, and
+> `forget`, `rollback`, `prune`, `delete` (a whole profile), `remove` (one learned item), `lift` (a past rejection) and `status`, writes, rewrites and checks text in a learned voice, and
 > tests a profile against a held-out text of the writer's own (`test`, with an optional blind judge),
 > learns from the writer's edits to a draft (`learn-edit`), builds a slot from interview answers, reads
 > exported mail (`.eml`, `.msg`), web pages, Microsoft 365 sent mail and talk transcripts, exports a

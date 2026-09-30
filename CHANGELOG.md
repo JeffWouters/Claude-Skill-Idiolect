@@ -11,6 +11,11 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
   approved diff: its folder and snapshots, its ledger records and the cached texts no other profile
   owns, its source rules, kept drafts, queued edits and published sources. The default profile and a
   parent another profile extends are refused. It cannot be rolled back.
+- **Removing one learned item** (spec §36): `maintain.py remove --profile P --id <id>` removes a
+  lesson, edit lesson, example, vocabulary item, ruling or flavour marker by id, after approval, and
+  records it as the writer's rejection so a later learn does not bring it back.
+- **Lifting a rejection** (spec §36): `maintain.py lift --profile P --id <x-, f- or s- id>` removes a
+  rejection record, a rejected flavour marker or a declined starter rule, so it may be proposed again.
 - Learning from a site with many posts no longer stops in the outlier step when a measure is hundreds
   of times below the typical text.
 - Adding a web or mail text whose file does not exist is reported as an error, not a crash.

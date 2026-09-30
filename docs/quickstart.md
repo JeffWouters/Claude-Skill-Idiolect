@@ -102,6 +102,9 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 
 - **Wrong lesson, or a text that should not have counted:**
   "Forget drafts/old-rant.md from my Idiolect store."
+- **One lesson, rule, word or example you don't want:** "Remove lesson l-004 from my Idiolect
+  profile sam." It stays out at the next learn too. Changed your mind about something you rejected
+  earlier? "Lift rejection x-003 in my Idiolect profile sam."
 - **A whole learn you regret:** "Roll my Idiolect profile back to before yesterday's learn."
   A snapshot is taken before every approved change.
 - **A profile you no longer want:** "Delete the Idiolect profile sam." You see everything that goes

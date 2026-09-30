@@ -62,6 +62,18 @@ def status(store, only=None):
         out["profiles"].append({"name": name, "subject": prof["subject"], "consent": prof["consent"],
                                 "extends": chain[1:], "own_active_texts": own, "slots": slots,
                                 "rejections": len(rej), "inherited_rulings": inherited})
+        if only:
+            # with one profile named, the rejections themselves, with the ids `maintain.py lift` takes
+            listed = [f"{e['id']} {e['kind']}{' in ' + e['slot'] if e.get('slot') else ''}: {e['text'][:80]}"
+                      for e in rej]
+            from common import load_yaml_text
+            for f in sorted(d.glob("*.flavour.yaml")):
+                listed += [f"{r['id']} flavour marker ({f.name[:-len('.flavour.yaml')]}): {r['name']}"
+                           for r in (load_yaml_text(f.read_text(encoding="utf-8")) or {}).get("rejected", [])]
+            if (d / "rulings.yaml").exists():
+                listed += [f"{x['starter']} declined starter rule"
+                           for x in read_store_file(d / "rulings.yaml", "rulings").get("declined", [])]
+            out["profiles"][-1]["rejected"] = listed
     return out
 
 
@@ -78,7 +90,10 @@ def readable(s):
                          f"{sl['words']} words, confidence {sl['confidence']}")
         if not p["slots"]:
             lines.append("  nothing learned yet")
-        if p["rejections"]:
+        if p.get("rejected"):
+            lines.append("  rejected (lift with maintain.py lift --id):")
+            lines += [f"    {r}" for r in p["rejected"]]
+        elif p["rejections"]:
             lines.append(f"  {p['rejections']} rejected proposals")
         for r in p["inherited_rulings"]:
             lines.append(f"  inherited ruling {r}")

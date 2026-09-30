@@ -1,10 +1,12 @@
-"""forget, rollback, prune and delete: the only modes that delete (spec §8, §11, §35). Each builds a
+"""forget, rollback, prune, delete, remove and lift: the only modes that delete (spec §8, §11, §35, §36). Each builds a
 proposal in the pending area; nothing changes until the writer approves and `stage.py commit` runs.
 
     python3 maintain.py --store S forget --source REL_PATH_OR_KEY [--profile P] [--ownership own|assisted|exclude]
     python3 maintain.py --store S rollback --profile P [--to SNAPSHOT]
     python3 maintain.py --store S prune --profile P [--keep 10]
     python3 maintain.py --store S delete --profile P
+    python3 maintain.py --store S remove --profile P --id l-004 [--id v-002 ...] [--slot K]
+    python3 maintain.py --store S lift --profile P --id x-003 [--id f-002 --id s-011 ...]
 """
 import argparse
 import json
@@ -432,6 +434,173 @@ def prune(store_root, profile, keep=10):
     except Exception:
         stage.discard(store_root)
         raise
+# ---------- removing learned items and lifting rejections (spec §36) ----------
+
+ID_KINDS = {"l": "lesson", "d": "edit lesson", "e": "example", "v": "vocabulary item", "r": "ruling",
+            "f": "flavour marker"}
+
+
+def _find(store, profile, item_id):
+    """[(kind, rel, slot_or_lang, body)] for every place the id lives in the profile. Lesson, edit-lesson
+    and example ids are per slot, so one id can live on several slot pages."""
+    import pages
+    from common import load_yaml_text
+    pdir = store.root / "profiles" / profile
+    pre = item_id.split("-")[0]
+    found = []
+    if pre == "l":
+        for f in sorted(pdir.glob("*.md")):
+            if f.name.endswith((".examples.md", ".never.md", ".edits.md")) or f.name == "changelog.md":
+                continue
+            _, _, lessons = pages.parse_slot_page(f.read_text(encoding="utf-8"))
+            found += [("lesson", f.name, f.name[:-3], x) for x in lessons if x["id"] == item_id]
+    elif pre == "d":
+        for f in sorted(pdir.glob("*.edits.md")):
+            _, lessons = pages.parse_edits(f.read_text(encoding="utf-8"))
+            found += [("edit-lesson", f.name, f.name[: -len(".edits.md")], x) for x in lessons if x["id"] == item_id]
+    elif pre == "e":
+        for f in sorted(pdir.glob("*.examples.md")):
+            _, exs = pages.parse_examples(f.read_text(encoding="utf-8"))
+            found += [("example", f.name, f.name[: -len(".examples.md")], x) for x in exs if x["id"] == item_id]
+    elif pre in ("v", "r"):
+        name = "vocabulary.yaml" if pre == "v" else "rulings.yaml"
+        f = pdir / name
+        if f.exists():
+            data = read_store_file(f, "vocabulary" if pre == "v" else "rulings")
+            found += [("vocabulary" if pre == "v" else "ruling", name, None, x)
+                      for x in data["entries"] if x["id"] == item_id]
+    elif pre == "f":
+        for f in sorted(pdir.glob("*.flavour.yaml")):
+            data = load_yaml_text(f.read_text(encoding="utf-8")) or {}
+            found += [("flavour", f.name, f.name[: -len(".flavour.yaml")], x)
+                      for x in data.get("markers", []) if x["id"] == item_id]
+    return found
+
+
+def remove(store_root, profile, ids, slot=None):
+    """Remove learned items from a profile by id (spec §36): lessons (l-), edit lessons (d-), examples
+    (e-), vocabulary (v-), rulings (r-) and flavour markers (f-). Each removal is recorded as the
+    writer's rejection, so a later learn does not propose it again (a starter rule is declined; a
+    ruling the writer stated leaves no record, since only the writer adds those). One atomic proposal
+    under the `forget` mode; the commit snapshots the profile, so it can be rolled back."""
+    import re as _re
+    store, pending, _ = stage.begin(store_root, "forget", [profile], atomic=True)
+    try:
+        if not (store.root / "profiles" / profile / "profile.yaml").exists():
+            raise StoreError(f"no profile {profile}")
+        if not ids:
+            raise StoreError("give at least one --id")
+        for item_id in ids:
+            if not _re.match(r"^[ldevrf]-\d{3,6}$", item_id):
+                raise StoreError(f"{item_id} is not an id this command removes "
+                                 f"({', '.join(f'{k}- {v}' for k, v in ID_KINDS.items())})")
+            found = _find(store, profile, item_id)
+            if slot:
+                found = [x for x in found if x[2] == slot]
+            if not found:
+                raise StoreError(f"{profile} has no {ID_KINDS[item_id[0]]} {item_id}"
+                                 + (f" in {slot}" if slot else ""))
+            if len({(x[3].get("text") or x[3].get("name") or "") for x in found}) > 1:
+                where = ", ".join(x[2] for x in found)
+                raise StoreError(f"{item_id} means different things in {where}; name one with --slot")
+            for kind, rel, where, body in found:
+                label = body.get("text") or body.get("name") or ""
+                label = (label[:80] + "…") if len(label) > 80 else label
+                path = f"profiles/{profile}/{rel}"
+                if kind in ("lesson", "edit-lesson", "example"):
+                    field = {"lesson": "lesson", "edit-lesson": "edit_lesson", "example": "example"}[kind]
+                    pending.add(kind, "remove", path, f"{item_id} ({where}) removed: {label}",
+                                {field: {**body, "profile": profile, "slot": where}, "reject": True},
+                                profile=profile, slot=where, ref=item_id)
+                elif kind == "vocabulary":
+                    pending.add(kind, "remove", path, f"{item_id} removed: {label}",
+                                {"vocab": {"profile": profile, "entry": body}, "reject": True},
+                                profile=profile, ref=item_id)
+                elif kind == "ruling":
+                    note = "; declined, so the starter set does not offer it again" if body.get("starter") else ""
+                    pending.add(kind, "remove", path, f"{item_id} removed: {label}{note}",
+                                {"ruling": {"profile": profile, "entry": body}, "reject": True},
+                                profile=profile, ref=item_id)
+                else:
+                    pending.add(kind, "remove", path, f"{item_id} ({where}) removed: {label}; not proposed again",
+                                {"flavour": {"profile": profile, "lang": where, "marker": body, "reject": True}},
+                                profile=profile, ref=item_id)
+        return {"proposed": len(pending.plan["items"]), "next": "stage.py diff, decide, commit"}
+    except Exception:
+        stage.discard(store_root)
+        raise
+
+
+def lift(store_root, profile, ids):
+    """Lift rejections (spec §36): x- entries in rejected.yaml, rejected flavour markers (f-) and declined
+    starter rules (s-). What was rejected may then be proposed again by a later learn or `rules
+    defaults`; nothing comes back by itself. One atomic proposal under the `forget` mode."""
+    import re as _re
+    from common import check_schema, dump_yaml, load_yaml_text
+    store, pending, _ = stage.begin(store_root, "forget", [profile], atomic=True)
+    try:
+        pdir = store.root / "profiles" / profile
+        if not (pdir / "profile.yaml").exists():
+            raise StoreError(f"no profile {profile}")
+        if not ids:
+            raise StoreError("give at least one --id")
+        want = {"x": set(), "f": set(), "s": set()}
+        for i in ids:
+            if not _re.match(r"^[xfs]-\d{3,6}$", i):
+                raise StoreError(f"{i} is not a rejection id (x- rejected item, f- rejected flavour marker, "
+                                 f"s- declined starter rule)")
+            want[i[0]].add(i)
+        if want["x"]:
+            rel = f"profiles/{profile}/rejected.yaml"
+            data = read_store_file(pdir / "rejected.yaml", "rejected") if (pdir / "rejected.yaml").exists() \
+                else {"schema_version": 1, "entries": []}
+            gone = [e for e in data["entries"] if e["id"] in want["x"]]
+            missing = want["x"] - {e["id"] for e in gone}
+            if missing:
+                raise StoreError(f"{profile} has no rejection {', '.join(sorted(missing))}")
+            data = {**data, "entries": [e for e in data["entries"] if e["id"] not in want["x"]]}
+            data["last_id"] = max([data.get("last_id") or 0] + [int(e["id"].split("-")[1]) for e in gone])
+            check_schema("rejected", data, rel)
+            pending.add("rejection", "remove", rel,
+                        "; ".join(f"{e['id']} lifted ({e['kind']}: {e['text'][:60]})" for e in gone),
+                        {"restore": {rel: dump_yaml(data)}}, profile=profile)
+        if want["f"]:
+            hits = {}
+            for f in sorted(pdir.glob("*.flavour.yaml")):
+                data = load_yaml_text(f.read_text(encoding="utf-8")) or {}
+                mine = [r for r in data.get("rejected", []) if r["id"] in want["f"]]
+                if mine:
+                    hits[f] = (data, mine)
+            missing = want["f"] - {r["id"] for _, rs in hits.values() for r in rs}
+            if missing:
+                raise StoreError(f"{profile} has no rejected flavour marker {', '.join(sorted(missing))}")
+            for f, (data, mine) in hits.items():
+                rel = f"profiles/{profile}/{f.name}"
+                data = {**data, "rejected": [r for r in data["rejected"] if r["id"] not in want["f"]]}
+                check_schema("flavour", data, rel)
+                pending.add("rejection", "remove", rel,
+                            "; ".join(f"{r['id']} lifted (flavour: {r['name']})" for r in mine),
+                            {"restore": {rel: dump_yaml(data)}}, profile=profile)
+        if want["s"]:
+            rel = f"profiles/{profile}/rulings.yaml"
+            data = read_store_file(pdir / "rulings.yaml", "rulings") if (pdir / "rulings.yaml").exists() else {}
+            declined = data.get("declined", [])
+            missing = want["s"] - {d["starter"] for d in declined}
+            if missing:
+                raise StoreError(f"{profile} has not declined starter rule {', '.join(sorted(missing))}")
+            data = {**data, "declined": [d for d in declined if d["starter"] not in want["s"]]}
+            if not data["declined"]:
+                data.pop("declined")
+            check_schema("rulings", data, rel)
+            pending.add("rejection", "remove", rel,
+                        f"declined starter rule{'s' if len(want['s']) > 1 else ''} "
+                        f"{', '.join(sorted(want['s']))} may be offered again",
+                        {"restore": {rel: dump_yaml(data)}}, profile=profile)
+        return {"proposed": len(pending.plan["items"]), "next": "stage.py diff, decide, commit"}
+    except Exception:
+        stage.discard(store_root)
+        raise
+
 
 def delete(store_root, profile):
     """Delete a whole profile (spec §35): its folder with every slot, ruling, flavour file, rejection and
@@ -535,7 +704,9 @@ def delete(store_root, profile):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store", required=True)
-    ap.add_argument("action", choices=["forget", "rollback", "prune", "delete"])
+    ap.add_argument("action", choices=["forget", "rollback", "prune", "delete", "remove", "lift"])
+    ap.add_argument("--id", action="append", dest="ids", help="remove/lift: an id; repeat for more")
+    ap.add_argument("--slot")
     ap.add_argument("--source")
     ap.add_argument("--profile")
     ap.add_argument("--ownership", choices=["own", "assisted", "exclude"])
@@ -547,6 +718,14 @@ def main(argv=None):
             out = forget(a.store, a.source, a.profile, a.ownership)
         elif a.action == "rollback":
             out = rollback(a.store, a.profile, a.to)
+        elif a.action == "remove":
+            if not a.profile:
+                raise StoreError("remove needs --profile")
+            out = remove(a.store, a.profile, a.ids or [], a.slot)
+        elif a.action == "lift":
+            if not a.profile:
+                raise StoreError("lift needs --profile")
+            out = lift(a.store, a.profile, a.ids or [])
         elif a.action == "delete":
             if not a.profile:
                 raise StoreError("delete needs --profile")

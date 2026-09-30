@@ -1,6 +1,6 @@
-# Modes: forget, rollback, prune, delete
+# Modes: forget, rollback, prune, delete, remove, lift
 
-The only modes that delete. Each builds a proposal that is approved or rejected **as a whole**;
+The only modes that delete (`remove` and `lift` delete no files, only entries). Each builds a proposal that is approved or rejected **as a whole**;
 nothing changes until the writer approves the diff (`stage.py diff`, `decide --approve all` or
 `--reject all`, `commit`). Where the environment needs permission to delete, ask for it at commit
 time and say why.
@@ -57,3 +57,28 @@ ledger and its cached text is deleted; a text another profile uses stays for tha
 source rules, kept drafts, queued edits and published sources. Refused for the store's default
 profile and for a profile another profile extends. Show the diff and say plainly that deleting cannot
 be rolled back; only the writer approves it. Ask for delete permission at commit time where needed.
+
+## remove
+
+```
+python3 scripts/maintain.py --store S remove --profile P --id l-004 [--id v-002 ...] [--slot en.essay]
+```
+
+Removes learned items by id (spec §36): lessons `l-`, edit lessons `d-`, examples `e-`, vocabulary
+items `v-`, rulings `r-` and flavour markers `f-`. Find the ids with `status` or on the profile's
+pages. Each removal is recorded as the writer's rejection, so a later learn does not propose it
+again; a starter rule is declined; a ruling the writer stated simply goes. A lesson id on several
+slot pages with the same text goes from all of them; if the texts differ, the script asks for
+`--slot`. The commit takes a snapshot, so it can be rolled back. Say that the item stays out until
+the writer lifts the rejection.
+
+## lift
+
+```
+python3 scripts/maintain.py --store S lift --profile P --id x-003 [--id f-002 --id s-011 ...]
+```
+
+Lifts rejections (`status.py --profile P` lists them with their ids): `x-` entries in `rejected.yaml`, rejected flavour markers `f-` (in the flavour
+file's `rejected` list) and declined starter rules `s-`. Nothing comes back by itself: say that the
+next learn, flavour step or `rules defaults` may propose the item again, for approval as always.
+Never edit `rejected.yaml` by hand for this.
