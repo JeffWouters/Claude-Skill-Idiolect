@@ -33,7 +33,7 @@ sources stay on the computer.
    (contrast rewrites, lessons, examples) read the samples the scripts write into the store's pending
    area through the same shell.
 4. The writer approves the diff as usual. Every commit ends by removing the store's own pending area
-   (`.state/pending`) and its lock, and `forget`, `rollback` and `prune` delete more; the bridged shell
+   (`.state/pending`) and its lock, and `forget`, `rollback`, `prune` and `delete` delete more; the bridged shell
    may refuse deletes until the writer allows them on that folder. Ask for delete permission on the
    store's folder before the first commit and say why. If a commit stopped at "Operation not
    permitted", its changes are already written: after permission, `stage.py resume` finishes it.

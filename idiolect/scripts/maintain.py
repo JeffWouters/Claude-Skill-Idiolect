@@ -1,9 +1,10 @@
-"""forget, rollback and prune: the only modes that delete (spec §8, §11). Each builds a proposal in
-the pending area; nothing changes until the writer approves and `stage.py commit` runs.
+"""forget, rollback, prune and delete: the only modes that delete (spec §8, §11, §35). Each builds a
+proposal in the pending area; nothing changes until the writer approves and `stage.py commit` runs.
 
     python3 maintain.py --store S forget --source REL_PATH_OR_KEY [--profile P] [--ownership own|assisted|exclude]
     python3 maintain.py --store S rollback --profile P [--to SNAPSHOT]
     python3 maintain.py --store S prune --profile P [--keep 10]
+    python3 maintain.py --store S delete --profile P
 """
 import argparse
 import json
@@ -432,11 +433,109 @@ def prune(store_root, profile, keep=10):
         stage.discard(store_root)
         raise
 
+def delete(store_root, profile):
+    """Delete a whole profile (spec §35): its folder with every slot, ruling, flavour file, rejection and
+    snapshot; its ledger records; the cached texts no other profile owns; its source rules, kept drafts,
+    queued edits and published sources. Refused for the default profile and for a parent another
+    profile extends. Runs as a `forget` (lock and pending mode), approved as a whole, and takes no
+    snapshot of the deleted profile: it cannot be rolled back."""
+    import copy
+    from common import check_schema, dump_yaml, load_yaml_text
+    store, pending, _ = stage.begin(store_root, "forget", [profile], atomic=True)
+    try:
+        pdir = store.root / "profiles" / profile
+        if not (pdir / "profile.yaml").exists():
+            raise StoreError(f"no profile {profile}")
+        if store.config["default_profile"] == profile:
+            raise StoreError(f"{profile} is the store's default_profile; set default_profile in idiolect.yaml "
+                             f"to another profile first")
+        children = [p for p in store.profiles() if p != profile and read_store_file(
+            store.root / "profiles" / p / "profile.yaml", "profile").get("extends") == profile]
+        if children:
+            raise StoreError(f"{', '.join(children)} extend{'s' if len(children) == 1 else ''} {profile}; "
+                             f"delete or re-parent {'it' if len(children) == 1 else 'them'} first")
+        removed = shared = 0
+        for key, e in sorted(store.manifest["texts"].items()):
+            if profile not in e["profiles"]:
+                continue
+            rel = f"corpus/{key.replace('#', '-')}.txt"
+            has_text = (store.root / rel).exists()
+            others = [p for p in e["profiles"] if p != profile]
+            name = e.get("path") or key
+            if others:
+                shared += 1
+                pl = {"manifest": [{"key": key, "profiles": {profile: None}}]}
+                summary = f"{name}: {profile}'s record removed; kept for {', '.join(sorted(others))}"
+                if has_text and not any(e["profiles"][p]["ownership"] == "own" for p in others):
+                    pl["delete"] = [rel]
+                    summary += "; cached text deleted (no other profile owns it)"
+                pending.add("deletion" if "delete" in pl else "ownership", "modify", "corpus/manifest.json",
+                            summary, pl, profile=profile, ref=key)
+            else:
+                removed += 1
+                # removed from the ledger, not `forgotten`: with the profile gone nobody forgot it, and a
+                # later learn for another profile sees the text as new
+                pl = {"manifest": [{"key": key, "remove": True}]}
+                summary = f"{name}: removed from the ledger"
+                if has_text:
+                    pl["delete"] = [rel]
+                    summary += "; cached text deleted"
+                pending.add("deletion", "remove", rel, summary, pl, profile=profile, ref=key)
+        rules = [r for r in store.sources["sources"] if r.get("profile") == profile]
+        if rules:
+            src = copy.deepcopy(store.sources)
+            src["sources"] = [r for r in src["sources"] if r.get("profile") != profile]
+            check_schema("sources", src, "sources.yaml without the deleted profile's rules")
+            pending.add("deletion", "modify", "sources.yaml",
+                        f"{len(rules)} source rule{'s' if len(rules) != 1 else ''} for {profile} removed",
+                        {"restore": {"sources.yaml": dump_yaml(src)}}, profile=profile)
+        pub = store.root / "publish.yaml"
+        if pub.exists():
+            data = read_store_file(pub, "publish")
+            mine = [s for s in data.get("sources", []) if s.get("profile") == profile]
+            if mine:
+                data = {**data, "sources": [s for s in data["sources"] if s.get("profile") != profile]}
+                check_schema("publish", data, "publish.yaml without the deleted profile's sources")
+                pending.add("deletion", "modify", "publish.yaml",
+                            f"{len(mine)} published source{'s' if len(mine) != 1 else ''} for {profile} removed",
+                            {"restore": {"publish.yaml": dump_yaml(data)}}, profile=profile)
+        idx = store.root / "drafts" / "index.json"
+        if idx.exists():
+            data = read_store_file(idx, "drafts")
+            mine = [d for d in data["entries"] if d.get("profile") == profile]
+            if mine:
+                data = {**data, "entries": [d for d in data["entries"] if d.get("profile") != profile]}
+                check_schema("drafts", data, "drafts/index.json without the deleted profile's drafts")
+                pending.add("deletion", "modify", "drafts/index.json",
+                            f"{len(mine)} kept draft{'s' if len(mine) != 1 else ''} of {profile} deleted",
+                            {"restore": {"drafts/index.json": json.dumps(data, indent=1, ensure_ascii=False) + "\n"},
+                             "delete": [f"drafts/{d['file']}" for d in mine]}, profile=profile)
+        qdir = store.root / ".state" / "edit-queue"
+        queued = []
+        for q in sorted(qdir.glob("q-*.json")) if qdir.exists() else []:
+            item = json.loads(q.read_text(encoding="utf-8"))
+            if item.get("profile") == profile:
+                queued += [q.relative_to(store.root).as_posix()] + (
+                    [item["final_file"]] if item.get("final_file") else [])
+        if queued:
+            pending.add("deletion", "remove", ".state/edit-queue",
+                        f"queued edits of {profile} deleted", {"delete": queued}, profile=profile)
+        pending.add("deletion", "remove", f"profiles/{profile}",
+                    f"profile {profile} deleted: its folder, with every slot, ruling, vocabulary, flavour file, "
+                    f"rejection, changelog and snapshot ({removed} text{'s' if removed != 1 else ''} removed, "
+                    f"{shared} kept for other profiles); it cannot be rolled back",
+                    {"delete_profile": profile, "delete": [f"profiles/{profile}"]}, profile=profile)
+        return {"proposed": len(pending.plan["items"]), "texts_removed": removed, "texts_shared": shared,
+                "next": "stage.py diff, decide, commit"}
+    except Exception:
+        stage.discard(store_root)
+        raise
+
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store", required=True)
-    ap.add_argument("action", choices=["forget", "rollback", "prune"])
+    ap.add_argument("action", choices=["forget", "rollback", "prune", "delete"])
     ap.add_argument("--source")
     ap.add_argument("--profile")
     ap.add_argument("--ownership", choices=["own", "assisted", "exclude"])
@@ -448,6 +547,10 @@ def main(argv=None):
             out = forget(a.store, a.source, a.profile, a.ownership)
         elif a.action == "rollback":
             out = rollback(a.store, a.profile, a.to)
+        elif a.action == "delete":
+            if not a.profile:
+                raise StoreError("delete needs --profile")
+            out = delete(a.store, a.profile)
         else:
             out = prune(a.store, a.profile, a.keep)
     except StoreError as e:

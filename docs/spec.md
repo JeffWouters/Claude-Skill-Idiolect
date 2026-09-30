@@ -903,3 +903,26 @@ the house style guide.
    Fewer hits than expected is never a fail: some markers cannot be counted.
 10. **Guide and export** include the flavour section (examples are redacted; nothing private is kept
    in the file).
+
+## 35. Deleting a profile
+
+1. **Command.** `maintain.py delete --profile P`. It builds one proposal, approved or rejected as a
+   whole, under the `forget` mode (lock and pending area), so no store file format changes.
+2. **Refusals.** The store's `default_profile` (set another default in `idiolect.yaml` first), a
+   profile another profile `extends` (delete or re-parent the child first), and an unknown profile. A
+   refusal leaves no proposal behind.
+3. **What goes.**
+   - Every ledger entry with a record for P: when P is its only profile the entry leaves the ledger
+     (not `forgotten`: with the profile gone nobody forgot it, and a later learn for another profile
+     sees the text as new) and its cached text is deleted; when other profiles use it, only P's
+     record is removed, and the cached text is deleted only if no remaining profile owns it.
+   - P's rules in `sources.yaml`, its published sources in `publish.yaml`, its kept drafts
+     (`drafts/index.json` and the draft files) and its queued edits (`.state/edit-queue`).
+   - The folder `profiles/P`, with every slot file, ruling, vocabulary, flavour file, rejection,
+     changelog and snapshot. It is deleted after every other commit step.
+4. **No snapshot, no rollback.** The deleted profile gets no snapshot and no changelog entry (a
+   snapshot inside the deleted folder would go with it). The diff says the deletion cannot be rolled
+   back. Other profiles are untouched and get no snapshot either, unless a shared text's record
+   changes.
+5. **Permission.** Like the other deleting modes, ask for delete permission on the store's folder at
+   commit time where the environment needs it.

@@ -1,4 +1,4 @@
-# Modes: forget, rollback, prune
+# Modes: forget, rollback, prune, delete
 
 The only modes that delete. Each builds a proposal that is approved or rejected **as a whole**;
 nothing changes until the writer approves the diff (`stage.py diff`, `decide --approve all` or
@@ -44,3 +44,16 @@ python3 scripts/maintain.py --store S prune --profile P [--keep 10]
 ```
 
 Removes all but the newest `keep` snapshots. Pruning takes no snapshot of its own.
+
+## delete
+
+```
+python3 scripts/maintain.py --store S delete --profile P
+```
+
+Deletes a whole profile (spec §35): its folder with every slot, ruling, vocabulary, flavour file,
+rejection, changelog and snapshot; its ledger records (a text only this profile used leaves the
+ledger and its cached text is deleted; a text another profile uses stays for that profile); its
+source rules, kept drafts, queued edits and published sources. Refused for the store's default
+profile and for a profile another profile extends. Show the diff and say plainly that deleting cannot
+be rolled back; only the writer approves it. Ask for delete permission at commit time where needed.

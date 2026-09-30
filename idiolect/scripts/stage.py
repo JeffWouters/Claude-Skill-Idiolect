@@ -873,6 +873,13 @@ def prepare_commit(store, pending):
     now = utcnow()
     steps = []
     profs = affected_profiles(store, pending, approved) if any_approved else []
+    # a deleted profile (spec §35) gets no snapshot and no changelog, and nothing is written into its
+    # folder: the folder itself is deleted, after every other step
+    gone = {pending.payload(i["id"]).get("delete_profile") for i in plan["items"] if approved(i)} - {None}
+    if gone:
+        files = {r: c for r, c in files.items() if not any(r.startswith(f"profiles/{g}/") for g in gone)}
+        files.update({f"profiles/{g}": None for g in gone})
+        profs = [p for p in profs if p not in gone]
     snaps = {}
     for p in profs:
         if plan["mode"] != "prune":   # pruning is not undone by a snapshot

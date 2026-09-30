@@ -15,7 +15,7 @@ a **store** outside this skill, and writes, rewrites and checks text in that voi
 | --- | --- | --- |
 | `learn` (and `dry-run=true`) | **Available** | `references/modes/learn.md` |
 | `learn` from web pages or Microsoft 365 mail | **Available** | `references/modes/connector.md` |
-| `forget`, `rollback`, `prune` | **Available** | `references/modes/maintain.md` |
+| `forget`, `rollback`, `prune`, `delete` (a whole profile) | **Available** | `references/modes/maintain.md` |
 | `write`, `rewrite`, `check` | **Available** | `references/modes/write.md` |
 | `test` (holdout, drift, optional blind judging) | **Available** | `references/modes/test.md` |
 | `status` | **Available** | below |

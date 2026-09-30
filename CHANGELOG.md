@@ -7,6 +7,10 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **Deleting a profile** (spec §35): `maintain.py delete --profile P` removes a whole profile in one
+  approved diff: its folder and snapshots, its ledger records and the cached texts no other profile
+  owns, its source rules, kept drafts, queued edits and published sources. The default profile and a
+  parent another profile extends are refused. It cannot be rolled back.
 - Learning from a site with many posts no longer stops in the outlier step when a measure is hundreds
   of times below the typical text.
 - Adding a web or mail text whose file does not exist is reported as an error, not a crash.
