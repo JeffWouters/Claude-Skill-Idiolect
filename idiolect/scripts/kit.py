@@ -236,6 +236,7 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None,
     kit["flavour"] = flavour.for_profile(store, prof, lang)
     kit["flavour_mode"] = flavour_mode
     kit["words"] = flavour.piece_words(brief, words)
+    kit["brief_facts"] = brief_specifics(brief)
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
     local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
@@ -259,6 +260,50 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None,
     return kit
 
 
+FACTS_ENOUGH = 3      # fewer specifics than this in the brief: write asks for them first (spec §38)
+
+
+def brief_specifics(brief):
+    """The specifics a brief gives (spec §38): numbers (not the piece's length), names (capitalised
+    words not opening a sentence), commands and code, quoted words; each counted once. Enough is at
+    least FACTS_ENOUGH, not all of them names. {"numbers", "names", "code",
+    "quotes", "total", "enough"}; None without a brief."""
+    if not brief or not brief.strip():
+        return None
+    t = brief
+    code = set(re.findall(r"`[^`\n]+`", t))
+    t2 = re.sub(r"`[^`\n]+`", " ", t)
+    code |= set(re.findall(r"(?<![\w-])(?:[A-Z][a-z]+-[A-Z]\w+|\$\w+|--?[a-z][\w-]+|\w+(?:[./\\]\w+)+)", t2))
+    t3 = re.sub(r"(?<![\w-])(?:[A-Z][a-z]+-[A-Z]\w+|\$\w+|--?[a-z][\w-]+|\w+(?:[./\\]\w+)+)", " ", t2)
+    t3 = re.sub(r"\d[\d.,\u00a0\u202f ]*\s*(?:-|–|to|tot)?\s*(?:\d[\d.,]*\s*)?(?:words|woorden)\b", " ", t3, flags=re.I)
+    numbers = set(re.findall(r"(?<![\w])\d[\d,:]*\b", t3))
+    quotes = {q for q in re.findall(r"[\"“„]([^\"”“\n]{3,200})[\"”]", t3) if len(q.split()) >= 3}
+    names = set()
+    for sent in re.split(r"(?<=[.!?:;])\s+|\n+", t3):
+        ws = re.findall(r"[^\W\d_][\w'’]*", sent)
+        names |= {w for w in ws[1:] if w[0].isupper() and w not in ("I", "I'm", "I've", "I'd", "I'll")}
+    out = {"numbers": len(numbers), "names": len(names), "code": len(code), "quotes": len(quotes)}
+    out["total"] = sum(out.values())
+    # product and place names alone name a topic, not what happened: at least one other specific
+    out["enough"] = out["total"] >= FACTS_ENOUGH and out["total"] > out["names"]
+    return out
+
+
+def facts_lines(f):
+    """The kit's section on the brief's specifics (spec §38)."""
+    if not f:
+        return []
+    got = ", ".join(f"{f[k]} {k}" for k in ("numbers", "names", "code", "quotes") if f[k]) or "none"
+    if f["enough"]:
+        return ["", "## Facts for this piece",
+                f"The brief gives specifics ({got}). Build the piece on them; never add facts it does not give."]
+    return ["", "## Facts for this piece",
+            f"The brief gives few specifics ({got}). Before drafting, ask the writer once for what prompted the "
+            "piece, three to five specifics (names, numbers, commands, what happened) and, if they like, their own "
+            "first lines or notes. With interactive=false, do not ask: draft with placeholders and list the "
+            "missing facts in your answer, outside the draft. Never open the draft on a placeholder."]
+
+
 def markdown(kit, notes="brief"):
     """Examples first, then what binds (rulings, edit lessons), the targets for this piece, the
     never-list and forms; the observed lessons last, as background (design: Write and rewrite, step 2;
@@ -269,6 +314,7 @@ def markdown(kit, notes="brief"):
              f"{kit['counts']['texts']} texts, {kit['counts']['words']} words.")
     for w in kit["warnings"]:
         L.append(f"- **Warning:** {w}")
+    L += facts_lines(kit.get("brief_facts"))
     if kit["examples"]:
         L += ["", "## Example passages: this is the voice",
               "Match how these read: sentence movement, tone, and how sparingly each device appears. They are "

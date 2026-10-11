@@ -333,6 +333,24 @@
         }
       },
       "additionalProperties": false
+    },
+    "placeholders": {
+      "type": "object",
+      "description": "write.md's placeholders ([… needed: …]) in the text (spec §38): never a fail; the message warns about one in the opening paragraph.",
+      "required": [
+        "count",
+        "in_opening"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "in_opening": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

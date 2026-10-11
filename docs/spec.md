@@ -1032,3 +1032,21 @@ the house style guide.
    10%. On about 1,260 posts of nine writers (not in the repository), each checked against the
    writer's other posts, 8% failed (15% with twice the average).
 
+## 38. Facts and an occasion before drafting
+
+1. **The brief's specifics.** `kit.py` counts what the brief gives (`brief_facts`): numbers (not the
+   piece's length, §34.8), names (capitalised words that do not open a sentence), commands and code
+   (backticked spans, `Verb-Noun` commands, `$variables`, `--options`, paths and addresses) and quoted
+   words (three words or more), each counted once. The brief has enough when it gives at least three,
+   not all of them names: product and place names alone name a topic, not what happened. Without a
+   brief there is no count.
+2. **The kit** says so in a section "Facts for this piece" before the example passages: with enough,
+   build on them and add none; with few, ask the writer once before drafting.
+3. **write** (`write.md` step 4), when the brief gives few: one question, before drafting, for what
+   prompted the piece, three to five specifics and, optionally, the writer's own first lines or notes.
+   Not asked when the brief has enough, and never with `interactive=false`: then the draft keeps
+   placeholders (§17) and the answer lists the missing facts outside the draft. A draft never opens on
+   a placeholder.
+4. **check** reports `placeholders` (`count`, and `in_opening` when the first paragraph after any
+   front matter and headings has one) when the text has any. An opening placeholder adds a warning to
+   the message. A placeholder never fails a draft and is never measured (§17).

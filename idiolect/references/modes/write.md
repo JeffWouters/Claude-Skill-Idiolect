@@ -48,7 +48,14 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
 
 ## write
 
-4. Draft from the brief at the requested length (about 400 words when none is given).
+4. **Facts and an occasion first** (spec §38). The kit's "Facts for this piece" says whether the brief
+   gives enough specifics. When it gives few, ask the writer once, in one message, before drafting:
+   what prompted the piece (what happened, who asked, what they saw), three to five specifics (names,
+   numbers, commands, what was tried and what came of it) and, if they like, their own first lines
+   or notes. Do not ask when the brief already has them. With `interactive=false`, never ask: draft
+   with placeholders and list the missing facts in your answer, outside the draft. A real post starts
+   from an occasion, so open from what prompted it, never on a placeholder.
+   Draft from the brief and those facts at the requested length (about 400 words when none is given).
    - **Never invent facts.** Numbers, names, dates, incidents and anecdotes come only from the brief
      or the writer. Where the voice wants one you do not have, leave a placeholder such as
      `[example needed: a real incident]` or `[number needed: how many]`.
@@ -107,7 +114,8 @@ python3 scripts/check.py --store S --file <text> [--profile P] [--lang L] [--typ
 ```
 
 Relay the verdict in one line, then the flagged metrics in plain words (both directions), any
-bunched habits (where, how many uses against the writer's rate), any never-list lines, any signs of
+bunched habits (where, how many uses against the writer's rate), any never-list lines, the number of
+placeholders (`placeholders`; one in the opening paragraph is warned about, never a fail), any signs of
 machine-written text (`ai_signs`: which, and the lines; they fail the draft unless the writer's own
 texts do the same as often; `warned` ones are a warning only), and the
 language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
@@ -123,6 +131,7 @@ self-description, its citation markup, talk about its knowledge cutoff) cannot b
 
 ## interactive=false (calling skills)
 
-Never ask. Return one of: `pass`, `fail`, `low_confidence` (with the text and the report), or
+Never ask, not even for the facts of step 4: draft with placeholders and name the missing facts
+beside the text. Return one of: `pass`, `fail`, `low_confidence` (with the text and the report), or
 `no_slot`, `no_store`, `needs_input` (with the question you would have asked), `error` (with the
 message). The check report schema is `assets/schemas/check-report.schema.json`.

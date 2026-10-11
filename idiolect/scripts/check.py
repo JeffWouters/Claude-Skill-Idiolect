@@ -48,6 +48,16 @@ def strip_placeholders(text):
     return "".join(out)
 from store import Store  # noqa: E402
 
+
+def placeholders(text):
+    """{"count", "in_opening"}: write.md's placeholders in the text, and whether the first paragraph
+    (after any front matter and headings) has one (spec §38)."""
+    import aisigns
+    body = aisigns.without_front_matter(text)
+    paras = [x for x in re.split(r"\n\s*\n", body) if x.strip() and not x.lstrip().startswith("#")]
+    return {"count": len(PLACEHOLDER.findall(text)),
+            "in_opening": bool(paras and PLACEHOLDER.search(paras[0]))}
+
 MIN_WORDS = 150
 # Bunched habits (design: Guardrails, No caricature): countable habits checked per paragraph.
 BUNCH_METRICS = ("hedges_per_1k", "semicolons_per_1k", "dashes_per_1k", "colons_per_1k", "contractions_per_1k")
@@ -201,6 +211,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     if ai_warned:
         report["ai_signs"]["warned"] = sorted({x["lesson"] for x in ai_warned})
         report["ai_signs"]["warned_lines"] = ai_warned
+    ph = placeholders(text)
+    if ph["count"]:
+        report["placeholders"] = ph
     if fl_part:
         report["flavour"] = fl_part
     if lines:
@@ -224,6 +237,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
         notes.append(f"language flavour: {fl_part['hits']} traces where the writer's highest rate allows "
                      f"{fl_part['allowed']}" if flavour_mode == "keep" else
                      f"language flavour: {fl_part['hits']} traces in a piece asked for without them")
+    if ph["in_opening"]:
+        notes.append("the first paragraph has a placeholder: open from what prompted the piece, and ask the "
+                     "writer for the missing fact")
     if n < MIN_WORDS:
         notes.append(f"only {n} words: metric flags are hints, never a fail, below {MIN_WORDS} words")
     if fp["pooled"]:
@@ -257,6 +273,10 @@ def readable(r):
         L.append(f"- language flavour ({fl['mode']}): {fl['hits']} counted, about {fl['expected']:g} expected, "
                  f"at most {fl['allowed']} allowed"
                  + (" (fewer is fine: not every trace can be counted)" if fl["hits"] <= fl["allowed"] else ""))
+    ph = r.get("placeholders")
+    if ph:
+        L.append(f"- placeholders: {ph['count']}" + (" (one in the opening paragraph)" if ph["in_opening"] else "")
+                 + "; each is a fact the writer still has to give")
     for x in r.get("flagged_lines", []):
         L.append(f"- line {x['line']}: {x['reason']}")
     for x in r.get("ai_signs", {}).get("warned_lines", []):

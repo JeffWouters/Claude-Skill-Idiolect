@@ -7,6 +7,12 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **Facts before drafting** (spec §38): the kit counts the specifics a brief gives (numbers, names,
+  commands, quoted words) and, when there are few, `write` asks the writer once for what prompted the
+  piece and three to five specifics before drafting; never with `interactive=false`, where the answer
+  lists the missing facts instead. A draft never opens on a placeholder; `check` reports how many
+  placeholders a text has and warns about one in the opening.
+
 - **Fixed:** a brief's length with a thousands separator ("around 1,050 words") was read as 50 words.
 
 - **Never sound like AI, built in** (spec §37): the signs of machine-written text from Wikipedia's

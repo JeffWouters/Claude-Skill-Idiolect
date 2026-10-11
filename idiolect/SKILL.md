@@ -115,7 +115,8 @@ the next learning run will first offer to resume or discard it (only resume if a
 - **Consent.** A profile of a real person other than the user needs that person's recorded consent;
   refuse impersonation meant to deceive.
 - **Never invent facts** about the writer or their texts; report what the scripts return. In drafts,
-  leave a placeholder such as `[example needed: a real incident]` instead of inventing one.
+  leave a placeholder such as `[example needed: a real incident]` instead of inventing one; when the
+  brief gives few specifics, ask the writer for them first (`write.md` step 4, spec §38).
 - **No translation in a voice.** A rewrite never changes language.
 - **Never sound like AI.** The built-in signs of machine-written text (`assets/ai-signs/`, spec §37)
   apply to every write, rewrite and check, whatever the profile; `check` fails a draft that shows one
