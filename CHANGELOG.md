@@ -5,7 +5,11 @@ Versions follow `idiolect/.claude-plugin/plugin.json`. A release is a tag `vX.Y.
 it to the GitHub release. Store file formats have their own `schema_version`, migrated by
 `scripts/migrate.py`.
 
-## Unreleased
+## 1.2.0 (2026-10-11)
+
+**Upgrading:** the ledger format changes (manifest schema version 2). After installing, run
+`python3 scripts/migrate.py --store <store>` once; until then the new version refuses to open the
+store, and after it the old version cannot read it.
 
 - **Facts before drafting** (spec §38): the kit counts the specifics a brief gives (numbers, names,
   commands, quoted words) and, when there are few, `write` asks the writer once for what prompted the
