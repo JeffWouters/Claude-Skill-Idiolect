@@ -1050,3 +1050,19 @@ the house style guide.
 4. **check** reports `placeholders` (`count`, and `in_opening` when the first paragraph after any
    front matter and headings has one) when the text has any. An opening placeholder adds a warning to
    the message. A placeholder never fails a draft and is never measured (§17).
+
+## 39. Saying each point once
+
+1. **For every voice.** The built-in guidance (`assets/ai-signs/universal.yaml`, version 1.1, §37.6)
+   says to make each point once: a later section refers back to it in a clause and never explains it
+   again, no paragraph ends by restating itself, and the opening story is told once.
+2. **A long piece.** When the piece's length (`--words`, or the first "N words" in the brief, §34.8)
+   is 1,500 words or more, the kit adds a section "A long piece: one place per point" after the facts
+   (§38): before drafting, a point ledger lists every point once with the section that owns it, and
+   after drafting the whole piece is reread against it. Below 1,500 words, or without a length, the
+   section is left out.
+3. **write** (`write.md` step 4) keeps the ledger for a long piece and, for every piece, rereads the
+   draft for a point made twice, a paragraph that restates itself and an opening story summed up
+   again, and cuts the second telling rather than rewording it.
+4. **Not checked by script.** A repeat in other words leaves the metrics unchanged, so `check` does
+   not test for it; a detector would need calibrating on writers' texts against drafts first.

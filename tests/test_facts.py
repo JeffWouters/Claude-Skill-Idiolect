@@ -51,3 +51,17 @@ def test_check_counts_placeholders_and_warns_about_one_in_the_opening(st):  # no
     assert "first paragraph has a placeholder" in r["message"]
     assert "placeholders: 2 (one in the opening paragraph)" in check.readable(r)
     assert r["status"] == check.check(store, later, "noor", {"type": "essay"})["status"]   # never a fail by itself
+
+
+def test_a_long_piece_gets_a_point_ledger_and_a_short_one_does_not(st):  # noqa: F811
+    long = kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, "About 4,500 words on the kitchen tap."))
+    assert "## A long piece: one place per point" in long and "About 4,500 words" in long
+    assert long.index("## A long piece") < long.index("## Example passages")
+    for brief in ("About 800 words on the kitchen tap.", "An essay on the kitchen tap."):
+        assert "## A long piece" not in kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, brief))
+    assert "## A long piece" in kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, "On the tap.", words=1500))
+
+
+def test_every_voice_is_told_to_say_each_point_once(st):  # noqa: F811
+    md = kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, "the kitchen tap"))
+    assert "Say each point once." in md

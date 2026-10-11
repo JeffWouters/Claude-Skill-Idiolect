@@ -56,6 +56,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    with placeholders and list the missing facts in your answer, outside the draft. A real post starts
    from an occasion, so open from what prompted it, never on a placeholder.
    Draft from the brief and those facts at the requested length (about 400 words when none is given).
+   - **Say each point once** (spec §39). For a piece of 1,500 words or more the kit has a section "A
+     long piece: one place per point": before drafting, write a point ledger, each point once with the
+     section that owns it. Another section that needs the point refers back to it in a clause and never
+     explains it again. Build the piece section by section against the ledger, not each section as if
+     it stood alone.
    - **Never invent facts.** Numbers, names, dates, incidents and anecdotes come only from the brief
      or the writer. Where the voice wants one you do not have, leave a placeholder such as
      `[example needed: a real incident]` or `[number needed: how many]`.
@@ -69,6 +74,10 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      list of challenges or a look at the future the brief did not ask for; synonyms cycled to avoid
      repeating a word; headings, bullets or bold where the examples use plain paragraphs; every
      sentence about the same length. Fix what you find.
+   - Then reread the whole draft once more for repetition: a point already made (against the ledger,
+     for a long piece), a sentence that restates its own paragraph, the opening story summed up again,
+     and "as I said earlier" or "more on this later" holding two tellings together. Cut the second
+     telling; never reword it.
 5. Save the draft to a file and run
    `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] [same --flavour] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them

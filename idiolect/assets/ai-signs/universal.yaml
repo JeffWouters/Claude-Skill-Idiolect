@@ -1,11 +1,12 @@
 # Built-in signs of machine-written text that do not depend on the language (spec §37), and the
 # guidance for the signs no script can test. Part of the skill, not of any profile. No writer data.
-version: "1.0"
+version: "1.1"
 lang: "*"
 read: "2026-10-11"
 source: >-
   Wikipedia:Signs of AI writing (WikiProject AI Cleanup), sections "Internal formatting and reference
-  markup bugs" and "Content", read on 2026-10-11.
+  markup bugs" and "Content", read on 2026-10-11. Version 1.1 adds the guidance to say each point once,
+  from repetition found in drafts written with Idiolect.
 signs:
   - id: a-101
     category: markup
@@ -26,5 +27,6 @@ guidance:
   - "Do not tell the reader why something matters or what it represents; show what it does and let them judge."
   - "Do not end with a summary of what you just said, a list of challenges, or a look at the future, unless the brief asks for it."
   - "Do not cycle through synonyms to avoid repeating a word; repeat it when it is the right word."
+  - "Say each point once. A later section refers back to it in a clause and never explains it again; no paragraph ends by restating what it just said, and the opening story is told once, not summed up again."
   - "Do not add headings, bullet lists, bold or tables where the writer's examples use plain paragraphs."
   - "Vary sentence length the way the writer's examples do; never keep every sentence between 8 and 20 words."

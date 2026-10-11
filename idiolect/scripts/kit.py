@@ -304,6 +304,20 @@ def facts_lines(f):
             "missing facts in your answer, outside the draft. Never open the draft on a placeholder."]
 
 
+LEDGER_WORDS = 1500   # from this length, write keeps a point ledger before drafting (spec §39)
+
+
+def ledger_lines(words):
+    """The kit's section for a long piece (spec §39): one place per point."""
+    if not words or words < LEDGER_WORDS:
+        return []
+    return ["", "## A long piece: one place per point",
+            f"About {words:,} words. Before drafting, write a point ledger: every point the piece makes, once, with "
+            "the one section that owns it. Another section that needs the point refers back to it in a clause and "
+            "never explains it again; the opening story is told once and not summed up again. After drafting, "
+            "reread the whole piece against the ledger and cut every second telling before running the check."]
+
+
 def markdown(kit, notes="brief"):
     """Examples first, then what binds (rulings, edit lessons), the targets for this piece, the
     never-list and forms; the observed lessons last, as background (design: Write and rewrite, step 2;
@@ -315,6 +329,7 @@ def markdown(kit, notes="brief"):
     for w in kit["warnings"]:
         L.append(f"- **Warning:** {w}")
     L += facts_lines(kit.get("brief_facts"))
+    L += ledger_lines(kit.get("words"))
     if kit["examples"]:
         L += ["", "## Example passages: this is the voice",
               "Match how these read: sentence movement, tone, and how sparingly each device appears. They are "

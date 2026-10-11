@@ -5,6 +5,14 @@ Versions follow `idiolect/.claude-plugin/plugin.json`. A release is a tag `vX.Y.
 it to the GitHub release. Store file formats have their own `schema_version`, migrated by
 `scripts/migrate.py`.
 
+## Unreleased
+
+- **Say each point once** (spec §39): the built-in guidance for every voice now says to make each
+  point once, and for a piece of 1,500 words or more the kit asks for a point ledger (each point with
+  the one section that owns it) before drafting; `write` rereads the whole draft for second tellings.
+  Readers found drafts repeating themselves; a long draft made the same point up to five times in
+  different words, which no metric sees.
+
 ## 1.2.0 (2026-10-11)
 
 **Upgrading:** the ledger format changes (manifest schema version 2). After installing, run
