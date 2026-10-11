@@ -324,3 +324,21 @@ def test_rejecting_one_of_two_new_profiles_keeps_the_other(tmp_path):
     assert len(s.manifest["texts"]) == 10 and all(list(e["profiles"]) == ["noor"] for e in s.manifest["texts"].values())
     assert _consistent(st, "noor")[0]
     assert not (st / "profiles" / "idris").exists()
+
+
+def test_a_type_set_by_a_folder_answer_is_added_to_the_store_types(tmp_path):
+    """A folder answered with a type the store does not have yet proposes that type in the diff, as
+    a type picked at the types step does, so idiolect.yaml lists every type a slot uses."""
+    import stage
+    from store import Store
+    from test_learn import make_store
+    st = make_store(tmp_path)
+    learn.start(st, targets=["noor"], profile="noor")
+    a = tmp_path / "a.yaml"
+    a.write_text("folders:\n  - {path: noor, profile: noor, ownership: own, facets: {type: longform}}\n"
+                 "profiles:\n  - {name: noor, subject: synthetic fixture author, consent: 'public-domain fixture'}\n")
+    learn.answer(st, a)
+    learn.stage_texts(st)
+    p = stage.Pending(Store(st))
+    adds = [p.payload(i["id"]).get("types_add") for i in p.plan["items"] if p.payload(i["id"]).get("types_add")]
+    assert adds == [["longform"]]

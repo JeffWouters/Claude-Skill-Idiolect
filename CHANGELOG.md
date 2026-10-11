@@ -7,6 +7,9 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **Fixed:** a type set only by an answered folder rule (`facets: {type: longform}`) was not added to
+  the store's types in `idiolect.yaml`; the diff now proposes it, as a type picked at the types step.
+
 - **Say each point once** (spec §39): the built-in guidance for every voice now says to make each
   point once, and for a piece of 1,500 words or more the kit asks for a point ledger (each point with
   the one section that owns it) before drafting; `write` rereads the whole draft for second tellings.

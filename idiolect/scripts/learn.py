@@ -408,7 +408,9 @@ def stage_texts(store_root):
                           {"sources_rules": [r], "requires": [profile_items[r["profile"]]] if r["profile"] in profile_items and
                            st["answers"]["profiles"].get(r["profile"]) else []}, profile=r["profile"])
         rule_items.append((r, iid))
-    new_types = sorted({t for t in st["types"].values() if t not in store.config["types"]})
+    # a type picked at the types step, or set by an answered folder or file rule (facets: {type: ...})
+    used = set(st["types"].values()) | {(r.get("facets") or {}).get("type") for r in st["answers"]["rules"]}
+    new_types = sorted(t for t in used if t and t not in store.config["types"])
     if new_types:
         pending.add("rule", "modify", "idiolect.yaml", f"new text types: {', '.join(new_types)}",
                     {"types_add": new_types})
