@@ -173,7 +173,10 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     # the built-in signs of machine-written text (spec §37): any flagged sign fails the draft
     import aisigns
     signs = aisigns.applicable(store, prof, slot)
-    ai_lines = aisigns.flag(measured, signs["signs"], aisigns.writer_rates(store, prof, slot, signs["signs"]), n)
+    usage = aisigns.writer_usage(store, prof, slot, signs["signs"])
+    ai_warned = []
+    ai_lines = aisigns.flag(measured, signs["signs"], usage["rates"], n,
+                            thin=0 < usage["texts"] < aisigns.THIN_TEXTS, warned=ai_warned)
     lines += ai_lines
     # language flavour (spec §34.9): more traces than the writer's highest rate fails; fewer never does
     import flavour
@@ -195,6 +198,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     report["ai_signs"] = {"version": signs["version"], "lang": signs["lang"], "covered": signs["covered"],
                           "checked": len(signs["signs"]), "found": sorted({x["lesson"] for x in ai_lines}),
                           "allowed": [s["id"] for s in signs["allowed"]]}
+    if ai_warned:
+        report["ai_signs"]["warned"] = sorted({x["lesson"] for x in ai_warned})
+        report["ai_signs"]["warned_lines"] = ai_warned
     if fl_part:
         report["flavour"] = fl_part
     if lines:
@@ -209,6 +215,11 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
         found = report["ai_signs"]["found"]
         notes.append(f"shows {len(found)} sign{'s' if len(found) > 1 else ''} of machine-written text "
                      f"({', '.join(found)}): fails the draft whatever the metrics say")
+    if ai_warned:
+        w = report["ai_signs"]["warned"]
+        notes.append(f"warning: {len(w)} sign{'s' if len(w) > 1 else ''} of machine-written text ({', '.join(w)}) "
+                     f"above the writer's own use; not a fail, since their slot has fewer than "
+                     f"{aisigns.THIN_TEXTS} texts")
     if fl_lines:
         notes.append(f"language flavour: {fl_part['hits']} traces where the writer's highest rate allows "
                      f"{fl_part['allowed']}" if flavour_mode == "keep" else
@@ -248,6 +259,8 @@ def readable(r):
                  + (" (fewer is fine: not every trace can be counted)" if fl["hits"] <= fl["allowed"] else ""))
     for x in r.get("flagged_lines", []):
         L.append(f"- line {x['line']}: {x['reason']}")
+    for x in r.get("ai_signs", {}).get("warned_lines", []):
+        L.append(f"- line {x['line']} (warning): {x['reason']}")
     if r.get("message"):
         L.append(f"Note: {r['message']}")
     return "\n".join(L)

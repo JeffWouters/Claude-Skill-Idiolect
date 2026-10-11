@@ -255,7 +255,7 @@
     },
     "ai_signs": {
       "type": "object",
-      "description": "The built-in signs of machine-written text (spec §37). A found sign fails the draft; its lines are in flagged_lines with lesson a-NNN.",
+      "description": "The built-in signs of machine-written text (spec §37). A found sign fails the draft; its lines are in flagged_lines with lesson a-NNN. A warned sign (a slot with fewer than 20 texts, §37.3) does not.",
       "required": [
         "version",
         "lang",
@@ -293,6 +293,43 @@
             "pattern": "^a-[0-9]{3}$"
           },
           "description": "Signs this writer switched off (aisigns.py allow)."
+        },
+        "warned": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a-[0-9]{3}$"
+          },
+          "description": "Signs the writer uses, shown above their allowance in a slot with fewer than 20 texts: a warning, not a fail."
+        },
+        "warned_lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "line",
+              "text",
+              "reason"
+            ],
+            "properties": {
+              "line": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "text": {
+                "type": "string"
+              },
+              "lesson": {
+                "type": "string",
+                "description": "Id or slug of the lesson, ruling or never-list marker broken."
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "The lines of the warned signs."
         }
       },
       "additionalProperties": false

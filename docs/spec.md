@@ -994,9 +994,13 @@ the house style guide.
 3. **Tiers.** `always`: leftovers no writer means to keep (a chatbot's self-description, talk about
    its knowledge cutoff, its citation and file markup); a hit fails the draft whatever the writer's
    texts do, and the sign cannot be switched off. `unless_writer`: everything else; the sign first
-   counts its test in the writer's own texts of the slot (holdouts left out). At zero, a draft is
-   flagged from `min_hits` hits; above zero, only with at least `max(min_hits, 2)` hits and more than
-   twice the writer's rate per 1,000 words (the same rule as `unless_writer_uses`, §27.2).
+   counts its test in each of the writer's own texts of the slot (holdouts left out). When no text
+   has it, a draft is flagged from `min_hits` hits. Otherwise the writer's rate is the 95th percentile
+   (nearest rank) of their uses per 1,000 words per text, or their average, at least 0.01, when fewer
+   texts than that have it; a draft of n words may show `max(1, ceil(rate × n / 1000))` uses, and is
+   flagged above that. In a slot with fewer than 20 texts, a sign the writer has used is not flagged
+   but warned (§37.5); a sign they never used is flagged as above. Rulings with `unless_writer_uses`
+   (§27.2) keep their own rule, twice the writer's average.
 4. **The profile decides first.** A sign is left to the profile when the profile (down its chain,
    §12.5) holds the starter rule the sign extends: its copy, perhaps edited, applies instead. An
    `unless_writer` sign is switched off when the profile declined that starter rule (§27.5), or holds
@@ -1007,9 +1011,11 @@ the house style guide.
    line by line. Each hit is a flagged line (`lesson: a-NNN`), and any flagged sign fails the draft,
    also under 150 words (the metric flags stay hints there). The report's `ai_signs` gives the list
    version, the language, whether it is covered, how many signs were checked, the ids found and the
-   ids switched off for this writer.
+   ids switched off for this writer; in a thin slot (§37.3), `warned` and `warned_lines` give the
+   signs and lines over the allowance that only warn, the message says so, and they never fail.
 6. **The kit** has a section "Never sound like AI" after the rulings: each sign's instruction (with
-   the writer's rate where their texts do it), the signs switched off, and the guidance for what no
+   the writer's allowance where their texts do it: in uses for the piece's length when `--words` or
+   the brief gives one, §34.8, else per 1,000 words), the signs switched off, and the guidance for what no
    script can test (specific facts over generic statements, no grouping in threes for rhythm, no
    telling why something matters, no unasked summary, challenges or outlook, no synonym cycling, no
    decoration the examples do not use, varied sentence length). `write.md` adds a reread for those
@@ -1021,5 +1027,8 @@ the house style guide.
    fixtures). Each sign added with the built-in list (not carried over from the starter set) may fire
    in at most 2% of 500-word passages of the English essays, for a writer who never uses it. Before
    release the list was also run over about 1,150 human blog posts written before 2023 (not in the
-   repository): the `always` tier fired on none of them.
+   repository): the `always` tier fired on none of them. The allowance (§37.3) is gated on the English
+   essays: each essay's 500-word passages, checked against the writer's other essays, fail in at most
+   10%. On about 1,260 posts of nine writers (not in the repository), each checked against the
+   writer's other posts, 8% failed (15% with twice the average).
 

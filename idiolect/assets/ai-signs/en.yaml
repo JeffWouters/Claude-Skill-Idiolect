@@ -2,8 +2,9 @@
 # write, rewrite and check uses them. No writer data.
 #
 # tier: always         fails a draft whatever the writer's texts do (leftovers no writer means to keep).
-# tier: unless_writer  fails a draft unless the writer's own texts of the slot do it: then up to about
-#                      twice the writer's rate. A profile can switch such a sign off (aisigns.py allow).
+# tier: unless_writer  fails a draft unless the writer's own texts of the slot do it: then up to what
+#                      their texts show at most (95th percentile per text, scaled to the draft's length);
+#                      a thin slot only warns. A profile can switch such a sign off (aisigns.py allow).
 # min_hits: a sign that is about density counts only from that many hits in the text.
 # starter: the starter rule it extends; a profile that holds that rule (or declined it) decides.
 # examples / not: lines the test must and must not catch (tests/test_ai_signs.py).

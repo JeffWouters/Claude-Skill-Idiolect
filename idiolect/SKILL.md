@@ -119,7 +119,7 @@ the next learning run will first offer to resume or discard it (only resume if a
 - **No translation in a voice.** A rewrite never changes language.
 - **Never sound like AI.** The built-in signs of machine-written text (`assets/ai-signs/`, spec §37)
   apply to every write, rewrite and check, whatever the profile; `check` fails a draft that shows one
-  beyond the writer's own rate. The kit lists them; `scripts/aisigns.py` scans any text.
+  beyond what the writer's own texts show at most (a thin slot only warns). The kit lists them; `scripts/aisigns.py` scans any text.
 
 ## Read next
 

@@ -7,6 +7,8 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **Fixed:** a brief's length with a thousands separator ("around 1,050 words") was read as 50 words.
+
 - **Never sound like AI, built in** (spec §37): the signs of machine-written text from Wikipedia's
   "Signs of AI writing" now ship with the skill (`assets/ai-signs/`: 32 English signs, 23 Dutch, one
   language-independent) and apply to every write, rewrite and check, whatever the profile. A chatbot's
@@ -17,7 +19,10 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
   sections and leftover citation markup. The kit gains a "Never sound like AI" section with guidance
   for what no script can test, and `check` reports `ai_signs`. `aisigns.py allow` switches a sign off
   for a writer who really uses it; `aisigns.py scan` checks any text without a store. `export` carries
-  the signs too, so another tool that writes in the voice is told to avoid them.
+  the signs too, so another tool that writes in the voice is told to avoid them. A writer who uses a
+  sign may show it up to their own 95th percentile per text, scaled to the draft's length, not twice
+  their average, which failed 15% of writers' own posts (8% now); in a slot with fewer than 20 texts
+  it only warns (`ai_signs.warned`). The kit gives the allowance in uses for the piece's length.
 - **Deleting a profile** (spec §35): `maintain.py delete --profile P` removes a whole profile in one
   approved diff: its folder and snapshots, its ledger records and the cached texts no other profile
   owns, its source rules, kept drafts, queued edits and published sources. The default profile and a

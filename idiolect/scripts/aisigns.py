@@ -8,13 +8,15 @@ every write, rewrite and check uses them, whatever the profile.
 
 Signs live in assets/ai-signs/: universal.yaml (any language, plus the guidance for what no script can
 test) and <lang>.yaml. Tier `always` fails a draft whatever the writer does; tier `unless_writer` fails
-it unless the writer's own texts of the slot do it, and then only above about twice their rate. A
+it unless the writer's own texts of the slot do it, and then only above their own 95th percentile per
+text, scaled to the draft's length; in a slot with fewer than THIN_TEXTS texts such a sign only warns. A
 profile decides instead of the built-in sign when it holds the starter rule the sign extends (or
 declined it, §27.5), or a ruling that overrides the sign (`allow`). An `always` sign cannot be switched
 off. check.py and kit.py use the functions below.
 """
 import argparse
 import json
+import math
 import pathlib
 import sys
 
@@ -27,6 +29,8 @@ from common import StoreError, count_words, load_yaml_text, read_store_file, utc
 
 SIGN_DIR = pathlib.Path(__file__).resolve().parent.parent / "assets" / "ai-signs"
 TIERS = ("always", "unless_writer")
+THIN_TEXTS = 20         # below this many texts in the slot, a sign the writer uses warns instead of failing
+PERCENTILE = 0.95       # the writer's allowance: this percentile of their per-text rates (nearest rank)
 _cache = {}
 
 
@@ -129,23 +133,54 @@ def applicable(store, prof, slot):
     return {**data, "signs": signs, "allowed": off, "deferred": deferred}
 
 
-def writer_rates(store, prof, slot, signs):
-    """{sign id: uses per 1,000 words in the writer's own texts of the slot} for the unless_writer
-    signs (holdouts left out, as for rulings)."""
+def writer_usage(store, prof, slot, signs):
+    """{"texts": the slot's own texts (holdouts left out, as for rulings), "rates": {sign id: the writer's
+    95th percentile of uses per 1,000 words over those texts, 0.0 when no text has it}} for the
+    unless_writer signs."""
     want = [s for s in signs if s["tier"] == "unless_writer"]
     if not want:
-        return {}
+        return {"texts": 0, "rates": {}}
     def text_of(key):
         try:
             return store.corpus_text(key)
         except StoreError:
             return ""                       # a missing cache counts as no text; the check still runs
     slots = measure.slot_texts(store.manifest["texts"], text_of, store.facets, prof)
-    texts = [t for _, t, _ in (slots.get(slot) or {}).get("texts", [])]
-    n = sum(count_words(t) for t in texts)
-    if not n:
-        return {s["id"]: 0.0 for s in want}
-    return {s["id"]: round(sum(rules.count(s["_pat"], t) for t in texts) * 1000 / n, 2) for s in want}
+    texts = [t for _, t, _ in (slots.get(slot) or {}).get("texts", []) if count_words(t)]
+    return {"texts": len(texts), "rates": {s["id"]: percentile_rate(s, texts) for s in want}}
+
+
+def percentile_rate(sign, texts):
+    """The sign's uses per 1,000 words at the PERCENTILE of the texts (nearest rank); see rate_of."""
+    return rate_of([rules.count(sign["_pat"], t) for t in texts], [count_words(t) for t in texts])
+
+
+def rate_of(counts, n_words):
+    """The PERCENTILE of per-text rates (uses per 1,000 words), from each text's uses and length; 0.0
+    only when no text has a use. A writer who uses it in fewer texts than that gets their average (at
+    least 0.01), so a sign they do use is always allowed once."""
+    pairs = [(c, n) for c, n in zip(counts, n_words) if n]
+    if not any(c for c, _ in pairs):
+        return 0.0
+    rates = sorted(c * 1000 / n for c, n in pairs)
+    p = rates[max(0, math.ceil(PERCENTILE * len(rates)) - 1)]
+    if p == 0:
+        p = max(0.01, sum(c for c, _ in pairs) * 1000 / sum(n for _, n in pairs))
+    return round(p, 2)
+
+
+def writer_rates(store, prof, slot, signs):
+    """{sign id: the writer's allowance rate per 1,000 words} (writer_usage without the text count)."""
+    return writer_usage(store, prof, slot, signs)["rates"]
+
+
+def times(n):
+    return "once" if n == 1 else "twice" if n == 2 else f"{n} times"
+
+
+def allowed_uses(rate, n_words):
+    """How many uses a text of n_words may show at the writer's rate: at least one when they use it."""
+    return max(1, math.ceil(rate * n_words / 1000)) if rate > 0 else 0
 
 
 def without_front_matter(text):
@@ -159,8 +194,10 @@ def without_front_matter(text):
     return text
 
 
-def flag(text, signs, rates, n_words):
-    """Flagged lines for every sign the text shows beyond what this writer's own texts allow."""
+def flag(text, signs, rates, n_words, thin=False, warned=None):
+    """Flagged lines for every sign the text shows beyond what this writer's own texts allow. With
+    thin=True (a slot of fewer than THIN_TEXTS texts), a sign the writer does use goes to `warned`
+    (a list, when given) instead of failing; a sign they never use fails as ever."""
     text = without_front_matter(text)
     lines = []
     for s in signs:
@@ -169,18 +206,22 @@ def flag(text, signs, rates, n_words):
         if total < s["min_hits"]:
             continue
         rate = rates.get(s["id"], 0.0) if s["tier"] == "unless_writer" else 0.0
+        out = lines
         if rate > 0:
-            draft_rate = total * 1000 / max(n_words, 1)
-            if total < max(s["min_hits"], rules.MIN_HITS) or draft_rate <= rules.RATE_FACTOR * rate:
+            allowed = allowed_uses(rate, n_words)
+            if total <= allowed:
                 continue
-            why = (f"sounds like AI ({s['id']}, {s['category']}): {total} uses, {draft_rate:.1f} per 1,000 words; "
-                   f"the writer's texts about {rate:g}")
+            why = (f"sounds like AI ({s['id']}, {s['category']}): {total} uses where the writer's own texts "
+                   f"allow about {allowed} in {n_words} words")
+            if thin:
+                out = warned if warned is not None else []
+                why += f" (a warning: their slot has fewer than {THIN_TEXTS} texts)"
         elif s["min_hits"] > 1:
             why = f"sounds like AI ({s['id']}, {s['category']}): {total} together in one text"
         else:
             why = f"sounds like AI ({s['id']}, {s['category']})"
         for i, line, _ in found:
-            lines.append({"line": i, "text": line.strip()[:200], "lesson": s["id"], "reason": f"{why}: {s['text']}"})
+            out.append({"line": i, "text": line.strip()[:200], "lesson": s["id"], "reason": f"{why}: {s['text']}"})
     return lines
 
 
@@ -195,26 +236,32 @@ def scan(text, lang="en"):
 
 def kit_part(store, prof, slot):
     part = applicable(store, prof, slot)
-    rates = writer_rates(store, prof, slot, part["signs"])
+    usage = writer_usage(store, prof, slot, part["signs"])
+    rates = usage["rates"]
     return {"version": part["version"], "lang": part["lang"], "covered": part["covered"],
+            "thin": 0 < usage["texts"] < THIN_TEXTS,
             "signs": [{"id": s["id"], "text": s["text"], "tier": s["tier"],
                        "rate": rates.get(s["id"], 0.0)} for s in part["signs"]],
             "allowed": [{"id": s["id"], "text": s["text"]} for s in part["allowed"]],
             "deferred": [s["id"] for s in part["deferred"]], "guidance": part["guidance"]}
 
 
-def kit_lines(part, export=False):
-    """The kit's section; with export=True, worded for another tool that has no `check` (spec §22)."""
+def kit_lines(part, export=False, words=None):
+    """The kit's section; with export=True, worded for another tool that has no `check` (spec §22).
+    With the piece's length (words), a sign the writer uses gets its allowance in uses."""
     whose = "the writer's texts" if export else "your texts"
     L = ["", f"## Never sound like AI (built into Idiolect, signs {part['version']})",
          ("These are signs of machine-written text. Never write them, except where the writer's own texts do "
-          "(then never more often than the rate given). Before handing over a draft, reread it for each one."
+          "(then never more than the allowance given). Before handing over a draft, reread it for each one."
           if export else
           "These apply to every voice. `check` fails a draft that shows one; where the writer's own texts do "
-          "it, only above about twice their rate.")]
+          "it, only above what their texts show at most"
+          + (" (warning only: few texts in this slot)." if part.get("thin") else "."))]
     for s in part["signs"]:
-        note = (f" ({whose} do this about {s['rate']:g} times per 1,000 words: never more)"
-                if s["tier"] == "unless_writer" and s["rate"] else "")
+        note = ""
+        if s["tier"] == "unless_writer" and s["rate"]:
+            note = (f" ({whose} do this at most {times(allowed_uses(s['rate'], words))} in a piece this long: never more)"
+                    if words else f" ({whose} do this up to about {s['rate']:g} times per 1,000 words: never more)")
         L.append(f"- {s['text']}{note}")
     if not part["covered"]:
         L.append(f"- No list of signs for '{part['lang']}' yet: only the language-independent ones are listed. "

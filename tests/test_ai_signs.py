@@ -107,15 +107,56 @@ def test_front_matter_is_not_a_horizontal_rule():
 
 # ---------- flagging against the writer's own rate ----------
 
-def test_the_writers_own_rate_allows_a_sign_up_to_twice_that_rate():
+def test_the_writers_own_highest_rate_allows_a_sign_scaled_to_the_drafts_length():
     dash = [x for x in aisigns.load("en")["signs"] if x["id"] == "a-006"]
     one = "It works — mostly.\n" + "word " * 199
     four = "It works — mostly — and — then — not.\n" + "word " * 195
     assert aisigns.flag(one, dash, {}, 200)                          # the writer never does it: one is enough
     assert aisigns.flag(one, dash, {"a-006": 5.0}, 200) == []        # one use: within their habit
-    assert aisigns.flag(four, dash, {"a-006": 5.0}, 200)             # 20 per 1,000 words: four times theirs
+    assert aisigns.flag(four, dash, {"a-006": 5.0}, 200)             # four uses where theirs allows one
+    assert aisigns.flag(four, dash, {"a-006": 20.0}, 200) == []      # a writer whose posts go up to 20
+    assert aisigns.allowed_uses(5.0, 1050) == 6 and aisigns.allowed_uses(0.01, 300) == 1
+    assert aisigns.allowed_uses(0.0, 1000) == 0
     always = [x for x in aisigns.load("en")["signs"] if x["id"] == "a-001"]
     assert aisigns.flag("As an AI, I cannot say.", always, {"a-001": 50.0}, 10)   # always: rate ignored
+
+
+def test_the_allowance_is_the_95th_percentile_per_text_and_any_use_allows_one():
+    dash = next(x for x in aisigns.load("en")["signs"] if x["id"] == "a-006")
+    plain = "word " * 100
+    texts = [plain] * 18 + ["A — b. " + "word " * 98, "A — b — c — d. " + "word " * 96]
+    assert aisigns.percentile_rate(dash, texts) == 10.0          # 19th of 20 per-text rates (nearest rank)
+    once = [plain] * 39 + ["A — b. " + "word " * 98]
+    assert 0 < aisigns.percentile_rate(dash, once) < 1           # used once in 40: still allowed once
+    assert aisigns.percentile_rate(dash, [plain] * 5) == 0.0
+
+
+def test_a_thin_slot_warns_for_a_sign_the_writer_uses_and_still_fails_one_they_never_use():
+    signs = [x for x in aisigns.load("en")["signs"] if x["id"] in ("a-006", "a-009")]
+    text = "It works — mostly — and — then — not.\nWe leverage the API to enhance it.\n"
+    warned = []
+    lines = aisigns.flag(text, signs, {"a-006": 5.0}, 200, thin=True, warned=warned)
+    assert {x["lesson"] for x in lines} == {"a-009"} and {x["lesson"] for x in warned} == {"a-006"}
+    assert "a warning" in warned[0]["reason"]
+    assert {x["lesson"] for x in aisigns.flag(text, signs, {"a-006": 5.0}, 200)} == {"a-006", "a-009"}
+
+
+def test_few_of_a_human_writers_own_passages_fail_against_their_other_texts():
+    """The false-fail gate (spec §37.3): each essay's 500-word passages checked against the writer's
+    other essays fail in at most 10%."""
+    signs = [s for s in aisigns.load("en")["signs"] if s["tier"] == "unless_writer"]
+    fails = n = 0
+    for author in HUMAN_EN:
+        files = [windows(body(f)) for f in sorted(glob.glob(str(FIX / author / "*.md")))]
+        uses = [[({s["id"]: rules.count(s["_pat"], w) for s in signs}, count_words(w)) for w in f] for f in files]
+        for i, own in enumerate(files):
+            others = [u for j, f in enumerate(uses) if j != i for u in f]
+            rates = {s["id"]: aisigns.rate_of([c[s["id"]] for c, _ in others], [n for _, n in others])
+                     for s in signs}
+            for w in own:
+                fails += bool(aisigns.flag(w, signs, rates, count_words(w)))
+                n += 1
+    assert n > 200 and fails / n <= 0.10, (fails, n)
 
 
 def test_a_density_sign_needs_its_minimum():
@@ -216,3 +257,22 @@ def test_a_declined_starter_rule_switches_its_sign_off(st):
     commit(st, reject=dash)
     r = run_check(st, PLAIN.replace("round through the", "round — through the"))
     assert "a-006" not in r["ai_signs"]["found"] and "a-006" in r["ai_signs"]["allowed"]
+
+
+def test_check_warns_in_a_thin_slot_and_the_kit_gives_the_allowance_for_the_length(st, monkeypatch):
+    real = aisigns.percentile_rate
+    monkeypatch.setattr(aisigns, "percentile_rate",          # the fixture writer leverages things now and then
+                        lambda s, texts: 2.0 if s["id"] == "a-009" else real(s, texts))
+    store = Store(st)
+    usage = aisigns.writer_usage(store, "noor", "en.essay", aisigns.applicable(store, "noor", "en.essay")["signs"])
+    assert 0 < usage["texts"] < aisigns.THIN_TEXTS and usage["rates"]["a-009"] == 2.0
+    text = PLAIN + "\nWe leverage the bridge to enhance the walk and leverage the mill to enhance the view.\n"
+    r = run_check(st, text)
+    assert r["ai_signs"]["warned"] == ["a-009"] and "a-009" not in r["ai_signs"]["found"]
+    assert r["status"] != "fail" and "warning" in r["message"] and "(warning)" in check.readable(r)
+    assert all(x["lesson"] == "a-009" for x in r["ai_signs"]["warned_lines"])
+    monkeypatch.setattr(aisigns, "THIN_TEXTS", 5)                # the same draft in a slot with enough texts
+    r = run_check(st, text)
+    assert r["status"] == "fail" and "a-009" in r["ai_signs"]["found"] and "warned" not in r["ai_signs"]
+    md = kit.markdown(kit.build(store, "noor", {"type": "essay"}, "About 1,000 words on the kitchen tap."))
+    assert "at most twice in a piece this long: never more" in md

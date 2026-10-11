@@ -68,7 +68,8 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    plainly. A line that breaks a ruling (`lesson: r-...`) fails the draft outright: fix every one.
    So does a line with a sign of machine-written text (`lesson: a-...`, the report's `ai_signs`):
    rewrite the sentence the way the writer would say it, never by swapping in a synonym of the
-   flagged word.
+   flagged word. In a slot with few texts, a sign the writer does use only warns (`ai_signs.warned`):
+   rewrite those lines too when you can, but they do not fail the draft.
    Too many language-flavour traces (`lesson: f-...`, the report's `flavour`) fail it too: remove
    traces until `hits` is within `allowed`.
    If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
@@ -108,7 +109,7 @@ python3 scripts/check.py --store S --file <text> [--profile P] [--lang L] [--typ
 Relay the verdict in one line, then the flagged metrics in plain words (both directions), any
 bunched habits (where, how many uses against the writer's rate), any never-list lines, any signs of
 machine-written text (`ai_signs`: which, and the lines; they fail the draft unless the writer's own
-texts do the same), and the
+texts do the same as often; `warned` ones are a warning only), and the
 language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
 
 ## Signs of machine-written text without a profile

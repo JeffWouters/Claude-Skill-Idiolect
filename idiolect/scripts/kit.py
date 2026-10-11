@@ -280,7 +280,7 @@ def markdown(kit, notes="brief"):
                                                 for r in kit["rulings"]]
     if kit.get("ai_signs"):
         import aisigns
-        L += aisigns.kit_lines(kit["ai_signs"])
+        L += aisigns.kit_lines(kit["ai_signs"], words=kit.get("words"))
     if kit["edit_lessons"]:
         L += ["", "## Edit lessons (from the writer's own corrections)"] + [
             f"- {x['text']}" for x in kit["edit_lessons"]]
