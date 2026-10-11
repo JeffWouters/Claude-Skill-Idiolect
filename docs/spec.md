@@ -497,6 +497,9 @@ Entries that do not feed the profile are never touched by its rollback.
    `flagged` and the resolved count as `fail_threshold`.
 3. The stability downgrade count (§13.2) is computed the same way from `downgrade_fraction`.
 4. Every flag is still reported in the report, as a hint for the rewrite.
+5. Besides the metrics, a draft fails when it breaks a ruling's test (§27), shows a built-in sign of
+   machine-written text beyond what the writer's own texts allow (§37), or carries more language
+   flavour than the writer's highest rate (§34). These fail also under 150 words.
 
 ## 18. Values set in phase 0
 
@@ -673,7 +676,9 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    writer's texts do show says "(your texts do this about N times per 1,000 words: never more)".
 4. **The starter set** is `assets/starter-rules/<lang>.yaml`: a version, a source note and rules with a
    stable id (`s-001`), a category, the ruling text, the test and `unless_writer_uses`. It holds no writer
-   data. It is never applied by itself.
+   data. It is never applied by itself as a set of rulings; the same signs, and more, are built into the
+   skill and apply to every profile (§37), and a profile's copy of a starter rule decides instead of the
+   built-in sign that extends it.
 5. **Loading** (`rules.py --store S defaults --profile P [--lang L] [--category C]`, lock mode `learn`):
    one `ruling` item per starter rule, each `add` with the next `r-` id, `origin: starter`, the set's
    `lang` and `starter: {id, version, digest}`, where the digest (16 hex digits of SHA-256) covers the

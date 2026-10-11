@@ -1,6 +1,7 @@
 # Startregels voor het Nederlands (spec §27, §32). Never applied by itself: `rules.py defaults --lang nl`
 # copies the rules the writer approves into their own rulings.yaml. No writer data. Same ids and
 # categories as en.yaml, so a writer with both languages can compare them.
+# The same signs are built into the skill and checked in every profile (assets/ai-signs/, spec §37).
 #
 # unless_writer_uses: false  applies whatever the writer's texts do.
 # unless_writer_uses: true   applies only as far as the writer's own texts of the slot do not do it.

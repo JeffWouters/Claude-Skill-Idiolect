@@ -15,8 +15,8 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > exported mail (`.eml`, `.msg`), web pages, Microsoft 365 sent mail and talk transcripts, exports a
 > voice as one prompt for another tool, gates other skills' publishing through `check`, and runs from a
 > cloud session bridged to the writer's computer. It can add a facet such as `channel` to a store.
-> Rulings can carry a test that `check` enforces, and an optional starter set of rules against the
-> common signs of AI writing (em dashes, "delve", chatbot leftovers and the like) can be loaded into
+> Rulings can carry a test that `check` enforces, and a starter set of rules against the common signs
+> of AI writing (em dashes, "delve", chatbot leftovers and the like) can be copied, to edit, into
 > a profile; rules about habits apply only where the writer's own texts do not show them. The signs of
 > machine-written text from Wikipedia's "Signs of AI writing" are also built into the skill: every write,
 > rewrite and check uses them, whatever the profile, allowing a sign only as far as the writer's own
@@ -103,7 +103,7 @@ The full design is in [docs/design.md](docs/design.md). Start with the architect
 | 4 | Validation: `test` |
 | 5 | Feedback: learn-edit, interview, more facets, inheritance |
 | 6 | Reach: cloud route, export, more adapters, use from other skills |
-| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31); language packs, learning from what is published (spec §32–33); language flavour (spec §34); deleting a whole profile (spec §35) |
+| after 6 | Rulings with tests and an optional starter set (spec §27); outliers and verify, voice guide, style-guide import, tone (spec §28–31); language packs, learning from what is published (spec §32–33); language flavour (spec §34); deleting a whole profile (spec §35); removing one learned item, lifting a rejection, forgetting a web page by its address (spec §36); built-in signs of machine-written text in every write, rewrite and check (spec §37) |
 
 ## Licence
 

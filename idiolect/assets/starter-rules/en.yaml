@@ -1,5 +1,6 @@
-# Starter rules for English (spec §27). Never applied by itself: `rules.py defaults` copies the rules
-# the writer approves into their own rulings.yaml. No writer data.
+# Starter rules for English (spec §27). Never applied by itself as rulings: `rules.py defaults` copies the
+# rules the writer approves into their own rulings.yaml, to edit. The same signs, and more, are built into
+# the skill and checked in every profile (assets/ai-signs/, spec §37). No writer data.
 #
 # unless_writer_uses: false  applies whatever the writer's texts do (leftovers no writer means to keep).
 # unless_writer_uses: true   applies only as far as the writer's own texts of the slot do not do it:

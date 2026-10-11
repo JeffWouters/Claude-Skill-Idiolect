@@ -95,7 +95,9 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | "Does this read like me? Check it with Idiolect." | How close the text measures to your own texts, and what differs most. A measure of style, not proof of who wrote it. |
 | "Make an Idiolect voice guide for my editor." | A document a person can follow: your rules, the shape of your sentences, your habits and words, and a few example passages with names removed. `rulings-only=true` gives just the rules, as a house style guide. |
 | "Import our house style guide into my Idiolect profile." | Claude reads the guide and proposes each rule it states, quoting the line it came from; you approve each one. Rules a script can test are checked in every draft. |
-| "Load the Idiolect starter rules into my profile." | Optional rules against common signs of AI writing (em dashes, "delve", chatbot phrases, filler). Rules about habits apply only if your own texts don't have that habit, so if you use dashes, you keep them. You approve each rule. For Dutch, ask for the Dutch starter rules. |
+| "Does this sound like AI? Scan it with Idiolect." | The built-in signs of machine-written text a text shows, line by line, without needing a profile. Every write, rewrite and check already uses the same signs, whatever the profile. |
+| "Allow sign a-009 in my Idiolect profile." | Switches one built-in sign off for you, when you really do write that way (say, "leverage"). You approve it like any rule. Chatbot leftovers can never be switched off. |
+| "Load the Idiolect starter rules into my profile." | Copies the common signs of AI writing into your profile as your own rules, so you can edit their wording. You don't need this to be protected: the same signs are built in and checked in every draft. Rules about habits apply only if your own texts don't have that habit, so if you use dashes, you keep them. For Dutch, ask for the Dutch starter rules. |
 | "Learn from what I publish with Idiolect: my posts end up in ~/Vault/Published." | Idiolect keeps the drafts it writes. A scan (by hand, or as a weekly scheduled task) finds the version you published, pairs it with its draft and queues the pair. When you say "process my Idiolect edit queue", your edits become edit lessons, after your approval as always. Published texts that match no draft are listed, so you can learn them too. A folder, a vault folder or an RSS feed all work. |
 
 ## 6. When something is off
@@ -133,6 +135,7 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 | Learning from what you publish, and the scheduled scan | [`modes/published.md`](../idiolect/references/modes/published.md), [spec §33](spec.md#33-learning-from-what-the-writer-publishes) |
 | Language flavour: how traces of another language are found, counted and used | [`modes/learn.md`](../idiolect/references/modes/learn.md) (7b), [spec §34](spec.md#34-language-flavour) |
 | Languages: English, Dutch, adding another | [`references/fingerprint.md`](../idiolect/references/fingerprint.md) (Language applicability), [spec §32](spec.md#32-language-packs) |
+| The built-in signs of machine-written text: what they are, the two tiers, switching one off | [`modes/write.md`](../idiolect/references/modes/write.md), [spec §37](spec.md#37-built-in-signs-of-machine-written-text) |
 | Rulings, tests, the starter set and importing a style guide | [`modes/rules.md`](../idiolect/references/modes/rules.md), [spec §27](spec.md#27-rulings-with-tests-and-the-starter-set) |
 | Exporting your voice as one prompt for another tool | [`modes/export.md`](../idiolect/references/modes/export.md) |
 | What the metrics measure, and which languages are supported | [`references/fingerprint.md`](../idiolect/references/fingerprint.md) |

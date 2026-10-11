@@ -15,6 +15,8 @@ python3 scripts/export.py --store S [--profile P] [--lang L] [--type T] [--facet
 - The prompt holds rulings, edit lessons, targets, the never-list, forms and non-private favoured
   phrases, the habits most texts show, and the example passages. It never holds the corpus, lesson
   quotes, edit pairs, rejections or private vocabulary.
+- It does not carry the built-in signs of machine-written text (spec §37), and the other tool has no
+  `check`. Say so, and suggest running `aisigns.py scan` (or `check`) on what the other tool writes.
 
 Hand the file to the writer and say:
 
