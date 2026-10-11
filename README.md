@@ -17,7 +17,10 @@ folder the writer chooses (the *store*), and nothing is learned without the writ
 > cloud session bridged to the writer's computer. It can add a facet such as `channel` to a store.
 > Rulings can carry a test that `check` enforces, and an optional starter set of rules against the
 > common signs of AI writing (em dashes, "delve", chatbot leftovers and the like) can be loaded into
-> a profile; rules about habits apply only where the writer's own texts do not show them.
+> a profile; rules about habits apply only where the writer's own texts do not show them. The signs of
+> machine-written text from Wikipedia's "Signs of AI writing" are also built into the skill: every write,
+> rewrite and check uses them, whatever the profile, allowing a sign only as far as the writer's own
+> texts show it.
 > It flags texts that measure unlike the rest of their slot while learning, says whether a text reads
 > like the writer's own (`verify`), writes a voice guide or house style guide for people (`guide`),
 > imports a style guide as rulings, and leans a draft warmer, firmer, more formal and so on within the

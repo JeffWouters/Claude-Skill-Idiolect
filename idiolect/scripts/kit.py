@@ -222,7 +222,11 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None,
     rulings = rules.applicable(store, prof, slot)
     rates = rules.writer_rates(store, prof, slot, rulings)
     rulings = [{**r, "note": rules.note(r, rates)} for r in rulings]
+    # a ruling that switches a built-in AI sign off is shown with the signs, not as a ruling (spec §37)
+    rulings = [r for r in rulings if not str(r.get("overrides") or "").startswith("a-")]
     kit["rulings"] = rulings[:RULINGS_CAP]
+    import aisigns
+    kit["ai_signs"] = aisigns.kit_part(store, prof, slot)
     vocab = resolve.merged(store, prof, "vocabulary")
     # one cap for the whole vocabulary (design: capped in size); phrases first, forms fill the rest
     phrases = [v for v in vocab if v["kind"] == "phrase"][:VOCAB_CAP]
@@ -274,6 +278,9 @@ def markdown(kit, notes="brief"):
     if kit["rulings"]:
         L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + r.get("note", "") + (f" _(from {r['profile']})_" if r in kit["inherited_rulings"] else "")
                                                 for r in kit["rulings"]]
+    if kit.get("ai_signs"):
+        import aisigns
+        L += aisigns.kit_lines(kit["ai_signs"])
     if kit["edit_lessons"]:
         L += ["", "## Edit lessons (from the writer's own corrections)"] + [
             f"- {x['text']}" for x in kit["edit_lessons"]]

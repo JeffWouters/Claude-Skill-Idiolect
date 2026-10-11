@@ -1,0 +1,390 @@
+# Built-in signs of machine-written Dutch (spec §37). Same format and ids as en.yaml. No writer data.
+version: '1.0'
+lang: nl
+read: '2026-10-11'
+source: The Dutch starter set 1.0 (s-001 to s-022), the Dutch counterparts of Wikipedia:Signs of AI writing. Same
+  ids as en.yaml for the same sign; the English-only additions (a-005, a-009 to a-031) have no Dutch counterpart
+  yet.
+signs:
+- id: a-001
+  category: chatbot
+  tier: always
+  text: 'Laat geen zelfbeschrijving van een chatbot in de tekst staan: "Als AI", "als taalmodel".'
+  test:
+    phrases:
+    - Als AI
+    - als AI-taalmodel
+    - als taalmodel
+    - als groot taalmodel
+  examples:
+  - Als AI kan ik dat niet zeggen.
+  not:
+  - Als admin kan ik dat zeggen.
+- id: a-002
+  category: chatbot
+  tier: unless_writer
+  text: 'Prijs de vraag niet en geef niet voor de vorm gelijk: "Goede vraag", "Je hebt helemaal gelijk".'
+  test:
+    phrases:
+    - Goede vraag
+    - Wat een goede vraag
+    - Uitstekende vraag
+    - Je hebt helemaal gelijk
+    - U hebt helemaal gelijk
+    - U heeft helemaal gelijk
+    - Je hebt volkomen gelijk
+  starter: s-003
+  examples:
+  - Goede vraag, en een lastige.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-003
+  category: chatbot
+  tier: always
+  text: 'Schrijf niet over de grenzen van je kennis: "tot mijn laatste update", "op basis van de beschikbare informatie".'
+  test:
+    phrases:
+    - tot mijn laatste update
+    - sinds mijn laatste update
+    - mijn kennis loopt tot
+    - mijn trainingsdata
+    - op basis van de beschikbare informatie
+    - hoewel specifieke details beperkt zijn
+    - ik heb geen toegang tot realtime
+  starter: s-004
+  examples:
+  - Tot mijn laatste update was de brug dicht.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-004
+  category: chatbot
+  tier: unless_writer
+  text: 'Schrijf niet over de tekst zelf: "Hier is de herziene versie", "In deze bijgewerkte versie".'
+  test:
+    phrases:
+    - hier is de herziene
+    - hier is een herziene
+    - hier is de bijgewerkte
+    - hier is een bijgewerkte
+    - in deze herziene versie
+    - in deze bijgewerkte versie
+    - ik heb de tekst herschreven
+  starter: s-005
+  examples:
+  - Hier is de herziene alinea.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-006
+  category: punctuation
+  tier: unless_writer
+  text: 'Gebruik geen gedachtestreepje (—) of kastlijntje (–) in lopende tekst: gebruik een komma, een dubbele punt,
+    haakjes of een punt. Een streepje in een reeks getallen (2019–2021) mag.'
+  test:
+    pattern: —|(?<!\d)\s*–|–\s*(?!\d)
+  starter: s-001
+  examples:
+  - Het was laat — te laat.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-007
+  category: vocabulary
+  tier: unless_writer
+  text: 'Gebruik de woorden niet die machinetekst te vaak gebruikt: cruciaal, naadloos, baanbrekend, holistisch,
+    synergie, robuust.'
+  test:
+    words:
+    - cruciaal
+    - cruciale
+    - naadloos
+    - naadloze
+    - baanbrekend
+    - baanbrekende
+    - holistisch
+    - holistische
+    - synergie
+    - robuust
+    - robuuste
+  starter: s-006
+  examples:
+  - Een naadloze overgang.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-008
+  category: vocabulary
+  tier: unless_writer
+  text: 'Vermijd modewoorden: essentieel, transformatief, innovatief, impactvol, next level, gamechanger.'
+  test:
+    words:
+    - essentieel
+    - essentiële
+    - transformatief
+    - transformatieve
+    - innovatief
+    - innovatieve
+    - impactvol
+    - impactvolle
+    - gamechanger
+  starter: s-007
+  examples:
+  - Een innovatieve aanpak.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-011
+  category: inflation
+  tier: unless_writer
+  text: 'Blaas het belang niet op: "een bewijs van", "speelt een cruciale rol", "legt de basis voor", "in het huidige
+    digitale landschap", "in de snel veranderende wereld".'
+  test:
+    phrases:
+    - is een bewijs van
+    - vormt een bewijs van
+    - speelt een cruciale rol
+    - speelt een sleutelrol
+    - speelt een essentiële rol
+    - legt de basis voor
+    - het huidige digitale landschap
+    - in de snel veranderende wereld
+    - in de huidige snelle wereld
+    - een blijvende indruk
+    - een onuitwisbare indruk
+    - onderstreept het belang
+  starter: s-008
+  examples:
+  - Het speelt een cruciale rol in de stad.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-012
+  category: inflation
+  tier: unless_writer
+  text: 'Schrijf niet als een folder: "gelegen in het hart van", "adembenemend", "van wereldklasse", "een divers
+    scala aan".'
+  test:
+    phrases:
+    - gelegen in het hart van
+    - in het hart van
+    - adembenemend
+    - adembenemende
+    - van wereldklasse
+    - een divers scala aan
+    - een rijk scala aan
+    - een must voor
+  starter: s-009
+  examples:
+  - Een huisje gelegen in het hart van de heuvels.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-013
+  category: inflation
+  tier: unless_writer
+  text: 'Leun niet op naamloze autoriteiten: "experts zeggen", "onderzoek toont aan", "velen geloven". Noem de bron
+    of laat het weg.'
+  test:
+    phrases:
+    - experts zeggen
+    - experts zijn het erover eens
+    - deskundigen zeggen
+    - deskundigen zijn het erover eens
+    - onderzoek toont aan
+    - studies tonen aan
+    - velen geloven
+    - critici stellen
+  starter: s-010
+  examples:
+  - Experts zeggen dat het water stijgt.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-014
+  category: structure
+  tier: unless_writer
+  text: 'Zeg "is" als je is bedoelt: niet "dient als", "fungeert als".'
+  test:
+    pattern: \b(dient|diende|fungeert|fungeerde|functioneert|functioneerde) als\b
+  starter: s-011
+  examples:
+  - De zaal dient als vergaderruimte.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-015
+  category: structure
+  tier: unless_writer
+  text: 'Plak geen commentaar aan een zin met ", wat ... benadrukt" of ", waarmee ... onderstreept": maak er een
+    eigen zin van of schrap het.'
+  test:
+    pattern: ',\s+(wat|hetgeen|waarmee)\b[^.!?]{0,40}\b(benadrukt|onderstreept|illustreert|weerspiegelt|benadrukken|onderstrepen)\b'
+  starter: s-012
+  examples:
+  - De stad groeide, wat de noodzaak van wegen benadrukt.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-016
+  category: framing
+  tier: unless_writer
+  text: 'Kondig niet aan wat er komt: "Laten we erin duiken", "Laten we eens kijken naar", "Zonder verder oponthoud".'
+  test:
+    phrases:
+    - laten we erin duiken
+    - laten we er dieper in duiken
+    - duiken we dieper in
+    - laten we eens kijken naar
+    - zonder verder oponthoud
+    - hier is wat je moet weten
+    - laten we eerlijk zijn
+  starter: s-013
+  examples:
+  - Laten we erin duiken.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-017
+  category: framing
+  tier: unless_writer
+  text: 'Zoek geen diepgang met een stoplap: "Laat dat even bezinken", "Lees dat nog eens", "In de kern", "De echte
+    vraag is".'
+  test:
+    phrases:
+    - laat dat even bezinken
+    - lees dat nog eens
+    - in de kern
+    - de echte vraag is
+    - waar het echt om gaat
+    - de kern van de zaak
+  starter: s-014
+  examples:
+  - Laat dat even bezinken.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-018
+  category: framing
+  tier: unless_writer
+  text: 'Spreek geen lezer tegen die niets tegensprak: "Begrijp me niet verkeerd", "Ik zeg niet dat", "Dat wil niet
+    zeggen dat".'
+  test:
+    phrases:
+    - begrijp me niet verkeerd
+    - ik zeg niet dat
+    - dat wil niet zeggen dat
+    - je zou denken dat
+    - het zou verleidelijk zijn om
+  starter: s-015
+  examples:
+  - Begrijp me niet verkeerd, ik vind het mooi.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-019
+  category: structure
+  tier: unless_writer
+  text: 'Bouw geen zin op "niet alleen X, maar ook Y" of "het gaat niet om X, het gaat om Y": zeg Y.'
+  test:
+    pattern: \bniet (alleen|slechts|enkel)\b[^.!?]{1,60}?\bmaar( ook)?\b|\bhet gaat niet (alleen |zozeer )?om\b[^.!?]{1,60}?\bhet
+      gaat om\b
+  starter: s-016
+  examples:
+  - Het is niet alleen goedkoop, maar ook snel.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-020
+  category: filler
+  tier: unless_writer
+  text: 'Schrap vulling: "het is belangrijk om op te merken dat", "met betrekking tot" (over), "op dit moment in
+    de tijd" (nu), "in het kader van".'
+  test:
+    phrases:
+    - het is belangrijk om op te merken dat
+    - het is vermeldenswaard dat
+    - met betrekking tot
+    - op dit moment in de tijd
+    - in het kader van
+    - ten behoeve van
+    - in de tussentijd
+  starter: s-017
+  examples:
+  - Met betrekking tot de planning.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-021
+  category: filler
+  tier: unless_writer
+  text: 'Begin een zin niet met een standaardverbinding: Bovendien, Daarnaast, Tevens, Kortom, Al met al, Uiteindelijk.'
+  test:
+    pattern: (^|[.!?:]\s+)(bovendien|daarnaast|tevens|kortom|al met al|uiteindelijk|concluderend|samenvattend)\b
+  starter: s-018
+  examples:
+  - Het regende. Bovendien sneeuwde het.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-022
+  category: filler
+  tier: unless_writer
+  text: 'Stapel geen voorbehouden: "zou mogelijk kunnen", "zou eventueel kunnen", "wellicht mogelijk". Eén voorbehoud,
+    of geen.'
+  test:
+    phrases:
+    - zou mogelijk kunnen
+    - zou eventueel kunnen
+    - zou wellicht kunnen
+    - zou misschien kunnen
+    - wellicht mogelijk
+    - mogelijk eventueel
+  starter: s-019
+  examples:
+  - Het zou mogelijk kunnen regenen.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-023
+  category: filler
+  tier: unless_writer
+  text: 'Eindig niet met een standaardslot: "Concluderend", "De toekomst ziet er rooskleurig uit", "De tijd zal
+    het leren".'
+  test:
+    phrases:
+    - concluderend
+    - samenvattend
+    - de toekomst ziet er rooskleurig uit
+    - de tijd zal het leren
+    - een stap in de goede richting
+    - de mogelijkheden zijn eindeloos
+  starter: s-020
+  examples:
+  - 'Concluderend: het regende.'
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-024
+  category: decoration
+  tier: unless_writer
+  text: Versier niet met emoji's.
+  test:
+    pattern: '[\U0001F300-\U0001FAFF☀-➿⭐✅]'
+  starter: s-021
+  examples:
+  - We wonnen 🎉
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-025
+  category: decoration
+  tier: unless_writer
+  text: Begin een alinea of lijstpunt niet met een vetgedrukt label ("**Belangrijk:** ...").
+  test:
+    pattern: ^\s*([-*+]|\d+[.)])?\s*\*\*[^*\n]{1,60}(:\*\*|\*\*:)
+  starter: s-022
+  examples:
+  - '- **Let op:** het pad is dicht.'
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.
+- id: a-032
+  category: chatbot
+  tier: unless_writer
+  text: 'Laat geen chatbottaal in de tekst staan: "Ik hoop dat dit helpt", "Ik help je graag", "Als AI", "als taalmodel".'
+  test:
+    phrases:
+    - Ik hoop dat dit helpt
+    - hoop dat dit je helpt
+    - Ik help je graag verder
+    - Ik help u graag verder
+    - Wil je dat ik
+    - Als AI
+    - als taalmodel
+    - Laat het me weten als je wilt dat ik
+  starter: s-002
+  examples:
+  - Ik hoop dat dit helpt bij je plannen.
+  not:
+  - We liepen in het voorjaar de lange weg om, langs de markt en de oude molen.

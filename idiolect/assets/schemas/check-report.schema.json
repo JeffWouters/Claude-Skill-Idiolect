@@ -252,6 +252,50 @@
         },
         "additionalProperties": false
       }
+    },
+    "ai_signs": {
+      "type": "object",
+      "description": "The built-in signs of machine-written text (spec §37). A found sign fails the draft; its lines are in flagged_lines with lesson a-NNN.",
+      "required": [
+        "version",
+        "lang",
+        "covered",
+        "checked",
+        "found",
+        "allowed"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "covered": {
+          "type": "boolean",
+          "description": "false when the language has no list: only the language-independent signs were checked."
+        },
+        "checked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "found": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a-[0-9]{3}$"
+          }
+        },
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a-[0-9]{3}$"
+          },
+          "description": "Signs this writer switched off (aisigns.py allow)."
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

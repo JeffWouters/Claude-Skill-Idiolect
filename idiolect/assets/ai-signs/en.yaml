@@ -1,0 +1,719 @@
+# Built-in signs of machine-written English (spec §37). Part of the skill, not of any profile: every
+# write, rewrite and check uses them. No writer data.
+#
+# tier: always         fails a draft whatever the writer's texts do (leftovers no writer means to keep).
+# tier: unless_writer  fails a draft unless the writer's own texts of the slot do it: then up to about
+#                      twice the writer's rate. A profile can switch such a sign off (aisigns.py allow).
+# min_hits: a sign that is about density counts only from that many hits in the text.
+# starter: the starter rule it extends; a profile that holds that rule (or declined it) decides.
+# examples / not: lines the test must and must not catch (tests/test_ai_signs.py).
+version: '1.0'
+lang: en
+read: '2026-10-11'
+source: Wikipedia:Signs of AI writing (WikiProject AI Cleanup), read on 2026-10-11, and Idiolect's starter set 1.0
+  (s-001 to s-022) built from the same page. Only signs a script can test are here; guidance for the rest is in
+  universal.yaml.
+signs:
+- id: a-001
+  category: chatbot
+  tier: always
+  text: 'Never leave a chatbot''s self-description in the text: "As an AI", "as a language model".'
+  test:
+    phrases:
+    - As an AI
+    - as an AI language model
+    - as a language model
+    - as a large language model
+  examples:
+  - As an AI, I cannot say.
+  - As a large language model, I do not browse.
+  not:
+  - As an admin, I can say.
+- id: a-002
+  category: chatbot
+  tier: unless_writer
+  text: 'Never praise the question or agree for effect: "Great question", "You''re absolutely right".'
+  test:
+    phrases:
+    - Great question
+    - Excellent question
+    - You're absolutely right
+    - You are absolutely right
+    - What a great point
+    - Excellent point!
+  starter: s-003
+  examples:
+  - Great question! Let's look.
+  - You're absolutely right about that.
+  not:
+  - That is a great idea.
+  - You are right to worry.
+- id: a-003
+  category: chatbot
+  tier: always
+  text: 'Never write about the limits of what you know: "as of my last update", "my knowledge cutoff", "based on
+    available information".'
+  test:
+    phrases:
+    - as of my last update
+    - as of my last training
+    - my last training update
+    - my knowledge cutoff
+    - my training data
+    - while specific details are limited
+    - based on available information
+    - I don't have access to real-time
+    - I do not have access to real-time
+  starter: s-004
+  examples:
+  - As of my last update, it was in preview.
+  - Based on available information, it works.
+  not:
+  - As of the last update, it was in preview.
+- id: a-004
+  category: chatbot
+  tier: unless_writer
+  text: 'Never write about the draft itself: "Here is the revised version", "In this updated version", "I''ve rewritten
+    the".'
+  test:
+    phrases:
+    - here is the revised
+    - here's the revised
+    - here is the updated
+    - here's the updated
+    - here is a revised
+    - here's a revised
+    - in this revised version
+    - in this updated version
+    - I've rewritten the
+    - I have rewritten the
+  starter: s-005
+  examples:
+  - Here's the revised version of your post.
+  - In this updated version, I removed the intro.
+  not:
+  - Here's the function.
+  - The updated version of the module is out.
+- id: a-005
+  category: placeholder
+  tier: unless_writer
+  text: 'Never leave a fill-in-the-blank placeholder such as "[Your Name]" or "[Insert link]" in prose. Write `[example
+    needed: …]` when a fact is missing.'
+  test:
+    pattern: \[(?:your|insert|enter|add)\b[^\]\n]{0,40}\](?!\()|\[(?:company|product|author|recipient|client) (?:name|logo|url|website|address)\](?!\()
+  examples:
+  - Best regards, [Your Name]
+  - 'Read more here: [Insert link to the docs]'
+  - 'Logo: [Company Name]'
+  not:
+  - Give [your feedback](https://example.com) below.
+  - '[example needed: a real incident]'
+  - '[Client I] Download complete.'
+  - '[CLIENT: ] Login failed'
+- id: a-006
+  category: punctuation
+  tier: unless_writer
+  text: 'Never use an em dash (—) or an en dash (–) in running text: use a comma, a colon, brackets or a full stop.
+    An en dash in a number range (2019–2021) is fine.'
+  test:
+    pattern: —|(?<!\d)\s*–|–\s*(?!\d)
+  starter: s-001
+  examples:
+  - It works — most of the time.
+  - We waited – and waited.
+  not:
+  - From 2019–2021 we lived there.
+  - It works, most of the time.
+- id: a-007
+  category: vocabulary
+  tier: unless_writer
+  text: 'Never use the words machine text overused from 2023 on: delve, tapestry, testament, underscore, showcase,
+    pivotal, meticulous, intricate, interplay, garner, bolster, foster, vibrant.'
+  test:
+    words:
+    - delve
+    - delves
+    - delved
+    - delving
+    - tapestry
+    - tapestries
+    - testament
+    - underscore
+    - underscores
+    - underscored
+    - underscoring
+    - showcase
+    - showcases
+    - showcased
+    - showcasing
+    - pivotal
+    - meticulous
+    - meticulously
+    - intricate
+    - intricacies
+    - interplay
+    - garner
+    - garners
+    - garnered
+    - bolster
+    - bolsters
+    - bolstered
+    - foster
+    - fosters
+    - fostered
+    - fostering
+    - vibrant
+  starter: s-006
+  examples:
+  - Let us delve into the details.
+  - A vibrant community.
+  not:
+  - The meeting went fine.
+- id: a-008
+  category: vocabulary
+  tier: unless_writer
+  text: 'Avoid buzzwords: crucial, robust, landscape, realm, seamless, holistic, synergy, elevate, empower, unlock,
+    unleash, game-changer.'
+  test:
+    words:
+    - crucial
+    - robust
+    - landscape
+    - landscapes
+    - realm
+    - realms
+    - seamless
+    - seamlessly
+    - holistic
+    - synergy
+    - synergies
+    - elevate
+    - elevates
+    - elevating
+    - empower
+    - empowers
+    - empowering
+    - unlock
+    - unlocks
+    - unlocking
+    - unleash
+    - unleashes
+    - unleashing
+    - game-changer
+    - game-changing
+  starter: s-007
+  examples:
+  - A robust, seamless solution.
+  - This will unlock new value.
+  not:
+  - The script is solid and simple.
+- id: a-009
+  category: vocabulary
+  tier: unless_writer
+  text: 'Avoid the words newer models overuse (2024 to 2026): enhance, leverage, multifaceted, enduring, universally,
+    dependable. One may be fine; two or more in a text read as machine text.'
+  test:
+    words:
+    - enhance
+    - enhances
+    - enhancing
+    - leverage
+    - leverages
+    - leveraged
+    - leveraging
+    - multifaceted
+    - enduring
+    - universally
+    - dependable
+  min_hits: 2
+  examples:
+  - We leverage the API to enhance the flow.
+  not:
+  - We use the API to improve the flow.
+- id: a-010
+  category: vocabulary
+  tier: unless_writer
+  text: 'Avoid the phrases newer models overuse: "align with", "resonate with", "valuable insights", "a deep dive".
+    One may be fine; two or more read as machine text.'
+  test:
+    phrases:
+    - align with
+    - aligning with
+    - resonate with
+    - resonates with
+    - resonated with
+    - valuable insights
+    - valuable insight
+    - deep dive
+    - a deep dive
+  min_hits: 2
+  examples:
+  - This deep dive offers valuable insights that align with our goals.
+  not:
+  - This long read shows what we learned.
+- id: a-011
+  category: inflation
+  tier: unless_writer
+  text: 'Never inflate significance: "a testament to", "plays a pivotal role", "marks a shift", "a key turning point",
+    "deeply rooted", "the evolving landscape".'
+  test:
+    phrases:
+    - a testament to
+    - stands as a testament
+    - serves as a testament
+    - plays a pivotal role
+    - plays a crucial role
+    - plays a key role
+    - plays a vital role
+    - a pivotal moment
+    - a crucial moment
+    - setting the stage for
+    - sets the stage for
+    - evolving landscape
+    - ever-evolving
+    - ever-changing landscape
+    - indelible mark
+    - enduring legacy
+    - lasting legacy
+    - reflects a broader
+    - underscores the importance
+    - highlights the importance
+    - in today's fast-paced
+    - in today's digital age
+    - in today's world
+    - key turning point
+    - a focal point
+    - deeply rooted
+    - marks a shift
+    - marking a shift
+    - represents a shift
+    - serves as a reminder
+    - is a reminder that
+    - shaping the future of
+    - reflects broader
+  starter: s-008
+  examples:
+  - The release marks a shift in how we work.
+  - It is deeply rooted in the culture.
+  not:
+  - The release changes how we work.
+- id: a-012
+  category: inflation
+  tier: unless_writer
+  text: 'Never write like a brochure: "nestled in", "in the heart of", "boasts a", "groundbreaking", "renowned for",
+    "a commitment to excellence".'
+  test:
+    phrases:
+    - nestled in
+    - nestled among
+    - in the heart of
+    - boasts a
+    - boasts an
+    - breathtaking
+    - must-visit
+    - must-see
+    - diverse array
+    - rich tapestry
+    - natural beauty
+    - stunning views
+    - world-class
+    - groundbreaking
+    - renowned for
+    - world-renowned
+    - commitment to excellence
+    - exemplifies
+  starter: s-009
+  examples:
+  - The office is nestled in the hills.
+  - A groundbreaking tool.
+  not:
+  - The office is in the hills.
+- id: a-013
+  category: inflation
+  tier: unless_writer
+  text: 'Never lean on unnamed authorities: "experts say", "studies show", "observers have noted", "several sources".'
+  test:
+    phrases:
+    - experts say
+    - experts argue
+    - experts agree
+    - experts believe
+    - studies show
+    - research shows
+    - observers have noted
+    - observers have cited
+    - industry reports suggest
+    - industry reports show
+    - some critics argue
+    - many believe
+    - several sources
+    - many experts
+    - some experts say
+  starter: s-010
+  examples:
+  - Experts say it is safe.
+  - Several sources confirm the date.
+  not:
+  - Microsoft says it is safe.
+- id: a-014
+  category: structure
+  tier: unless_writer
+  text: 'Say "is" or "has" where you mean it: not "serves as a", "stands as a", "marks a milestone", "boasts a".'
+  test:
+    pattern: \b(serves|served|stands|stood|functions|operates) as (a|an|the)\b|\b(marks|represents) (a|an) (new
+      |major |significant |pivotal |key )?(milestone|turning point|departure|step forward)\b|\bboasts (a|an)\b
+  starter: s-011
+  examples:
+  - The module serves as a bridge.
+  - This marks a major milestone.
+  - The tool boasts a clean UI.
+  not:
+  - The module is a bridge.
+  - The tool has a clean UI.
+- id: a-015
+  category: structure
+  tier: unless_writer
+  text: 'Never tack a comment on with a comma and an -ing verb (", highlighting the need for", ", ensuring that",
+    ", reflecting"): make it its own sentence or cut it.'
+  test:
+    pattern: ',\s+(highlighting|underscoring|emphasizing|emphasising|ensuring|reflecting|symbolizing|symbolising|contributing
+      to|cultivating|fostering|encompassing|showcasing|solidifying|reinforcing|enhancing|aligning with)\b'
+  starter: s-012
+  examples:
+  - It ran overnight, highlighting the need for logging.
+  - We added a check, ensuring that nothing breaks.
+  not:
+  - It ran overnight, which shows we need logging.
+- id: a-016
+  category: framing
+  tier: unless_writer
+  text: 'Never announce what comes next: "Let''s dive in", "Let''s break this down", "Here''s what you need to know",
+    "Without further ado", "Here''s the thing".'
+  test:
+    phrases:
+    - let's dive in
+    - let's dive into
+    - let's dive deeper
+    - dive deep into
+    - let's explore
+    - let's break this down
+    - let's break it down
+    - here's what you need to know
+    - here is what you need to know
+    - without further ado
+    - here's the thing
+    - let's be honest
+    - real talk
+    - buckle up
+  starter: s-013
+  examples:
+  - Let's dive in.
+  - Without further ado, the code.
+  not:
+  - Let's see what happens.
+  - Let me explain.
+- id: a-017
+  category: framing
+  tier: unless_writer
+  text: 'Never reach for depth with a stock line: "Let that sink in", "Read that again", "At its core", "The real
+    question is", "Make no mistake".'
+  test:
+    phrases:
+    - let that sink in
+    - read that again
+    - at its core
+    - the heart of the matter
+    - what really matters is
+    - the real question is
+    - the deeper issue
+    - here's the kicker
+    - make no mistake
+    - and that's the point
+  starter: s-014
+  examples:
+  - Let that sink in.
+  - At its core, it is a loop.
+  not:
+  - It is a loop.
+- id: a-018
+  category: framing
+  tier: unless_writer
+  text: 'Never argue with a reader who did not object: "Don''t get me wrong", "I''m not saying", "This is not to
+    say", "You might think", "One might be tempted to".'
+  test:
+    phrases:
+    - don't get me wrong
+    - I'm not saying
+    - I am not saying
+    - this is not to say
+    - this isn't to say
+    - you might think
+    - one might be tempted to
+    - a tempting approach would be
+    - it would be easy to just
+  starter: s-015
+  examples:
+  - Don't get me wrong, I like it.
+  - You might think this is slow.
+  not:
+  - I like it, but it is slow.
+- id: a-019
+  category: structure
+  tier: unless_writer
+  text: 'Never build a sentence on a negative parallel: "not just X but Y", "it isn''t about X, it''s about Y",
+    "it''s not X, it''s Y", "no X, no Y, just Z". Say Y.'
+  test:
+    pattern: \bnot (just|only|merely|simply)\b[^.!?]{1,60}?\bbut( also)?\b|\b(isn't|is not|wasn't|was not) (just
+      |only |merely |really )?about\b[^.!?]{1,60}?\b(it's|it is|it was) about\b|\b(it's|it is|this is|that's) not
+      (just |only |merely )?[^.!?,;]{1,40}[,;—–-] ?(it's|it is|this is|that's)\b|\bno [^.!?,;]{1,30}, no [^.!?,;]{1,30},?
+      (just|only)\b
+  starter: s-016
+  examples:
+  - It's not just a tool but a platform.
+  - It's not a bug, it's a feature.
+  - No servers, no patches, just code.
+  not:
+  - It's not a bug.
+  - No, it is just code.
+- id: a-020
+  category: filler
+  tier: unless_writer
+  text: 'Cut filler: "in order to" (to), "due to the fact that" (because), "at this point in time" (now), "it is
+    important to note that" (cut).'
+  test:
+    phrases:
+    - in order to
+    - due to the fact that
+    - at this point in time
+    - in the event that
+    - has the ability to
+    - it is important to note that
+    - it's important to note that
+    - it is worth noting that
+    - it's worth noting that
+    - needless to say
+  starter: s-017
+  examples:
+  - We do this in order to save time.
+  - It is important to note that it fails.
+  not:
+  - We do this to save time.
+- id: a-021
+  category: filler
+  tier: unless_writer
+  text: 'Never open a sentence with a stock connective: Moreover, Furthermore, Additionally, That being said, Ultimately,
+    Moving forward, When it comes to.'
+  test:
+    pattern: (^|[.!?:]\s+)(moreover|furthermore|additionally|in addition|that said|that being said|consequently|ultimately|moving
+      forward|when it comes to)\b
+  starter: s-018
+  examples:
+  - It works. Moreover, it is fast.
+  - Additionally, it logs.
+  not:
+  - It works and it is fast.
+- id: a-022
+  category: filler
+  tier: unless_writer
+  text: 'Never stack hedges: "could potentially", "might possibly", "may potentially". One hedge, or none.'
+  test:
+    phrases:
+    - could potentially
+    - might potentially
+    - may potentially
+    - might possibly
+    - could possibly
+    - might arguably
+    - could arguably
+    - may arguably
+    - it's also possible that
+    - in some cases it may
+  starter: s-019
+  examples:
+  - It could potentially fail.
+  not:
+  - It could fail.
+- id: a-023
+  category: filler
+  tier: unless_writer
+  text: 'Never end on a stock conclusion or the challenges formula: "In conclusion", "Only time will tell", "Despite
+    these challenges", "faces several challenges", "Future outlook".'
+  test:
+    phrases:
+    - in conclusion
+    - in summary
+    - to sum up
+    - the future looks bright
+    - exciting times ahead
+    - only time will tell
+    - a step in the right direction
+    - the possibilities are endless
+    - despite these challenges
+    - despite its challenges
+    - faces several challenges
+    - faces numerous challenges
+    - faces significant challenges
+    - future outlook
+  starter: s-020
+  examples:
+  - In conclusion, it works.
+  - Despite these challenges, the team delivered.
+  not:
+  - So, it works.
+- id: a-024
+  category: decoration
+  tier: unless_writer
+  text: Never decorate with emojis.
+  test:
+    pattern: '[\U0001F300-\U0001FAFF☀-➿⭐✅]'
+  starter: s-021
+  examples:
+  - We shipped it 🚀
+  - ✅ Done
+  not:
+  - We shipped it.
+- id: a-025
+  category: decoration
+  tier: unless_writer
+  text: Never start a paragraph or list item with a bold label ("**Key point:** ...").
+  test:
+    pattern: ^\s*([-*+]|\d+[.)])?\s*\*\*[^*\n]{1,60}(:\*\*|\*\*:)
+  starter: s-022
+  examples:
+  - '- **Key point:** it works.'
+  - '**Note:** read this.'
+  not:
+  - '- It works.'
+  - 'Note: read this.'
+- id: a-026
+  category: chatbot
+  tier: unless_writer
+  text: 'Never open with a chatbot''s eager agreement: "Certainly!", "Absolutely!", "Of course!" as a sentence of
+    its own.'
+  test:
+    pattern: (?:^|[.!?]\s+)(?:certainly|absolutely|of course|sure thing)!
+  examples:
+  - Certainly! Here is how.
+  - Of course! It works.
+  not:
+  - Of course not!
+  - It certainly works!
+- id: a-027
+  category: structure
+  tier: unless_writer
+  text: Say how two things relate, not that they are "in connection with" or "in association with" each other.
+  test:
+    phrases:
+    - in connection with
+    - in association with
+  min_hits: 2
+  examples:
+  - He was named in connection with the project, in association with the team.
+  not:
+  - He led the project with the team.
+- id: a-028
+  category: chatbot
+  tier: unless_writer
+  text: 'Never hedge about sources: "not widely documented", "in the provided sources", "based on the search results",
+    "does not by itself establish".'
+  test:
+    phrases:
+    - not widely documented
+    - not publicly documented
+    - not well documented in public sources
+    - in the provided sources
+    - in the available sources
+    - based on the search results
+    - does not by itself establish
+    - while details are scarce
+  examples:
+  - The date is not widely documented in the provided sources.
+  not:
+  - The docs do not say when.
+- id: a-029
+  category: layout
+  tier: unless_writer
+  text: 'Never write headings in Title Case ("## Why This Matters For You"): capitalise the first word and names
+    only.'
+  test:
+    pattern: '(?-i:^#{1,6} +(?=(?:\S+ +){3}\S)(?=(?:[^\n]*?(?:^|\s)[A-Z][a-z]){3})(?:[A-Z0-9][\w''’.-]*|a|an|and|as|at|but|by|for|in|of|on|or|the|to|vs|with)(?:
+      +(?:[A-Z0-9][\w''’.-]*|a|an|and|as|at|but|by|for|in|of|on|or|the|to|vs|with))+ *[?!:.]?$)'
+  examples:
+  - '## Why This Matters For You
+
+
+    ### The Impact Of New Technology'
+  not:
+  - '## Why this matters
+
+    ## What is PowerShell DSC?'
+  - '## Get-Help and Get-Command
+
+    ## Visual Studio Code'
+  min_hits: 2
+- id: a-030
+  category: layout
+  tier: unless_writer
+  text: 'Never bold phrase after phrase: keep bold for the one thing a reader must not miss.'
+  test:
+    pattern: \*\*[^*\n]{1,80}\*\*
+  min_hits: 6
+  examples:
+  - '**Fast**, **simple**, **safe**, **cheap**, **open** and **free**.'
+  not:
+  - This is **important**, and so is **this**.
+- id: a-031
+  category: layout
+  tier: unless_writer
+  text: 'Never put a horizontal rule (---) between every section: headings already separate them.'
+  test:
+    pattern: ^\s*(?:-{3,}|\*{3,}|_{3,})\s*$
+  min_hits: 2
+  examples:
+  - 'Intro
+
+
+    ---
+
+
+    ## One
+
+
+    ---
+
+
+    ## Two'
+  not:
+  - '--- not a rule'
+  - 'Text
+
+
+    ---
+
+
+    More text'
+- id: a-032
+  category: chatbot
+  tier: unless_writer
+  text: 'Never leave chatbot talk in the text: "I hope this helps", "Would you like me to", "I''d be happy to help",
+    "Feel free to ask", "Is there anything else".'
+  test:
+    phrases:
+    - I hope this helps
+    - hope this helps!
+    - Would you like me to
+    - I'd be happy to help
+    - I would be happy to help
+    - Happy to help!
+    - Feel free to ask
+    - Let me know if you'd like me to
+    - is there anything else you'd like
+    - is there anything else I can
+    - let me know if you need anything else
+  starter: s-002
+  examples:
+  - I hope this helps!
+  - Is there anything else I can do for you?
+  not:
+  - I hope this works for you.
+  - Let me know what you think.

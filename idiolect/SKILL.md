@@ -117,6 +117,9 @@ the next learning run will first offer to resume or discard it (only resume if a
 - **Never invent facts** about the writer or their texts; report what the scripts return. In drafts,
   leave a placeholder such as `[example needed: a real incident]` instead of inventing one.
 - **No translation in a voice.** A rewrite never changes language.
+- **Never sound like AI.** The built-in signs of machine-written text (`assets/ai-signs/`, spec §37)
+  apply to every write, rewrite and check, whatever the profile; `check` fails a draft that shows one
+  beyond the writer's own rate. The kit lists them; `scripts/aisigns.py` scans any text.
 
 ## Read next
 

@@ -967,3 +967,51 @@ the house style guide.
    by key. `migrate.py` upgrades `corpus/manifest.json` and every snapshot's `manifest-entries.json`
    from 1 to 2 by the version alone; to read an older ledger while migrating, the store is loaded
    with the upgrade applied in memory.
+
+## 37. Built-in signs of machine-written text
+
+1. **What and where.** The skill ships lists of signs of machine-written text in
+   `assets/ai-signs/`: `universal.yaml` (signs that do not depend on the language, plus the guidance
+   for signs no script can test) and one file per language (`en.yaml`, `nl.yaml`). They are part of the
+   skill, not of a store: no store file holds them, no store format changes, and a new skill version
+   brings a new list to every profile. Every `write`, `rewrite` and `check` uses them, whatever the
+   profile. A language without a file gets the universal signs only; the kit and the report say so
+   (`covered: false`).
+2. **A sign** has an id (`a-001` to `a-099` per language, the same id for the same sign in every
+   language; `a-101` and on for universal signs), a category, a tier, the instruction the kit shows,
+   a test in one of the ruling test forms (§27.1), optionally `min_hits` (a sign about density counts
+   only from that many hits in one text) and `starter` (the starter rule it extends), and examples the
+   test must catch and not-examples it must leave alone. Sources: Wikipedia's "Signs of AI writing",
+   read on the date the file records, and the starter set (§27) built from the same page.
+3. **Tiers.** `always`: leftovers no writer means to keep (a chatbot's self-description, talk about
+   its knowledge cutoff, its citation and file markup); a hit fails the draft whatever the writer's
+   texts do, and the sign cannot be switched off. `unless_writer`: everything else; the sign first
+   counts its test in the writer's own texts of the slot (holdouts left out). At zero, a draft is
+   flagged from `min_hits` hits; above zero, only with at least `max(min_hits, 2)` hits and more than
+   twice the writer's rate per 1,000 words (the same rule as `unless_writer_uses`, §27.2).
+4. **The profile decides first.** A sign is left to the profile when the profile (down its chain,
+   §12.5) holds the starter rule the sign extends: its copy, perhaps edited, applies instead. An
+   `unless_writer` sign is switched off when the profile declined that starter rule (§27.5), or holds
+   a ruling with `overrides: a-NNN`. `aisigns.py --store S allow --profile P --sign a-NNN [--text T]`
+   proposes such a ruling for approval; it has no test, and the kit shows it with the signs, not with
+   the rulings. An `always` sign is refused.
+5. **check** scans the text without placeholders (§17) and without a leading YAML front matter block,
+   line by line. Each hit is a flagged line (`lesson: a-NNN`), and any flagged sign fails the draft,
+   also under 150 words (the metric flags stay hints there). The report's `ai_signs` gives the list
+   version, the language, whether it is covered, how many signs were checked, the ids found and the
+   ids switched off for this writer.
+6. **The kit** has a section "Never sound like AI" after the rulings: each sign's instruction (with
+   the writer's rate where their texts do it), the signs switched off, and the guidance for what no
+   script can test (specific facts over generic statements, no grouping in threes for rhythm, no
+   telling why something matters, no unasked summary, challenges or outlook, no synonym cycling, no
+   decoration the examples do not use, varied sentence length). `write.md` adds a reread for those
+   before the check.
+7. **Without a store.** `aisigns.py scan --file F [--lang L]` reports the signs a text shows, every
+   sign at a writer rate of zero; `aisigns.py list` prints a list.
+8. **Tests and false alarms.** Every file is checked against its own examples and not-examples. The
+   `always` tier must not fire on any public-domain human fixture (English essays, the native-language
+   fixtures). Each sign added with the built-in list (not carried over from the starter set) may fire
+   in at most 2% of 500-word passages of the English essays, for a writer who never uses it. Before
+   release the list was also run over about 1,150 human blog posts written before 2023 (not in the
+   repository): the `always` tier fired on none of them.
+

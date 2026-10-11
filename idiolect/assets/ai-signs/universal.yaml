@@ -1,0 +1,30 @@
+# Built-in signs of machine-written text that do not depend on the language (spec §37), and the
+# guidance for the signs no script can test. Part of the skill, not of any profile. No writer data.
+version: "1.0"
+lang: "*"
+read: "2026-10-11"
+source: >-
+  Wikipedia:Signs of AI writing (WikiProject AI Cleanup), sections "Internal formatting and reference
+  markup bugs" and "Content", read on 2026-10-11.
+signs:
+  - id: a-101
+    category: markup
+    tier: always
+    text: "Never leave a chatbot's citation or file markup in the text: oaicite, contentReference, turn0search0, [cite: 1], grok_card, utm_source=chatgpt.com, 【4†source】."
+    test: {pattern: 'oai_?cite|contentReference\[|\bturn\d+(?:search|news|view|file|image)\d+|\[cite(?:_start)?:\s*\d|\[span_\d+\]\(start_span\)|grok_(?:card|render)|ppl-ai-file-upload|attached_file:\d|attributableIndex|utm_source=(?:chatgpt\.com|openai|copilot\.com|perplexity)|【\d+(?::\d+)?†'}
+    examples:
+      - "It shipped in 2024.:contentReference[oaicite:0]{index=0}"
+      - "See the docs (https://learn.microsoft.com/x?utm_source=chatgpt.com)."
+      - "It was released in March 【4†source】."
+      - "The module is stable [cite: 12]."
+    not:
+      - "See the docs (https://learn.microsoft.com/x)."
+      - "Turn 3 to the left."
+guidance:
+  - "Give the specific fact, never the generic statement that could fit any subject: name the version, the number, the command, the person, the date. Where you do not have it, leave `[example needed: …]`."
+  - "Do not group in threes for rhythm (\"fast, simple and reliable\"; three short phrases in a row). Give as many items as there are."
+  - "Do not tell the reader why something matters or what it represents; show what it does and let them judge."
+  - "Do not end with a summary of what you just said, a list of challenges, or a look at the future, unless the brief asks for it."
+  - "Do not cycle through synonyms to avoid repeating a word; repeat it when it is the right word."
+  - "Do not add headings, bullet lists, bold or tables where the writer's examples use plain paragraphs."
+  - "Vary sentence length the way the writer's examples do; never keep every sentence between 8 and 20 words."

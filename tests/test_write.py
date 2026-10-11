@@ -142,11 +142,16 @@ def test_check_refuses_another_language():
     assert r["status"] == "error" and "never carried across languages" in r["message"]
 
 
-def test_short_drafts_never_fail():
+def test_short_drafts_never_fail_on_metrics():
+    r = check.check(Store(STORE), "In many ways, this might perhaps be rather complex. "
+                                  "It is worth considering the broader picture carefully.",
+                    "synthetic-noor", {"type": "essay"})
+    assert r["status"] == "pass" and "hints" in r["message"]
+    # a sign of machine-written text fails even a short draft, like a broken ruling (spec §37)
     r = check.check(Store(STORE), "It is important to note that, in many ways, this might perhaps be rather complex. "
                                   "Moreover, it is worth considering the broader implications carefully.",
                     "synthetic-noor", {"type": "essay"})
-    assert r["status"] == "pass" and "hints" in r["message"]
+    assert r["status"] == "fail" and r["ai_signs"]["found"] == ["a-020", "a-021"] and "hints" in r["message"]
 
 
 def test_no_slot_status():

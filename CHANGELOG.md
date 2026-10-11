@@ -7,6 +7,16 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **Never sound like AI, built in** (spec §37): the signs of machine-written text from Wikipedia's
+  "Signs of AI writing" now ship with the skill (`assets/ai-signs/`: 32 English signs, 23 Dutch, one
+  language-independent) and apply to every write, rewrite and check, whatever the profile. A chatbot's
+  self-description, knowledge-cutoff talk and citation markup always fail a draft; every other sign
+  fails it unless the writer's own texts do the same. New since the starter set: the 2024 to 2026 AI
+  vocabulary, "marks a milestone", "it's not X, it's Y", "no X, no Y, just Z", the challenges formula,
+  hedging about sources, placeholders, "Certainly!", Title Case headings, heavy bold, rules between
+  sections and leftover citation markup. The kit gains a "Never sound like AI" section with guidance
+  for what no script can test, and `check` reports `ai_signs`. `aisigns.py allow` switches a sign off
+  for a writer who really uses it; `aisigns.py scan` checks any text without a store.
 - **Deleting a profile** (spec §35): `maintain.py delete --profile P` removes a whole profile in one
   approved diff: its folder and snapshots, its ledger records and the cached texts no other profile
   owns, its source rules, kept drafts, queued edits and published sources. The default profile and a

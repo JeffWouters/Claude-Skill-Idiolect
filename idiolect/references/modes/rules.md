@@ -9,8 +9,16 @@ the diff. Run scripts from the skill folder.
 
 `assets/starter-rules/en.yaml` (English) and `nl.yaml` (Dutch, the same rules in Dutch) hold common signs of machine-written text (em dashes, chatbot talk,
 "delve", "a testament to", stacked hedges, filler, stock openers and conclusions, emojis, bold labels),
-each as a ruling with a test and a category. It is **never applied by itself**. The writer loads it,
-whole or by category, and approves each rule; from then on the rules are theirs, to edit or remove.
+each as a ruling with a test and a category. The writer loads it, whole or by category, and approves
+each rule; from then on the rules are theirs, to edit or remove.
+
+The same signs, and more, are also **built into the skill** (`assets/ai-signs/`, spec §37): every
+write, rewrite and check uses them without loading anything. Loading the starter set is for a writer
+who wants a rule's wording in their own profile to edit: a profile's copy of a starter rule decides
+instead of the built-in sign it extends, and a declined starter rule switches that sign off for the
+writer. To switch any other built-in sign off (a writer who really writes "leverage"):
+`python3 scripts/aisigns.py --store S allow --profile P --sign a-009`, proposed and approved like any
+ruling. The `always` signs (a chatbot's self-description, its citation markup) cannot be switched off.
 
 Two kinds:
 

@@ -6,9 +6,10 @@ Measures against the targets for this piece: the slot's fingerprint blended with
 the brief selects, exactly as kit.py does with the same brief (without --brief, the text itself picks
 them). Flags overshoot and shortfall per metric only when the text is outside the band around both the
 target and the slot's value (the caricature guard: too much of a habit is flagged too),
-fails the draft when the fail count is reached, a ruling's test is broken (spec §27) or the language
+fails the draft when the fail count is reached, a ruling's test is broken (spec §27), the text shows a
+built-in sign of machine-written text beyond what the writer's own texts do (spec §37) or the language
 flavour goes beyond the writer's highest rate (spec §34), lists lines
-that use a never-list phrase or break a ruling, and names
+that use a never-list phrase, break a ruling or show such a sign, and names
 bunched habits: a paragraph using a countable habit far above the writer's rate. Prints
 the check report (check-report.schema.json) with --json, otherwise a readable summary.
 """
@@ -169,6 +170,11 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     applicable = rules.applicable(store, prof, slot)
     ruling_lines = rules.flag(measured, applicable, rules.writer_rates(store, prof, slot, applicable), n)
     lines += ruling_lines
+    # the built-in signs of machine-written text (spec §37): any flagged sign fails the draft
+    import aisigns
+    signs = aisigns.applicable(store, prof, slot)
+    ai_lines = aisigns.flag(measured, signs["signs"], aisigns.writer_rates(store, prof, slot, signs["signs"]), n)
+    lines += ai_lines
     # language flavour (spec §34.9): more traces than the writer's highest rate fails; fewer never does
     import flavour
     fl = flavour.for_profile(store, prof, lang)
@@ -177,7 +183,7 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     phrases = [v for v in resolve.merged(store, prof, "vocabulary") if v["kind"] == "phrase"]
     bunches = bunched(measured, lang, fp["metrics"], phrases, targets)
     conf = fp["confidence"]["level"]
-    if ruling_lines or fl_lines or (flagged >= threshold and n >= MIN_WORDS):
+    if ruling_lines or ai_lines or fl_lines or (flagged >= threshold and n >= MIN_WORDS):
         status = "fail"
     else:
         status = "low_confidence" if conf == "low" else "pass"
@@ -186,6 +192,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
                    "fail_threshold": threshold, "metrics": rows,
                    "targets": {"examples": [e["id"] for e in picks], "words": t_words, "weight": t_weight,
                                **({"tone": kitmod.parse_tone(tone)} if tone else {})}})
+    report["ai_signs"] = {"version": signs["version"], "lang": signs["lang"], "covered": signs["covered"],
+                          "checked": len(signs["signs"]), "found": sorted({x["lesson"] for x in ai_lines}),
+                          "allowed": [s["id"] for s in signs["allowed"]]}
     if fl_part:
         report["flavour"] = fl_part
     if lines:
@@ -196,6 +205,10 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     if broken:
         notes.append(f"breaks {len(broken)} ruling{'s' if len(broken) > 1 else ''} ({', '.join(broken)}): "
                      f"a ruling fails the draft whatever the metrics say")
+    if ai_lines:
+        found = report["ai_signs"]["found"]
+        notes.append(f"shows {len(found)} sign{'s' if len(found) > 1 else ''} of machine-written text "
+                     f"({', '.join(found)}): fails the draft whatever the metrics say")
     if fl_lines:
         notes.append(f"language flavour: {fl_part['hits']} traces where the writer's highest rate allows "
                      f"{fl_part['allowed']}" if flavour_mode == "keep" else

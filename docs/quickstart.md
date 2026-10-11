@@ -106,6 +106,10 @@ whose measurements agree. Low confidence works, but drafts are rougher: learn mo
 - **One lesson, rule, word or example you don't want:** "Remove lesson l-004 from my Idiolect
   profile sam." It stays out at the next learn too. Changed your mind about something you rejected
   earlier? "Lift rejection x-003 in my Idiolect profile sam."
+- **Something reads like AI:** nothing to set up. Every draft is checked against the built-in signs of
+  machine-written text (dashes, "delve", "a testament to", "not just X but Y", chatbot leftovers and the
+  rest), and fails if it shows one your own texts don't. If you really do write one of them: "Allow
+  sign a-009 in my Idiolect profile sam."
 - **A whole learn you regret:** "Roll my Idiolect profile back to before yesterday's learn."
   A snapshot is taken before every approved change.
 - **A profile you no longer want:** "Delete the Idiolect profile sam." You see everything that goes

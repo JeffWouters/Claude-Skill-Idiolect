@@ -32,7 +32,10 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    read, including how sparingly they use each device. Never reuse their content, facts, names or turns
    of phrase. **Rulings** always apply; **edit lessons** (the writer's own corrections) come next. The
    **targets** are set for this piece from the writer's texts and these examples, and they are what
-   `check` measures: aim at them, primary metrics first. Never use a **never-list** phrase. A **form**
+   `check` measures: aim at them, primary metrics first. The **Never sound like AI** section is built
+   into the skill and applies to every voice: none of those signs, unless the kit says the writer's own
+   texts do it (then never more than the rate it gives), and follow its guidance for what no script
+   can check. Never use a **never-list** phrase. A **form**
    fixes how a word is written when you use it; it never asks you to use it. The **language
    flavour**, when the writer has one, is traces of another language in their prose, at a measured
    rate: use about the number the kit gives for this piece, each where it reads naturally, spread
@@ -53,10 +56,19 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    - Before checking, reread the draft beside the examples. If any device (a hedge, a rhetorical
      question, an archaic word, an exclamation, a signature phrase) appears more often per paragraph
      than in the examples, cut it back.
+   - Then reread it as a stranger looking for machine text (spec §37), for what no script can check:
+     a generic statement where the writer would give the specific fact; things grouped in threes for
+     rhythm; telling the reader why something matters instead of showing it; a closing summary, a
+     list of challenges or a look at the future the brief did not ask for; synonyms cycled to avoid
+     repeating a word; headings, bullets or bold where the examples use plain paragraphs; every
+     sentence about the same length. Fix what you find.
 5. Save the draft to a file and run
    `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] [same --flavour] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them
    plainly. A line that breaks a ruling (`lesson: r-...`) fails the draft outright: fix every one.
+   So does a line with a sign of machine-written text (`lesson: a-...`, the report's `ai_signs`):
+   rewrite the sentence the way the writer would say it, never by swapping in a synonym of the
+   flagged word.
    Too many language-flavour traces (`lesson: f-...`, the report's `flavour`) fail it too: remove
    traces until `hits` is within `allowed`.
    If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
@@ -94,8 +106,19 @@ python3 scripts/check.py --store S --file <text> [--profile P] [--lang L] [--typ
 ```
 
 Relay the verdict in one line, then the flagged metrics in plain words (both directions), any
-bunched habits (where, how many uses against the writer's rate), any never-list lines, and the
+bunched habits (where, how many uses against the writer's rate), any never-list lines, any signs of
+machine-written text (`ai_signs`: which, and the lines; they fail the draft unless the writer's own
+texts do the same), and the
 language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
+
+## Signs of machine-written text without a profile
+
+`python3 scripts/aisigns.py scan --file <text> [--lang L]` lists the built-in signs a text shows with
+no store and no writer (every sign counts from its first use). `aisigns.py list --lang L` shows the
+signs and the guidance. A writer who really does one of them (and whose texts do not show it yet) can
+switch that sign off for their profile: `aisigns.py --store S allow --profile P --sign a-009`, a ruling
+proposed for approval like any other (`rules.md`). Signs of the `always` tier (a chatbot's
+self-description, its citation markup, talk about its knowledge cutoff) cannot be switched off.
 
 ## interactive=false (calling skills)
 
