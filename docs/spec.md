@@ -906,7 +906,7 @@ the house style guide.
 8. **Kit** (`kit.py [--words N] [--flavour keep|off]`). The slot's language's flavour file of the
    profile, or the nearest in its chain that has one, gives a section after the forms: strength and
    origins, the overall rate, and per marker its name, `how`, one example and its rate. With the
-   piece's length (`--words`, or the first "N words" in the brief) it says how many traces to use:
+   piece's length (`--words`, or the first "N words" in the brief, thousands separators allowed, a range giving its lower end) it says how many traces to use:
    about rate × words / 1,000 rounded, at most the allowance below; without it, per 1,000 words.
    Always: never as spelling mistakes, spread out, and none if the rate gives fewer than half a trace.
    `off`: the section asks for standard language and lists the markers to avoid.

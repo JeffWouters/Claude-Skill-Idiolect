@@ -347,3 +347,12 @@ def test_a_trace_never_spans_a_paragraph_break():
     'Now that the ...' began the next, which read as 'see now that' (adverb before the object)."""
     assert flavour.detect_text("en", "It is added to the pull request as you can see\n\nNow that the checks pass, merge it.")["found"] == []
     assert flavour.detect_text("en", "You know already the name of the cmdlet.")["found"]
+
+
+@pytest.mark.parametrize("brief, n", [
+    ("Around 1,050 words on DNS.", 1050), ("Rond de 1.050 woorden.", 1050), ("About 950 words.", 950),
+    ("Between 1,000 to 1,200 words.", 1000), ("800-1000 words", 800), ("1 050 words", 1050), ("Use 3 000 words", 3000),
+    ("Write 12 posts of 300 words", 300), ("No length given.", None)])
+def test_the_pieces_length_is_read_from_the_brief_with_thousands_separators(brief, n):
+    assert flavour.piece_words(brief) == n
+    assert flavour.piece_words(brief, 400) == 400

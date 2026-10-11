@@ -548,8 +548,11 @@ def times(n):
 def piece_words(brief, words=None):
     if words:
         return int(words)
-    m = re.search(r"(\d{2,5}(?:[.,]\d{3})?)\s*(?:-|to|tot)?\s*(?:\d{2,5}\s*)?(?:words|woorden)\b", brief or "", re.I)
-    return int(re.sub(r"[.,]", "", m.group(1))) if m else None
+    """The first "N words" in the brief (spec §34.8); N may carry a thousands separator ("1,050",
+    "1.050", "1 050") and a range gives its lower end ("1,000 to 1,200 words")."""
+    num = r"(?:\d{1,3}(?:[.,\u00a0\u202f ]\d{3})+|\d{2,5})"
+    m = re.search(rf"(?<![\d.,])({num})\s*(?:-|–|to|tot)?\s*(?:{num}\s*)?(?:words|woorden)\b", brief or "", re.I)
+    return int(re.sub(r"\D", "", m.group(1))) if m else None
 
 
 def allowance(fl, words):
