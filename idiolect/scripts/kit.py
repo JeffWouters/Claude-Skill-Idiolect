@@ -237,6 +237,7 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None,
     kit["flavour_mode"] = flavour_mode
     kit["words"] = flavour.piece_words(brief, words)
     kit["brief_facts"] = brief_specifics(brief)
+    kit["brief_exclusions"] = brief_exclusions(brief)
     kit["inherited_rulings"] = [r for r in rulings if r["profile"] != prof]
     kit["examples"] = pick_examples(slot_examples(store, prof, slot), brief, lang, n_examples)
     local, n_words, weight = blend(fp["metrics"], [e["text"] for e in kit["examples"]], lang)
@@ -304,6 +305,39 @@ def facts_lines(f):
             "missing facts in your answer, outside the draft. Never open the draft on a placeholder."]
 
 
+RULED_OUT = re.compile(r"\b(?:do not use|don'?t use|claims? we (?:won'?t|will not|do not) make|"
+                       r"never (?:say|claim|use)|avoid|out of scope|not to use)\b", re.I)
+
+
+def brief_exclusions(brief, cap=40):
+    """What the brief rules out (spec §38.5): a line whose label matches RULED_OUT ("**Do not use:** ...",
+    "- Avoid: ...") and the lines under a heading that does ("## Claims we won't make"). Verbatim,
+    in order, at most `cap` lines."""
+    if not brief:
+        return []
+    out, under = [], False
+    for line in brief.splitlines():
+        t = line.strip()
+        if not t:
+            continue
+        if t.startswith("#"):
+            under = bool(RULED_OUT.search(t))
+            continue
+        label = re.match(r"^[-*\d.\s]*\**([^:*]{1,40})[:*]", t)
+        if under or (label and RULED_OUT.search(label.group(1))):
+            out.append(t)
+    return out[:cap]
+
+
+def exclusion_lines(lines):
+    """The kit's section on what the brief rules out."""
+    if not lines:
+        return []
+    return (["", "## The brief rules out (never use or claim these)",
+             "Copied from the brief. Before handing over the draft, reread it against each line and remove "
+             "anything it rules out, sources included."] + [f"- {x.lstrip('-* ')}" for x in lines])
+
+
 LEDGER_WORDS = 1500   # from this length, write keeps a point ledger before drafting (spec §39)
 
 
@@ -313,9 +347,11 @@ def ledger_lines(words):
         return []
     return ["", "## A long piece: one place per point",
             f"About {words:,} words. Before drafting, write a point ledger: every point the piece makes, once, with "
-            "the one section that owns it. Another section that needs the point refers back to it in a clause and "
-            "never explains it again; the opening story is told once and not summed up again. After drafting, "
-            "reread the whole piece against the ledger and cut every second telling before running the check."]
+            "the one section that owns it, and every pointer to another chapter or piece, once. Another section "
+            "that needs the point refers back to it in a clause and never explains it again; the opening story is "
+            "told once and not summed up again. When the writer is there (interactive), show them the ledger and "
+            "draft after their answer. After drafting, reread the whole piece against the ledger and cut every "
+            "second telling before running the check."]
 
 
 def markdown(kit, notes="brief"):
@@ -329,6 +365,7 @@ def markdown(kit, notes="brief"):
     for w in kit["warnings"]:
         L.append(f"- **Warning:** {w}")
     L += facts_lines(kit.get("brief_facts"))
+    L += exclusion_lines(kit.get("brief_exclusions"))
     L += ledger_lines(kit.get("words"))
     if kit["examples"]:
         L += ["", "## Example passages: this is the voice",

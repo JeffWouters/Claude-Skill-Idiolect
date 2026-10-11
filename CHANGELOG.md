@@ -7,6 +7,12 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+- **What the brief rules out** (spec §38.5): the kit copies a brief's "Do not use", "Claims we won't
+  make" and similar lines into a section of their own, and `write` rereads the draft against them. A
+  long piece's point ledger is shown to the writer before drafting when they are there, and lists
+  each pointer to another chapter once (§39.5); the final reread covers every ruling, tested or not
+  (§39.6). A redraft had quoted a source its brief excluded and pointed to one chapter three times.
+
 - **Fixed:** a type set only by an answered folder rule (`facets: {type: longform}`) was not added to
   the store's types in `idiolect.yaml`; the diff now proposes it, as a type picked at the types step.
 

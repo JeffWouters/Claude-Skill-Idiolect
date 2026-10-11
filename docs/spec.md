@@ -1050,6 +1050,11 @@ the house style guide.
 4. **check** reports `placeholders` (`count`, and `in_opening` when the first paragraph after any
    front matter and headings has one) when the text has any. An opening placeholder adds a warning to
    the message. A placeholder never fails a draft and is never measured (§17).
+5. **What the brief rules out.** `kit.py` copies, verbatim and in order (at most 40), the lines a
+   brief marks as ruled out: a line whose label says so ("**Do not use:** ...", "Avoid: ...", "Never
+   say: ...") and the lines under a heading that does ("## Claims we won't make", "Out of scope").
+   The kit shows them in a section "The brief rules out" after the facts, and `write` rereads the
+   draft against them before the check. `check` does not test them.
 
 ## 39. Saying each point once
 
@@ -1066,3 +1071,8 @@ the house style guide.
    again, and cuts the second telling rather than rewording it.
 4. **Not checked by script.** A repeat in other words leaves the metrics unchanged, so `check` does
    not test for it; a detector would need calibrating on writers' texts against drafts first.
+5. **The ledger first.** The ledger also lists each pointer to another chapter or piece once. In an
+   interactive session `write` shows the ledger to the writer and drafts after their answer; with
+   `interactive=false` it drafts from it directly.
+6. **Every ruling reread.** The final reread before the check covers every ruling in the kit and every
+   line the brief rules out, since `check` tests only rulings with a test (§27).

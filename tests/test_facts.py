@@ -65,3 +65,38 @@ def test_a_long_piece_gets_a_point_ledger_and_a_short_one_does_not(st):  # noqa:
 def test_every_voice_is_told_to_say_each_point_once(st):  # noqa: F811
     md = kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, "the kitchen tap"))
     assert "Say each point once." in md
+
+
+BRIEF = """# Chapter 9 (working brief)
+
+## 1. Thesis
+A queue is a choice. About 3,000 words.
+
+## 6. Facts list
+- **Do not use:** the 2019 survey's chapter 7 wording; any 2024 edition text.
+- Survey 2019: "2.6 times more likely".
+
+## 8. Claims we won't make
+That the survey studied boards; that audit blocks.
+
+## 9. Hand-off
+Closing line (draft): "Govern what you wrote."
+"""
+
+
+def test_the_kit_copies_what_the_brief_rules_out():
+    assert kit.brief_exclusions(BRIEF) == [
+        "- **Do not use:** the 2019 survey's chapter 7 wording; any 2024 edition text.",
+        "That the survey studied boards; that audit blocks."]
+    assert kit.brief_exclusions("Write about the kitchen tap. Avoid jargon is fine to say.") == []
+    assert kit.brief_exclusions(None) == []
+
+
+def test_the_kit_shows_the_exclusions_and_the_ledger_asks_for_the_writer_first(st):  # noqa: F811
+    md = kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, BRIEF))
+    assert "## The brief rules out (never use or claim these)" in md
+    assert "- That the survey studied boards; that audit blocks." in md
+    assert md.index("## The brief rules out") < md.index("## A long piece") < md.index("## Example passages")
+    assert "show them the ledger and draft after their answer" in md
+    assert "every pointer to another chapter or piece, once" in md
+    assert "## The brief rules out" not in kit.markdown(kit.build(Store(st), "noor", {"type": "essay"}, "the tap"))

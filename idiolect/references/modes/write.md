@@ -60,7 +60,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      long piece: one place per point": before drafting, write a point ledger, each point once with the
      section that owns it. Another section that needs the point refers back to it in a clause and never
      explains it again. Build the piece section by section against the ledger, not each section as if
-     it stood alone.
+     it stood alone. The ledger also gives each pointer to another chapter or piece one place. When
+     the writer is there, show them the ledger in one message and draft after their answer (a changed
+     order, a cut point); with `interactive=false`, draft from it directly.
+   - **What the brief rules out.** When the kit has a section "The brief rules out", nothing in it
+     goes into the draft: not a source it excludes, not a claim it lists.
    - **Never invent facts.** Numbers, names, dates, incidents and anecdotes come only from the brief
      or the writer. Where the voice wants one you do not have, leave a placeholder such as
      `[example needed: a real incident]` or `[number needed: how many]`.
@@ -78,6 +82,8 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      for a long piece), a sentence that restates its own paragraph, the opening story summed up again,
      and "as I said earlier" or "more on this later" holding two tellings together. Cut the second
      telling; never reword it.
+   - Last, reread against every ruling in the kit and every line of "The brief rules out". `check`
+     tests only the rulings that carry a test; the others are yours to check.
 5. Save the draft to a file and run
    `scripts/check.py --store S --file draft.md --brief <the same brief file> [same facets] [same --tone] [same --flavour] --json`,
    so it measures against the same targets as the kit. Placeholders are not measured; write them
