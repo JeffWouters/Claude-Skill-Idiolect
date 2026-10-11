@@ -1,8 +1,9 @@
 # Fingerprint metrics (v1)
 
 Exact definitions of the 14 global metrics in `assets/global-metrics.json`. `scripts/measure.py`
-implements these and nothing else; a change here is a format change (new `schema_version` for
-fingerprints, and every fingerprint is rebuilt). The definitions match the phase 0 experiment that
+implements these and nothing else; a change to a metric's definition is a format change (new
+`schema_version` for fingerprints, and every fingerprint is rebuilt). A change to what is measured,
+with the same metrics, is a re-measure instead (`maintain.py remeasure`, design: decision log). The definitions match the phase 0 experiment that
 calibrated the thresholds, with one deliberate difference noted under *Words*.
 
 ## Input
@@ -19,6 +20,12 @@ measuring:
    merge each heading into the next sentence. The cached text and the hash keep headings.
    This is the one difference from the phase 0 script, which had no headings in its texts; on the
    public-domain fixtures it only drops section numerals and a few short verse lines.
+
+5. **Only the writer's own prose** (spec §40). Everything from a reference-list heading on ("Sources",
+   "References", "Bibliography", "Further reading", "Notes", "Footnotes" and their Dutch and German
+   names) to the end, table blocks (every line starting with `|`), block quotes (every line starting
+   with `>`) and quotations in straight or curly double quotes of four words or more are left out.
+   A shorter quotation is the writer's own scare quote and stays.
 
 A slot's value is measured on its texts joined with blank lines, not averaged per text.
 

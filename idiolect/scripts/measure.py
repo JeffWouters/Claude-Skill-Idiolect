@@ -97,8 +97,63 @@ def blocks(text):
     return [(i, b, is_heading(b)) for i, b in enumerate(bs, 1)]
 
 
+# Not the writer's prose (spec §40): a reference list (from its heading to the end of the text), tables,
+# block quotes and other people's words quoted at length.
+REF_HEADING = re.compile(r"^[#*\s]*(?:sources|references|bibliography|further reading|reading list|works cited|"
+                         r"notes and sources|footnotes|bronnen|literatuur|bronvermelding|quellen|literatur)"
+                         r"[*\s]*:?$", re.I)
+QUOTED = re.compile(r"\u201c[^\u201d\n]*\u201d|\"[^\"\n]*\"")
+QUOTE_MIN_WORDS = 4      # a quotation this long is someone else's words; shorter ones are the writer's scare quotes
+
+
+def _unquote(text, keep_length=False):
+    def sub(m):
+        if len(words(m.group(0))) < QUOTE_MIN_WORDS:
+            return m.group(0)
+        return " " * len(m.group(0)) if keep_length else ""
+    out = QUOTED.sub(sub, text)
+    return out if keep_length else re.sub(r"[ \t]{2,}", " ", out)
+
+
+def _not_prose_block(b):
+    lines = [ln for ln in b.split("\n") if ln.strip()]
+    return bool(lines) and (all(ln.lstrip().startswith("|") for ln in lines)
+                            or all(ln.lstrip().startswith(">") for ln in lines))
+
+
+def prose_blocks(text):
+    """blocks() with what is not the writer's prose left out: everything from a reference-list heading on,
+    tables, block quotes, and quotations of QUOTE_MIN_WORDS words or more. Numbers stay as in blocks()."""
+    out = []
+    for i, b, h in blocks(text):
+        if h and REF_HEADING.match(b.strip()):
+            break
+        if _not_prose_block(b):
+            continue
+        b = _unquote(b).strip()
+        if b and words(b):
+            out.append((i, b, h))
+    return out
+
+
+def prose_mask(text):
+    """The text with what is not the writer's prose blanked, line for line, so a line number still points at
+    the same line: the reference list to the end, table and block-quote lines, long quotations."""
+    lines = text.split("\n")
+    out, ref = [], False
+    for ln in lines:
+        t = ln.strip()
+        if not ref and REF_HEADING.match(t) and t.startswith("#"):
+            ref = True
+        if ref or t.startswith("|") or t.startswith(">"):
+            out.append("")
+            continue
+        out.append(_unquote(ln, keep_length=True))
+    return "\n".join(out)
+
+
 def prepare(text):
-    return [b for _, b, h in blocks(text) if not h]
+    return [b for _, b, h in prose_blocks(text) if not h]
 
 
 def is_heading(block):

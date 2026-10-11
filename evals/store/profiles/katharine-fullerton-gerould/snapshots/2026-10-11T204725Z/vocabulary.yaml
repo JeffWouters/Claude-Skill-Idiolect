@@ -1,0 +1,126 @@
+schema_version: 2
+entries:
+- id: v-001
+  text: I fancy
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: parenthetical first-person hedge
+  rate:
+    per_1k: 0.43
+    texts: 9
+    of: 9
+    measured: '2026-09-26'
+- id: v-002
+  text: I venture to say
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: hedge before a bold claim
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
+- id: v-003
+  text: on the whole
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: qualifier
+  rate:
+    per_1k: 0.25
+    texts: 7
+    of: 9
+    measured: '2026-09-26'
+- id: v-004
+  text: to be sure
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: concessive
+  rate:
+    per_1k: 0.27
+    texts: 8
+    of: 9
+    measured: '2026-09-26'
+- id: v-005
+  text: you see
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: conversational aside to the reader
+  rate:
+    per_1k: 0.14
+    texts: 3
+    of: 9
+    measured: '2026-09-26'
+- id: v-006
+  text: be it said in passing
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: parenthetical aside
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
+- id: v-007
+  text: God save the mark
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: ironic exclamation
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
+- id: v-008
+  text: thank Heaven
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: exclamation
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 9
+    measured: '2026-09-26'
+- id: v-009
+  text: a good deal
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: intensifier
+  rate:
+    per_1k: 0.15
+    texts: 5
+    of: 9
+    measured: '2026-09-26'
+- id: v-010
+  text: some one
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: usually written as two words, likewise 'any one', 'every one'
+- id: v-011
+  text: æsthetic
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: ae ligature, also 'æstheticism', 'æsthetes'
+- id: v-012
+  text: pre-occupied
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: hyphenated
+- id: v-013
+  text: to-day
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: hyphenated, also 'to-morrow', 'to-night'
+last_id: 13

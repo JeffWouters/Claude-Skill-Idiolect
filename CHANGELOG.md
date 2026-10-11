@@ -7,6 +7,16 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 
 ## Unreleased
 
+**Upgrading:** what is measured changes (spec §40). After installing, run
+`python3 scripts/maintain.py --store <store> remeasure` once and approve the diff, so your
+fingerprints are measured the way drafts now are.
+
+- **Only your own prose is measured** (spec §40): a reference list, tables, block quotes and
+  quotations of four words or more are left out of the metrics, the rulings and the signs a writer may
+  use; a leftover chatbot citation is still caught anywhere. A redraft's Sources list alone had caused
+  every metric flag it got, and a spelling ruling failed it on a source's title.
+  `maintain.py remeasure` brings fingerprints up to date from the cached texts.
+
 - **What the brief rules out** (spec §38.5): the kit copies a brief's "Do not use", "Claims we won't
   make" and similar lines into a section of their own, and `write` rereads the draft against them. A
   long piece's point ledger is shown to the writer before drafting when they are there, and lists

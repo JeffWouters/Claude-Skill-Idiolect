@@ -1,0 +1,187 @@
+{
+  "schema_version": 2,
+  "profile": "katharine-fullerton-gerould",
+  "taken": "2026-10-11T20:47:25Z",
+  "texts": {
+    "1c72556823f517435be3db0db873e6ee5a9e1d23cc208c8298dc2e418f31f13c": {
+      "path": "katharine-fullerton-gerould/12-the-remarkable-rightness-of-rudyard-kipling.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5655,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "467f762615ceea5fa7ece684cfb00a84f6399b409180344a66d1d1bda886ac23": {
+      "path": "katharine-fullerton-gerould/07-tabu-and-temperament.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 7336,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "4bd363d57494e8a00e1c57a599b27c46c5e5e20635a4ce15fae45bcf0fde983d": {
+      "path": "katharine-fullerton-gerould/05-fashions-in-men.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 5555,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "5143ea83e3ad00d8aefd02d494f6c48c0c19df3853d27507008d9dd9db9e86ac": {
+      "path": "katharine-fullerton-gerould/06-the-newest-woman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3576,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "59c37e7815d89f043bf55a00e1fc7bd148cb436be586f61c9da043f5bba7010f": {
+      "path": "katharine-fullerton-gerould/11-british-novelists-ltd.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 8670,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "978d3cca134844279a6d9ca80dad1569b4a4775faa037cd7d84814e667e960d6": {
+      "path": "katharine-fullerton-gerould/10-the-sensual-ear.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4193,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c74c6eda29ce2df101aeed98f96bec0a81c94988f6da2ce3711ee19837ce6ccc": {
+      "path": "katharine-fullerton-gerould/01-the-new-simplicity.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 8132,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d65060fa1949d662bb901f9bca815a1abcafdaaa3be9a6a95a4e804ae4bcb266": {
+      "path": "katharine-fullerton-gerould/02-dress-and-the-woman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4792,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "fb65c1ed56ccfd82e26e5004243118e1449877737303b6327d23836b1f4d306d": {
+      "path": "katharine-fullerton-gerould/09-miss-alcotts-new-england.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "katharine-fullerton-gerould": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3801,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    }
+  }
+}

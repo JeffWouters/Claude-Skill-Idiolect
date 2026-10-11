@@ -1,0 +1,83 @@
+schema_version: 2
+entries:
+- id: v-001
+  text: so to say
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: softening tag after a loose figure
+  rate:
+    per_1k: 0.09
+    texts: 4
+    of: 21
+    measured: '2026-09-26'
+- id: v-002
+  text: as it were
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: softening tag after a figure of speech
+  rate:
+    per_1k: 0.11
+    texts: 4
+    of: 21
+    measured: '2026-09-26'
+- id: v-003
+  text: as the case may be
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: mock-precise hedge
+  rate:
+    per_1k: 0.09
+    texts: 5
+    of: 21
+    measured: '2026-09-26'
+- id: v-006
+  text: from time immemorial
+  kind: phrase
+  private: false
+  created: '2026-09-26'
+  note: mock-solemn intensifier
+  rate:
+    per_1k: 0.04
+    texts: 2
+    of: 21
+    measured: '2026-09-26'
+- id: v-008
+  text: neighbourhood
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British -our spelling
+- id: v-009
+  text: colour
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British -our spelling, also coloured, colourful
+- id: v-010
+  text: humour
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: British -our spelling
+- id: v-011
+  text: recognise
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: -ise spelling, also recognised, recognising
+- id: v-012
+  text: civilisation
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: -isation spelling
+- id: v-013
+  text: to-day
+  kind: spelling
+  private: false
+  created: '2026-09-26'
+  note: hyphenated form
+last_id: 13

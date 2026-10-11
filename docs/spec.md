@@ -1076,3 +1076,25 @@ the house style guide.
    `interactive=false` it drafts from it directly.
 6. **Every ruling reread.** The final reread before the check covers every ruling in the kit and every
    line the brief rules out, since `check` tests only rulings with a test (§27).
+
+## 40. Measuring only the writer's own prose
+
+1. **What is left out.** `measure.py` leaves out, before every metric: everything from a
+   reference-list heading ("Sources", "References", "Bibliography", "Further reading", "Reading
+   list", "Works cited", "Notes and sources", "Footnotes", and "Bronnen", "Literatuur",
+   "Bronvermelding", "Quellen", "Literatur") to the end of the text; a block whose every line starts
+   with `|` (a table) or `>` (a block quote); and a quotation in straight or curly double quotes of
+   four words or more. A shorter quotation stays (the writer's own scare quotes). Block numbers stay
+   as in the text, so a bunched paragraph is named as the reader counts it.
+2. **check** measures the draft that way, and runs the rulings and the `unless_writer` signs (§37)
+   on a copy with the same parts blanked line for line, so a flagged line keeps its number. The
+   `always` signs still look at the whole text: a chatbot's citation markup in a source list fails a
+   draft as anywhere else. The writer's own rates for rulings and signs are counted the same way.
+3. **Learned texts.** The Markdown adapter already leaves out block quotes, code and numeric tables
+   (§6.1); the rules above apply to cached texts as well, so drafts and learned texts are measured
+   alike.
+4. **Re-measure.** The fingerprint format does not change. `maintain.py remeasure [--profile P]`
+   proposes every fingerprint of the profile (or of all profiles) again from the cached texts, as one
+   proposal approved or rejected as a whole, under the `learn` lock mode; nothing else changes. A
+   profile with no remaining texts in a slot gets that slot retired, as after `forget`.
+

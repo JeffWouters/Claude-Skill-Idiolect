@@ -1,4 +1,4 @@
-# Modes: forget, rollback, prune, delete, remove, lift
+# Modes: forget, rollback, prune, delete, remove, lift, remeasure
 
 The only modes that delete (`remove` and `lift` delete no files, only entries). Each builds a proposal that is approved or rejected **as a whole**;
 nothing changes until the writer approves the diff (`stage.py diff`, `decide --approve all` or
@@ -85,3 +85,16 @@ Lifts rejections (`status.py --profile P` lists them with their ids): `x-` entri
 file's `rejected` list) and declined starter rules `s-`. Nothing comes back by itself: say that the
 next learn, flavour step or `rules defaults` may propose the item again, for approval as always.
 Never edit `rejected.yaml` by hand for this.
+
+## remeasure
+
+```
+python3 scripts/maintain.py --store S remeasure [--profile P]
+```
+
+Measures the fingerprints of one profile, or of every profile, again from the cached texts, as one
+proposal approved or rejected as a whole. Lessons, examples, rulings and vocabulary stay as they
+are. Use it once after an update that changes what is measured (the release notes say so), such as
+leaving quotations and reference lists out (spec §40). Show the diff and ask; never approve for
+the writer.
+

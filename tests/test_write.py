@@ -101,7 +101,15 @@ def test_a_metric_inside_the_slot_band_is_not_flagged(monkeypatch):
     r = check.check(s, text, "robert-cortes-holliday", {"type": "essay"})
     # every target is far off, so only the slot band can clear a metric
     # (the direction follows the target for the piece, which the kit told the writer to aim at)
-    assert [m["flag"] == "ok" for m in r["metrics"]] == [m["flag"] == "ok" for m in slot_only["metrics"]]
+    # a sparse metric never flags shortfall, so a far-off target clears it whatever the slot says:
+    # compare the metrics that can flag in both directions
+    fp = json.loads((STORE / "profiles/robert-cortes-holliday/en.essay.json").read_text())["metrics"]
+
+    def two_way(m):
+        g = measure.METRICS[m]
+        return not (g.get("sparse", g["shortfall"] <= 0.05) or fp[m]["shortfall"] <= measure.NO_SHORTFALL)
+    assert [m["flag"] == "ok" for m in r["metrics"] if two_way(m["name"])] == \
+        [m["flag"] == "ok" for m in slot_only["metrics"] if two_way(m["name"])]
     assert all(m["writer"] != m["slot"] for m in r["metrics"])
 
 

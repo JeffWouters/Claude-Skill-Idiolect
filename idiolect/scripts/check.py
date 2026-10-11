@@ -89,7 +89,7 @@ def bunched(text, lang, fp_metrics, phrases=(), targets=None):
     out = []
     rated = [v for v in phrases if v.get("rate") and v["rate"].get("of")]
     pat = measure.phrases_pattern([v["text"] for v in rated])
-    numbered = [(i, b) for i, b, heading in measure.blocks(text) if not heading]
+    numbered = [(i, b) for i, b, heading in measure.prose_blocks(text) if not heading]
     paras = [b for _, b in numbered]
     for i, para in numbered:            # numbered as the reader sees them, headings counted (review L3)
         nw = len(words(para))
@@ -178,15 +178,18 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
                                   "reason": f"uses \"{mk}\", which this writer never does"})
     # rulings with a test (spec §27): any flagged ruling fails the draft
     applicable = rules.applicable(store, prof, slot)
-    ruling_lines = rules.flag(measured, applicable, rules.writer_rates(store, prof, slot, applicable), n)
+    prose = measure.prose_mask(measured)      # quotations, tables and the reference list are not the writer's (§40)
+    ruling_lines = rules.flag(prose, applicable, rules.writer_rates(store, prof, slot, applicable), n)
     lines += ruling_lines
     # the built-in signs of machine-written text (spec §37): any flagged sign fails the draft
     import aisigns
     signs = aisigns.applicable(store, prof, slot)
     usage = aisigns.writer_usage(store, prof, slot, signs["signs"])
     ai_warned = []
-    ai_lines = aisigns.flag(measured, signs["signs"], usage["rates"], n,
-                            thin=0 < usage["texts"] < aisigns.THIN_TEXTS, warned=ai_warned)
+    always = [s for s in signs["signs"] if s["tier"] == "always"]     # leftovers count wherever they are
+    ai_lines = aisigns.flag(measured, always, usage["rates"], n) + aisigns.flag(
+        prose, [s for s in signs["signs"] if s["tier"] != "always"], usage["rates"], n,
+        thin=0 < usage["texts"] < aisigns.THIN_TEXTS, warned=ai_warned)
     lines += ai_lines
     # language flavour (spec §34.9): more traces than the writer's highest rate fails; fewer never does
     import flavour

@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "profile": "synthetic-idris",
+  "taken": "2026-10-11T20:47:25Z",
+  "texts": {
+    "0fd7a4c2a82374b2a50e75d9112356c4d89d654ad0d0b9edd44eea037a41f482": {
+      "path": "synthetic-idris/03-documentation-as-hospitality.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 733,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "15b70f5486819418af46f574ae398b2c90faf4fb533519848414cd1bb0b51677": {
+      "path": "synthetic-idris/05-what-code-review-is-for.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 724,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2b03ab98c8eef992e2dec3dd8932f772ba8e8e370af044b082a01e46fe39080c": {
+      "path": "synthetic-idris/11-the-uses-of-a-postmortem.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 732,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "51075e5731e8fd83b9142659f047131b56118f6ef8d32c322bc5cf859c2709f3": {
+      "path": "synthetic-idris/04-the-on-call-night.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 763,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "7853556eef3bded7a8138fd6abf796784e8ddc44c442b57722519128d8820cff": {
+      "path": "synthetic-idris/09-the-first-weeks-on-a-team.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 725,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "a9b86329305e9b67b61c8bedabb347d4d461fb98522978cbc26e14653f1bc325": {
+      "path": "synthetic-idris/06-inheriting-a-system.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 754,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "f498516a41b8a9fcb92c812f00bd3996d87d076f108588ccb6bef833b27549d3": {
+      "path": "synthetic-idris/10-the-seduction-of-the-new-tool.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "synthetic-idris": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 720,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    }
+  }
+}

@@ -90,7 +90,7 @@ def writer_rates(store, prof, slot, rulings):
     if not want:
         return {}
     slots = measure.slot_texts(store.manifest["texts"], store.corpus_text, store.facets, prof)
-    texts = [t for _, t, _ in (slots.get(slot) or {}).get("texts", [])]
+    texts = [measure.prose_mask(t) for _, t, _ in (slots.get(slot) or {}).get("texts", [])]
     n = sum(count_words(t) for t in texts)
     out = {}
     for r in want:

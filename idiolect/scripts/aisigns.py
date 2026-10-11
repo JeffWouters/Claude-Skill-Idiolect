@@ -146,7 +146,7 @@ def writer_usage(store, prof, slot, signs):
         except StoreError:
             return ""                       # a missing cache counts as no text; the check still runs
     slots = measure.slot_texts(store.manifest["texts"], text_of, store.facets, prof)
-    texts = [t for _, t, _ in (slots.get(slot) or {}).get("texts", []) if count_words(t)]
+    texts = [measure.prose_mask(t) for _, t, _ in (slots.get(slot) or {}).get("texts", []) if count_words(t)]
     return {"texts": len(texts), "rates": {s["id"]: percentile_rate(s, texts) for s in want}}
 
 

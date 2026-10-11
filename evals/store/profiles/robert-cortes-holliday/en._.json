@@ -5,86 +5,86 @@
   "pooled": true,
   "metrics": {
     "sentence_length_sd": {
-      "value": 15.266058,
-      "overshoot": 1.612,
-      "shortfall": 0.469,
+      "value": 16.417767,
+      "overshoot": 1.61,
+      "shortfall": 0.457,
       "primary": false
     },
     "sentences_per_paragraph": {
-      "value": 5.474672,
-      "overshoot": 2.075,
+      "value": 4.861804,
+      "overshoot": 2.151,
       "shortfall": 0.43,
       "primary": false
     },
     "long_sentence_share": {
-      "value": 0.170322,
-      "overshoot": 2.348,
-      "shortfall": 0.212,
+      "value": 0.183182,
+      "overshoot": 2.163,
+      "shortfall": 0.265,
       "primary": false
     },
     "sentence_length_mean": {
-      "value": 18.195682,
-      "overshoot": 1.596,
-      "shortfall": 0.626,
+      "value": 19.082906,
+      "overshoot": 1.536,
+      "shortfall": 0.654,
       "primary": false
     },
     "commas_per_sentence": {
-      "value": 1.480123,
-      "overshoot": 2.027,
-      "shortfall": 0.466,
+      "value": 1.527438,
+      "overshoot": 1.875,
+      "shortfall": 0.48,
       "primary": false
     },
     "semicolons_per_1k": {
-      "value": 7.269988,
-      "overshoot": 2.769,
+      "value": 7.34427,
+      "overshoot": 2.664,
       "shortfall": 0.05,
       "primary": false
     },
     "conjunction_opener_share": {
-      "value": 0.096299,
-      "overshoot": 2.448,
+      "value": 0.099882,
+      "overshoot": 2.446,
       "shortfall": 0.05,
       "primary": false
     },
     "contractions_per_1k": {
-      "value": 6.780299,
+      "value": 5.482343,
       "overshoot": 2.77,
       "shortfall": 0.05,
       "primary": false
     },
     "dashes_per_1k": {
-      "value": 3.503155,
-      "overshoot": 2.852,
+      "value": 3.413534,
+      "overshoot": 3.264,
       "shortfall": 0.05,
       "primary": false
     },
     "colons_per_1k": {
-      "value": 2.297768,
+      "value": 2.461882,
       "overshoot": 4.28,
       "shortfall": 0.05,
       "primary": false
     },
     "short_sentence_share": {
-      "value": 0.213502,
+      "value": 0.195815,
       "overshoot": 2.61,
       "shortfall": 0.05,
       "primary": false
     },
     "long_word_share": {
-      "value": 0.202053,
-      "overshoot": 1.324,
-      "shortfall": 0.69,
+      "value": 0.202681,
+      "overshoot": 1.328,
+      "shortfall": 0.704,
       "primary": true
     },
     "hedges_per_1k": {
-      "value": 4.539034,
-      "overshoot": 2.569,
+      "value": 4.778948,
+      "overshoot": 2.395,
       "shortfall": 0.05,
       "primary": false
     },
     "digits_per_1k": {
-      "value": 1.864582,
-      "overshoot": 3.176,
+      "value": 0.744771,
+      "overshoot": 3.472,
       "shortfall": 0.05,
       "primary": true
     }
@@ -101,7 +101,7 @@
   },
   "seed": 2483764732,
   "metric_list": "contrast",
-  "built": "2026-09-26T14:35:34Z",
+  "built": "2026-10-11T20:47:13Z",
   "personal_data": "none",
   "contrast": {
     "sample_texts": [

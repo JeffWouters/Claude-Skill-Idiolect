@@ -1,0 +1,427 @@
+{
+  "schema_version": 2,
+  "profile": "robert-cortes-holliday",
+  "taken": "2026-10-11T20:47:25Z",
+  "texts": {
+    "032f5fd0a950d4e03ab2e14ef7046a71c403110c818e84977186ecf856716a4d": {
+      "path": "robert-cortes-holliday/13-a-clerk-may-look-at-a-celebrity.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2848,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "1285229fcd42450cfbff24dd00b3beff5d5a2f367df1e5e2be5966abcd7a820b": {
+      "path": "robert-cortes-holliday/01-on-carrying-a-cane.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2881,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2749d7595cc14a2d3656e01e675268d7dd94eed37409626ddce2fda49147223a": {
+      "path": "robert-cortes-holliday/11-why-men-can-t-read-novels-by-women.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2330,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2a8be1265da90734c7225f5bb1cd897142661b976320c5aea53e407ac5c97aa8": {
+      "path": "robert-cortes-holliday/23-reading-after-thirty.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 836,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2b9fda09c5bef6c39fb31ff2301a89c1d50dfb5fea54e423fda592df2f66eb13": {
+      "path": "robert-cortes-holliday/10-you-are-an-american.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2972,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "2cb2a70584b4d36c6c40f2735c37c9bbd173e8eaf126f658caa55724a017c7e6": {
+      "path": "robert-cortes-holliday/22-a-town-constitutional.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2738,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "39b4921d4f5fbb1dc1a5a25193330e33ce3aea9e05a428527c81766f4c885734": {
+      "path": "robert-cortes-holliday/07-literary-levities-in-london.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2598,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "3f98f15da0d223adc3a900ef2849981ae28c839889031e39e644f1b5a17392cb": {
+      "path": "robert-cortes-holliday/21-the-deceased.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2496,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "44674449049610bde2faba47268ef6908e0e19e90dabcb2e957de5279c64f646": {
+      "path": "robert-cortes-holliday/05-a-roundabout-paper.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2624,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "4799bc50ddf4a5120385cb89a4ac0d1c8e65a781d8052225be79eab760d90fcf": {
+      "path": "robert-cortes-holliday/02-the-fish-reporter.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3255,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "7268b79fcfcb5b17742ad87919a90b554207749f2f3782129b7ee428fed507f2": {
+      "path": "robert-cortes-holliday/09-memories-of-a-manuscript.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2919,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "835bd2d323b58a182ebe4f43d0f34c9fbdc5b5f062998be9527dd04ccb8ee827": {
+      "path": "robert-cortes-holliday/14-caun-t-speak-the-language.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2662,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "8825eef6ef1375e34e8901b9b4a44a2c1b8c696a706f7d45a9de04e34d2129be": {
+      "path": "robert-cortes-holliday/16-my-friend-the-policeman.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1476,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "a71e16c8cbe4a8a5b71813435cd3f8a59982a857308d0912085ab80b3831184c": {
+      "path": "robert-cortes-holliday/24-on-wearing-a-hat.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1800,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c4629f5a6ea8084d749bf7c206ff68af0a520f4bc04099943b3db76467e7cd15": {
+      "path": "robert-cortes-holliday/18-human-municipal-documents.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2648,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c6671560bd1575749f9b0526d73e273a887947d4dae3ba6114df86c1a4458b7b": {
+      "path": "robert-cortes-holliday/19-as-to-people.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1338,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "c722de3109a3dcab3faa800197b36cf839aa856631a41e4f8ca1ff3be442b5be": {
+      "path": "robert-cortes-holliday/03-on-going-a-journey.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2436,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d40dad10d82c010cfa430b5f4a44bef379dd04d23066c19a2abb94c55590cfad": {
+      "path": "robert-cortes-holliday/17-help-wanted-male-female.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 1897,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "d946c1c962268014d0100ae53e867dd90e70eae576992dc7bea3fd5a435384f3": {
+      "path": "robert-cortes-holliday/12-the-dessert-of-life.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 2848,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "ea2079e5526cd959c0bd36c1da2c1bed50e7e928fc1b7cd9ce46e639cbf297e1": {
+      "path": "robert-cortes-holliday/04-going-to-art-exhibitions.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 3274,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    },
+    "fb1a043a58961549702070c5628001837120fe4d617477f2c71e48b2c7b9c48a": {
+      "path": "robert-cortes-holliday/06-that-reviewer-cuss.md",
+      "date": null,
+      "origin": "file",
+      "profiles": {
+        "robert-cortes-holliday": {
+          "ownership": "own",
+          "decided": "2026-09-26",
+          "decided_by": "path-rule"
+        }
+      },
+      "facets": {
+        "lang": "en",
+        "type": "essay"
+      },
+      "words": 4227,
+      "holdout": false,
+      "status": "active",
+      "cached": true
+    }
+  }
+}

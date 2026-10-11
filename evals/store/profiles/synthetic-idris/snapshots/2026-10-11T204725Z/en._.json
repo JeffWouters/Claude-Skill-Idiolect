@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "profile": "synthetic-idris",
+  "slot": "en._",
+  "pooled": true,
+  "metrics": {
+    "sentence_length_sd": {
+      "value": 12.912615,
+      "overshoot": 1.61,
+      "shortfall": 0.61,
+      "primary": true
+    },
+    "sentences_per_paragraph": {
+      "value": 4.914286,
+      "overshoot": 1.88,
+      "shortfall": 0.43,
+      "primary": false
+    },
+    "long_sentence_share": {
+      "value": 0.5,
+      "overshoot": 1.65,
+      "shortfall": 0.49,
+      "primary": true
+    },
+    "sentence_length_mean": {
+      "value": 29.947674,
+      "overshoot": 1.33,
+      "shortfall": 0.76,
+      "primary": true
+    },
+    "commas_per_sentence": {
+      "value": 1.674419,
+      "overshoot": 1.48,
+      "shortfall": 0.62,
+      "primary": true
+    },
+    "semicolons_per_1k": {
+      "value": 8.153757,
+      "overshoot": 1.94,
+      "shortfall": 0.29,
+      "primary": true
+    },
+    "conjunction_opener_share": {
+      "value": 0.023256,
+      "overshoot": 2.25,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "contractions_per_1k": {
+      "value": 1.164822,
+      "overshoot": 2.77,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "dashes_per_1k": {
+      "value": 4.659289,
+      "overshoot": 2.69,
+      "shortfall": 0.05,
+      "primary": false
+    },
+    "colons_per_1k": {
+      "value": 1.164822,
+      "overshoot": 4.28,
+      "shortfall": 0.05,
+      "primary": true
+    },
+    "short_sentence_share": {
+      "value": 0.023256,
+      "overshoot": 2.61,
+      "shortfall": 0.05,
+      "primary": true
+    },
+    "long_word_share": {
+      "value": 0.271598,
+      "overshoot": 1.25,
+      "shortfall": 0.78,
+      "primary": false
+    },
+    "hedges_per_1k": {
+      "value": 18.248884,
+      "overshoot": 2.1,
+      "shortfall": 0.25,
+      "primary": true
+    },
+    "digits_per_1k": {
+      "value": 0.0,
+      "overshoot": 2.01,
+      "shortfall": 0.32,
+      "primary": false
+    }
+  },
+  "counts": {
+    "texts": 7,
+    "words": 5151
+  },
+  "confidence": {
+    "level": "medium",
+    "count_level": "medium",
+    "stability_level": "medium",
+    "splits": 5
+  },
+  "seed": 1899564311,
+  "metric_list": "contrast",
+  "built": "2026-09-26T12:16:45Z",
+  "personal_data": "none",
+  "contrast": {
+    "sample_texts": [
+      "0fd7a4c2a82374b2a50e75d9112356c4d89d654ad0d0b9edd44eea037a41f482",
+      "15b70f5486819418af46f574ae398b2c90faf4fb533519848414cd1bb0b51677",
+      "2b03ab98c8eef992e2dec3dd8932f772ba8e8e370af044b082a01e46fe39080c",
+      "51075e5731e8fd83b9142659f047131b56118f6ef8d32c322bc5cf859c2709f3",
+      "7853556eef3bded7a8138fd6abf796784e8ddc44c442b57722519128d8820cff",
+      "a9b86329305e9b67b61c8bedabb347d4d461fb98522978cbc26e14653f1bc325",
+      "f498516a41b8a9fcb92c812f00bd3996d87d076f108588ccb6bef833b27549d3"
+    ],
+    "corpus_words_at_sample": 5151,
+    "fresh_context": true
+  }
+}

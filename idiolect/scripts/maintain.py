@@ -7,6 +7,7 @@ proposal in the pending area; nothing changes until the writer approves and `sta
     python3 maintain.py --store S delete --profile P
     python3 maintain.py --store S remove --profile P --id l-004 [--id v-002 ...] [--slot K]
     python3 maintain.py --store S lift --profile P --id x-003 [--id f-002 --id s-011 ...]
+    python3 maintain.py --store S remeasure [--profile P]      fingerprints again from the cached texts
 """
 import argparse
 import json
@@ -18,6 +19,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import measure  # noqa: E402
 import stage  # noqa: E402
+from store import Store  # noqa: E402
 from adapters import extract  # noqa: E402
 from common import StoreError, content_hash, read_store_file, utcnow  # noqa: E402
 import detect  # noqa: E402
@@ -718,10 +720,30 @@ def delete(store_root, profile):
         raise
 
 
+def remeasure(store_root, profile=None):
+    """Re-measure the fingerprints of one profile, or of every profile, from the cached texts (spec §40.4):
+    for an engine that measures differently, such as one that leaves out quotations and reference lists.
+    Lessons, examples and everything else stay as they are. One atomic proposal under the `learn` mode."""
+    store = Store(store_root)
+    profs = [profile] if profile else sorted(p.name for p in (store.root / "profiles").iterdir()
+                                              if (p / "profile.yaml").exists())
+    if profile and not (store.root / "profiles" / profile / "profile.yaml").exists():
+        raise StoreError(f"no profile {profile}")
+    store, pending, _ = stage.begin(store_root, "learn", profs[:1], atomic=True)
+    try:
+        _remeasure(store, pending, [], set(profs), {})
+        if not pending.plan["items"]:
+            raise StoreError("nothing to re-measure")
+        return {"proposed": len(pending.plan["items"]), "profiles": profs, "next": "stage.py diff, decide, commit"}
+    except Exception:
+        stage.discard(store_root)
+        raise
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--store", required=True)
-    ap.add_argument("action", choices=["forget", "rollback", "prune", "delete", "remove", "lift"])
+    ap.add_argument("action", choices=["forget", "rollback", "prune", "delete", "remove", "lift", "remeasure"])
     ap.add_argument("--id", action="append", dest="ids", help="remove/lift: an id; repeat for more")
     ap.add_argument("--slot")
     ap.add_argument("--source")
@@ -743,6 +765,8 @@ def main(argv=None):
             if not a.profile:
                 raise StoreError("lift needs --profile")
             out = lift(a.store, a.profile, a.ids or [])
+        elif a.action == "remeasure":
+            out = remeasure(a.store, a.profile)
         elif a.action == "delete":
             if not a.profile:
                 raise StoreError("delete needs --profile")

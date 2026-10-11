@@ -9,3 +9,8 @@ profile: synthetic-idris
 
 ## 2026-09-26T14:29:17Z · migrate · run 20260926T142917Z
 - Summary: format upgrade: vocabulary 2; originals in .state/migrations/20260926T142917Z/
+
+## 2026-10-11T20:47:25Z · learn · run 20261011T204711Z
+- Slots: en._, en.essay
+- Summary: 2 fingerprint approved
+- Snapshot: snapshots/2026-10-11T204725Z/
