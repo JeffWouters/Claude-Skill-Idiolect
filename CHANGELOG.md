@@ -16,7 +16,8 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
   hedging about sources, placeholders, "Certainly!", Title Case headings, heavy bold, rules between
   sections and leftover citation markup. The kit gains a "Never sound like AI" section with guidance
   for what no script can test, and `check` reports `ai_signs`. `aisigns.py allow` switches a sign off
-  for a writer who really uses it; `aisigns.py scan` checks any text without a store.
+  for a writer who really uses it; `aisigns.py scan` checks any text without a store. `export` carries
+  the signs too, so another tool that writes in the voice is told to avoid them.
 - **Deleting a profile** (spec §35): `maintain.py delete --profile P` removes a whole profile in one
   approved diff: its folder and snapshots, its ledger records and the cached texts no other profile
   owns, its source rules, kept drafts, queued edits and published sources. The default profile and a

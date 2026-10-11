@@ -203,19 +203,25 @@ def kit_part(store, prof, slot):
             "deferred": [s["id"] for s in part["deferred"]], "guidance": part["guidance"]}
 
 
-def kit_lines(part):
+def kit_lines(part, export=False):
+    """The kit's section; with export=True, worded for another tool that has no `check` (spec §22)."""
+    whose = "the writer's texts" if export else "your texts"
     L = ["", f"## Never sound like AI (built into Idiolect, signs {part['version']})",
-         "These apply to every voice. `check` fails a draft that shows one; where the writer's own texts do "
-         "it, only above about twice their rate."]
+         ("These are signs of machine-written text. Never write them, except where the writer's own texts do "
+          "(then never more often than the rate given). Before handing over a draft, reread it for each one."
+          if export else
+          "These apply to every voice. `check` fails a draft that shows one; where the writer's own texts do "
+          "it, only above about twice their rate.")]
     for s in part["signs"]:
-        note = (f" (your texts do this about {s['rate']:g} times per 1,000 words: never more)"
+        note = (f" ({whose} do this about {s['rate']:g} times per 1,000 words: never more)"
                 if s["tier"] == "unless_writer" and s["rate"] else "")
         L.append(f"- {s['text']}{note}")
     if not part["covered"]:
-        L.append(f"- No list of signs for '{part['lang']}' yet: only the language-independent ones are checked. "
+        L.append(f"- No list of signs for '{part['lang']}' yet: only the language-independent ones are listed. "
                  f"Watch for the same kinds of sign in this language.")
     if part["allowed"]:
-        L.append("- Switched off for this writer (their own choice): "
+        L.append(("- Allowed for this writer (their own choice): " if export else
+                  "- Switched off for this writer (their own choice): ")
                  + "; ".join(f"{s['id']} ({s['text'][:60]}…)" for s in part["allowed"]))
     if part["guidance"]:
         L += ["", "Also, where no script can check it:"] + [f"- {g}" for g in part["guidance"]]

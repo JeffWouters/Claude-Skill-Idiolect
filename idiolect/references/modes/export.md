@@ -12,11 +12,12 @@ python3 scripts/export.py --store S [--profile P] [--lang L] [--type T] [--facet
   style, say), and name the parent.
 - It refuses the whole export if one example lacks a reviewed redaction record, and names it: those
   examples need reviewing in a `learn` first.
-- The prompt holds rulings, edit lessons, targets, the never-list, forms and non-private favoured
+- The prompt holds rulings, the built-in signs of machine-written text (spec §37, with the writer's
+  own rate where their texts show one), edit lessons, targets, the never-list, forms and non-private favoured
   phrases, the habits most texts show, and the example passages. It never holds the corpus, lesson
   quotes, edit pairs, rejections or private vocabulary.
-- It does not carry the built-in signs of machine-written text (spec §37), and the other tool has no
-  `check`. Say so, and suggest running `aisigns.py scan` (or `check`) on what the other tool writes.
+- The other tool has no `check`: the prompt tells it to avoid the signs and reread for them, but
+  nothing tests it. Say so, and suggest running `check` (or `aisigns.py scan`) on what it writes.
 
 Hand the file to the writer and say:
 

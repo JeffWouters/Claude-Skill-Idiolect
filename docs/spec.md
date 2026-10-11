@@ -592,7 +592,10 @@ All from `evals/spike/RESULTS.md`, shipped in `idiolect/assets/global-metrics.js
    store and takes no lock.
 2. Contents, in this order: what the prompt is for (the profile, slot, confidence, date); how to use
    it (the example passages show the voice; never invent facts, leave a placeholder; never reuse the
-   examples' content); rulings (merged across the chain, every one); edit lessons (confirmed only);
+   examples' content); rulings (merged across the chain, every one); the built-in signs of
+   machine-written text for the slot's language and their guidance (§37), with the writer's rate where
+   their texts show a sign and the signs switched off for them, worded for a tool that has no `check`;
+   edit lessons (confirmed only);
    targets in words with the writer's range where the slot has writer bands; the never-list; forms and
    favoured phrases (vocabulary without `private: true`; a phrase with its rate as "at most"); the
    observed lessons seen in at least half the texts, without quotes; the example passages.

@@ -44,11 +44,15 @@ def build(store, profile=None, facets=None, include_parent=False):
          "their sentence movement, tone and how sparingly each device appears. Never reuse their content, facts,",
          "names or turns of phrase. Never invent facts, names, numbers or anecdotes: where the voice wants one",
          "you were not given, write a placeholder such as [example needed: a real incident].",
-         "Obey the rulings. Apply the edit lessons: they are the writer's own corrections. Aim at the targets.",
+         "Obey the rulings, and never write a sign of machine-written text listed below. Apply the edit",
+         "lessons: they are the writer's own corrections. Aim at the targets.",
          "Never use a phrase from the never-list. The notes on habits describe what the examples show; they are",
          "not a checklist, and a draft that uses every habit reads less like the writer than a plain one."]
     if k["rulings"]:
         L += ["", "## Rulings (always obey)"] + [f"- {r['text']}" + r.get("note", "").replace("your texts", "the writer's texts") for r in k["rulings"]]
+    if k.get("ai_signs"):
+        import aisigns
+        L += aisigns.kit_lines(k["ai_signs"], export=True)
     if k["edit_lessons"]:
         L += ["", "## Edit lessons (the writer's own corrections)"] + [f"- {x['text']}" for x in k["edit_lessons"]]
     L += ["", "## Targets (measured on the writer's texts)"]
