@@ -8,12 +8,13 @@
 # min_hits: a sign that is about density counts only from that many hits in the text.
 # starter: the starter rule it extends; a profile that holds that rule (or declined it) decides.
 # examples / not: lines the test must and must not catch (tests/test_ai_signs.py).
-version: '1.0'
+version: '1.1'
 lang: en
 read: '2026-10-11'
 source: Wikipedia:Signs of AI writing (WikiProject AI Cleanup), read on 2026-10-11, and Idiolect's starter set 1.0
   (s-001 to s-022) built from the same page. Only signs a script can test are here; guidance for the rest is in
-  universal.yaml.
+  universal.yaml. Version 1.1 adds a-033 and a-034, the staged reveals and reversal formulas blind readers named
+  in drafts written with Idiolect (October 2026).
 signs:
 - id: a-001
   category: chatbot
@@ -718,3 +719,39 @@ signs:
   not:
   - I hope this works for you.
   - Let me know what you think.
+- id: a-033
+  category: framing
+  tier: unless_writer
+  text: 'Never stage a reveal or announce your own candour: "The strange part is", "Here''s the trap", "that''s the
+    trap", "Note what that does not say", "the honest gap". Say the surprising thing; the surprise is in the content.'
+  test:
+    pattern: \bthe (strange|surprising|interesting|ironic|uncomfortable|curious) part (is|was)\b|\b(here's|here
+      is|that's|that is|this is) the (trap|twist|kicker)\b|\b(note|notice) what (that|this|it) (does not|doesn't|did
+      not|didn't) say\b|\bthe honest (gap|version|part)\b|\bthe uncomfortable truth\b
+  examples:
+  - The strange part is that the definition already covers you.
+  - That's the trap, because real understanding never is.
+  - Note what that does not say.
+  - That's the honest gap.
+  - 'Here''s the twist: it was DNS.'
+  not:
+  - The strange thing about the logs was the timestamps.
+  - The catch is that remote computers must allow it.
+  - The tricky part was getting the timing right.
+  - The honest answer was no.
+  - We fell into a trap.
+- id: a-034
+  category: structure
+  tier: unless_writer
+  text: 'Never correct a list of wrong answers to land the right one: "Not diagrams, not documents: decisions", "Not
+    speed. Not cost. Control." Say what it is.'
+  test:
+    pattern: \bnot [^.!?,;:\n]{1,40}, not [^.!?,;:\n]{1,40}(:|—|–| - ) ?\w|(?:^|[.!?] )Not [^.!?\n]{1,40}\. Not [^.!?\n]{1,40}\.
+  examples:
+  - 'Not diagrams, not documents: decisions.'
+  - Not speed. Not cost. Control.
+  - It wants not rules, not process — judgment.
+  not:
+  - It is not fast, not cheap, and not easy to set up.
+  - Not now. Maybe later.
+  - Not everyone agrees, not even the team.

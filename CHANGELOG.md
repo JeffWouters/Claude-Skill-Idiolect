@@ -11,6 +11,10 @@ it to the GitHub release. Store file formats have their own `schema_version`, mi
 `python3 scripts/maintain.py --store <store> remeasure` once and approve the diff, so your
 fingerprints are measured the way drafts now are.
 
+- **Two more signs of machine-written text** (spec §37.9): staged reveals ("The strange part is",
+  "that's the trap") and reversal formulas ("Not diagrams, not documents: decisions"), plus guidance
+  against ending a paragraph on a moral. Blind readers named all three in drafts written with Idiolect.
+
 - **Only your own prose is measured** (spec §40): a reference list, tables, block quotes and
   quotations of four words or more are left out of the metrics, the rulings and the signs a writer may
   use; a leftover chatbot citation is still caught anywhere. A redraft's Sources list alone had caused

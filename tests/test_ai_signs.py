@@ -22,7 +22,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 FIX = ROOT / "evals" / "fixtures"
 HUMAN_EN = ("katharine-fullerton-gerould", "robert-cortes-holliday", "samuel-mcchord-crothers")
 # signs added with the built-in list (not carried over from the starter set): held to a false-alarm bar
-NEW = ("a-005", "a-009", "a-010", "a-026", "a-027", "a-028", "a-029", "a-030", "a-031")
+NEW = ("a-005", "a-009", "a-010", "a-026", "a-027", "a-028", "a-029", "a-030", "a-031", "a-033", "a-034")
 
 PLAIN = """The river path was closed for most of the spring, so we walked the long way round through the
 market and past the old mill. It took an hour more than it should have, and nobody minded much.
@@ -216,7 +216,7 @@ def test_check_fails_machine_text_in_a_profile_with_no_rulings(st):
 def test_the_kit_carries_the_signs_and_the_guidance(st):
     k = kit.build(Store(st), "noor", {"type": "essay"}, "the kitchen tap")
     md = kit.markdown(k)
-    assert "## Never sound like AI (built into Idiolect, signs 1.0)" in md
+    assert "## Never sound like AI (built into Idiolect, signs 1.1)" in md
     assert "As an AI" in md and "Do not group in threes" in md
     assert k["ai_signs"]["covered"] and not k["ai_signs"]["allowed"]
     json.dumps(k)                                      # the kit stays plain data

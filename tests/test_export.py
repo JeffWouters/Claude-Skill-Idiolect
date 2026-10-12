@@ -19,7 +19,7 @@ def test_export_is_one_self_contained_prompt_without_private_data(tmp_path):
     out = export.build(Store(st), "noor", {"type": "essay"})
     p = out["prompt"]
     for head in ("## How to use this", "## Targets", "## Example passages", "## Forms",
-                 "## Never sound like AI (built into Idiolect, signs 1.0)"):
+                 "## Never sound like AI (built into Idiolect, signs 1.1)"):
         assert head in p
     # the built-in signs travel with the voice, worded for a tool that has no check (spec §22, §37)
     assert "As an AI" in p and "Do not group in threes" in p and "`check`" not in p

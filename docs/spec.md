@@ -1031,6 +1031,15 @@ the house style guide.
    essays: each essay's 500-word passages, checked against the writer's other essays, fail in at most
    10%. On about 1,260 posts of nine writers (not in the repository), each checked against the
    writer's other posts, 8% failed (15% with twice the average).
+9. **Version 1.1 of the English list, 1.2 of the universal one.** `a-033` (framing): a staged reveal
+   or announced candour ("The strange part is", "that's the trap", "Note what that does not say",
+   "the honest gap"). `a-034` (structure): a list of wrong answers corrected to land the right one
+   ("Not diagrams, not documents: decisions", "Not speed. Not cost. Control."). Both `unless_writer`.
+   The universal guidance adds: no paragraph ends on a short moral summing itself up. Both signs were
+   run over about 800,000 words of cached blog posts of several writers (1,293 posts, not in the
+   repository): `a-033` fired 7 times in 6 posts and `a-034` 3 times in 3 posts. The forms people
+   commonly write ("the catch is", "the tricky part was", "the honest answer was"), which a first
+   version caught 19 times, are left out of the test.
 
 ## 38. Facts and an occasion before drafting
 
@@ -1097,4 +1106,3 @@ the house style guide.
    proposes every fingerprint of the profile (or of all profiles) again from the cached texts, as one
    proposal approved or rejected as a whole, under the `learn` lock mode; nothing else changes. A
    profile with no remaining texts in a slot gets that slot retired, as after `forget`.
-
