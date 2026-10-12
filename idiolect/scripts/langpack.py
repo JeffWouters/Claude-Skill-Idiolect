@@ -19,7 +19,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import measure  # noqa: E402
 from common import LANG_DIR, load_yaml_text  # noqa: E402
 
-LISTS = ("hedges.txt", "openers.txt", "contractions.txt", "stopwords.txt")
+LISTS = ("hedges.txt", "openers.txt", "contractions.txt", "stopwords.txt", "address.txt")
 
 
 def packs():

@@ -214,6 +214,17 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     if ai_warned:
         report["ai_signs"]["warned"] = sorted({x["lesson"] for x in ai_warned})
         report["ai_signs"]["warned_lines"] = ai_warned
+    # the shape of the piece against the writer's own range (spec §41): a warning, never a fail
+    import shape
+    sh = None
+    d_shape = shape.measures(measured, lang)
+    if d_shape:
+        rows_s = shape.compare(d_shape, shape.writer_ranges(store, prof, slot))
+        if rows_s:
+            outside = [x for x in rows_s if x["flag"] != "ok"]
+            sh = {"compared": len(rows_s), "outside": len(outside), "warn_at": shape.WARN_AT,
+                  "warned": len(outside) >= shape.WARN_AT, "features": rows_s}
+            report["shape"] = sh
     ph = placeholders(text)
     if ph["count"]:
         report["placeholders"] = ph
@@ -240,6 +251,9 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
         notes.append(f"language flavour: {fl_part['hits']} traces where the writer's highest rate allows "
                      f"{fl_part['allowed']}" if flavour_mode == "keep" else
                      f"language flavour: {fl_part['hits']} traces in a piece asked for without them")
+    if sh and sh["warned"]:
+        notes.append(f"warning: the piece is built unlike the writer's texts ({sh['outside']} of {sh['compared']} "
+                     f"shape measures outside their range); not a fail, but revise the shape")
     if ph["in_opening"]:
         notes.append("the first paragraph has a placeholder: open from what prompted the piece, and ask the "
                      "writer for the missing fact")
@@ -276,6 +290,14 @@ def readable(r):
         L.append(f"- language flavour ({fl['mode']}): {fl['hits']} counted, about {fl['expected']:g} expected, "
                  f"at most {fl['allowed']} allowed"
                  + (" (fewer is fine: not every trace can be counted)" if fl["hits"] <= fl["allowed"] else ""))
+    sh = r.get("shape")
+    if sh:
+        import shape
+        out = [x for x in sh["features"] if x["flag"] != "ok"]
+        if out:
+            L.append(f"- shape: {sh['outside']} of {sh['compared']} measures outside the writer's range"
+                     + (" (a warning)" if sh["warned"] else f" (hints; a warning from {sh['warn_at']})"))
+            L += [f"  - {shape.advice(x)}" for x in out]
     ph = r.get("placeholders")
     if ph:
         L.append(f"- placeholders: {ph['count']}" + (" (one in the opening paragraph)" if ph["in_opening"] else "")

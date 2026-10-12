@@ -1,0 +1,6 @@
+# Words that address the reader (spec §41): counted per 1,000 words for the reader-address shape measure.
+you
+your
+yours
+yourself
+yourselves

@@ -227,6 +227,8 @@ def build(store, profile=None, facets=None, brief=None, n_examples=3, tone=None,
     kit["rulings"] = rulings[:RULINGS_CAP]
     import aisigns
     kit["ai_signs"] = aisigns.kit_part(store, prof, slot)
+    import shape
+    kit["shape"] = shape.writer_ranges(store, prof, slot)
     vocab = resolve.merged(store, prof, "vocabulary")
     # one cap for the whole vocabulary (design: capped in size); phrases first, forms fill the rest
     phrases = [v for v in vocab if v["kind"] == "phrase"][:VOCAB_CAP]
@@ -335,7 +337,7 @@ def exclusion_lines(lines):
         return []
     return (["", "## The brief rules out (never use or claim these)",
              "Copied from the brief. Before handing over the draft, reread it against each line and remove "
-             "anything it rules out, sources included."] + [f"- {x.lstrip('-* ')}" for x in lines])
+             "anything it rules out, sources included."] + [f"- {re.sub(r'^[-*+] +', '', x.strip())}" for x in lines])
 
 
 LEDGER_WORDS = 1500   # from this length, write keeps a point ledger before drafting (spec §39)
@@ -392,6 +394,9 @@ def markdown(kit, notes="brief"):
         for t in kit["targets"]:
             rng = f" (the writer's own passages: {t['shown_range']})" if "range" in t else ""
             L.append(f"- {'**' if t['primary'] else ''}{t['describe']}: about {t['shown']}{'**' if t['primary'] else ''}{rng}")
+    if kit.get("shape"):
+        import shape
+        L += shape.kit_lines(kit["shape"])
     tone = kit.get("tone") or {}
     if tone.get("asked"):
         L += ["", f"## Tone: {', '.join(TONE_WORDS[t] for t in tone['asked'])}",

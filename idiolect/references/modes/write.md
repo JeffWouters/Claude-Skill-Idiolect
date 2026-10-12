@@ -69,6 +69,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      or the writer. Where the voice wants one you do not have, leave a placeholder such as
      `[example needed: a real incident]` or `[number needed: how many]`.
    - Write the way the examples read; not every habit belongs in every text.
+   - **Build it the way the writer builds.** When the kit has "Shape of the piece", keep paragraph
+     length, sentences per paragraph, one-sentence paragraphs, section lengths, reader address and
+     quotations inside the writer's ranges, near the middle. Some paragraphs are one line, some run
+     long; one section carries the weight and the others are short. Paraphrase sources and name them;
+     quote only the line whose exact words matter.
    - Before checking, reread the draft beside the examples. If any device (a hedge, a rhetorical
      question, an archaic word, an exclamation, a signature phrase) appears more often per paragraph
      than in the examples, cut it back.
@@ -77,7 +82,8 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      rhythm; telling the reader why something matters instead of showing it; a closing summary, a
      list of challenges or a look at the future the brief did not ask for; synonyms cycled to avoid
      repeating a word; headings, bullets or bold where the examples use plain paragraphs; every
-     sentence about the same length. Fix what you find.
+     sentence about the same length; a paragraph that ends on a short moral summing itself up. Fix
+     what you find.
    - Then reread the whole draft once more for repetition: a point already made (against the ledger,
      for a long piece), a sentence that restates its own paragraph, the opening story summed up again,
      and "as I said earlier" or "more on this later" holding two tellings together. Cut the second
@@ -94,6 +100,10 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    rewrite those lines too when you can, but they do not fail the draft.
    Too many language-flavour traces (`lesson: f-...`, the report's `flavour`) fail it too: remove
    traces until `hits` is within `allowed`.
+   When the report's `shape` is `warned` (spec §41), the piece is built unlike the writer: revise the
+   build for each measure outside the range (split or join paragraphs, shorten the sections that do not
+   carry the argument, paraphrase quotations, turn to the reader), and count it as one of the
+   check-driven revisions. It never fails the draft.
    If it fails, a primary metric is flagged, or a habit is **bunched**, revise what the report
    names, in the direction it names (overshoot or a bunch means too much of a habit: pull back, do not
    exaggerate the voice). At most two check-driven revisions; then return the best draft with its
@@ -132,7 +142,8 @@ Relay the verdict in one line, then the flagged metrics in plain words (both dir
 bunched habits (where, how many uses against the writer's rate), any never-list lines, the number of
 placeholders (`placeholders`; one in the opening paragraph is warned about, never a fail), any signs of
 machine-written text (`ai_signs`: which, and the lines; they fail the draft unless the writer's own
-texts do the same as often; `warned` ones are a warning only), and the
+texts do the same as often; `warned` ones are a warning only), the shape measures outside the
+writer's range (`shape`; a warning from `warn_at` measures, never a fail), and the
 language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
 
 ## Signs of machine-written text without a profile

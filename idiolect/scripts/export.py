@@ -59,6 +59,9 @@ def build(store, profile=None, facets=None, include_parent=False):
     for t in k["targets"]:
         rng = f" (the writer's own passages: {t['shown_range']})" if "range" in t else ""
         L.append(f"- {t['describe']}: about {kitmod.DESCRIBE.get(t['metric'], ('', '{:.2f}'))[1].format(t['slot_value'])}{rng}")
+    if k.get("shape"):
+        import shape
+        L += shape.kit_lines(k["shape"], export=True)
     if k["never"]:
         L += ["", "## Never-list (this writer never writes these)"] + [f'- "{m}"' for m in k["never"]]
     forms = [v for v in vocab if v["kind"] != "phrase"]

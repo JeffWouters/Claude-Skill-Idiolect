@@ -1,0 +1,10 @@
+# Woorden waarmee de tekst de lezer aanspreekt (spec §41).
+je
+jij
+jou
+jouw
+jezelf
+jullie
+u
+uw
+uzelf

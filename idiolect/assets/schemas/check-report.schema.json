@@ -351,6 +351,74 @@
         }
       },
       "additionalProperties": false
+    },
+    "shape": {
+      "type": "object",
+      "description": "The shape of the piece against the writer's own per-text range (spec §41): never a fail; warned when at least warn_at measures fall outside.",
+      "required": [
+        "compared",
+        "outside",
+        "warn_at",
+        "warned",
+        "features"
+      ],
+      "properties": {
+        "compared": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outside": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warn_at": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "warned": {
+          "type": "boolean"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "feature",
+              "draft",
+              "low",
+              "mid",
+              "high",
+              "flag"
+            ],
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "draft": {
+                "type": "number"
+              },
+              "low": {
+                "type": "number"
+              },
+              "mid": {
+                "type": "number"
+              },
+              "high": {
+                "type": "number"
+              },
+              "flag": {
+                "enum": [
+                  "ok",
+                  "low",
+                  "high"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

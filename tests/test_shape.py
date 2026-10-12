@@ -1,0 +1,113 @@
+"""The shape of a piece (spec §41): paragraph and section variation, reader address and quotations, measured
+per text against the writer's own range; the kit gives the ranges, check warns and never fails."""
+import json
+import random
+
+import pytest
+
+import check
+import export
+import kit
+import shape
+from common import count_words
+from store import Store
+from test_ai_signs import learned, st  # noqa: F401  (fixtures)
+
+
+def para(n_sent, words=12, seed=0, you=False):
+    rnd = random.Random(seed)
+    vocab = "the river path market mill water light bridge swans brother cold home road stone field".split()
+    out = []
+    for i in range(n_sent):
+        w = [rnd.choice(vocab) for _ in range(words - 1)]
+        if you and i == 0:
+            w[0] = "you"
+        out.append(" ".join(w).capitalize() + ".")
+    return " ".join(out)
+
+
+def even_text():
+    """Machine-like build: five sections of three paragraphs, each four sentences long, no reader address."""
+    secs = []
+    for s in range(5):
+        secs.append(f"## Part {s + 1}\n\n" + "\n\n".join(para(4, seed=s * 10 + p) for p in range(3)))
+    return "\n\n".join(secs)
+
+
+def varied_text():
+    """A writer's build: paragraphs from one line to six sentences, sections of different lengths, you."""
+    sizes = [[1, 5, 2], [6, 1, 3, 1, 4, 2], [2], [1, 3, 6, 1]]
+    secs = []
+    for s, ps in enumerate(sizes):
+        secs.append(f"## Part {s + 1}\n\n" + "\n\n".join(para(n, seed=s * 10 + i, you=i % 2 == 0)
+                                                           for i, n in enumerate(ps)))
+    return "\n\n".join(secs)
+
+
+def test_an_even_build_and_a_varied_build_measure_apart():
+    e, v = shape.measures(even_text()), shape.measures(varied_text())
+    assert e["paragraph_length_cv"] == 0 and v["paragraph_length_cv"] > 0.5
+    assert e["paragraph_sentences"] == 4 and e["one_sentence_paragraphs"] == 0
+    assert v["one_sentence_paragraphs"] > 0.2
+    assert e["section_length_cv"] == 0 and v["section_length_cv"] > 0.3
+    assert e["reader_address_per_1k"] == 0 and v["reader_address_per_1k"] > 0
+
+
+def test_a_short_text_has_no_shape_and_a_language_without_a_list_no_reader_address():
+    assert shape.measures(para(5)) == {}
+    assert "reader_address_per_1k" not in shape.measures(varied_text(), "de")
+    assert shape.address_words("en")[0] == "you" and "jij" in shape.address_words("nl")
+
+
+def test_quotations_count_in_the_text_and_as_block_quotes_but_not_in_the_sources():
+    body = varied_text()
+    quoted = body + '\n\nAs the report said, "teams that review everything ship nothing at all".\n\n> A block quote of someone else.\n'
+    m = shape.measures(quoted)
+    assert m["long_quotes_per_1k"] == round(2 * 1000 / count_words(quoted.replace("## ", "")), 4) or m["long_quotes_per_1k"] > 0
+    assert shape.measures(body)["long_quotes_per_1k"] == 0
+    with_sources = body + '\n\n## Sources\n\n- "A long title of somebody else\'s paper here", 2020.\n'
+    assert shape.measures(with_sources)["long_quotes_per_1k"] == 0
+
+
+def test_the_range_needs_five_texts_and_the_quote_measures_only_warn_upwards():
+    texts = [varied_text()] * 4
+    assert shape.ranges(texts)["features"] == {}
+    w = shape.ranges([varied_text(), even_text(), varied_text(), even_text(), varied_text()])
+    assert w["texts"] == 5 and set(w["features"]) >= {"paragraph_length_cv", "long_quotes_per_1k"}
+    w = {"texts": 5, "features": {"long_quotes_per_1k": {"low": 2.0, "mid": 4.0, "high": 8.0, "texts": 5},
+                                  "paragraph_length_cv": {"low": 0.5, "mid": 0.7, "high": 1.0, "texts": 5}}}
+    rows = {r["feature"]: r["flag"] for r in shape.compare({"long_quotes_per_1k": 0.0, "paragraph_length_cv": 0.2}, w)}
+    assert rows == {"long_quotes_per_1k": "ok", "paragraph_length_cv": "low"}
+    rows = {r["feature"]: r["flag"] for r in shape.compare({"long_quotes_per_1k": 12.0}, w)}
+    assert rows == {"long_quotes_per_1k": "high"}
+
+
+def test_the_kit_and_the_export_give_the_writers_ranges(st):  # noqa: F811
+    k = kit.build(Store(st), "noor", {"type": "essay"}, "the kitchen tap")
+    assert k["shape"]["texts"] >= shape.MIN_TEXTS and k["shape"]["features"]
+    md = kit.markdown(k)
+    assert "## Shape of the piece (from the writer's own texts)" in md and "`check` warns" in md
+    assert "variation in paragraph length" in md
+    out = export.build(Store(st), "noor", {"type": "essay"})["prompt"]
+    assert "## Shape of the piece" in out and "`check`" not in out.split("## Shape of the piece")[1].split("\n## ")[0]
+
+
+def test_check_reports_the_shape_and_warns_without_failing(st):  # noqa: F811
+    store = Store(st)
+    r = check.check(store, even_text(), "noor", {"type": "essay"})
+    sh = r["shape"]
+    assert sh["compared"] >= shape.WARN_AT and sh["warn_at"] == shape.WARN_AT
+    assert sh["outside"] == sum(x["flag"] != "ok" for x in sh["features"])
+    assert any(x["feature"] == "paragraph_length_cv" and x["flag"] == "low" for x in sh["features"])
+    if sh["warned"]:
+        assert "built unlike the writer's texts" in r["message"]
+    assert "- shape:" in check.readable(r)
+    # the shape never decides the status on its own
+    assert not any(x["lesson"].startswith("shape") for x in r.get("flagged_lines", []))
+    short = check.check(store, para(5), "noor", {"type": "essay"})
+    assert "shape" not in short
+
+
+def test_the_kit_keeps_the_label_of_a_ruled_out_line():
+    lines = kit.exclusion_lines(["- **Do not use:** the 2019 survey's wording.", "* Avoid the 2024 text."])
+    assert "- **Do not use:** the 2019 survey's wording." in lines and "- Avoid the 2024 text." in lines

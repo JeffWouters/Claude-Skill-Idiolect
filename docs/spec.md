@@ -1106,3 +1106,33 @@ the house style guide.
    proposes every fingerprint of the profile (or of all profiles) again from the cached texts, as one
    proposal approved or rejected as a whole, under the `learn` lock mode; nothing else changes. A
    profile with no remaining texts in a slot gets that slot retired, as after `forget`.
+
+## 41. The shape of a piece
+
+1. **What is measured.** `shape.py` measures how a text is built, per text, on the writer's own prose
+   (§40): variation in paragraph length (standard deviation over mean, of words per paragraph),
+   sentences per paragraph, the share of one-sentence paragraphs (these three from 5 paragraphs),
+   variation in section length (sections are the runs of paragraphs between headings, from 3
+   sections), words addressing the reader per 1,000 words (the language pack's `address.txt`; a
+   language without one leaves the measure out), quotations of four words or more per 1,000 words and
+   the share of words inside them (a block quote counts as one quotation; the reference list and
+   tables are left out). A text under 300 words of prose has no shape.
+2. **The writer's range.** For a slot, the 10th to 90th percentile (linear) of the values of its own
+   texts of 300 words or more, holdouts left out, for each measure at least 5 texts show, and the
+   median. Nothing is stored: the range is worked out from the cached texts when the kit is built or a
+   draft is checked, as for the signs (§37.3), so no store format changes and no re-measure is needed.
+3. **The kit** has a section "Shape of the piece" after the targets: each range with its median, the
+   quotation measures as a maximum ("none in the writer's texts" when the 90th percentile is zero),
+   and two lines on paraphrasing sources and turning to the reader. `export` carries the section,
+   worded for a tool that has no `check`.
+4. **check** measures a draft of 300 words or more and reports `shape` (an optional field; the report
+   keeps version 1): each measure both sides have, with the draft's value, the range and `ok`, `low`
+   or `high`; the quotation measures are never `low`. When 4 measures or more fall outside
+   (`warn_at`), `warned` is true and the message says the piece is built unlike the writer. The shape
+   never fails a draft. `write` treats a warning as a reason to revise the build, within the two
+   check-driven revisions.
+5. **Why a warning from four.** On the writer's held-out texts (leave one out: each text against the
+   range of the writer's other texts) the measures fall outside by chance: on the public-domain
+   fixture authors and synthetic writers in `evals/store`, 6 of 52 texts reached 4 (no text 5), and
+   on a real writer's 14 long-form texts, 1 of 14. A book chapter drafted with Idiolect had 7 of 7
+   outside that writer's range, and a plain model draft 4.
