@@ -218,8 +218,12 @@ def check(store, text, profile=None, facets=None, brief=None, tone=None, flavour
     import shape
     sh = None
     d_shape = shape.measures(measured, lang)
+    w_shape = shape.writer_ranges(store, prof, slot) if d_shape else None
+    quirk_rows = shape.compare_quirks(measured, w_shape["quirks"]) if w_shape else []
+    if quirk_rows:
+        report["quirks"] = quirk_rows
     if d_shape:
-        rows_s = shape.compare(d_shape, shape.writer_ranges(store, prof, slot))
+        rows_s = shape.compare(d_shape, w_shape)
         if rows_s:
             outside = [x for x in rows_s if x["flag"] != "ok"]
             sh = {"compared": len(rows_s), "outside": len(outside), "warn_at": shape.WARN_AT,
@@ -298,6 +302,11 @@ def readable(r):
             L.append(f"- shape: {sh['outside']} of {sh['compared']} measures outside the writer's range"
                      + (" (a warning)" if sh["warned"] else f" (hints; a warning from {sh['warn_at']})"))
             L += [f"  - {shape.advice(x)}" for x in out]
+    off = [x for x in r.get("quirks", []) if x["flag"] != "ok"]
+    if off:
+        import shape
+        L.append("- quirks (hints, never a fail):")
+        L += [f"  - {shape.quirk_advice(x)}" for x in off]
     ph = r.get("placeholders")
     if ph:
         L.append(f"- placeholders: {ph['count']}" + (" (one in the opening paragraph)" if ph["in_opening"] else "")

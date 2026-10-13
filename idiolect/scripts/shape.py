@@ -14,6 +14,7 @@ The kit gives the ranges as targets; `check` warns, never fails, when a draft fa
 """
 import argparse
 import json
+import math
 import pathlib
 import re
 import statistics as st
@@ -42,6 +43,17 @@ FEATURES = {
     "long_quotes_per_1k": ("quotations of four words or more, per 1,000 words", "{:.1f}", "high"),
     "quoted_share": ("share of the words that are quoted from others", "{:.0%}", "high"),
 }
+
+# The writer's quirks (spec §41.6): small marks a reader takes as a person's, carried at the writer's own
+# rate. Counted in the writer's prose with inline code left out. Never counted towards the warning.
+QUIRKS = {
+    "ellipses": ("ellipses (… or ...)", re.compile(r"…|(?<!\.)\.\.\.(?!\.)")),
+    "exclamations": ("exclamation marks", re.compile(r"!(?!=)")),
+    "questions": ("questions", re.compile(r"\?")),
+    "asides": ("asides in brackets", re.compile(r"(?<!\])\(")),
+    "emoji": ("emoji", re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")),
+}
+LOW_SHARE = 0.5          # a quirk in at least half the writer's texts is missed when a draft has none of it
 
 _address = {}
 
@@ -123,9 +135,67 @@ def measures(text, lang="en"):
     return {k: round(v, 4) for k, v in out.items()}
 
 
+def quirk_counts(text):
+    """({quirk: uses}, words) in the writer's prose of one text, inline code left out."""
+    paras = [re.sub(r"`[^`\n]*`", " ", b) for _, b, h in measure.prose_blocks(text) if not h]
+    body = "\n".join(paras)
+    return {q: len(pat.findall(body)) for q, (_, pat) in QUIRKS.items()}, count_words(body)
+
+
+def quirk_ranges(texts):
+    """{quirk: {"rate": uses per 1,000 words over all texts, "high": the 90th percentile per text, "share":
+    the share of texts with any}} over texts of MIN_WORDS or more; empty under MIN_TEXTS texts."""
+    per = [c for c in (quirk_counts(t) for t in texts) if c[1] >= MIN_WORDS]
+    if len(per) < MIN_TEXTS:
+        return {}
+    total = sum(n for _, n in per)
+    out = {}
+    for q in QUIRKS:
+        rates = [c[q] * 1000 / n for c, n in per]
+        out[q] = {"rate": round(sum(c[q] for c, _ in per) * 1000 / total, 3),
+                  "high": round(measure.quantile(rates, RANGE_Q[1]), 3),
+                  "share": round(sum(1 for c, _ in per if c[q]) / len(per), 3)}
+    return out
+
+
+def quirk_allowance(r, n_words):
+    """(expected uses, at most) in a piece of n_words: about the writer's overall rate, never more than their
+    90th percentile per text, and at least one allowed when they use it at all."""
+    if not r["share"]:
+        return 0, 0
+    return round(r["rate"] * n_words / 1000), max(1, math.ceil(r["high"] * n_words / 1000))
+
+
+def compare_quirks(text, quirks):
+    """[{"quirk", "draft", "expected", "allowed", "flag"}]: "high" above the allowance (a caricature, or a mark
+    the writer never uses), "low" when the draft has none of a quirk most of the writer's texts show and the
+    piece is long enough to expect at least two. Never a fail and never part of the shape warning."""
+    if not quirks:
+        return []
+    counts, n = quirk_counts(text)
+    if n < MIN_WORDS:
+        return []
+    out = []
+    for q, r in quirks.items():
+        expected, allowed = quirk_allowance(r, n)
+        d = counts[q]
+        flag = ("high" if d > allowed else
+                "low" if d == 0 and expected >= 2 and r["share"] >= LOW_SHARE else "ok")
+        out.append({"quirk": q, "draft": d, "expected": expected, "allowed": allowed, "flag": flag})
+    return out
+
+
+def quirk_advice(row):
+    name = QUIRKS[row["quirk"]][0]
+    if row["flag"] == "high":
+        return (f"{name}: {row['draft']} where the writer's texts allow at most {row['allowed']} in a piece this long"
+                + ("; the writer never uses them: remove them" if row["allowed"] == 0 else "; cut back to their rate"))
+    return f"{name}: none, where the writer's texts would have about {row['expected']}: use them where the writer would"
+
+
 def ranges(texts, lang="en"):
-    """{"texts": texts of MIN_WORDS or more, "features": {feature: {"low", "mid", "high", "texts"}}}: the
-    writer's range per feature, for features shown by at least MIN_TEXTS texts."""
+    """{"texts": texts of MIN_WORDS or more, "features": {feature: {"low", "mid", "high", "texts"}}, "quirks":
+    quirk_ranges()}: the writer's range per feature, for features shown by at least MIN_TEXTS texts."""
     per = [m for m in (measures(t, lang) for t in texts) if m]
     feats = {}
     for f in FEATURES:
@@ -134,7 +204,7 @@ def ranges(texts, lang="en"):
             continue
         feats[f] = {"low": round(measure.quantile(vals, RANGE_Q[0]), 4), "mid": round(st.median(vals), 4),
                     "high": round(measure.quantile(vals, RANGE_Q[1]), 4), "texts": len(vals)}
-    return {"texts": len(per), "features": feats}
+    return {"texts": len(per), "features": feats, "quirks": quirk_ranges(texts)}
 
 
 def writer_ranges(store, prof, slot):
@@ -218,6 +288,31 @@ def kit_lines(writer, export=False):
         L.append("- Paraphrase what others said and name them; quote only the line whose exact words matter.")
     if "reader_address_per_1k" in feats:
         L.append("- Turn to the reader as often as these texts do, in the second person where they would; no more.")
+    return L
+
+
+def quirk_lines(writer, words=None, export=False):
+    """The kit's section on the writer's quirks: each at their own rate, in uses for the piece's length when
+    it is known. Empty when the writer has too few texts."""
+    qs = writer.get("quirks") or {}
+    if not qs:
+        return []
+    L = ["", "## The writer's quirks (at their rate, never more)",
+         "Small marks readers take as a person's. Use the ones the writer uses, where they would, about as often; "
+         "never more, which turns a voice into a caricature, and none the writer never uses."
+         + ("" if export else " `check` names a quirk that is overdone or missing.")]
+    for q, r in qs.items():
+        name = QUIRKS[q][0]
+        if not r["share"]:
+            L.append(f"- {name}: none in the writer's texts")
+            continue
+        seen_in = f"in {r['share']:.0%} of their texts"
+        if words:
+            expected, allowed = quirk_allowance(r, words)
+            amount = f"about {expected}" if expected else "now and then"
+            L.append(f"- {name}: {amount} in a piece of {words:,} words, at most {allowed} ({seen_in})")
+        else:
+            L.append(f"- {name}: about {r['rate']:g} per 1,000 words, at most {r['high']:g} ({seen_in})")
     return L
 
 

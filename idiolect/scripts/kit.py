@@ -397,6 +397,7 @@ def markdown(kit, notes="brief"):
     if kit.get("shape"):
         import shape
         L += shape.kit_lines(kit["shape"])
+        L += shape.quirk_lines(kit["shape"], kit.get("words"))
     tone = kit.get("tone") or {}
     if tone.get("asked"):
         L += ["", f"## Tone: {', '.join(TONE_WORDS[t] for t in tone['asked'])}",

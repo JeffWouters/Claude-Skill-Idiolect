@@ -1136,3 +1136,14 @@ the house style guide.
    fixture authors and synthetic writers in `evals/store`, 6 of 52 texts reached 4 (no text 5), and
    on a real writer's 14 long-form texts, 1 of 14. A book chapter drafted with Idiolect had 7 of 7
    outside that writer's range, and a plain model draft 4.
+6. **The writer's quirks.** `shape.py` also counts, in the writer's prose with inline code left out,
+   ellipses, exclamation marks, questions, asides in brackets and emoji. For a slot of at least 5
+   texts of 300 words or more, each quirk gets the writer's overall rate per 1,000 words, the 90th
+   percentile per text and the share of texts that have it. The kit's section "The writer's quirks"
+   gives each in uses for the piece's length when it is known (about the overall rate, at most the
+   90th percentile, at least one allowed when the writer uses it at all; "none" for a quirk the writer
+   never uses), else per 1,000 words; `export` carries it. `check` reports `quirks` (optional field)
+   for a draft of 300 words or more: `high` above the allowance, `low` when the draft has none of a
+   quirk at least half the writer's texts show and the piece is long enough to expect two. Quirks are
+   hints: never a fail, and never part of the shape warning.
+

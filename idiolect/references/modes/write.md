@@ -69,6 +69,9 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
      or the writer. Where the voice wants one you do not have, leave a placeholder such as
      `[example needed: a real incident]` or `[number needed: how many]`.
    - Write the way the examples read; not every habit belongs in every text.
+   - **The writer's quirks.** When the kit has "The writer's quirks", use the marks the writer uses
+     (an ellipsis, an exclamation, a question, an aside in brackets, an emoji) where they would, about
+     as often as given and never more; never one the writer does not use.
    - **Build it the way the writer builds.** When the kit has "Shape of the piece", keep paragraph
      length, sentences per paragraph, one-sentence paragraphs, section lengths, reader address and
      quotations inside the writer's ranges, near the middle. Some paragraphs are one line, some run
@@ -143,7 +146,8 @@ bunched habits (where, how many uses against the writer's rate), any never-list 
 placeholders (`placeholders`; one in the opening paragraph is warned about, never a fail), any signs of
 machine-written text (`ai_signs`: which, and the lines; they fail the draft unless the writer's own
 texts do the same as often; `warned` ones are a warning only), the shape measures outside the
-writer's range (`shape`; a warning from `warn_at` measures, never a fail), and the
+writer's range (`shape`; a warning from `warn_at` measures, never a fail), quirks overdone or missing
+(`quirks`; hints only), and the
 language flavour counted against the writer's rate (more than the writer's highest rate fails; fewer never does). A single flag is a hint, not a failure. Under 150 words the metrics are hints only.
 
 ## Signs of machine-written text without a profile

@@ -17,6 +17,10 @@ fingerprints are measured the way drafts now are.
   them and warns, never fails, when four or more fall outside. A book chapter that passed every metric
   and sign was still read as machine-written for its even, quote-heavy build.
 
+- **Your quirks at your rate** (spec §41.6): the kit gives how often your texts use ellipses,
+  exclamation marks, questions, asides in brackets and emoji, in uses for the piece's length, and
+  `check` names a quirk that is overdone or missing. Hints only.
+
 - **Two more signs of machine-written text** (spec §37.9): staged reveals ("The strange part is",
   "that's the trap") and reversal formulas ("Not diagrams, not documents: decisions"), plus guidance
   against ending a paragraph on a moral. Blind readers named all three in drafts written with Idiolect.

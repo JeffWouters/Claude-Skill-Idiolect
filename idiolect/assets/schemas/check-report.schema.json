@@ -419,6 +419,45 @@
         }
       },
       "additionalProperties": false
+    },
+    "quirks": {
+      "type": "array",
+      "description": "The writer's quirks counted in the draft against their own rate (spec §41.6): hints only, never a fail and not part of the shape warning.",
+      "items": {
+        "type": "object",
+        "required": [
+          "quirk",
+          "draft",
+          "expected",
+          "allowed",
+          "flag"
+        ],
+        "properties": {
+          "quirk": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "expected": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "allowed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "flag": {
+            "enum": [
+              "ok",
+              "low",
+              "high"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false,

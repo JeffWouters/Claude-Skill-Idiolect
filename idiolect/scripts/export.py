@@ -62,6 +62,7 @@ def build(store, profile=None, facets=None, include_parent=False):
     if k.get("shape"):
         import shape
         L += shape.kit_lines(k["shape"], export=True)
+        L += shape.quirk_lines(k["shape"], export=True)
     if k["never"]:
         L += ["", "## Never-list (this writer never writes these)"] + [f'- "{m}"' for m in k["never"]]
     forms = [v for v in vocab if v["kind"] != "phrase"]

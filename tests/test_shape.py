@@ -111,3 +111,54 @@ def test_check_reports_the_shape_and_warns_without_failing(st):  # noqa: F811
 def test_the_kit_keeps_the_label_of_a_ruled_out_line():
     lines = kit.exclusion_lines(["- **Do not use:** the 2019 survey's wording.", "* Avoid the 2024 text."])
     assert "- **Do not use:** the 2019 survey's wording." in lines and "- Avoid the 2024 text." in lines
+
+
+# ---------- the writer's quirks (spec §41.6) ----------
+
+def quirky(n_bang=1, n_dots=1, seed=0):
+    t = varied_text()
+    return t.replace(".", "!", n_bang).replace("Part 2\n\n", "Part 2\n\nWell… " * n_dots, 1)
+
+
+def test_quirks_are_counted_in_prose_and_not_in_code():
+    counts, n = shape.quirk_counts("It works for the whole team on most days of the week! Or does it? (Mostly.) "
+                                   "Then… and... `a != b` and a smile 🙂 at the end of it all.\n")
+    assert counts == {"ellipses": 2, "exclamations": 1, "questions": 1, "asides": 1, "emoji": 1}
+    assert shape.quirk_counts("See [the docs](https://x.example).")[0]["asides"] == 0
+
+
+def test_the_quirk_allowance_follows_the_writers_rate():
+    texts = [quirky(1, 1, i) for i in range(4)] + [varied_text()]
+    q = shape.quirk_ranges(texts)
+    assert q["exclamations"]["share"] == 0.8 and q["emoji"]["share"] == 0
+    assert shape.quirk_ranges(texts[:4]) == {}
+    r = q["exclamations"]
+    expected, allowed = shape.quirk_allowance(r, 1000)
+    assert allowed >= 1 and expected <= allowed
+    assert shape.quirk_allowance(q["emoji"], 1000) == (0, 0)
+    lines = "\n".join(shape.quirk_lines({"quirks": q}, 1000))
+    assert "## The writer's quirks (at their rate, never more)" in lines and "- emoji: none in the writer's texts" in lines
+
+
+def test_check_names_an_overdone_quirk_and_one_the_writer_never_uses():
+    q = {"exclamations": {"rate": 1.0, "high": 2.0, "share": 0.6}, "emoji": {"rate": 0.0, "high": 0.0, "share": 0.0},
+         "questions": {"rate": 5.0, "high": 8.0, "share": 0.9}}
+    draft = varied_text().replace(".", "!", 12) + "\n\nAnd that was the end of the long walk home for all of us 🙂.\n"
+    rows = {x["quirk"]: x for x in shape.compare_quirks(draft, q)}
+    assert rows["exclamations"]["flag"] == "high" and rows["emoji"]["flag"] == "high"
+    assert rows["questions"]["flag"] == "low"          # none, where most texts have them
+    assert "never uses them" in shape.quirk_advice(rows["emoji"])
+    assert shape.compare_quirks(para(5), q) == []      # too short
+
+
+def test_the_kit_and_check_carry_the_quirks(st):  # noqa: F811
+    k = kit.build(Store(st), "noor", {"type": "essay"}, "About 1,200 words on the kitchen tap.")
+    md = kit.markdown(k)
+    assert "## The writer's quirks" in md and "- exclamation marks: none in the writer's texts" in md
+    q = {"questions": {"rate": 5.0, "high": 8.0, "share": 0.9}}
+    assert "- questions: about 6 in a piece of 1,200 words, at most 10 (in 90% of their texts)" in \
+        shape.quirk_lines({"quirks": q}, 1200)
+    r = check.check(Store(st), varied_text() + "\n\nIt broke!!!! Again!!!\n", "noor", {"type": "essay"})
+    assert {x["quirk"] for x in r["quirks"]} == set(shape.QUIRKS)
+    assert r["status"] == check.check(Store(st), varied_text(), "noor", {"type": "essay"})["status"]
+
