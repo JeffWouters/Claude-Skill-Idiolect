@@ -1147,3 +1147,10 @@ the house style guide.
    quirk at least half the writer's texts show and the piece is long enough to expect two. Quirks are
    hints: never a fail, and never part of the shape warning.
 
+## 42. No humanizer passes
+
+`write` and `rewrite` never run a separate pass to make a text sound human: no paraphrase of the whole
+text, no typos, slang, filler or casual markers the writer's examples do not show, no quirk above the
+writer's rate. They revise only what `check` names, within the two check-driven revisions, and where a
+draft reads generic they ask the writer for the missing fact, story or opening line. A request to make
+a text sound less like AI is a rewrite at the depth asked for, with the kit and the check.

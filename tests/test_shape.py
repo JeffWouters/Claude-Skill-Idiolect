@@ -162,3 +162,8 @@ def test_the_kit_and_check_carry_the_quirks(st):  # noqa: F811
     assert {x["quirk"] for x in r["quirks"]} == set(shape.QUIRKS)
     assert r["status"] == check.check(Store(st), varied_text(), "noor", {"type": "essay"})["status"]
 
+
+def test_write_forbids_humanizer_passes():
+    from common import SKILL
+    text = (SKILL / "references" / "modes" / "write.md").read_text(encoding="utf-8")
+    assert "**No humanizer passes** (spec §42)" in text and "never a humanizer pass" in text

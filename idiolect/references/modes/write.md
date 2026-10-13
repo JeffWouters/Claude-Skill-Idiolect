@@ -111,6 +111,11 @@ Read-only: these modes never write to the store and take no lock. Run scripts fr
    names, in the direction it names (overshoot or a bunch means too much of a habit: pull back, do not
    exaggerate the voice). At most two check-driven revisions; then return the best draft with its
    report. Removing an invented fact is not a check revision: always do it, and check again.
+   **No humanizer passes** (spec §42). Never run a separate pass to make the draft "sound human" or
+   "less like AI": no extra paraphrase of the whole text, no typos, slang, filler, hedges or casual
+   markers the examples do not show, no quirk above the writer's rate. Each extra rewrite adds machine
+   traits of its own, and none can add the specifics only the writer has. Revise only what the report
+   names, and where a draft reads generic, ask the writer for the fact, story or opening line instead.
 6. Return the text. With `report=true`, also the final check report (JSON). With `explain=true`,
    annotate the choices with the lesson or ruling ids behind them, after the text. Say so when
    confidence is low.
@@ -132,6 +137,8 @@ The input is the writer's (or someone's) text. Keep its meaning, facts and quote
     reorder sections.
   - `full`: may restructure: reorder, rewrite openings and endings, cut sections. Still no new facts.
 - Quoted or forwarded words of other people stay untouched.
+- A request to make a text "sound less like AI" or "more human" is a rewrite like any other: the kit,
+  the depth asked for (default `voice`) and the check, never a humanizer pass (spec §42).
 - Then steps 5 and 6 as for `write`, with the input text as the `--brief` for both `kit.py` and
   `check.py`.
 

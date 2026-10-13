@@ -21,6 +21,10 @@ fingerprints are measured the way drafts now are.
   exclamation marks, questions, asides in brackets and emoji, in uses for the piece's length, and
   `check` names a quirk that is overdone or missing. Hints only.
 
+- **No humanizer passes** (spec §42): `write` and `rewrite` never run an extra "make it sound human"
+  pass; they revise what `check` names and ask you for the missing specifics. Extra rewrite passes
+  add machine traits of their own.
+
 - **Two more signs of machine-written text** (spec §37.9): staged reveals ("The strange part is",
   "that's the trap") and reversal formulas ("Not diagrams, not documents: decisions"), plus guidance
   against ending a paragraph on a moral. Blind readers named all three in drafts written with Idiolect.
